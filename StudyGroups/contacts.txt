@@ -6,3 +6,7 @@ Phone: 6479741116
 Name: Edmund Lo
 Email: edmun.lo@mail.utoronto.ca
 Phone: 6474714321
+
+Name: Sam De Abreu
+Email: sam.deabreu@mail.utoronto.ca
+Phone: 6139158434
