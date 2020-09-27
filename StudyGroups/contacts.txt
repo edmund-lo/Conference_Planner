@@ -10,3 +10,8 @@ Phone: 6474714321
 Name: Sam De Abreu
 Email: sam.deabreu@mail.utoronto.ca
 Phone: 6139158434
+
+Name: Haider Bokhari
+Email: syed.bokhari@mail.utoronto.ca
+Phone: 437 288 6763
+
