@@ -33,15 +33,17 @@ public class EventManager{
         }
     }
     public boolean addUserToEvent(String eventID, String userID){
-        if(eventExists(eventID)){
-            return allEvents.get(eventID).addUserToEvent(userID);
+        currentEvent = allEvents.get(eventID);
+        if(eventExists(eventID) && currentEvent.getAttendingUsers().size() < 2){
+            return currentEvent.addUserToEvent(userID);
         }else{
             return false;
         }
     }
     public boolean removeUserFromEvent(String eventID, String userID){
+        currentEvent = allEvents.get(eventID);
         if(eventExists(eventID)){
-            return allEvents.get(eventID).removeUserFromEvent(userID);
+            return currentEvent.removeUserFromEvent(userID);
         }else{
             return false;
         }
