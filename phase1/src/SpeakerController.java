@@ -2,8 +2,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SpeakerController extends UserController {
-    public SpeakerController(EventManager em, UserManager um, RoomManager rm, MessageManager mm, int userId) {
-        super(em, um, rm, mm, userId);
+    public SpeakerController(EventManager em, UserManager um, RoomManager rm, MessageManager mm, String username) {
+        super(em, um, rm, mm, username);
     }
 
     public boolean messageEventsAttendees(List<Integer> eventIds) {
