@@ -1,25 +1,36 @@
 import java.time.LocalDateTime;
-import java.util.HashMap;
+import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
+
+/**
+ * An Entity class representing a conference room at the conference.
+ *
+ * @author Keegan McGonigal
+ * @version 1.0
+ *
+ */
 
 public class Room {
     private String name;
-    private HashMap<LocalDateTime, String> schedule;
+    private TreeMap<LocalDateTime, String> schedule;
 
     public Room(String name){
         this.name = name;
-        this.schedule = new HashMap<>();
+        this.schedule = new TreeMap<>();
     }
 
-//    public String getName() {
-//        return this.name;
-//    }
+    public String getName() {
+        return this.name;
+    }
 
-//    public HashMap<LocalDateTime, String> getSchedule() {
-//        return this.schedule;
-//    }
+    public TreeMap<LocalDateTime, String> getSchedule() {
+        return this.schedule;
+    }
 
     public boolean canBook(LocalDateTime time){
-        return this.schedule.containsKey(time) && time.getHour() <= 16; // if event starts before/at 4pm (16:00)
+        return !this.schedule.containsKey(time) // if room is free and
+                && time.getHour() <= 16;        // event starts before/at 4pm (16:00)
     }
 
     public void addEvent(Event event){
@@ -35,4 +46,22 @@ public class Room {
         this.schedule.remove(event.getStartTime());
     }
 
+    @Override
+    public String toString() {
+        return this.name + "Room";
+    }
+
+    public String roomScheduleToString() {
+        String ret = this.name + "Room's Schedule: \n";
+        for (Map.Entry<LocalDateTime, String> time : this.schedule.entrySet()) {
+            Integer hour = time.getKey().getHour();
+            Integer minute = time.getKey().getMinute();
+            String eventHour = hour.toString();
+            String eventMinute = minute.toString();
+            String eventName = time.getValue();
+
+            ret += eventHour + ":" + eventMinute + " - " + eventName + "\n";
+        }
+        return ret;
+    }
 }
