@@ -1,4 +1,5 @@
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Event {
@@ -12,7 +13,7 @@ public class Event {
 
     public Event(String eventID, String roomID, String eventName, LocalDateTime startTime,
                  LocalDateTime endTime, String speakerID){
-        this.eventiD = eventID;
+        this.eventID = eventID;
         this.roomID = roomID;
         this.eventName = eventName;
         this.startTime = startTime;
