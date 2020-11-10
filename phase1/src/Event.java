@@ -99,20 +99,12 @@ public class Event {
     }
 
     /**
-     * Adds the user with ID userID to the attending users list for this event. The user must not already be in the
-     * attending users list.
+     * Adds the user with ID userID to the attending users list for this event
      *
      * @param userID the ID of the user that wants to be added to this event
-     * @return True iff the user was added successfully and false if not
      */
-    public boolean addUserToEvent(String userID){
-        if(!attendingUsers.contains(userID)){
-            attendingUsers.add(userID);
-            return true;
-        }else{
-            return false;
-        }
-
+    public void addUserToEvent(String userID){
+        attendingUsers.add(userID);
     }
 
     /**

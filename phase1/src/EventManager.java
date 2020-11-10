@@ -1,5 +1,8 @@
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
+
 
 /**
  * Helper that manages all interaction with the Event classes and ensures no rules are broken.
@@ -34,7 +37,7 @@ public class EventManager{
      * @param startTime the start time of the event
      * @param endTime the end time of the event
      */
-    public void createNewEvent(String eventName, String roomID, LocalDateTime startTime, LocalDateTime endTime){
+    public void createNewEvent(String eventName, String roomID, LocalDateTime startTime, LocalDateTime endTime) {
         Event newEvent = new Event(UUID.randomUUID().toString(), roomID, eventName, startTime, endTime)
         allEvents.put(newEvent.getEventID(), newEvent);
     }
@@ -64,7 +67,7 @@ public class EventManager{
      */
     public boolean changeEventTime(String eventID, LocalDateTime startTime, LocalDateTime endTime){
         if(eventExists(eventID)){
-            allEvents.get(eventID).changeTime(startTime, endTime)
+            allEvents.get(eventID).changeTime(startTime, endTime);
             return true;
         }
         else{
@@ -73,19 +76,31 @@ public class EventManager{
     }
 
     /**
-     * adds user with ID userID to event with ID eventID. The event must have enough capacity and the event must exist
+     * adds user with ID userID to event with ID eventID
      *
      * @param eventID the ID of the event
      * @param userID the ID of the user
-     * @return True iff the user with ID userID was added successfully to event with ID eventID
      */
-    public boolean addUserToEvent(String eventID, String userID){
-        currentEvent = allEvents.get(eventID);
-        if(eventExists(eventID) && currentEvent.getAttendingUsers().size() < 2){
-            return currentEvent.addUserToEvent(userID);
-        }else{
-            return false;
+    public void addUserToEvent(String eventID, String userID){
+        Event currentEvent = allEvents.get(eventID);
+        currentEvent.addUserToEvent(userID);
+    }
+
+    /**
+     * checks to see if user with ID userID can be added to event with ID eventID
+     *
+     * @param eventID ID of the event
+     * @param userID ID of the user
+     * @return True iff there is enough space for the user, if the event exists and if the user is already in the event
+     */
+    public boolean canAddUserToEvent(String eventID, String userID){
+        if(eventExists(eventID)){
+            Event currentEvent = allEvents.get(eventID);
+            if(currentEvent.getAttendingUsers().size < 2 && !currentEvent.getAttendingUsers().contains(userID)){
+                return true;
+            }
         }
+        return false;
     }
 
     /**
@@ -96,12 +111,22 @@ public class EventManager{
      * @return True iff the user with ID userID was removed successfully from event with ID eventID
      */
     public boolean removeUserFromEvent(String eventID, String userID){
-        currentEvent = allEvents.get(eventID);
+        Event currentEvent = allEvents.get(eventID);
         if(eventExists(eventID)){
             return currentEvent.removeUserFromEvent(userID);
         }else{
             return false;
         }
+    }
+
+    /**
+     * For getting the actual event objects
+     *
+     * @param eventID the ID of the event
+     * @return the Event object corresponding to eventID
+     */
+    public Event getEventById(String eventID) {
+        return allEvents.get(eventID);
     }
 
     /**
@@ -130,4 +155,12 @@ public class EventManager{
         allEvents.get(eventID).setSpeaker(speakerID);
     }
 
+    /**
+     * For getting the list of all events with corresponding IDs
+     *
+     * @return allEvents
+     */
+    public HashMap<String, Event> getAllEvents() {
+        return allEvents;
+    }
 }
