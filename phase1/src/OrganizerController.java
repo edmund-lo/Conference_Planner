@@ -1,6 +1,6 @@
 public class OrganizerController extends UserController {
-    public OrganizerController(EventManager em, UserManager um, RoomManager rm, MessageManager mm, int userId) {
-        super(em, um, rm, mm, userId);
+    public OrganizerController(EventManager em, UserManager um, RoomManager rm, MessageManager mm, String username) {
+        super(em, um, rm, mm, username);
     }
 
     public boolean createSpeakerAccount(String username, String password, String name) {
@@ -19,7 +19,7 @@ public class OrganizerController extends UserController {
         return true;
     }
 
-    public boolean scheduleSpeaker(int speakerId, int eventId) {
+    public boolean scheduleSpeaker(String speakerName, int eventId) {
         return true;
     }
 
