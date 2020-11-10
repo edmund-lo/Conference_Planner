@@ -89,5 +89,8 @@ public class UserManager {
         return speaker.getSpeakerSchedule();
     }
 
+    public User getUserByUsername(String username) {
+        return allUsers.get(username);
+    }
 
 }
