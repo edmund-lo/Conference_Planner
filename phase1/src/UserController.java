@@ -62,15 +62,35 @@ public abstract class UserController {
         return eventDesc;
     }
 
+    protected void addMessagesToUser(String username, String messageId) {
+        um.addMessageToUser(username, messageId);
+        um.addMessageToUser(this.username, messageId);
+    }
+
     public List<String> getMessages() {
-        return new ArrayList<>();
+        HashMap<String, Message> messages = mm.getAllMessages();
+        ArrayList<String> messageDesc = new ArrayList<>();
+        for (Message message: messages.values())
+            messageDesc.add(message.toString());
+
+        return messageDesc;
     }
 
     public boolean messageSingleAttendee(String recipientName, String content) {
+        Message message = mm.createMessage(username, recipientName, content, LocalDateTime.now());
+        String messageId = mm.sendToAttendee(recipientName, username, message);
+        addMessagesToUser(username, messageId);
+
+        System.out.println("Message sent to " + recipientName);
         return true;
     }
 
     public boolean messageSingleSpeaker(String recipientName, String content) {
+        Message message = mm.createMessage(username, recipientName, content, LocalDateTime.now());
+        String messageId = mm.sendToSpeaker(recipientName, username, message);
+        addMessagesToUser(username, messageId);
+
+        System.out.println("Message sent to " + recipientName);
         return true;
     }
 
