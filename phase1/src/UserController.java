@@ -96,6 +96,7 @@ public abstract class UserController {
     }
 
     public UserController logout() {
+        System.out.println("Logging out...");
         return this;
     }
 }
