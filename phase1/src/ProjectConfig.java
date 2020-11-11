@@ -5,7 +5,7 @@ public class ProjectConfig {
         EventGateway eg = new EventGateway();
         while(true) {
             LoginController lc = startSession(ug, rg, eg);
-            endSession(ug, rg, eg, lc;
+            endSession(ug, rg, eg, lc);
         }
     }
 
