@@ -22,7 +22,7 @@ public class RoomManager {
     }
 
     /**
-     * Creates a new Room object with an empty schedule and adds it into the RoomManager.
+     * Creates a new Room object with an empty schedule and adds it into this RoomManager.
      * @param name  the name of the new room.
      * @return      a boolean value of true if the room was successfully created, false otherwise.
      */
@@ -35,7 +35,7 @@ public class RoomManager {
     }
 
     /**
-     * Removes an existing Room object from the RoomManager.
+     * Removes an existing Room object from this RoomManager.
      * @param name  the name of the room to be removed.
      * @return      a boolean value of true if the room was successfully removed, false otherwise.
      */
@@ -47,36 +47,57 @@ public class RoomManager {
         return false;                
     }
 
+    private Room getRoom(String roomName){
+        return this.allRooms.get(roomName);
+    }
+
     /**
-     * Adds an event to the schedule of a given Room in the RoomManager.
-     * @param event the event to be added to the schedule of a room.
-     * @param room  the room to add the event to.
-     * @return      a boolean value of true if the event was successfully added to the room, false otherwise.
+     * Adds an event to the schedule of a given Room in this RoomManager.
+     * @param time      the scheduled time of the event to add
+     * @param roomName  the name of the room to add the event to.
+     * @return          a boolean value of true if the event was successfully added to the room, false otherwise.
      */
-    public boolean addToRoomSchedule(Event event, Room room) {
-        LocalDateTime eventStartTime = event.getStartTime();
-        if (room.canBook(eventStartTime)) {
-            room.addEvent(event);
+    public boolean addToRoomSchedule(LocalDateTime time, String roomName, String eventName) {
+        Room room = getRoom(roomName);
+        if (room.canBook(time)){
+            room.addEvent(time, eventName);
             return true;
         }
         return false;
     }
 
     /**
-     * Adds an event to the schedule of a given Room in the RoomManager.
-     * @param event the event to be removed to the schedule of a room.
-     * @param room  the room to remove the event from.
-     * @return      a boolean value of true if the event was successfully removed from the room, false otherwise.
+     * Removes an event to the schedule of a given Room in this RoomManager.
+     *
+     * @param time      the time of the event to be removed to the schedule of a room.
+     * @param roomName  the name of the room to remove the event from.
+     * @param eventName the name of the event to be removed
+     * @return          a boolean value of true if the event was successfully removed from the room, false otherwise.
      */
-    public boolean removeFromRoomSchedule(Event event, Room room) {
-        if (room.hasEvent(event)) {
-            room.removeEvent(event);
+    public boolean removeFromRoomSchedule(LocalDateTime time, String roomName, String eventName){
+        Room room = getRoom(roomName);
+        if (room.hasEvent(time, eventName)) {
+            room.removeEvent(time);
             return true;
         }
         return false;
     }
 
-    public String getRoomSchedule(Room room){
-        return room.roomScheduleToString();
+    /**
+     * Gets the string representation for a Room in this RoomManager
+     *
+     * @return  the String representation of a Room in this RoomManager
+     */
+    public String getRoomString(String roomName){
+        return getRoom(roomName).toString();
+    }
+
+    /**
+     * Gets the string representation for a Room's schedule in this RoomManager
+     *
+     * @return  a String representation of a Room's schedule in this RoomManager
+     */
+    public String getRoomSchedule(String roomName){
+        return getRoom(roomName).roomScheduleToString();
     }
 }

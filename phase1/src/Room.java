@@ -14,45 +14,84 @@ public class Room {
     private String name;
     private TreeMap<LocalDateTime, String> schedule;
 
+    /**
+     * Constructor for a Room object
+     *
+     * @param name  the name of the room
+     */
     public Room(String name){
         this.name = name;
         this.schedule = new TreeMap<>();
     }
 
-    public String getName() {
-        return this.name;
-    }
+//    /**
+//     * Returns the name of the Room
+//     *
+//     * @return the room's name
+//     */
+//    public String getName() {
+//        return this.name;
+//    }
 
-    public TreeMap<LocalDateTime, String> getSchedule() {
-        return this.schedule;
-    }
-
+    /**
+     * Checks to see if this Room can be booked for an event. A room can be booked if there is a free
+     * time slot and the event ends before or at 5pm.
+     *
+     * @return true if the room can be booked, false otherwise
+     */
     public boolean canBook(LocalDateTime time){
-        return !this.schedule.containsKey(time) // if room is free and
+        return !this.schedule.containsKey(time) // if room is not booked
                 && time.getHour() <= 16;        // event starts before/at 4pm (16:00)
     }
 
-    public void addEvent(Event event){
-        this.schedule.put(event.getStartTime(), event.getEventName());
+    /**
+     * Adds an event to this Room at the given time.
+     *
+     * @param time      the time the event starts.
+     * @param eventName the name of the event to be added.
+     */
+    public void addEvent(LocalDateTime time, String eventName){
+        this.schedule.put(time, eventName);
     }
 
-    public boolean hasEvent(Event event){
-        LocalDateTime eventTime = event.getStartTime();
-        return this.schedule.containsKey(eventTime)
-                && this.schedule.get(eventTime).equals(event.getEventName());
+    /**
+     * Checks to see if this Room's schedule has a specific event.
+     *
+     * @param time      the time the event starts.
+     * @param eventName the name of the event to check for.
+     * @return true if this event is scheduled in this room, false otherwise
+     */
+    public boolean hasEvent(LocalDateTime time, String eventName){
+        return  this.schedule.containsKey(time)
+                && this.schedule.get(time).equals(eventName);
     }
 
-    public void removeEvent(Event event){
-        this.schedule.remove(event.getStartTime());
+    /**
+     * Removes an event at a certain time from the schedule of this Room.
+     *
+     * @param time  the time the event starts.
+     */
+    public void removeEvent(LocalDateTime time){
+        this.schedule.remove(time);
     }
 
+    /**
+     * Gives the String representation of this Room.
+     *
+     * @return the string representation of this Room
+     */
     @Override
     public String toString() {
         return this.name + "Room";
     }
 
+    /**
+     * Gives the String representation of this Room's schedule.
+     *
+     * @return the string representation of this Room's schedule
+     */
     public String roomScheduleToString() {
-        String ret = this.name + "Room's Schedule: \n";
+        String ret = this.name + " Room's Schedule:" + "\n";
         for (Map.Entry<LocalDateTime, String> time : this.schedule.entrySet()) {
             Integer hour = time.getKey().getHour();
             Integer minute = time.getKey().getMinute();
@@ -60,7 +99,7 @@ public class Room {
             String eventMinute = minute.toString();
             String eventName = time.getValue();
 
-            ret += eventHour + ":" + eventMinute + " - " + eventName;
+            ret += eventHour + ":" + eventMinute + " - " + eventName + "\n";
         }
         return ret;
     }
