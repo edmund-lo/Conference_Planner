@@ -95,7 +95,8 @@ public abstract class UserController {
         return true;
     }
 
-    public boolean logout() {
-        return true;
+    public UserController logout() {
+        System.out.println("Logging out...");
+        return this;
     }
 }

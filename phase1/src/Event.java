@@ -1,4 +1,5 @@
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.ArrayList;
 
 /**
@@ -10,7 +11,7 @@ public class Event {
     private String speakerID;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private List<String> attendingUsers;
+    private ArrayList<String> attendingUsers;
 
     /**
      * Constructor for Event
@@ -52,7 +53,7 @@ public class Event {
      *
      * @return An arraylist with IDs of all users attending this event
      */
-    public List<String> getAttendingUsers() {
+    public ArrayList<String> getAttendingUsers() {
         return attendingUsers;
     }
 
@@ -138,7 +139,7 @@ public class Event {
      *
      * @param speakerID the ID of the speaker that wants to be added to Event
      */
-    public setSpeaker(String speakerID){
+    public void setSpeaker(String speakerID){
         this.speakerID = speakerID;
     }
 

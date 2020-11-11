@@ -99,7 +99,7 @@ public class OrganizerController extends UserController {
         if (!em.canAddSpeakerToEvent(speakerName, eventId)) {
             System.out.println("Another speaker is already speaking at this event.");
             return false;
-        } else if (!um.speakerAvailable(start, end)) {
+        } else if (!um.canAddSpeakerEvent(speakerName, eventId, start, end)) {
             System.out.println("This speaker is already speaking at another event.");
             return false;
         }
