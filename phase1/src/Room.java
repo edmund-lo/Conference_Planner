@@ -82,7 +82,7 @@ public class Room {
      */
     @Override
     public String toString() {
-        return this.name + "Room";
+        return this.name + " Room";
     }
 
     /**
@@ -99,7 +99,7 @@ public class Room {
             String eventMinute = minute.toString();
             String eventName = time.getValue();
 
-            ret += eventHour + ":" + eventMinute + " - " + eventName + "\n";
+            ret += eventHour + ":" + eventMinute + "0 - " + eventName + "\n";
         }
         return ret;
     }
