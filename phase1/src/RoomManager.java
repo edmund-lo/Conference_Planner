@@ -84,8 +84,9 @@ public class RoomManager {
     }
 
     /**
-     * Gets the string representation for a Room in this RoomManager
+     * Gets the string representation for a Room in this RoomManager.
      *
+     * @param   roomName the name of the Room to get the String representation of.
      * @return  the String representation of a Room in this RoomManager
      */
     public String getRoomString(String roomName){
@@ -93,15 +94,25 @@ public class RoomManager {
     }
 
     /**
-     * Gets the string representation for a Room's schedule in this RoomManager
+     * Gets the string representation for a Room in this RoomManager.
      *
-     * @return  a String representation of a Room's schedule in this RoomManager
+     * @param   roomName the name of the Room to get the String representation of the schedule.
+     * @return  the String representation of a Room's schedule in this RoomManager.
      */
     public String getRoomSchedule(String roomName){
         return getRoom(roomName).roomScheduleToString();
     }
 
-    public boolean changeRoomSchedule(LocalDateTime currTime, LocalDateTime newTime, String roomName, String eventName){
+    /**
+     * Reschedules an event that is happening inside a Room in this RoomManager.
+     *
+     * @param eventName the name of the event to be rescheduled.
+     * @param currTime  the current start time of the event.
+     * @param newTime   the new start time of the event.
+     * @param roomName  the name of the room where the event is taking place.
+     * @return          true if the event was successfully rescheduled, false otherwise.
+     */
+    public boolean reschedule(LocalDateTime currTime, LocalDateTime newTime, String roomName, String eventName){
         Room room = getRoom(roomName);
         if (room.hasEvent(currTime, eventName) && room.canBook(newTime)){
             room.removeEvent(currTime);

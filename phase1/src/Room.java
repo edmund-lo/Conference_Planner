@@ -93,8 +93,7 @@ public class Room {
     public String roomScheduleToString() {
         String ret = this.name + " Room's Schedule:" + "\n";
         for (Map.Entry<LocalDateTime, String> time : this.schedule.entrySet()) {
-            Integer hour = time.getKey().getHour();
-            String eventHour = hour.toString();
+            String eventHour = Integer.toString(time.getKey().getHour());
             String eventName = time.getValue();
             ret += eventHour + ":00 - " + eventName + "\n";
         }
