@@ -2,6 +2,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 public abstract class UserController {
     protected EventManager em;
@@ -9,6 +10,7 @@ public abstract class UserController {
     protected RoomManager rm;
     protected MessageManager mm;
     protected String username;
+    protected Scanner sc;
 
     public UserController(EventManager em, UserManager um, RoomManager rm, MessageManager mm, String username) {
         this.em = em;
@@ -16,6 +18,7 @@ public abstract class UserController {
         this.rm = rm;
         this.mm = mm;
         this.username = username;
+        this.sc = new Scanner(System.in);
     }
 
     public boolean signUpEventAttendance(String eventId) {
@@ -77,8 +80,7 @@ public abstract class UserController {
     }
 
     public boolean messageSingleAttendee(String recipientName, String content) {
-        Message message = mm.createMessage(username, recipientName, content, LocalDateTime.now());
-        String messageId = mm.sendToAttendee(recipientName, username, message);
+        String messageId = mm.sendToAttendee(recipientName, username, content);
         addMessagesToUser(username, messageId);
 
         System.out.println("Message sent to " + recipientName);
@@ -86,8 +88,7 @@ public abstract class UserController {
     }
 
     public boolean messageSingleSpeaker(String recipientName, String content) {
-        Message message = mm.createMessage(username, recipientName, content, LocalDateTime.now());
-        String messageId = mm.sendToSpeaker(recipientName, username, message);
+        String messageId = mm.sendToSpeaker(recipientName, username, content);
         addMessagesToUser(username, messageId);
 
         System.out.println("Message sent to " + recipientName);
