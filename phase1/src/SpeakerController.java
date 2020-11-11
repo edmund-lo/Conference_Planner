@@ -14,7 +14,7 @@ public class SpeakerController extends UserController {
         System.out.println("Enter the event numbers separated by a comma:");
         String eventIdsString = sc.nextLine();
         List<String> eventIds = new ArrayList<>();
-        Map<String, LocalDateTime[]> schedule = super.um.getSpeakerSchedule(super.username);
+        Map<String, LocalDateTime[]> schedule = um.getSpeakerSchedule(username);
         List<String> allSpeakerEventIds = new ArrayList<>(schedule.keySet());
         for (String i : eventIdsString.split(",")) {
             int index = parseInt(i);
@@ -34,21 +34,20 @@ public class SpeakerController extends UserController {
     }
 
     public boolean messageEventAttendees(String eventId, String message) {
-        List<String> attendees = super.em.getEventById(eventId).getAttendingUsers();
-        for (String username : attendees) {
-            String messageId = super.mm.sendToAttendeeSpeakerEvent(username, super.username, message);
-            super.um.addMessageToUser(username, messageId);
-            super.um.addMessageToUser(super.username, messageId);
+        List<String> attendees = em.getEventById(eventId).getAttendingUsers();
+        for (String name : attendees) {
+            String messageId = mm.sendToAttendeeSpeakerEvent(name, username, message);
+            addMessagesToUser(name, messageId);
         }
         return true;
     }
 
     public List<String> getSpeakerEvents() {
-        Map<String, LocalDateTime[]> schedule = super.um.getSpeakerSchedule(super.username);
+        Map<String, LocalDateTime[]> schedule = um.getSpeakerSchedule(username);
         List<String> eventStrings = new ArrayList<>();
         int count = 1;
         for (String eventId : schedule.keySet()) {
-            String eventString = super.em.getEventById(eventId).toString();
+            String eventString = em.getEventById(eventId).toString();
             eventStrings.add(eventString);
             System.out.println((count + ": " + eventString));
         }
