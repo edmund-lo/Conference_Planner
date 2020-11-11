@@ -1,7 +1,8 @@
 public abstract class LoginPresenter {
 
     public void UsernameTaken(){
-        System.out.println("Username is taken!");
+        System.out.println("Username is taken! \nType \"login\" to login if account already exists and you wish to " +
+                "login. \n If not, press enter to continue");
     }
 
     public void EnterUsername(){
@@ -9,7 +10,8 @@ public abstract class LoginPresenter {
     }
 
     public void AccountType(){
-        System.out.println("What is the account type? Press:\n \"o\" for Organizer\n\"a\" for Attendee\n\"s\" for Speaker");
+        System.out.println("What is the account type? Press:\n \"o\" for Organizer" +
+                "\n\"a\" for Attendee\n\"s\" for Speaker");
     }
 
     public void EnterPassword(){
