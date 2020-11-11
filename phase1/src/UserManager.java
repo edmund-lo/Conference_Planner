@@ -95,7 +95,7 @@ public class UserManager {
         return allUsers.get(username);
     }
 
-    public List<String> getALlSpeakerNames() {
+    public List<String> getAllSpeakerNames() {
         List<String> speakers = new ArrayList<>();
         for (User user : allUsers.values()) {
            if (user instanceof Speaker) {
