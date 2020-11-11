@@ -1,17 +1,22 @@
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 
-public abstract class LoginController {
+public class LoginController extends LoginPresenter  {
     private ArrayList<String[]> Accounts;
     private Scanner sc;
-    private LoginPresenter lp;
+    private UserManager um;
+    private RoomManager rm;
+    private MessageManager mm;
+    private EventManager em;
 
-    public LoginController(ArrayList<String[]> Accounts, LoginPresenter lp){
-        this.Accounts = Accounts;
+    public LoginController(UserManager um, RoomManager rm, MessageManager mm, EventManager em){
+        this.Accounts = um.GetAllAccounts();
         this.sc = new Scanner(System.in);
-        this.lp = lp;
+        this.um = um;
+        this.rm = rm;
+        this.mm = mm;
+        this.em = em;
     }
 
     public void CreateAccount(){
@@ -23,7 +28,7 @@ public abstract class LoginController {
         boolean UsernameSet = false;
         do {
             UsernameCheck = 0;
-            lp.EnterUsername();
+            LoginPresenter.EnterUsername();
             Username = sc.nextLine();
 
             for (String[] users : Accounts){
@@ -35,25 +40,25 @@ public abstract class LoginController {
             if (UsernameCheck == 0)
                 UsernameSet = true;
             else{
-                lp.UsernameTaken();
+                LoginPresenter.UsernameTaken();
                 String login = sc.nextLine();
                 if (login.equals("login"))
-                    login();
+                    Login();
             }
 
         }while(!UsernameSet);
 
-        lp.EnterPassword();
+        LoginPresenter.EnterPassword();
         Password = sc.nextLine();
 
-        lp.AccountType();
+        LoginPresenter.AccountType();
         type = sc.nextLine();
 
 
         Accounts.add(new String[] {Username, Password, type});
     }
 
-    public void login(){
+    public void Login(){
         String Username;
         String Password;
 
@@ -65,10 +70,10 @@ public abstract class LoginController {
             UsernameExists = false;
             PasswordExists = false;
 
-            lp.EnterUsername();
+            LoginPresenter.EnterUsername();
             Username = sc.nextLine();
 
-            lp.EnterPassword();
+            LoginPresenter.EnterPassword();
             Password = sc.nextLine();
 
             for (String[] users : Accounts){
@@ -82,19 +87,19 @@ public abstract class LoginController {
             }
 
             if (!(UsernameExists && PasswordExists))
-                    lp.IncorrectCredentials();
+                LoginPresenter.IncorrectCredentials();
 
         }while(!(UsernameExists && PasswordExists));
 
         switch(AccountType){
             case "o":
-                //OrganizerController(Username);
+                OrganizerController oc = new OrganizerController(em, um, rm, mm, Username);
                 break;
             case "a":
-                //AttendeeController(Username);
+                AttendeeController ac = new AttendeeController(em, um, rm, mm, Username);
                 break;
             case "s":
-                //SpeakerController(Username);
+                SpeakerController sc = new SpeakerController(em, um, rm, mm, Username);
                 break;
 
         }
