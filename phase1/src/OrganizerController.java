@@ -1,13 +1,17 @@
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+
+import static java.lang.Integer.parseInt;
 
 public class OrganizerController extends UserController {
     public OrganizerController(EventManager em, UserManager um, RoomManager rm, MessageManager mm, String username) {
         super(em, um, rm, mm, username);
     }
 
-    public boolean createSpeakerAccount(String username, String password, String name) {
+    public boolean createSpeakerAccount(String username, String password) {
         if (super.um.checkUniqueUsername(username)) {
             super.um.createNewSpeaker(username, password);
             System.out.println("Successfully created new speaker account.");
@@ -15,6 +19,12 @@ public class OrganizerController extends UserController {
         }
         System.out.println("Unable to create new speaker account: username was not unique.");
         return false;
+    }
+
+    public void messageAllSpeakersCmd() {
+        System.out.println("Enter your message:");
+        String message = sc.nextLine();
+        messageAllSpeakers(message);
     }
 
     public boolean messageAllSpeakers(String message) {
@@ -27,6 +37,12 @@ public class OrganizerController extends UserController {
         return true;
     }
 
+    public void messageAllAttendeesCmd() {
+        System.out.println("Enter your message:");
+        String message = sc.nextLine();
+        messageAllAttendees(message);
+    }
+
     public boolean messageAllAttendees(String message) {
         Set<String> attendeeNames = super.um.getAllUsers().keySet();
         for (String username : attendeeNames) {
@@ -35,7 +51,7 @@ public class OrganizerController extends UserController {
                 super.addMessagesToUser(username, messageId);
             }
         }
-        System.out.println("Successfully sent message to all speakers.");
+        System.out.println("Successfully sent message to all attendees.");
         return true;
     }
 
