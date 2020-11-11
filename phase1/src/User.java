@@ -58,4 +58,9 @@ public abstract class User {
     public void addMessageID(String messageID) {
         messageIDs.add(messageID);
     }
+
+    public String toString() {
+        return "Username: " + this.username + "\n" +  "Role: " + this.getClass().getSimpleName();
+    }
+
 }
