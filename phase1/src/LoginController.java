@@ -5,11 +5,13 @@ import java.util.Scanner;
 
 public abstract class LoginController {
     private ArrayList<String[]> Accounts;
-    Scanner inputReader;
+    private Scanner sc;
+    private LoginPresenter lp;
 
-    public LoginController(ArrayList Accounts){
+    public LoginController(ArrayList<String[]> Accounts, LoginPresenter lp){
         this.Accounts = Accounts;
-        this.inputReader = new Scanner(System.in);
+        this.sc = new Scanner(System.in);
+        this.lp = lp;
     }
 
     public void CreateAccount(){
@@ -20,59 +22,59 @@ public abstract class LoginController {
         int UsernameCheck;
         boolean UsernameSet = false;
         do {
-            UsernameCheck = 0
-            LoginPresenter.EnterUsername();
-            UserName = myObj.nextLine();
+            UsernameCheck = 0;
+            lp.EnterUsername();
+            Username = sc.nextLine();
 
-            for (users in Accounts){
-                if (users[0] == Username){
+            for (String[] users : Accounts){
+                if (users[0].equals(Username)){
                     UsernameCheck++;
                 }
             }
 
-            if (UsernameCheck = 0)
+            if (UsernameCheck == 0)
                 UsernameSet = true;
             else{
-                LoginPresenter.UsernameTaken();
-                String login = myObj.nextLine();
-                if (login == "login")
+                lp.UsernameTaken();
+                String login = sc.nextLine();
+                if (login.equals("login"))
                     login();
             }
 
-        }while(!UsernameSet)
+        }while(!UsernameSet);
 
-        LoginPresenter.EnterPassword();
-        Password = myObj.nextLine();
+        lp.EnterPassword();
+        Password = sc.nextLine();
 
-        LoginPresenter.AccountType();
-        type = myObj.nextLine();
+        lp.AccountType();
+        type = sc.nextLine();
 
 
-        Accounts.add(new String[] {Username, Password, type})
+        Accounts.add(new String[] {Username, Password, type});
     }
 
-    public boolean login(){
+    public void login(){
         String Username;
         String Password;
 
         boolean UsernameExists;
         boolean PasswordExists;
-        String AccountType;
+        String AccountType = "";
 
         do {
             UsernameExists = false;
             PasswordExists = false;
 
-            LoginPresenter.EnterUsername();
-            UserName = myObj.nextLine();
+            lp.EnterUsername();
+            Username = sc.nextLine();
 
-            LoginPresenter.EnterPassword();
-            Password = myObj.nextLine();
+            lp.EnterPassword();
+            Password = sc.nextLine();
 
-            for (users in Accounts){
-                if (users[0] == Username){
-                    UsernameExits = true;
-                    if (users[1] == Password){
+            for (String[] users : Accounts){
+                if (users[0].equals(Username)){
+                    UsernameExists = true;
+                    if (users[1].equals(Password)){
                         PasswordExists = true;
                         AccountType = users[2];
                     }
@@ -80,16 +82,22 @@ public abstract class LoginController {
             }
 
             if (!(UsernameExists && PasswordExists))
-                    LoginPresenter.IncorrectCredentials;
+                    lp.IncorrectCredentials();
 
-        }while(!(UsernameExists && PasswordExists))
+        }while(!(UsernameExists && PasswordExists));
 
-        if (AccountType == "o")
-            OrganizerController(Username)
-        else if (AccountType == "a")
-            AttendeeController(Username)
-        else if (AccountType == "s")
-            SpeakerController(Username)
+        switch(AccountType){
+            case "o":
+                //OrganizerController(Username);
+                break;
+            case "a":
+                //AttendeeController(Username);
+                break;
+            case "s":
+                //SpeakerController(Username);
+                break;
+
+        }
     }
 
 }
