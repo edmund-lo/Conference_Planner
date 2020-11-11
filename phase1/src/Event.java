@@ -7,7 +7,6 @@ import java.util.ArrayList;
 public class Event {
     private String eventName;
     private String eventID;
-    private String roomID;
     private String speakerID;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
@@ -17,15 +16,13 @@ public class Event {
      * Constructor for Event
      *
      * @param eventID The randomly generated ID for this Event
-     * @param roomID The ID of the room to which the Event will be held in
      * @param eventName Name of the event
      * @param startTime Start time of the event
      * @param endTime End time of the event
      */
-    public Event(String eventID, String roomID, String eventName, LocalDateTime startTime,
+    public Event(String eventID, String eventName, LocalDateTime startTime,
                  LocalDateTime endTime){
         this.eventID = eventID;
-        this.roomID = roomID;
         this.eventName = eventName;
         this.startTime = startTime;
         this.endTime = endTime;

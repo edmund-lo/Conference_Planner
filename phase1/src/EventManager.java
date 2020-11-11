@@ -37,8 +37,8 @@ public class EventManager{
      * @param startTime the start time of the event
      * @param endTime the end time of the event
      */
-    public void createNewEvent(String eventName, String roomID, LocalDateTime startTime, LocalDateTime endTime) {
-        Event newEvent = new Event(UUID.randomUUID().toString(), roomID, eventName, startTime, endTime)
+    public void createNewEvent(String eventName, LocalDateTime startTime, LocalDateTime endTime) {
+        Event newEvent = new Event(UUID.randomUUID().toString(), eventName, startTime, endTime)
         allEvents.put(newEvent.getEventID(), newEvent);
     }
 
