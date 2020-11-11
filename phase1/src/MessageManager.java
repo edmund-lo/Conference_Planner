@@ -10,6 +10,7 @@ import Message.java;
  */
 public class MessageManager{
     private HashMap<String, Message> allMessages;
+    private List<String> allContents;
 
     /**
      * Constructor for MessageManager
@@ -19,6 +20,7 @@ public class MessageManager{
      */
     public messageManager(HashMap<String, Message> allMessages){
         this.allMessages = allMessages;
+        this.allContents = new ArrayList<String>();
     }
 
     /**
@@ -29,6 +31,39 @@ public class MessageManager{
      */
     private boolean messageExists(String messageID){
         return allMessages.containsKey(messageID);
+    }
+
+    /**
+     * For getting the list of all events with corresponding IDs
+     *
+     * @return allEvents
+     */
+
+    public HashMap<String, <Message> getAllMessages() {
+        return allMessages;
+    }
+
+    /**
+     * A string representation of all the message contents
+     *
+     * @return allContents
+     */
+
+    public List<String> messageContents(){
+        int i = 0;
+        while(i < size(allMessages)){
+            this.allContents.append(allMessages[i].toString());
+            i++;
+        }
+        return this.allContents;
+    }
+
+    /**
+     * Add new content to all contents
+     */
+
+    public void addMessageContent(HashMap<String, Message> message){
+        this.allContents.append(message.toString());
     }
 
     /**
@@ -48,16 +83,6 @@ public class MessageManager{
         } while(messageExists(messageId));
         Message newMessage = new Message(content, senderId, messageId, receiverIds, messageTime);
         allMessages.put(newMessage.getMessageID(), newMessage);
+        contents.append(newMessage.toString());
     }
-
-    /**
-     * For getting the list of all events with corresponding IDs
-     *
-     * @return allEvents
-     */
-
-    public HashMap<String, Event> getAllMessages() {
-        return allMessages;
-    }
-
 }

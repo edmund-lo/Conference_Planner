@@ -95,7 +95,7 @@ public abstract class UserController {
         return true;
     }
 
-    public boolean logout() {
-        return true;
+    public UserController logout() {
+        return this;
     }
 }
