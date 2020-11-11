@@ -100,4 +100,14 @@ public class RoomManager {
     public String getRoomSchedule(String roomName){
         return getRoom(roomName).roomScheduleToString();
     }
+
+    public boolean changeRoomSchedule(LocalDateTime currTime, LocalDateTime newTime, String roomName, String eventName){
+        Room room = getRoom(roomName);
+        if (room.hasEvent(currTime, eventName) && room.canBook(newTime)){
+            room.removeEvent(currTime);
+            room.addEvent(newTime, eventName);
+            return true;
+        }
+        return false;
+    }
 }
