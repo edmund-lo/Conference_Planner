@@ -96,6 +96,7 @@ public class Message {
         return "Sender Name: "+this.senderId+"\n" +
                 "Time: "+String.valueOf(this.messageTime.getHour())+" on "+
                 String.valueOf(this.messageTime.getDayOfMonth())+"/"+String.valueOf(this.messageTime.getMonthValue())+
-                "\n" + "# of Attending Users: "+String.valueOf(this.receiverIds.size());
+                "\n" + "# of Attending Users: "+String.valueOf(this.receiverIds.size())+
+                this.getContent();
     }
 }
