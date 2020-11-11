@@ -10,9 +10,9 @@ public class ProjectConfig {
     }
 
     public LoginController startSession(UserGateway ug, RoomGateway rg, EventGateway eg) {
-        UserManager um = ug.unserializeData();
-        RoomManager rm = rg.unserializeData();
-        EventManager em = eg.unserializeData();
+        UserManager um = ug.deserializeData();
+        RoomManager rm = rg.deserializeData();
+        EventManager em = eg.deserializeData();
 
         LoginController lc = new LoginController(um, rm, em);
         lc.login();
