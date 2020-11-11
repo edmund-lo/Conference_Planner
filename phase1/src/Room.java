@@ -1,65 +1,67 @@
-import jdk.vm.ci.meta.Local;
-
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+
+/**
+ * An Entity class representing a conference room at the conference.
+ *
+ * @author Keegan McGonigal
+ * @version 1.0
+ *
+ */
 
 public class Room {
-    private int roomID;
     private String name;
-    private HashMap<LocalDateTime, String> schedule;
-    private int capacity = 2;
-    private ArrayList<User> occupants;
-    private Speaker currentSpeaker;
+    private TreeMap<LocalDateTime, String> schedule;
 
     public Room(String name){
         this.name = name;
-        this.schedule = new HashMap<>();
-        this.occupants = new ArrayList<>();
-    }
-
-    public int getRoomID(){
-        return this.roomID;
-    }
-
-    public int getCapacity() {
-        return this.capacity;
+        this.schedule = new TreeMap<>();
     }
 
     public String getName() {
         return this.name;
     }
 
-    public HashMap<LocalDateTime, String> getSchedule() {
+    public TreeMap<LocalDateTime, String> getSchedule() {
         return this.schedule;
     }
 
-    public ArrayList<User> getOccupants() {
-        return occupants;
-    }
-
-    public void addOccupant(User person){
-        this.occupants.add(person);
-    }
-
-    public Speaker getCurrentSpeaker() {
-        return currentSpeaker;
-    }
-
-    public void setCurrentSpeaker(Speaker currentSpeaker) {
-        this.currentSpeaker = currentSpeaker;
-    }
-
-    public boolean canAddOccupant(){
-        return this.occupants.size() < this.capacity;
-    }
-
     public boolean canBook(LocalDateTime time){
-        return this.schedule.get(time) == null;
+        return !this.schedule.containsKey(time) // if room is free and
+                && time.getHour() <= 16;        // event starts before/at 4pm (16:00)
     }
 
     public void addEvent(Event event){
         this.schedule.put(event.getStartTime(), event.getEventName());
     }
-    
+
+    public boolean hasEvent(Event event){
+        LocalDateTime eventTime = event.getStartTime();
+        return this.schedule.containsKey(eventTime)
+                && this.schedule.get(eventTime).equals(event.getEventName());
+    }
+
+    public void removeEvent(Event event){
+        this.schedule.remove(event.getStartTime());
+    }
+
+    @Override
+    public String toString() {
+        return this.name + "Room";
+    }
+
+    public String roomScheduleToString() {
+        String ret = this.name + "Room's Schedule: \n";
+        for (Map.Entry<LocalDateTime, String> time : this.schedule.entrySet()) {
+            Integer hour = time.getKey().getHour();
+            Integer minute = time.getKey().getMinute();
+            String eventHour = hour.toString();
+            String eventMinute = minute.toString();
+            String eventName = time.getValue();
+
+            ret += eventHour + ":" + eventMinute + " - " + eventName;
+        }
+        return ret;
+    }
 }
