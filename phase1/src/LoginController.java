@@ -12,7 +12,7 @@ public class LoginController extends LoginPresenter  {
     protected UserController controller;
 
     public LoginController(UserManager um, RoomManager rm, MessageManager mm, EventManager em){
-        this.Accounts = um.GetAllAccounts();
+        this.Accounts = um.getAccountInfo();
         this.sc = new Scanner(System.in);
         this.um = um;
         this.rm = rm;
