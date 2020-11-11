@@ -3,12 +3,13 @@ import java.util.Scanner;
 
 
 public class LoginController extends LoginPresenter  {
-    private ArrayList<String[]> Accounts;
+    private final ArrayList<String[]> Accounts;
     private Scanner sc;
-    private UserManager um;
-    private RoomManager rm;
-    private MessageManager mm;
-    private EventManager em;
+    protected UserManager um;
+    protected RoomManager rm;
+    protected MessageManager mm;
+    protected EventManager em;
+    protected UserController controller;
 
     public LoginController(UserManager um, RoomManager rm, MessageManager mm, EventManager em){
         this.Accounts = um.GetAllAccounts();
@@ -93,16 +94,16 @@ public class LoginController extends LoginPresenter  {
 
         switch(AccountType){
             case "o":
-                OrganizerController oc = new OrganizerController(em, um, rm, mm, Username);
+                this.controller = new OrganizerController(em, um, rm, mm, Username);
                 break;
             case "a":
-                AttendeeController ac = new AttendeeController(em, um, rm, mm, Username);
+                this.controller = new AttendeeController(em, um, rm, mm, Username);
                 break;
-            case "s":
-                SpeakerController sc = new SpeakerController(em, um, rm, mm, Username);
+            default:
+                this.controller = new SpeakerController(em, um, rm, mm, Username);
                 break;
-
         }
+
     }
 
 }
