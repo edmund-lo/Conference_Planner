@@ -33,12 +33,11 @@ public class EventManager{
      * Creator for a new event
      *
      * @param eventName the name of the event
-     * @param roomID the ID of the room that the event is held in
      * @param startTime the start time of the event
      * @param endTime the end time of the event
      */
     public void createNewEvent(String eventName, LocalDateTime startTime, LocalDateTime endTime) {
-        Event newEvent = new Event(UUID.randomUUID().toString(), eventName, startTime, endTime)
+        Event newEvent = new Event(UUID.randomUUID().toString(), eventName, startTime, endTime);
         allEvents.put(newEvent.getEventID(), newEvent);
     }
 
@@ -96,9 +95,7 @@ public class EventManager{
     public boolean canAddUserToEvent(String eventID, String userID){
         if(eventExists(eventID)){
             Event currentEvent = allEvents.get(eventID);
-            if(currentEvent.getAttendingUsers().size < 2 && !currentEvent.getAttendingUsers().contains(userID)){
-                return true;
-            }
+            return currentEvent.getAttendingUsers().size() < 2 && !currentEvent.getAttendingUsers().contains(userID);
         }
         return false;
     }
@@ -137,12 +134,7 @@ public class EventManager{
      * @return True iff the speaker was successfully added to the event with ID eventID
      */
     public boolean canAddSpeakerToEvent(String speakerID, String eventID){
-        if(eventExists(eventID) && allEvents.get(eventID).getSpeakerID() == null){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return eventExists(eventID) && allEvents.get(eventID).getSpeakerID() == null;
     }
 
     /**
@@ -151,7 +143,7 @@ public class EventManager{
      * @param speakerID ID of the speaker
      * @param eventID ID of the event
      */
-    public addSpeakerToEvent(String speakerID, String eventID){
+    public void addSpeakerToEvent(String speakerID, String eventID){
         allEvents.get(eventID).setSpeaker(speakerID);
     }
 
