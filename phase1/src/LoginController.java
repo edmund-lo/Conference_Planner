@@ -104,6 +104,11 @@ public class LoginController extends LoginPresenter  {
                 break;
         }
 
+        this.em = controller.em;
+        this.um = controller.um;
+        this.rm = controller.rm;
+        this.mm = controller.mm;
+
     }
 
 }
