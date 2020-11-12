@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
+import static java.lang.Integer.parseInt;
+
 /**
  * An abstract Controller class, which all other types of user controllers inherit from.
  *
@@ -35,6 +37,58 @@ public abstract class UserController {
         this.username = username;
         this.input = new Scanner(System.in);
 
+    }
+
+    public void signUpMenu(){
+        while(true) {
+            AttendeePresenter.displayEvents();
+            int option = parseInt(input.nextLine());
+            if(option == 0)
+                break;
+            else if(option > em.getAllEventIds().size())
+                System.out.println("Please enter a valid option");
+            else
+                signUpEventAttendance(em.getAllEventIds().get(option-1));
+        }
+    }
+
+    public void cancelMenu(){
+        while(true) {
+            AttendeePresenter.displayUserEvents();
+            int option = parseInt(input.nextLine());
+            if(option == 0)
+                break;
+            else if(option > getAttendingEvents().size())
+                System.out.println("Please enter a valid option.");
+            else
+                signUpEventAttendance(getAttendingEvents().get(option-1));
+        }
+    }
+
+    public void messageMenu(){
+        while(true) {
+            AttendeePresenter.displayMessageMenu();
+            int option = parseInt(input.nextLine());
+            if(option == 0)
+                break;
+            else if(option == 1){
+                String name;
+                String content;
+                while(true) {
+                    System.out.println("Type in the user you wish to message: ");
+                    name = input.next();
+                    if (um.getAllUsers().get(name) != null)
+                        break;
+                    else
+                        System.out.println("Enter a valid user.");
+                }
+                System.out.println("Type in your message below: ");
+                content = input.next();
+
+                messageSingleAttendee(name, content);
+            }
+
+        }
     }
 
     /**
@@ -80,13 +134,23 @@ public abstract class UserController {
      *@return list of events the user is attending in a string format
      */
 
-    public List<String> getAttendingEvents() {
+    public List<String> getAttendingEventsString() {
         HashMap<String, LocalDateTime[]> schedule = um.getSchedule(username);
         ArrayList<String> eventDesc = new ArrayList<>();
         for (String eventId : schedule.keySet())
             eventDesc.add(em.getEventById(eventId).toString());
 
         return eventDesc;
+    }
+    /**
+     *Returns list of events the user is attending
+     *
+     *@return list of events the user is attending in a string format
+     */
+
+    public List<String> getAttendingEvents() {
+        HashMap<String, LocalDateTime[]> schedule = um.getSchedule(username);
+        return new ArrayList<>(schedule.keySet());
     }
 
     /**
@@ -97,8 +161,9 @@ public abstract class UserController {
     public List<String> getAllEvents(){
         HashMap<String, Event> events = em.getAllEvents();
         ArrayList<String> eventDesc = new ArrayList<>();
-        for (Event event : events.values())
-            eventDesc.add(event.toString());
+        ArrayList<String> eventiDs = em.getAllEventIds();
+        for (String iD : eventiDs)
+            eventDesc.add(events.get(iD).toString());
 
         return eventDesc;
     }

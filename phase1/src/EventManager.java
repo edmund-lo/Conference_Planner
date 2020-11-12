@@ -9,6 +9,7 @@ import java.util.UUID;
  */
 public class EventManager{
     private HashMap<String, Event> allEvents;
+    private ArrayList<String> eventIds;
 
     /**
      * Constructor for EventManager
@@ -17,6 +18,7 @@ public class EventManager{
      */
     public EventManager(HashMap<String, Event> allEvents){
         this.allEvents = allEvents;
+        this.eventIds = new ArrayList<>(allEvents.keySet());
     }
 
     /**
@@ -39,6 +41,7 @@ public class EventManager{
     public void createNewEvent(String eventName, LocalDateTime startTime, LocalDateTime endTime) {
         Event newEvent = new Event(UUID.randomUUID().toString(), eventName, startTime, endTime);
         allEvents.put(newEvent.getEventID(), newEvent);
+        eventIds.add(newEvent.getEventID());
     }
 
     /**
@@ -50,6 +53,7 @@ public class EventManager{
     public boolean removeEvent(String eventID){
         if(eventExists(eventID)){
             allEvents.remove(eventID);
+            eventIds.remove(eventID);
             return true;
         }else{
             return false;
@@ -154,5 +158,14 @@ public class EventManager{
      */
     public HashMap<String, Event> getAllEvents() {
         return allEvents;
+    }
+
+    /**
+     * For getting the list of all events with corresponding IDs
+     *
+     * @return allEvents
+     */
+    public ArrayList<String> getAllEventIds() {
+        return eventIds;
     }
 }
