@@ -25,6 +25,20 @@ public class OrganizerController extends UserController {
      */
     public OrganizerController(EventManager em, UserManager um, RoomManager rm, MessageManager mm, String username) {
         super(em, um, rm, mm, username);
+
+        boolean inSession = true;
+        while(inSession) {
+            OrganizerPresenter.displayMenu();
+            int option = parseInt(sc.nextLine());
+            switch(option) {
+                case 1:
+
+                    break;
+                default:
+                    System.out.println("Please enter a valid option!");
+                    break;
+            }
+        }
     }
 
     /**
