@@ -15,7 +15,7 @@ import static java.lang.Integer.parseInt;
 public class SpeakerController extends UserController {
 
     /**
-     * Constructor for SpeakerController object.
+     * Constructor for SpeakerController object. Uses constructor from UserController.
      *
      * @param em  current session's EventManager class.
      * @param um  current session's UserManager class.
