@@ -67,19 +67,18 @@ public class MessageManager implements Serializable {
      *
      * @param content The text of this message
      * @param senderId The id of the sender of this message
-     * @param receiverIds The list of ids for the receivers of this message
-     * @param messageTime The time this message is sent and received
+     * @param receiverId The list of ids for the receivers of this message
      *
      * return the created message
      */
 
-    public String createMessage(String content, String senderId, List<String> receiverIds,
-                                 LocalDateTime messageTime) {
+    public String createMessage(String senderId, String receiverId, String content) {
         String messageId;
         do {
             messageId = UUID.randomUUID().toString();
         } while(messageExists(messageId));
-        Message newMessage = new Message(content, senderId, messageId, receiverIds, messageTime);
+        LocalDateTime messageTime = LocalDateTime.now();
+        Message newMessage = new Message(content, senderId, messageId, receiverId, messageTime);
         this.allMessages.put(newMessage.getMessageID(), newMessage);
         this.allContents.add(newMessage.toString());
         return messageId;
@@ -90,14 +89,13 @@ public class MessageManager implements Serializable {
      *
      * @param content The text of this message
      * @param senderId The id of the sender of this message
-     * @param receiverIds The list of ids for the receivers of this message
-     * @param messageTime The time this message is sent and received
+     * @param receiverId The Id of the receiver
      *
      * Return the messageId that is created
      */
 
-    public String sendMessage(String content, String senderId, List<String> receiverIds,
-                            LocalDateTime messageTime){
-        return createMessage(content, senderId, receiverIds, messageTime);
+    public String sendMessage(String content, String senderId, String receiverId){
+        return createMessage(content, senderId, receiverId);
     }
+
 }

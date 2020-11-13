@@ -1,15 +1,15 @@
 import java.time.LocalDateTime;
-import java.util.List;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Implementation of a message and all details about it.
  */
 public class Message {
-    private final String messageId;
-    private final String senderId;
-    private final String content;
-    private final List<String> receiverIds;
-    private final LocalDateTime messageTime;
+    private String messageId;
+    private String senderId;
+    private String content;
+    private LocalDateTime messageTime;
+    private String receiverId;
 
     /**
      * Constructor for Message
@@ -17,16 +17,16 @@ public class Message {
      * @param content The text of this message
      * @param messageId The randomly generated ID for this message
      * @param senderId The id of the sender of this message
-     * @param receiverIds The list of ids for the receivers of this message
+     * @param receiverId The id for the receiver of this message
      * @param messageTime The time this message is sent and received
      */
 
-    public Message(String content, String senderId, String messageId,
-                   List<String> receiverIds, LocalDateTime messageTime){
+    public Message(String content, String senderId, String messageId, String receiverId,
+                   LocalDateTime messageTime){
         this.content = content;
         this.senderId = senderId;
         this.messageId = messageId;
-        this.receiverIds = receiverIds;
+        this.receiverId = receiverId;
         this.messageTime = messageTime;
     }
 
@@ -51,10 +51,10 @@ public class Message {
     /**
      * getter for the list of receivers
      *
-     * @return An arraylist with IDs of all receivers of this message
+     * @return String of the receiver ID
      */
-    public List<String> getReceiverIds() {
-        return this.receiverIds;
+    public String getReceiverId() {
+        return this.receiverId;
     }
 
     /**
@@ -76,24 +76,16 @@ public class Message {
     }
 
     /**
-     * adder for the list of receivers
-     *
-     * Send the message to a new receiver
-     */
-    public void addReceiver(final String receiverId) {
-        this.receiverIds.add(receiverId);
-    }
-
-    /**
      * the toString method for Message
      *
      * @return a String representation of Message that contains the senderId, receiverIds, the content in this message
      * and the time when it is sent and received
      */
     public String toString(){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         return "Sender Name: "+ this.senderId +"\n" +
-                "Time: "+String.valueOf(this.messageTime)+
-                "\n" + "The Attending Users: "+ this.receiverIds +
+                "Time: "+String.valueOf(dtf.format(this.messageTime))+
+                "\n" + "The Attending User: "+ this.receiverId +
                 "\n" + getContent();
     }
 }
