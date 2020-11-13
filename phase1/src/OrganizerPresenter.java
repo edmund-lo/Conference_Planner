@@ -34,6 +34,19 @@ public abstract class OrganizerPresenter extends LoginPresenter {
     public void successfulSpeakerAddition() {
         System.out.println("This speaker was successfully added to this event!");
     }
+
+    public static void displayMenu(){
+        System.out.println("Select Option " +
+                "\n 1. Logout" +
+                "\n 2. Sign Up for Events" +
+                "\n 3. Cancel Events" +
+                "\n 4. Message Menu" +
+                "\n 5. Message All Attendees" +
+                "\n 6. Message All Speakers" +
+                "\n 7. Schedule a Speaker" +
+                "\n 8. Create a Room");
+    }
+
     public void messagedAllSpeakers() {
         System.out.println("Successfully sent message to all speakers.");
     }
