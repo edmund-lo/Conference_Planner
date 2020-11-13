@@ -72,7 +72,7 @@ public class Message {
      * @return the send and receive time of this message
      */
     public LocalDateTime getMessageTime() {
-        return (LocalDateTime) this.messageTime;
+        return this.messageTime;
     }
 
     /**

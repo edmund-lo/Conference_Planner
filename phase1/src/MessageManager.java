@@ -72,7 +72,7 @@ public class MessageManager implements Serializable {
      * return the created message
      */
 
-    public String createMessage(String senderId, String receiverId, String content) {
+    public String createMessage(String receiverId, String senderId, String content) {
         String messageId;
         do {
             messageId = UUID.randomUUID().toString();
@@ -94,8 +94,8 @@ public class MessageManager implements Serializable {
      * Return the messageId that is created
      */
 
-    public String sendMessage(String content, String senderId, String receiverId){
-        return createMessage(content, senderId, receiverId);
+    public String sendMessage(String receiverId, String senderId, String content){
+        return createMessage(receiverId, senderId, content);
     }
 
 }
