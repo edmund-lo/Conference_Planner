@@ -47,6 +47,9 @@ public class SpeakerController extends UserController {
                 case 4:
                     messageEventsAttendeesCmd();
                     break;
+                case 5:
+                    getSpeakerEvents();
+                    break;
                 default:
                     System.out.println("Please enter a valid option!");
                     break;
