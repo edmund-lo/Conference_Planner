@@ -15,7 +15,7 @@ public interface GatewayInterface extends Serializable {
 
     String directoryName = "https://markus.teach.cs.toronto.edu/git/csc207-2020-09/group_0143/phase1/src";
     void serializeData (Object T) throws FileNotFoundException;
-    abstract <T> List<T> deserializeData();
+    abstract Object <T> deserializeData();
 
 }
 
