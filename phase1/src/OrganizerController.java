@@ -205,6 +205,7 @@ public class OrganizerController extends UserController {
             return false;
         }
         em.addSpeakerToEvent(speakerName, eventId);
+        um.addSpeakerEvent(speakerName, eventId, start, end);
         System.out.println("Successfully added speaker to selected event.");
         return true;
     }
