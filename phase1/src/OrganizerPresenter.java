@@ -4,7 +4,7 @@ public abstract class OrganizerPresenter extends LoginPresenter {
     public void messageWho(){
         System.out.println("Press the corresponding number for who you would like to receive a message. \nType \"1\" to message all Speakers "
                 +
-                "\nType \"2\" to message all Attendees. \n If not, press enter to continue");
+                "\"2\" to message all Attendees. \n If not, press enter to continue");
     }
     //messageAllSpeakersCmd should interact with this
     public void writeMessage() {
@@ -22,6 +22,5 @@ public abstract class OrganizerPresenter extends LoginPresenter {
     public void enterSpeaker() {
         System.out.println("Enter the speaker's name: ");
     }
-
 
 }

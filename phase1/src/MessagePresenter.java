@@ -10,6 +10,6 @@ public abstract class MessagePresenter extends LoginPresenter {
     public void specifyReceiverOfMessage() {
         System.out.println("Enter \"1\" if you would like to send a message to a Speaker. " +
                 "\n Press \"2\" to send a message to an Attendee." +
-                "Press \"3\" to send a message to All Speakers. \n Press \"4\" to send a message to All Attendees.");
+                "\n Press \"3\" to send a message to All Speakers. \n Press \"4\" to send a message to All Attendees.");
     }
 }
