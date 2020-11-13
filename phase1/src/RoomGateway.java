@@ -78,7 +78,6 @@ public class RoomGateway implements GatewayInterface<RoomManager>, Serializable 
 //        rg.serializeData(rm);
 //        RoomManager rr = rg.deserializeData();
 
-    }
-
-
 }
+
+

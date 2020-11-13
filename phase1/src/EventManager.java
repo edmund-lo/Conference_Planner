@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,13 +8,12 @@ import java.util.UUID;
 /**
  * Helper that manages all interaction with the Event classes and ensures no rules are broken.
  */
-public class EventManager{
+public class EventManager implements Serializable {
     private HashMap<String, Event> allEvents;
 
     /**
-     * Constructor for EventManager
+     * Constructor for EventManager. Just initializes an empty hashmap
      *
-     * @param allEvents A hashmap where the values are events and the keys are the IDs to each respective Event
      */
     public EventManager(){
         this.allEvents = new HashMap<String, Event>();
@@ -129,11 +129,10 @@ public class EventManager{
     /**
      * checks to see if speaker with ID speakerID can be added to event with ID eventID
      *
-     * @param speakerID the ID of the speaker
      * @param eventID the ID of the event
      * @return True iff the speaker was successfully added to the event with ID eventID
      */
-    public boolean canAddSpeakerToEvent(String speakerID, String eventID){
+    public boolean canAddSpeakerToEvent(String eventID){
         return eventExists(eventID) && allEvents.get(eventID).getSpeakerID() == null;
     }
 
@@ -157,9 +156,9 @@ public class EventManager{
     }
 
     /**
-     * For getting the list of all events with corresponding IDs
+     * Getter for a list of IDs of all events
      *
-     * @return allEvents
+     * @return An arraylist with all of the IDs of the events in allEvents
      */
     public ArrayList<String> getAllEventIds() {
         return new ArrayList<>(allEvents.keySet());
