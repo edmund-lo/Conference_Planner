@@ -1,4 +1,6 @@
-
+import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
 public abstract class OrganizerPresenter {
 
     //interacts with messageAllSpeakers and messageAllAttendees
@@ -57,6 +59,13 @@ public abstract class OrganizerPresenter {
     public void InvalidRoomCreation() {System.out.println("Unable to create new " +
             "room: room name was not unique.");}
     public void successfulRoomCreation() {System.out.println("Successfully created new room.");}
-    //TODO: Do this by displaying the list of events
-    public void viewEvents() {System.out.println("Here are the list of events: ");}
+    //Iterates over the list of events and prints them.
+    public void viewEvents(List<String> e) {
+
+        System.out.println("Here are the list of events: ");
+        for (int i = 0;  i < e.size(); i++) {
+            System.out.println(e.get(i));
+        }
+
+    }
 }
