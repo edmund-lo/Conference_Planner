@@ -108,10 +108,8 @@ public abstract class UserController {
                 }
                 System.out.println("Type in your message below: ");
                 content = input.next();
-                if (um.getUserByUsername(name) instanceof Attendee)
-                    messageSingleAttendee(name, content);
-                else if (um.getUserByUsername(name) instanceof Speaker)
-                    messageSingleSpeaker(name, content);
+                if (um.getUserByUsername(name) instanceof Attendee || um.getUserByUsername(name) instanceof Speaker)
+                    sendMessage(name, content);
                 else
                     System.out.println("You cannot message an organizer.");
 
@@ -251,29 +249,14 @@ public abstract class UserController {
      *
      *@return returns true if the message was sent successfully.
      */
-    public boolean messageSingleAttendee(String recipientName, String content) {
-        String messageId = mm.sendToAttendee(recipientName, username, content);
+    public boolean sendMessage(String recipientName, String content) {
+        String messageId = mm.sendMessage(recipientName, username, content);
         addMessagesToUser(recipientName, messageId);
 
         System.out.println("Message sent to " + recipientName);
         return true;
     }
 
-    /**
-     *Sends a message to a speaker.
-     *
-     *@param  recipientName username of the Speaker the message is for.
-     *@param  content the contents of the message being sent.
-     *
-     *@return returns true if the message was sent successfully.
-     */
-    public boolean messageSingleSpeaker(String recipientName, String content) {
-        String messageId = mm.sendToSpeaker(recipientName, username, content);
-        addMessagesToUser(recipientName, messageId);
-
-        System.out.println("Message sent to " + recipientName);
-        return true;
-    }
 
     /**
      *logs the user out of the program
