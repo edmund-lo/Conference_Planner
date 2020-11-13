@@ -24,7 +24,7 @@ public class AttendeeController extends UserController {
         boolean inSession = true;
         while(inSession) {
             AttendeePresenter.displayMenu();
-            int option = parseInt(sc.nextLine());
+            int option = parseInt(input.nextLine());
             switch(option) {
                 case 0:
                     logout();
