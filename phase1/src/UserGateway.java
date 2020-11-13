@@ -44,7 +44,6 @@ public class UserGateway implements GatewayInterface, Serializable {
     public UserManager deserializeData() {
         UserManager um = new UserManager();
         try {
-            UserManager um = null;
             File new_file2 = new File(fileName);
             //
             FileInputStream file2 = new FileInputStream(new_file2);
