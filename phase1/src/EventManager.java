@@ -133,7 +133,7 @@ public class EventManager{
      * @param eventID the ID of the event
      * @return True iff the speaker was successfully added to the event with ID eventID
      */
-    public boolean canAddSpeakerToEvent(String speakerID, String eventID){
+    public boolean canAddSpeakerToEvent(String eventID){
         return eventExists(eventID) && allEvents.get(eventID).getSpeakerID() == null;
     }
 

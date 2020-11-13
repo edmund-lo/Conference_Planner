@@ -200,7 +200,7 @@ public class OrganizerController extends UserController {
     public boolean scheduleSpeaker(String speakerName, String eventId) {
         LocalDateTime start = em.getEventById(eventId).getStartTime();
         LocalDateTime end = em.getEventById(eventId).getEndTime();
-        if (!em.canAddSpeakerToEvent(speakerName, eventId)) {
+        if (!em.canAddSpeakerToEvent(eventId)) {
             System.out.println("Another speaker is already speaking at this event.");
             return false;
         } else if (!um.canAddSpeakerEvent(speakerName, eventId, start, end)) {
