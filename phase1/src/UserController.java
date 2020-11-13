@@ -94,6 +94,10 @@ public abstract class UserController {
             else if(option == 1){
                 String name;
                 String content;
+                System.out.println("Here is a list of all users you can message: ");
+                for (String x : getAllMessageableUsers()) {
+                    System.out.println(x);
+                }
                 while(true) {
                     System.out.println("Type in the user you wish to message: ");
                     name = input.next();
@@ -122,6 +126,21 @@ public abstract class UserController {
         }
     }
 
+    /**
+     *Returns list of users that the user can send messages to.
+     *
+     *@return list of speakers and attendees in a string format
+     */
+    public List<String> getAllMessageableUsers(){
+        HashMap<String, User> users = um.getAllUsers();
+        ArrayList<String> usernames = new ArrayList<>();
+        for (User u: users.values()){
+            if(u instanceof Speaker||u instanceof Organizer && u.getUsername().equals(username))
+                usernames.add(u.toString());
+        }
+
+        return usernames;
+    }
     /**
      *Called when user signs up for an event.
      * @param  eventId id of the event user is signing up for.
