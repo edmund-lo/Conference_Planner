@@ -45,7 +45,7 @@ public class MessageManager{
      */
 
     public List<String> messageContents(){
-        for (Message message : allMessages.values()){
+        for (Message message : this.allMessages.values()){
             this.allContents.add(message.toString());
         }
         return this.allContents;
@@ -79,7 +79,7 @@ public class MessageManager{
             messageId = UUID.randomUUID().toString();
         } while(messageExists(messageId));
         Message newMessage = new Message(content, senderId, messageId, receiverIds, messageTime);
-        allMessages.put(newMessage.getMessageID(), newMessage);
+        this.allMessages.put(newMessage.getMessageID(), newMessage);
         this.allContents.add(newMessage.toString());
         return messageId;
     }
