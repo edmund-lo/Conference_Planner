@@ -43,7 +43,7 @@ public class MessageGateway implements GatewayInterface<MessageManager>, Seriali
      * TODO: JAVADOC
      * @return
      */
-    public MessageManager deserializeData() throws IOException, ClassNotFoundException {
+    public MessageManager deserializeData() throws IOException{
         MessageManager mm = new MessageManager();
         try {
             File new_file2 = new File(fileName);
