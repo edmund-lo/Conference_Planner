@@ -22,5 +22,25 @@ public abstract class OrganizerPresenter extends LoginPresenter {
     public void enterSpeaker() {
         System.out.println("Enter the speaker's name: ");
     }
+    //There is already another speaker speaking at this event.
+    public void invalidSpeakerAnotherSpeakerAtThisEvent() {
+        System.out.println("Another speaker is already speaking at this event.");
+    }
+    //Speaker is already speaking at another event
+    public void invalidSpeakerSpeakingAtAnotherEvent() {
+        System.out.println("This speaker is already speaking at another event.");
+    }
 
+    public void successfulSpeakerAddition() {
+        System.out.println("This speaker was successfully added to this event!");
+    }
+    public void messagedAllSpeakers() {
+        System.out.println("Successfully sent message to all speakers.");
+    }
+    public void messagedAllAttendees() {
+        System.out.println("Successfully sent message to all attendees.");
+    }
+    public void InvalidRoomCreation() {System.out.println("Unable to create new " +
+            "room: room name was not unique.");}
+    public void successfulRoomCreation() {System.out.println("Successfully created new room.");}
 }
