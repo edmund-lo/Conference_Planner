@@ -45,8 +45,8 @@ public class RoomGateway implements GatewayInterface, Serializable {
      * it to a Room Manager object
      * @return Room Manager object
      */
-    public HashMap<String, Room> deserializeData() {
-
+    public RoomManager deserializeData() {
+        //RoomManager rm;
         try {
             RoomManager rm = null;
             File new_file2 = new File(fileName);
@@ -57,7 +57,7 @@ public class RoomGateway implements GatewayInterface, Serializable {
             rm = (RoomManager) input.readObject();
             file2.close();
             input.close();
-
+            return rm;
         }
         catch (FileNotFoundException e) {
             System.out.println("File not Found!!");
@@ -68,14 +68,13 @@ public class RoomGateway implements GatewayInterface, Serializable {
         catch (ClassNotFoundException e) {
             System.out.println("Room Manager Class was not found");
         }
-
-
+        return null;
     }
     public static void main(String[] args) {
         RoomGateway rg = new RoomGateway();
         Room r = new Room();
         RoomManager rm = new RoomManager();
-        rm.createRoom("RoomManage", r);
+        rm.createRoom("RoomManager", r);
         rg.serializeData(rm);
         RoomManager rr = rg.deserializeData();
 
