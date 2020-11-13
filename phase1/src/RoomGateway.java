@@ -46,8 +46,8 @@ public class RoomGateway implements GatewayInterface, Serializable {
      * @return Room Manager object
      */
     public RoomManager deserializeData() {
-        //RoomManager rm;
-        RoomManager rm = null;
+
+        RoomManager rm = new RoomManager();
         try {
 
             File new_file2 = new File(fileName);
