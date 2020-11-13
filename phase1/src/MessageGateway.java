@@ -65,7 +65,6 @@ public class MessageGateway implements GatewayInterface, Serializable {
         catch (ClassNotFoundException e) {
             System.out.println("Message Manager Class was not found");
         }
-        return null;
 
     }
 
