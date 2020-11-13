@@ -65,14 +65,14 @@ public class UserGateway implements GatewayInterface, Serializable {
         }
         return um;
     }
-    public static void main(String[] args) {
-        //TODO: CREATE TEST CASES
-        EventGateway eg = new EventGateway();
-        Event e = new Event();
-        EventManager em = new EventManager();
-        em.("RoomManage", r);
-        rg.serializeData(rm);
-        RoomManager rr = rg.deserializeData();
+//    public static void main(String[] args) {
+//        //TODO: CREATE TEST CASES
+//        EventGateway eg = new EventGateway();
+//        Event e = new Event();
+//        EventManager em = new EventManager();
+//        em.("RoomManage", r);
+//        rg.serializeData(rm);
+//        RoomManager rr = rg.deserializeData();
 
     }
 

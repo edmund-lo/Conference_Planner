@@ -69,6 +69,7 @@ public class RoomGateway implements GatewayInterface, Serializable {
         catch (ClassNotFoundException e) {
             System.out.println("Room Manager Class was not found");
         }
+
         return rm;
     }
 //    public static void main(String[] args) {

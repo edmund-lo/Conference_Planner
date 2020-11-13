@@ -67,14 +67,14 @@ public class EventGateway implements GatewayInterface, Serializable {
         return em;
     }
 
-    public static void main(String[] args) {
-        //TODO: CREATE TEST CASES
-        EventGateway eg = new EventGateway();
-        Event e = new Event("Name", "eventID123", "SpeakerID123",);
-        EventManager em = new EventManager();
-        em.("", r);
-        rg.serializeData(rm);
-        RoomManager rr = rg.deserializeData();
+//    public static void main(String[] args) {
+//        //TODO: CREATE TEST CASES
+//        EventGateway eg = new EventGateway();
+//        Event e = new Event("Name", "eventID123", "SpeakerID123",);
+//        EventManager em = new EventManager();
+//        em.("", r);
+//        rg.serializeData(rm);
+//        RoomManager rr = rg.deserializeData();
 
     }
 
