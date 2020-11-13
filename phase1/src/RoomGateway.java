@@ -1,14 +1,7 @@
-//import java.io.FileOutputStream;
-//import java.io.FileInputStream;
-//import java.io.Serializable;
-//import java.io.IOException;
-//import java.io.ObjectOutputStream;
-//import java.io.File;
-//import java.io.ObjectInputStream;
+
 import java.io.*;
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.List;
+
 public class RoomGateway implements GatewayInterface<RoomManager>, Serializable {
     /**
      * Serial extension file rgt_save which stores serialized and

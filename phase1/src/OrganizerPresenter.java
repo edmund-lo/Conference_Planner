@@ -38,14 +38,14 @@ public abstract class OrganizerPresenter {
 
     public static void displayMenu(){
         System.out.println("Select Option " +
-                "\n 1. Logout" +
-                "\n 2. Sign Up for Events" +
-                "\n 3. Cancel Events" +
-                "\n 4. Message Menu" +
-                "\n 5. Message All Attendees" +
-                "\n 6. Message All Speakers" +
-                "\n 7. Schedule a Speaker" +
-                "\n 8. Create a Room");
+                "\n 0. Logout" +
+                "\n 1. Sign Up for Events" +
+                "\n 2. Cancel Events" +
+                "\n 3. Message Menu" +
+                "\n 4. Message All Attendees" +
+                "\n 5. Message All Speakers" +
+                "\n 6. Schedule a Speaker" +
+                "\n 7. Create a Room");
     }
 
     public void messagedAllSpeakers() {
@@ -57,5 +57,6 @@ public abstract class OrganizerPresenter {
     public void InvalidRoomCreation() {System.out.println("Unable to create new " +
             "room: room name was not unique.");}
     public void successfulRoomCreation() {System.out.println("Successfully created new room.");}
-    public void viewEvents() {System.out.println("");}
+    //TODO: Do this by displaying the list of events
+    public void viewEvents() {System.out.println("Here are the list of events: ");}
 }
