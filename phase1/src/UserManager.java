@@ -1,9 +1,10 @@
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class UserManager {
+public class UserManager{
     private HashMap<String, User> allUsers;
 
     public UserManager(HashMap<String, User> allUsers) {
