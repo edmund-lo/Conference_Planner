@@ -9,8 +9,18 @@ public class AttendeeController extends UserController {
             AttendeePresenter.displayMenu();
             int option = parseInt(sc.nextLine());
             switch(option) {
+                case 0:
+                    logout();
+                    inSession = false;
+                    break;
                 case 1:
-
+                    signUpMenu();
+                    break;
+                case 2:
+                    cancelMenu();
+                    break;
+                case 3:
+                    messageMenu();
                     break;
                 default:
                     System.out.println("Please enter a valid option!");
