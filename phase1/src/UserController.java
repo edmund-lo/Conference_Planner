@@ -191,11 +191,9 @@ public abstract class UserController {
      *@return list of all events in the conference in a string format
      */
     public List<String> getAllEvents(){
-        HashMap<String, Event> events = em.getAllEvents();
         ArrayList<String> eventDesc = new ArrayList<>();
-        ArrayList<String> eventiDs = em.getAllEventIds();
-        for (String iD : eventiDs){
-            eventDesc.add(events.get(iD).toString());
+        for (String id : em.getAllEventIds()){
+            eventDesc.add(em.getAllEvents().get(id).toString());
         }
 
         return eventDesc;
@@ -207,10 +205,9 @@ public abstract class UserController {
      *@return list of all messages the user recieved in string format
      */
     public List<String> getAllMessages(){
-        HashMap<String, Message> messages = mm.getAllMessages();
         ArrayList<String> messageStrings = new ArrayList<>();
         for (String iD: um.getUserByUsername(username).getMessageIDs()){
-            messageStrings.add(messages.get(iD).toString());
+            messageStrings.add(mm.getAllMessages().get(iD).toString());
         }
 
         return messageStrings;
