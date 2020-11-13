@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.io.*;import java.io.*;
+import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 public class UserGateway implements GatewayInterface, Serializable {
@@ -65,7 +65,6 @@ public class UserGateway implements GatewayInterface, Serializable {
         catch (ClassNotFoundException e) {
             System.out.println("Room Manager Class was not found");
         }
-        return null;
     }
     public static void main(String[] args) {
         //TODO: CREATE TEST CASES

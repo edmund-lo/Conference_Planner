@@ -63,7 +63,6 @@ public class EventGateway implements GatewayInterface, Serializable {
         catch (ClassNotFoundException e) {
             System.out.println("Event Manager Class was not found");
         }
-        return null;
     }
 
     public static void main(String[] args) {
