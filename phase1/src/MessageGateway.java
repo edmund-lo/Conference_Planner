@@ -44,6 +44,7 @@ public class MessageGateway implements GatewayInterface, Serializable {
      * @return
      */
     public MessageManager deserializeData() throws IOException, ClassNotFoundException {
+        MessageManager mm = new MessageManager();
         try {
             MessageManager mm = null;
             File new_file2 = new File(fileName);
@@ -65,6 +66,7 @@ public class MessageGateway implements GatewayInterface, Serializable {
         catch (ClassNotFoundException e) {
             System.out.println("Message Manager Class was not found");
         }
+        return mm;
 
     }
 

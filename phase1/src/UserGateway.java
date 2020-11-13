@@ -21,7 +21,6 @@ public class UserGateway implements GatewayInterface, Serializable {
      * @catch FileNotFoundException
      */
     public void serializeData(UserManager um) {
-
         try {
             File new_file = new File(fileName);
             FileOutputStream store_file = new FileOutputStream(new_file);
@@ -36,7 +35,6 @@ public class UserGateway implements GatewayInterface, Serializable {
         catch (IOException e){
             System.out.println("IO Exception Raised!!");
         }
-
     }
 
     /**
@@ -44,6 +42,7 @@ public class UserGateway implements GatewayInterface, Serializable {
      * @return
      */
     public UserManager deserializeData() {
+        UserManager um = new UserManager();
         try {
             UserManager um = null;
             File new_file2 = new File(fileName);
@@ -65,6 +64,7 @@ public class UserGateway implements GatewayInterface, Serializable {
         catch (ClassNotFoundException e) {
             System.out.println("Room Manager Class was not found");
         }
+        return um;
     }
     public static void main(String[] args) {
         //TODO: CREATE TEST CASES
