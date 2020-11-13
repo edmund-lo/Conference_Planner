@@ -3,7 +3,7 @@ import java.util.List;
 import java.io.*;
 import java.util.HashMap;
 import java.util.List;
-public class UserGateway implements GatewayInterface, Serializable {
+public class UserGateway implements GatewayInterface<UserManager>, Serializable {
     /**
      * TODO: JAVADOC
      * @return

@@ -9,7 +9,7 @@ import java.io.*;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
-public class RoomGateway implements GatewayInterface, Serializable {
+public class RoomGateway implements GatewayInterface<RoomManager>, Serializable {
     /**
      * Serial extension file rgt_save which stores serialized and
      * deserialized data
