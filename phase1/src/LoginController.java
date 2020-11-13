@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 
 public class LoginController extends LoginPresenter  {
-    private final ArrayList<String[]> Accounts;
+    private ArrayList<String[]> Accounts;
     private Scanner sc;
     protected UserManager um;
     protected RoomManager rm;
@@ -55,8 +55,23 @@ public class LoginController extends LoginPresenter  {
         LoginPresenter.AccountType();
         type = sc.nextLine();
 
+        switch(type){
+            case "o":
+                um.createNewOrganizer(Username, Password);
+                Accounts = um.getAccountInfo();
+                break;
+            case "a":
+                um.createNewAttendee(Username, Password);
+                Accounts = um.getAccountInfo();
+                break;
+            case "s":
+                um.createNewSpeaker(Username, Password);
+                Accounts = um.getAccountInfo();
+                break;
+            default:
+                System.out.println("Please enter a valid option");
+        }
 
-        Accounts.add(new String[] {Username, Password, type});
     }
 
     public void login(){
