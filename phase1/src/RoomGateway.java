@@ -1,54 +1,83 @@
+//import java.io.FileOutputStream;
+//import java.io.FileInputStream;
+//import java.io.Serializable;
+//import java.io.IOException;
+//import java.io.ObjectOutputStream;
+//import java.io.File;
+//import java.io.ObjectInputStream;
 import java.io.*;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 public class RoomGateway implements GatewayInterface, Serializable {
     /**
-     *
+     * Serial extension file rgt_save which stores serialized and
+     * deserialized data
      */
-    public String fileName = "rgt_save.txt";
-
-    public RoomGateway() {
-        //File new_file = new File("rgt_test.txt");
-    }
+    public String fileName = "rgt_save.ser";
 
     /**
      * This method serializes an inputted Room Manager's list of rooms
      * @param rm
-     * @throws IOException
+     * @catch FileNotFoundException
+     * @catch IOException
      */
-    public void serializeData(RoomManager rm) throws IOException {
-        //RoomGateway room_g = new RoomGateway();
-        File new_file = new File(fileName);
-        //saving the file
-        FileOutputStream fos = new FileOutputStream(new_file);
-        //converts file1 to binary object
-        ObjectOutputStream serialized_f = new ObjectOutputStream(fos);
-        //write to the object serializing
-        serialized_f.writeObject(rm);
+    public void serializeData(RoomManager rm) {
 
-        serialized_f.close();
-        fos.close();
-        //confirm success
-        System.out.println("successfully saved!");
-        System.out.println(serialized_f);
-
+        try {
+            File new_file = new File(fileName);
+            FileOutputStream store_file = new FileOutputStream(new_file);
+            ObjectOutputStream conv_obj = new ObjectOutputStream(store_file);
+            conv_obj.writeObject((RoomManager) rm);
+            conv_obj.close();
+            store_file.close();
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("File not Found!!");
+        }
+        catch (IOException e){
+            System.out.println("IO Exception Raised!!");
+        }
     }
 
-    public HashMap<String, Room> deserializeData() throws IOException, ClassNotFoundException {
+    /**
+     * This method deserializes the given serialized file, and converts
+     * it to a Room Manager object
+     * @return Room Manager object
+     */
+    public HashMap<String, Room> deserializeData() {
+
+        try {
+            RoomManager rm = null;
+            File new_file2 = new File(fileName);
+            //
+            FileInputStream file2 = new FileInputStream(new_file2);
+            ObjectInputStream input = new ObjectInputStream(file2);
+
+            rm = (RoomManager) input.readObject();
+            file2.close();
+            input.close();
+
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("File not Found!!");
+        }
+        catch (IOException e){
+            System.out.println("IO Exception Raised!!");
+        }
+        catch (ClassNotFoundException e) {
+            System.out.println("Room Manager Class was not found");
+        }
 
 
-        //File new_file = new File(fileName);
-        FileInputStream file2 = new FileInputStream(fileName);
-        ObjectInputStream input = new ObjectInputStream(file2);
-
-        deserialized_rm = (RoomManager)input.readObject();
-        input.close();
-        file2.close();
-
-        System.out.println("Successfully deserialized");
-        System.out.println(deserialized_rm);
-
-
+    }
+    public static void main(String[] args) {
+        RoomGateway rg = new RoomGateway();
+        Room r = new Room();
+        RoomManager rm = new RoomManager();
+        rm.createRoom("RoomManage", r);
+        rg.serializeData(rm);
+        RoomManager rr = rg.deserializeData();
 
     }
 
