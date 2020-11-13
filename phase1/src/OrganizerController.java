@@ -112,7 +112,7 @@ public class OrganizerController extends UserController {
     public boolean messageAllSpeakers(String message) {
         List<String> speakerNames = um.getAllSpeakerNames();
         for (String name : speakerNames) {
-            String messageId = mm.sendToSpeaker(name, username, message);
+            String messageId = mm.sendMessage(name, username, message);
             addMessagesToUser(name, messageId);
         }
         System.out.println("Successfully sent message to all speakers.");
@@ -138,7 +138,7 @@ public class OrganizerController extends UserController {
         Set<String> attendeeNames = um.getAllUsers().keySet();
         for (String name : attendeeNames) {
             if (!name.equals(username)) {
-                String messageId = mm.sendToAttendee(name, username, message);
+                String messageId = mm.sendMessage(name, username, message);
                 addMessagesToUser(name, messageId);
             }
         }

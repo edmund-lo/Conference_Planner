@@ -94,6 +94,10 @@ public abstract class UserController {
             else if(option == 1){
                 String name;
                 String content;
+                System.out.println("Here is a list of all users you can message: ");
+                for (String x : getAllMessageableUsers()) {
+                    System.out.println(x);
+                }
                 while(true) {
                     System.out.println("Type in the user you wish to message: ");
                     name = input.next();
@@ -104,10 +108,8 @@ public abstract class UserController {
                 }
                 System.out.println("Type in your message below: ");
                 content = input.next();
-                if (um.getUserByUsername(name) instanceof Attendee)
-                    messageSingleAttendee(name, content);
-                else if (um.getUserByUsername(name) instanceof Speaker)
-                    messageSingleSpeaker(name, content);
+                if (um.getUserByUsername(name) instanceof Attendee || um.getUserByUsername(name) instanceof Speaker)
+                    sendMessage(name, content);
                 else
                     System.out.println("You cannot message an organizer.");
 
@@ -122,6 +124,21 @@ public abstract class UserController {
         }
     }
 
+    /**
+     *Returns list of users that the user can send messages to.
+     *
+     *@return list of speakers and attendees in a string format
+     */
+    public List<String> getAllMessageableUsers(){
+        HashMap<String, User> users = um.getAllUsers();
+        ArrayList<String> usernames = new ArrayList<>();
+        for (User u: users.values()){
+            if(u instanceof Speaker||u instanceof Organizer && u.getUsername().equals(username))
+                usernames.add(u.toString());
+        }
+
+        return usernames;
+    }
     /**
      *Called when user signs up for an event.
      * @param  eventId id of the event user is signing up for.
@@ -232,29 +249,14 @@ public abstract class UserController {
      *
      *@return returns true if the message was sent successfully.
      */
-    public boolean messageSingleAttendee(String recipientName, String content) {
-        String messageId = mm.sendToAttendee(recipientName, username, content);
+    public boolean sendMessage(String recipientName, String content) {
+        String messageId = mm.sendMessage(recipientName, username, content);
         addMessagesToUser(recipientName, messageId);
 
         System.out.println("Message sent to " + recipientName);
         return true;
     }
 
-    /**
-     *Sends a message to a speaker.
-     *
-     *@param  recipientName username of the Speaker the message is for.
-     *@param  content the contents of the message being sent.
-     *
-     *@return returns true if the message was sent successfully.
-     */
-    public boolean messageSingleSpeaker(String recipientName, String content) {
-        String messageId = mm.sendToSpeaker(recipientName, username, content);
-        addMessagesToUser(recipientName, messageId);
-
-        System.out.println("Message sent to " + recipientName);
-        return true;
-    }
 
     /**
      *logs the user out of the program

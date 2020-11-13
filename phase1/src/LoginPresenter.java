@@ -10,8 +10,10 @@ public abstract class LoginPresenter {
     }
 
     public static void AccountType(){
-        System.out.println("What is the account type? Press:\n \"o\" for Organizer" +
-                "\n\"a\" for Attendee\n\"s\" for Speaker");
+        System.out.println("What is the account type? Press:" +
+                "\n\"o\" for Organizer" +
+                "\n\"a\" for Attendee" +
+                "\n\"s\" for Speaker");
     }
 
     public static void EnterPassword(){
