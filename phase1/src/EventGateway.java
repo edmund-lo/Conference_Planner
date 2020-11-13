@@ -20,7 +20,7 @@ public class EventGateway implements GatewayInterface<EventManager>, Serializabl
      * @catch IOException
      */
 
-    public void serializeData(EventManager em) throws FileNotFoundException, IOException {
+    public void serializeData(EventManager em){
 
         try {
             File new_file = new File(fileName);
