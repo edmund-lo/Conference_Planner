@@ -25,8 +25,25 @@ public class ProjectConfig {
         MessageManager mm = mg.deserializeData();
         EventManager em = eg.deserializeData();
 
+        Scanner sc = new Scanner(System.in);
+
         LoginController lc = new LoginController(um, rm, mm, em);
-        lc.login();
+        String x;
+        System.out.println("Choose:" +
+                "\n1. Login" +
+                "\n2. Create Account");
+        x = sc.nextLine();
+        switch(x){
+            case "1":
+                lc.login();
+                break;
+            case "2":
+                lc.CreateAccount();
+                break;
+            default:
+                System.out.println("Please enter a valid number.");
+
+        }
         return lc;
     }
 
