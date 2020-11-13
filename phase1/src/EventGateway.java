@@ -19,7 +19,8 @@ public class EventGateway implements GatewayInterface, Serializable {
      * @catch FileNotFoundException
      * @catch IOException
      */
-    public void serializeData(EventManager rm) {
+
+    public void serializeData(EventManager rm) throws FileNotFoundException, IOException {
 
         try {
             File new_file = new File(fileName);
@@ -75,6 +76,5 @@ public class EventGateway implements GatewayInterface, Serializable {
         RoomManager rr = rg.deserializeData();
 
     }
-
 
 }
