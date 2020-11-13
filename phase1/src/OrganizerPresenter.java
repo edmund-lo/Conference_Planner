@@ -58,5 +58,5 @@ public abstract class OrganizerPresenter {
             "room: room name was not unique.");}
     public void successfulRoomCreation() {System.out.println("Successfully created new room.");}
     //TODO: Do this by displaying the list of events
-    public void viewEvents() {System.out.println("Here ");}
+    public void viewEvents() {System.out.println("Here are the list of events: ");}
 }
