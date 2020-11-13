@@ -5,9 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 public class UserGateway implements GatewayInterface, Serializable {
     /**
-     *
+     * TODO: JAVADOC
+     * @return
      */
-    public String fileName = "ugt_save.txt";
+    public String fileName = "ugt_save.ser";
 
     public UserGateway() {
 
@@ -16,43 +17,65 @@ public class UserGateway implements GatewayInterface, Serializable {
     /**
      * This method serializes an inputted User Manager's data
      * @param um UserManager object
-     * @throws IOException
+     * @catch IOException
+     * @catch FileNotFoundException
      */
-    public void serializeData(UserManager um) throws IOException {
+    public void serializeData(UserManager um) {
 
-        File new_file = new File(fileName);
-        //saving the file
-        FileOutputStream fos = new FileOutputStream(new_file);
-        //converts file1 to binary object
-        ObjectOutputStream serialized_f = new ObjectOutputStream(fos);
-        //write to the object serializing
-        serialized_f.writeObject(um);
-
-        serialized_f.close();
-        fos.close();
-        //confirm success
-        System.out.println("successfully saved serialized UserManager!");
-        System.out.println(serialized_f);
-
-    }
-
-    public HashMap<String, User> deserializeData() throws IOException, ClassNotFoundException {
-
-
-        //File new_file = new File(fileName);
-        FileInputStream file2 = new FileInputStream(fileName);
-        ObjectInputStream input = new ObjectInputStream(file2);
-
-        deserialized_um = (UserManager)input.readObject();
-        input.close();
-        file2.close();
-
-        System.out.println("Successfully deserialized");
-        System.out.println(deserialized_um);
-
-
+        try {
+            File new_file = new File(fileName);
+            FileOutputStream store_file = new FileOutputStream(new_file);
+            ObjectOutputStream conv_obj = new ObjectOutputStream(store_file);
+            conv_obj.writeObject((UserManager) um);
+            conv_obj.close();
+            store_file.close();
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("File not Found!!");
+        }
+        catch (IOException e){
+            System.out.println("IO Exception Raised!!");
+        }
 
     }
 
+    /**
+     * TODO: JAVADOC
+     * @return
+     */
+    public UserManager deserializeData() {
+        try {
+            UserManager um = null;
+            File new_file2 = new File(fileName);
+            //
+            FileInputStream file2 = new FileInputStream(new_file2);
+            ObjectInputStream input = new ObjectInputStream(file2);
+
+            um = (UserManager) input.readObject();
+            file2.close();
+            input.close();
+            return um;
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("File not Found!!");
+        }
+        catch (IOException e){
+            System.out.println("IO Exception Raised!!");
+        }
+        catch (ClassNotFoundException e) {
+            System.out.println("Room Manager Class was not found");
+        }
+        return null;
+    }
+    public static void main(String[] args) {
+        //TODO: CREATE TEST CASES
+        EventGateway eg = new EventGateway();
+        Event e = new Event();
+        EventManager em = new EventManager();
+        em.("RoomManage", r);
+        rg.serializeData(rm);
+        RoomManager rr = rg.deserializeData();
+
+    }
 
 }
