@@ -69,13 +69,12 @@ public class RoomGateway implements GatewayInterface, Serializable {
             System.out.println("Room Manager Class was not found");
         }
     }
-    public static void main(String[] args) {
-        RoomGateway rg = new RoomGateway();
-        Room r = new Room();
-        RoomManager rm = new RoomManager();
-        rm.createRoom("RoomManager", r);
-        rg.serializeData(rm);
-        RoomManager rr = rg.deserializeData();
+//    public static void main(String[] args) {
+//        RoomGateway rg = new RoomGateway();
+//        Room r = new Room("");
+//        RoomManager rm = new RoomManager();
+//        rg.serializeData(rm);
+//        RoomManager rr = rg.deserializeData();
 
     }
 
