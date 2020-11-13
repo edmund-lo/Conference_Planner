@@ -63,7 +63,10 @@ public class MessageGateway implements GatewayInterface<MessageManager>, Seriali
         catch (ClassNotFoundException e) {
             System.out.println("Message Manager Class was not found");
         }
-        return mm;
+        finally {
+            return mm;
+        }
+
 
     }
 //

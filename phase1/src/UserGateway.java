@@ -63,7 +63,9 @@ public class UserGateway implements GatewayInterface<UserManager>, Serializable 
         catch (ClassNotFoundException e) {
             System.out.println("Room Manager Class was not found");
         }
-        return um;
+        finally {
+            return um;
+        }
     }
 //    public static void main(String[] args) {
 //        //TODO: CREATE TEST CASES
