@@ -31,8 +31,21 @@ public class SpeakerController extends UserController {
             SpeakerPresenter.displayMenu();
             int option = parseInt(sc.nextLine());
             switch(option) {
+                case 0:
+                    logout();
+                    inSession = false;
+                    break;
                 case 1:
-
+                    signUpMenu();
+                    break;
+                case 2:
+                    cancelMenu();
+                    break;
+                case 3:
+                    messageMenu();
+                    break;
+                case 4:
+                    messageEventsAttendeesCmd();
                     break;
                 default:
                     System.out.println("Please enter a valid option!");

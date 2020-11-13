@@ -31,8 +31,30 @@ public class OrganizerController extends UserController {
             OrganizerPresenter.displayMenu();
             int option = parseInt(sc.nextLine());
             switch(option) {
+                case 0:
+                    logout();
+                    inSession = false;
+                    break;
                 case 1:
-
+                    signUpMenu();
+                    break;
+                case 2:
+                    cancelMenu();
+                    break;
+                case 3:
+                    messageMenu();
+                    break;
+                case 4:
+                    createSpeakerAccountCmd();
+                    break;
+                case 5:
+                    messageAllAttendeesCmd();
+                    break;
+                case 6:
+                    scheduleSpeakerCmd();
+                    break;
+                case 7:
+                    createRoomCmd();
                     break;
                 default:
                     System.out.println("Please enter a valid option!");

@@ -38,7 +38,7 @@ public class Message {
      * @return The ID of the message which is generated randomly in the manager
      */
     public String getMessageID() {
-        return messageId;
+        return this.messageId;
     }
 
     /**
@@ -47,7 +47,7 @@ public class Message {
      * @return The ID of the user who send this message
      */
     public String getSenderId() {
-        return senderId;
+        return this.senderId;
     }
 
     /**
@@ -56,7 +56,7 @@ public class Message {
      * @return An arraylist with IDs of all receivers of this message
      */
     public List<String> getReceiverIds() {
-        return receiverIds;
+        return this.receiverIds;
     }
 
     /**
@@ -65,7 +65,7 @@ public class Message {
      * @return the content of this message
      */
     public String getContent() {
-        return content;
+        return this.content;
     }
 
     /**
@@ -74,7 +74,7 @@ public class Message {
      * @return the send and receive time of this message
      */
     public LocalDateTime getMessageTime() {
-        return MessageTime;
+        return this.MessageTime;
     }
 
     /**
