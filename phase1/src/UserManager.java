@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class UserManager{
+public class UserManager implements Serializable {
     private HashMap<String, User> allUsers;
 
     public UserManager(HashMap<String, User> allUsers) {

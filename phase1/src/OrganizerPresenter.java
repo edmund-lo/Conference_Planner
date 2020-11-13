@@ -1,4 +1,5 @@
-public abstract class OrganizerPresenter extends LoginPresenter {
+
+public abstract class OrganizerPresenter {
 
     //interacts with messageAllSpeakers and messageAllAttendees
     public void messageWho(){
@@ -56,4 +57,5 @@ public abstract class OrganizerPresenter extends LoginPresenter {
     public void InvalidRoomCreation() {System.out.println("Unable to create new " +
             "room: room name was not unique.");}
     public void successfulRoomCreation() {System.out.println("Successfully created new room.");}
+    public void viewEvents() {System.out.println("");}
 }
