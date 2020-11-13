@@ -1,30 +1,28 @@
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.List;
 
 /**
  * Implementation of a message and all details about it.
  */
-public class Message {
-    private String messageId;
-    private String senderId;
-    private String content;
-    private List<String> receiverIds;
-    private LocalDateTime messageTime;
+public class Message<LocalDataTime> {
+    private final String messageId;
+    private final String senderId;
+    private final String content;
+    private final List<String> receiverIds;
+    private final LocalDataTime messageTime;
 
     /**
      * Constructor for Message
      *
      * @param content The text of this message
-     * @param messageID The randomly generated ID for this message
+     * @param messageId The randomly generated ID for this message
      * @param senderId The id of the sender of this message
      * @param receiverIds The list of ids for the receivers of this message
      * @param messageTime The time this message is sent and received
      */
 
-    public Message(String content, String senderId, String messageId,
-                 List<String> receiverIds, LocalDataTime messageTime){
+    public Message(final String content, final String senderId, final String messageId,
+                   final List<String> receiverIds, final LocalDataTime messageTime){
         this.content = content;
         this.senderId = senderId;
         this.messageId = messageId;
@@ -38,7 +36,7 @@ public class Message {
      * @return The ID of the message which is generated randomly in the manager
      */
     public String getMessageID() {
-        return this.messageId;
+        return messageId;
     }
 
     /**
@@ -47,7 +45,7 @@ public class Message {
      * @return The ID of the user who send this message
      */
     public String getSenderId() {
-        return this.senderId;
+        return senderId;
     }
 
     /**
@@ -56,7 +54,7 @@ public class Message {
      * @return An arraylist with IDs of all receivers of this message
      */
     public List<String> getReceiverIds() {
-        return this.receiverIds;
+        return receiverIds;
     }
 
     /**
@@ -65,7 +63,7 @@ public class Message {
      * @return the content of this message
      */
     public String getContent() {
-        return this.content;
+        return content;
     }
 
     /**
@@ -74,7 +72,7 @@ public class Message {
      * @return the send and receive time of this message
      */
     public LocalDateTime getMessageTime() {
-        return this.MessageTime;
+        return (LocalDateTime) messageTime;
     }
 
     /**
@@ -82,8 +80,8 @@ public class Message {
      *
      * Send the message to a new receiver
      */
-    public void addReceiver(String receiverId) {
-        this.receiverIds.append(receiverId);
+    public void addReceiver(final String receiverId) {
+        receiverIds.add(receiverId);
     }
 
     /**
@@ -93,10 +91,9 @@ public class Message {
      * and the time when it is sent and received
      */
     public String toString(){
-        return "Sender Name: "+this.senderId+"\n" +
-                "Time: "+String.valueOf(this.messageTime.getHour())+" on "+
-                String.valueOf(this.messageTime.getDayOfMonth())+"/"+String.valueOf(this.messageTime.getMonthValue())+
-                "\n" + "# of Attending Users: "+String.valueOf(this.receiverIds.size())+
-                this.getContent();
+        return "Sender Name: "+ senderId +"\n" +
+                "Time: "+String.valueOf(messageTime)+
+                "\n" + "# of Attending Users: "+ receiverIds.size() +
+                getContent();
     }
 }
