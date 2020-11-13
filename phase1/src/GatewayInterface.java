@@ -13,7 +13,7 @@ public interface GatewayInterface extends Serializable {
 
     //group_0143/phase1/src
 
-    String directoryName = "https://markus.teach.cs.toronto.edu/git/csc207-2020-09/group_0143";
+    String directoryName = "https://markus.teach.cs.toronto.edu/git/csc207-2020-09/group_0143/phase1/src";
     void serializeData () throws FileNotFoundException;
     abstract <T> List<T> unserializeData();
 

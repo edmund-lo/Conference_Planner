@@ -11,14 +11,16 @@ import java.util.HashMap;
 import java.util.List;
 public class RoomGateway implements GatewayInterface, Serializable {
     /**
-     *
+     * Serial extension file rgt_save which stores serialized and
+     * deserialized data
      */
     public String fileName = "rgt_save.ser";
 
     /**
      * This method serializes an inputted Room Manager's list of rooms
      * @param rm
-     * @throws IOException
+     * @catch FileNotFoundException
+     * @catch IOException
      */
     public void serializeData(RoomManager rm) {
 
@@ -38,6 +40,11 @@ public class RoomGateway implements GatewayInterface, Serializable {
         }
     }
 
+    /**
+     * This method deserializes the given serialized file, and converts
+     * it to a Room Manager object
+     * @return Room Manager object
+     */
     public HashMap<String, Room> deserializeData() {
 
         try {
