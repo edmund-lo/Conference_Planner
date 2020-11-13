@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -5,7 +6,7 @@ import java.util.*;
 /**
  * Helper that manages all interaction with the Message classes and ensures no rules are broken.
  */
-public class MessageManager{
+public class MessageManager implements Serializable {
     private HashMap<String, Message> allMessages;
     private List<String> allContents;
 
