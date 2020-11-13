@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.io.*;import java.io.*;
+import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 public class MessageGateway implements GatewayInterface, Serializable {
