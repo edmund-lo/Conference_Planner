@@ -48,10 +48,10 @@ public class OrganizerController extends UserController {
                     createSpeakerAccountCmd();
                     break;
                 case 5:
-                    messageAllSpeakersCmd();
+                    messageAllAttendeesCmd();
                     break;
                 case 6:
-                    messageAllAttendeesCmd();
+                    messageAllSpeakersCmd();
                     break;
                 case 7:
                     scheduleSpeakerCmd();
@@ -153,7 +153,7 @@ public class OrganizerController extends UserController {
         System.out.println("Enter room's name:");
         String name = input.nextLine();
         /*System.out.println("Enter room's capacity:");
-        int capacity = parseInt(input.nextLine());*/
+        int capacity = parseInt(sc.nextLine());*/
         int capacity = 2;
         createRoom(name, capacity);
     }
