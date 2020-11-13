@@ -99,9 +99,11 @@ public class LoginController extends LoginPresenter  {
             case "a":
                 this.controller = new AttendeeController(em, um, rm, mm, Username);
                 break;
-            default:
+            case "s":
                 this.controller = new SpeakerController(em, um, rm, mm, Username);
                 break;
+            default:
+                System.out.println("Please enter a valid option");
         }
 
         this.em = controller.em;
