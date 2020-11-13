@@ -5,11 +5,45 @@ import java.util.Set;
 
 import static java.lang.Integer.parseInt;
 
+/**
+ * A Controller class representing a OrganizerController which inherits from UserController.
+ *
+ * @author Echo Li
+ * @version 1.0
+ *
+ */
 public class OrganizerController extends UserController {
+
+    /**
+     * Constructor for OrganizerController object. Uses constructor from UserController.
+     *
+     * @param em  current session's EventManager class.
+     * @param um  current session's UserManager class.
+     * @param rm  current session's RoomManager class.
+     * @param mm  current session's MessageManager class.
+     * @param username current logged in user's username.
+     */
     public OrganizerController(EventManager em, UserManager um, RoomManager rm, MessageManager mm, String username) {
         super(em, um, rm, mm, username);
+
+        boolean inSession = true;
+        while(inSession) {
+            OrganizerPresenter.displayMenu();
+            int option = parseInt(sc.nextLine());
+            switch(option) {
+                case 1:
+
+                    break;
+                default:
+                    System.out.println("Please enter a valid option!");
+                    break;
+            }
+        }
     }
 
+    /**
+     * Called when user chooses to create a new speaker user account.
+     */
     public void createSpeakerAccountCmd() {
         System.out.println("Enter speaker's username:");
         String username = sc.nextLine();
@@ -18,6 +52,13 @@ public class OrganizerController extends UserController {
         createSpeakerAccount(username, password);
     }
 
+    /**
+     * Creates a new speaker account after performing necessary checks.
+     *
+     * @param username String representing new speaker's username.
+     * @param password String representing new speaker's password.
+     * @return A boolean value signifying whether method was successful.
+     */
     public boolean createSpeakerAccount(String username, String password) {
         if (um.checkUniqueUsername(username)) {
             um.createNewSpeaker(username, password);
@@ -28,12 +69,21 @@ public class OrganizerController extends UserController {
         return false;
     }
 
+    /**
+     * Called when user chooses to message all speakers.
+     */
     public void messageAllSpeakersCmd() {
         System.out.println("Enter your message:");
         String message = sc.nextLine();
         messageAllSpeakers(message);
     }
 
+    /**
+     * Messages all speakers.
+     *
+     * @param message String representing the user's message.
+     * @return A boolean value signifying whether method was successful.
+     */
     public boolean messageAllSpeakers(String message) {
         List<String> speakerNames = um.getAllSpeakerNames();
         for (String name : speakerNames) {
@@ -44,12 +94,21 @@ public class OrganizerController extends UserController {
         return true;
     }
 
+    /**
+     * Called when user chooses to message all attendees.
+     */
     public void messageAllAttendeesCmd() {
         System.out.println("Enter your message:");
         String message = sc.nextLine();
         messageAllAttendees(message);
     }
 
+    /**
+     * Messages all attendees.
+     *
+     * @param message String representing the user's message.
+     * @return A boolean value signifying whether method was successful.
+     */
     public boolean messageAllAttendees(String message) {
         Set<String> attendeeNames = um.getAllUsers().keySet();
         for (String name : attendeeNames) {
@@ -62,6 +121,9 @@ public class OrganizerController extends UserController {
         return true;
     }
 
+    /**
+     * Called when user chooses to create a new room.
+     */
     public void createRoomCmd() {
         System.out.println("Enter room's name:");
         String name = sc.nextLine();
@@ -71,6 +133,13 @@ public class OrganizerController extends UserController {
         createRoom(name, capacity);
     }
 
+    /**
+     * Creates a mew room.
+     *
+     * @param roomName String representing the new room's name.
+     * @param capacity Integer representing the new room's capacity.
+     * @return A boolean value signifying whether method was successful.
+     */
     public boolean createRoom(String roomName, int capacity) {
         if (rm.createRoom(roomName)) {
             System.out.println("Successfully created new room.");
@@ -80,6 +149,9 @@ public class OrganizerController extends UserController {
         return false;
     }
 
+    /**
+     * Called when user chooses to schedule a speaker to an event.
+     */
     public void scheduleSpeakerCmd() {
         getAllEvents();
         System.out.println("Type event number:");
@@ -93,13 +165,20 @@ public class OrganizerController extends UserController {
         scheduleSpeaker(speakerName, eventId);
     }
 
+    /**
+     * Messages the attendees of the given list of events.
+     *
+     * @param speakerName String representing the speaker's username.
+     * @param eventId String representing the event's unique ID.
+     * @return A boolean value signifying whether method was successful.
+     */
     public boolean scheduleSpeaker(String speakerName, String eventId) {
         LocalDateTime start = em.getEventById(eventId).getStartTime();
         LocalDateTime end = em.getEventById(eventId).getEndTime();
         if (!em.canAddSpeakerToEvent(speakerName, eventId)) {
             System.out.println("Another speaker is already speaking at this event.");
             return false;
-        } else if (!um.speakerAvailable(start, end)) {
+        } else if (!um.canAddSpeakerEvent(speakerName, eventId, start, end)) {
             System.out.println("This speaker is already speaking at another event.");
             return false;
         }

@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
@@ -10,8 +11,7 @@ import java.util.HashMap;
  *
  */
 
-
-public class RoomManager {
+public class RoomManager implements Serializable {
     private HashMap<String, Room> allRooms;
 
     /**

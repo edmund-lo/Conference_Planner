@@ -9,6 +9,7 @@ import java.util.UUID;
  */
 public class EventManager{
     private HashMap<String, Event> allEvents;
+    private ArrayList<String> eventIds;
 
     /**
      * Constructor for EventManager
@@ -17,6 +18,7 @@ public class EventManager{
      */
     public EventManager(HashMap<String, Event> allEvents){
         this.allEvents = allEvents;
+        this.eventIds = new ArrayList<>(allEvents.keySet());
     }
 
     /**
@@ -33,13 +35,13 @@ public class EventManager{
      * Creator for a new event
      *
      * @param eventName the name of the event
-     * @param roomID the ID of the room that the event is held in
      * @param startTime the start time of the event
      * @param endTime the end time of the event
      */
     public void createNewEvent(String eventName, LocalDateTime startTime, LocalDateTime endTime) {
-        Event newEvent = new Event(UUID.randomUUID().toString(), eventName, startTime, endTime)
+        Event newEvent = new Event(UUID.randomUUID().toString(), eventName, startTime, endTime);
         allEvents.put(newEvent.getEventID(), newEvent);
+        eventIds.add(newEvent.getEventID());
     }
 
     /**
@@ -51,6 +53,7 @@ public class EventManager{
     public boolean removeEvent(String eventID){
         if(eventExists(eventID)){
             allEvents.remove(eventID);
+            eventIds.remove(eventID);
             return true;
         }else{
             return false;
@@ -96,9 +99,7 @@ public class EventManager{
     public boolean canAddUserToEvent(String eventID, String userID){
         if(eventExists(eventID)){
             Event currentEvent = allEvents.get(eventID);
-            if(currentEvent.getAttendingUsers().size < 2 && !currentEvent.getAttendingUsers().contains(userID)){
-                return true;
-            }
+            return currentEvent.getAttendingUsers().size() < 2 && !currentEvent.getAttendingUsers().contains(userID);
         }
         return false;
     }
@@ -137,12 +138,7 @@ public class EventManager{
      * @return True iff the speaker was successfully added to the event with ID eventID
      */
     public boolean canAddSpeakerToEvent(String speakerID, String eventID){
-        if(eventExists(eventID) && allEvents.get(eventID).getSpeakerID() == null){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return eventExists(eventID) && allEvents.get(eventID).getSpeakerID() == null;
     }
 
     /**
@@ -151,7 +147,7 @@ public class EventManager{
      * @param speakerID ID of the speaker
      * @param eventID ID of the event
      */
-    public addSpeakerToEvent(String speakerID, String eventID){
+    public void addSpeakerToEvent(String speakerID, String eventID){
         allEvents.get(eventID).setSpeaker(speakerID);
     }
 
@@ -162,5 +158,14 @@ public class EventManager{
      */
     public HashMap<String, Event> getAllEvents() {
         return allEvents;
+    }
+
+    /**
+     * For getting the list of all events with corresponding IDs
+     *
+     * @return allEvents
+     */
+    public ArrayList<String> getAllEventIds() {
+        return eventIds;
     }
 }

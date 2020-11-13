@@ -1,5 +1,7 @@
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class UserManager {
     private HashMap<String, User> allUsers;
@@ -91,6 +93,25 @@ public class UserManager {
 
     public User getUserByUsername(String username) {
         return allUsers.get(username);
+    }
+
+    public List<String> getAllSpeakerNames() {
+        List<String> speakers = new ArrayList<>();
+        for (User user : allUsers.values()) {
+           if (user instanceof Speaker) {
+               speakers.add(user.getUsername());
+           }
+        }
+        return speakers;
+    }
+
+    public ArrayList<String[]> getAccountInfo() {
+        ArrayList<String[]> accountInfo = new ArrayList<>();
+        for (User user : allUsers.values()) {
+            String[] info = {user.getUsername(), user.getPassword(), user.getClass().getSimpleName()};
+            accountInfo.add(info);
+        }
+        return accountInfo;
     }
 
 }
