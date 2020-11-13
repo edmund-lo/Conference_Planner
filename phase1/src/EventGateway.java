@@ -42,9 +42,9 @@ public class EventGateway implements GatewayInterface, Serializable {
      * @return
      */
     public EventManager deserializeData() {
-
+        EventManager em = new EventManager();
         try {
-            EventManager em = null;
+
             File new_file2 = new File(fileName);
             //
             FileInputStream file2 = new FileInputStream(new_file2);
@@ -64,6 +64,7 @@ public class EventGateway implements GatewayInterface, Serializable {
         catch (ClassNotFoundException e) {
             System.out.println("Event Manager Class was not found");
         }
+        return em;
     }
 
     public static void main(String[] args) {
