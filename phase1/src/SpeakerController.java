@@ -29,7 +29,7 @@ public class SpeakerController extends UserController {
         boolean inSession = true;
         while(inSession) {
             SpeakerPresenter.displayMenu();
-            int option = parseInt(sc.nextLine());
+            int option = parseInt(input.nextLine());
             switch(option) {
                 case 0:
                     logout();
@@ -47,6 +47,9 @@ public class SpeakerController extends UserController {
                 case 4:
                     messageEventsAttendeesCmd();
                     break;
+                case 5:
+                    getSpeakerEvents();
+                    break;
                 default:
                     System.out.println("Please enter a valid option!");
                     break;
@@ -60,7 +63,7 @@ public class SpeakerController extends UserController {
     public void messageEventsAttendeesCmd() {
         getSpeakerEvents();
         System.out.println("Enter the event numbers separated by a comma:");
-        String eventIdsString = sc.nextLine();
+        String eventIdsString = input.nextLine();
         List<String> eventIds = new ArrayList<>();
         Map<String, LocalDateTime[]> schedule = um.getSpeakerSchedule(username);
         List<String> allSpeakerEventIds = new ArrayList<>(schedule.keySet());
@@ -69,7 +72,7 @@ public class SpeakerController extends UserController {
             eventIds.add(allSpeakerEventIds.get(index));
         }
         System.out.println("Enter your message:");
-        String message = sc.nextLine();
+        String message = input.nextLine();
         messageEventsAttendees(eventIds, message);
     }
 

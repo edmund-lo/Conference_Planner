@@ -29,7 +29,7 @@ public class OrganizerController extends UserController {
         boolean inSession = true;
         while(inSession) {
             OrganizerPresenter.displayMenu();
-            int option = parseInt(sc.nextLine());
+            int option = parseInt(input.nextLine());
             switch(option) {
                 case 0:
                     logout();
@@ -48,12 +48,15 @@ public class OrganizerController extends UserController {
                     createSpeakerAccountCmd();
                     break;
                 case 5:
-                    messageAllAttendeesCmd();
+                    messageAllSpeakersCmd();
                     break;
                 case 6:
-                    scheduleSpeakerCmd();
+                    messageAllAttendeesCmd();
                     break;
                 case 7:
+                    scheduleSpeakerCmd();
+                    break;
+                case 8:
                     createRoomCmd();
                     break;
                 default:
@@ -68,9 +71,9 @@ public class OrganizerController extends UserController {
      */
     public void createSpeakerAccountCmd() {
         System.out.println("Enter speaker's username:");
-        String username = sc.nextLine();
+        String username = input.nextLine();
         System.out.println("Enter speaker's password:");
-        String password = sc.nextLine();
+        String password = input.nextLine();
         createSpeakerAccount(username, password);
     }
 
@@ -96,7 +99,7 @@ public class OrganizerController extends UserController {
      */
     public void messageAllSpeakersCmd() {
         System.out.println("Enter your message:");
-        String message = sc.nextLine();
+        String message = input.nextLine();
         messageAllSpeakers(message);
     }
 
@@ -121,7 +124,7 @@ public class OrganizerController extends UserController {
      */
     public void messageAllAttendeesCmd() {
         System.out.println("Enter your message:");
-        String message = sc.nextLine();
+        String message = input.nextLine();
         messageAllAttendees(message);
     }
 
@@ -148,9 +151,9 @@ public class OrganizerController extends UserController {
      */
     public void createRoomCmd() {
         System.out.println("Enter room's name:");
-        String name = sc.nextLine();
+        String name = input.nextLine();
         /*System.out.println("Enter room's capacity:");
-        int capacity = parseInt(sc.nextLine());*/
+        int capacity = parseInt(input.nextLine());*/
         int capacity = 2;
         createRoom(name, capacity);
     }
@@ -177,13 +180,13 @@ public class OrganizerController extends UserController {
     public void scheduleSpeakerCmd() {
         getAllEvents();
         System.out.println("Type event number:");
-        int index = parseInt(sc.nextLine());
+        int index = parseInt(input.nextLine());
         String eventId = new ArrayList<>(em.getAllEvents().keySet()).get(index);
         List<String> speakerNames = um.getAllSpeakerNames();
         for (String name : speakerNames)
             System.out.println(name);
         System.out.println("Type speaker name:");
-        String speakerName = sc.nextLine();
+        String speakerName = input.nextLine();
         scheduleSpeaker(speakerName, eventId);
     }
 
