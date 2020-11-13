@@ -3,7 +3,7 @@ import java.util.List;
 import java.io.*;
 import java.util.HashMap;
 import java.util.List;
-public class MessageGateway implements GatewayInterface, Serializable {
+public class MessageGateway implements GatewayInterface<MessageManager>, Serializable {
     /**
      * TODO: JAVADOC
      * @return
@@ -46,7 +46,6 @@ public class MessageGateway implements GatewayInterface, Serializable {
     public MessageManager deserializeData() throws IOException, ClassNotFoundException {
         MessageManager mm = new MessageManager();
         try {
-            MessageManager mm = null;
             File new_file2 = new File(fileName);
             //
             FileInputStream file2 = new FileInputStream(new_file2);
@@ -69,7 +68,7 @@ public class MessageGateway implements GatewayInterface, Serializable {
         return mm;
 
     }
-
+//
 //    public static void main(String[] args) {
 //        //TODO: CREATE TEST CASES
 //        EventGateway eg = new EventGateway();
@@ -78,8 +77,8 @@ public class MessageGateway implements GatewayInterface, Serializable {
 //        em.("RoomManage", r);
 //        rg.serializeData(rm);
 //        RoomManager rr = rg.deserializeData();
-
-    }
+//
+//    }
 
 
 }

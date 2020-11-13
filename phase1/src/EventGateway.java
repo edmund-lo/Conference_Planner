@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-public class EventGateway implements GatewayInterface, Serializable {
+public class EventGateway implements GatewayInterface<EventManager>, Serializable {
     /**
      * TODO: JAVADOC
      * @return
@@ -20,7 +20,7 @@ public class EventGateway implements GatewayInterface, Serializable {
      * @catch IOException
      */
 
-    public void serializeData(EventManager rm) throws FileNotFoundException, IOException {
+    public void serializeData(EventManager em) throws FileNotFoundException, IOException {
 
         try {
             File new_file = new File(fileName);
@@ -75,7 +75,7 @@ public class EventGateway implements GatewayInterface, Serializable {
 //        em.("", r);
 //        rg.serializeData(rm);
 //        RoomManager rr = rg.deserializeData();
-
-    }
+//
+//    }
 
 }

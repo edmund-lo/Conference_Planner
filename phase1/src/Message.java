@@ -21,8 +21,8 @@ public class Message<LocalDataTime> {
      * @param messageTime The time this message is sent and received
      */
 
-    public Message(final String content, final String senderId, final String messageId,
-                   final List<String> receiverIds, final LocalDataTime messageTime){
+    public Message(String content, String senderId, String messageId,
+                   List<String> receiverIds, LocalDataTime messageTime){
         this.content = content;
         this.senderId = senderId;
         this.messageId = messageId;
@@ -36,7 +36,7 @@ public class Message<LocalDataTime> {
      * @return The ID of the message which is generated randomly in the manager
      */
     public String getMessageID() {
-        return messageId;
+        return this.messageId;
     }
 
     /**
@@ -45,7 +45,7 @@ public class Message<LocalDataTime> {
      * @return The ID of the user who send this message
      */
     public String getSenderId() {
-        return senderId;
+        return this.senderId;
     }
 
     /**
@@ -54,7 +54,7 @@ public class Message<LocalDataTime> {
      * @return An arraylist with IDs of all receivers of this message
      */
     public List<String> getReceiverIds() {
-        return receiverIds;
+        return this.receiverIds;
     }
 
     /**
@@ -63,7 +63,7 @@ public class Message<LocalDataTime> {
      * @return the content of this message
      */
     public String getContent() {
-        return content;
+        return this.content;
     }
 
     /**
@@ -72,7 +72,7 @@ public class Message<LocalDataTime> {
      * @return the send and receive time of this message
      */
     public LocalDateTime getMessageTime() {
-        return (LocalDateTime) messageTime;
+        return (LocalDateTime) this.messageTime;
     }
 
     /**
@@ -81,7 +81,7 @@ public class Message<LocalDataTime> {
      * Send the message to a new receiver
      */
     public void addReceiver(final String receiverId) {
-        receiverIds.add(receiverId);
+        this.receiverIds.add(receiverId);
     }
 
     /**
@@ -91,9 +91,9 @@ public class Message<LocalDataTime> {
      * and the time when it is sent and received
      */
     public String toString(){
-        return "Sender Name: "+ senderId +"\n" +
-                "Time: "+String.valueOf(messageTime)+
-                "\n" + "# of Attending Users: "+ receiverIds.size() +
+        return "Sender Name: "+ this.senderId +"\n" +
+                "Time: "+String.valueOf(this.messageTime)+
+                "\n" + "# of Attending Users: "+ this.receiverIds.size() +
                 getContent();
     }
 }
