@@ -39,6 +39,10 @@ public abstract class UserController {
 
     }
 
+    /**
+     *UI for when user signs up for an event.
+     *
+     */
     public void signUpMenu(){
         while(true) {
             int count = 1;
@@ -56,6 +60,10 @@ public abstract class UserController {
         }
     }
 
+    /**
+     *UI for when user cancels an event they signed up for.
+     *
+     */
     public void cancelMenu(){
         while(true) {
             int count = 1;
@@ -73,6 +81,10 @@ public abstract class UserController {
         }
     }
 
+    /**
+     *UI for when users want to message other users or view their messages.
+     *
+     */
     public void messageMenu(){
         while(true) {
             System.out.println("Enter 0 to go back, enter 1 to message a user, enter 2 to view your messages.");
@@ -161,6 +173,7 @@ public abstract class UserController {
 
         return eventDesc;
     }
+
     /**
      *Returns list of events the user is attending
      *
@@ -187,10 +200,15 @@ public abstract class UserController {
 
         return eventDesc;
     }
+
+    /**
+     *Returns list of all messages the user recieved
+     *
+     *@return list of all messages the user recieved in string format
+     */
     public List<String> getAllMessages(){
         HashMap<String, Message> messages = mm.getAllMessages();
         ArrayList<String> messageStrings = new ArrayList<>();
-        ArrayList<String> m = um.getUserByUsername(username).getMessageIDs();
         for (String iD: um.getUserByUsername(username).getMessageIDs()){
             messageStrings.add(messages.get(iD).toString());
         }
@@ -210,20 +228,6 @@ public abstract class UserController {
     }
 
     /**
-     *Returns list of all messages the user recieved
-     *
-     *@return list of all messages the user recieved in string format
-     */
-    public List<String> getMessages() {
-        HashMap<String, Message> messages = mm.getAllMessages();
-        ArrayList<String> messageDesc = new ArrayList<>();
-        for (Message message: messages.values())
-            messageDesc.add(message.toString());
-
-        return messageDesc;
-    }
-
-    /**
      *Sends a message to an attendee.
      *
      *@param  recipientName username of the Attendee the message is for.
@@ -233,7 +237,7 @@ public abstract class UserController {
      */
     public boolean messageSingleAttendee(String recipientName, String content) {
         String messageId = mm.sendToAttendee(recipientName, username, content);
-        addMessagesToUser(username, messageId);
+        addMessagesToUser(recipientName, messageId);
 
         System.out.println("Message sent to " + recipientName);
         return true;
@@ -249,7 +253,7 @@ public abstract class UserController {
      */
     public boolean messageSingleSpeaker(String recipientName, String content) {
         String messageId = mm.sendToSpeaker(recipientName, username, content);
-        addMessagesToUser(username, messageId);
+        addMessagesToUser(recipientName, messageId);
 
         System.out.println("Message sent to " + recipientName);
         return true;
