@@ -93,7 +93,7 @@ public class Message<LocalDataTime> {
     public String toString(){
         return "Sender Name: "+ this.senderId +"\n" +
                 "Time: "+String.valueOf(this.messageTime)+
-                "\n" + "# of Attending Users: "+ this.receiverIds.size() +
-                getContent();
+                "\n" + "The Attending Users: "+ this.receiverIds +
+                "\n" + getContent();
     }
 }
