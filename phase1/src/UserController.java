@@ -41,7 +41,11 @@ public abstract class UserController {
 
     public void signUpMenu(){
         while(true) {
-            AttendeePresenter.displayEvents();
+            int count = 1;
+            for (String x: getAllEvents()) {
+                System.out.println(count + ": " + x);
+            }
+            System.out.println("Enter 0 to go back or enter a number to select an event to sign up for: ");
             int option = parseInt(input.nextLine());
             if(option == 0)
                 break;
@@ -54,20 +58,24 @@ public abstract class UserController {
 
     public void cancelMenu(){
         while(true) {
-            AttendeePresenter.displayUserEvents();
+            int count = 1;
+            for (String x: getAttendingEventsString()) {
+                System.out.println(count + ": " + x);
+            }
+            System.out.println("Enter 0 to go back or enter a number to select an event to cancel: ");
             int option = parseInt(input.nextLine());
             if(option == 0)
                 break;
             else if(option > getAttendingEvents().size())
                 System.out.println("Please enter a valid option.");
             else
-                signUpEventAttendance(getAttendingEvents().get(option-1));
+                cancelEventAttendance(getAttendingEvents().get(option-1));
         }
     }
 
     public void messageMenu(){
         while(true) {
-            AttendeePresenter.displayMessageMenu();
+            System.out.println("Enter 0 to go back, enter 1 to message a user, enter 2 to view your messages.");
             int option = parseInt(input.nextLine());
             if(option == 0)
                 break;
@@ -84,8 +92,19 @@ public abstract class UserController {
                 }
                 System.out.println("Type in your message below: ");
                 content = input.next();
+                if (um.getUserByUsername(name) instanceof Attendee)
+                    messageSingleAttendee(name, content);
+                else if (um.getUserByUsername(name) instanceof Speaker)
+                    messageSingleSpeaker(name, content);
+                else
+                    System.out.println("You cannot message an organizer.");
 
-                messageSingleAttendee(name, content);
+            }else if(option == 2){
+                for (String x : getAllMessages()) {
+                    System.out.println(x);
+                }
+            }else{
+                System.out.println("Enter a valid option.");
             }
 
         }
@@ -162,10 +181,21 @@ public abstract class UserController {
         HashMap<String, Event> events = em.getAllEvents();
         ArrayList<String> eventDesc = new ArrayList<>();
         ArrayList<String> eventiDs = em.getAllEventIds();
-        for (String iD : eventiDs)
+        for (String iD : eventiDs){
             eventDesc.add(events.get(iD).toString());
+        }
 
         return eventDesc;
+    }
+    public List<String> getAllMessages(){
+        HashMap<String, Message> messages = mm.getAllMessages();
+        ArrayList<String> messageStrings = new ArrayList<>();
+        ArrayList<String> m = um.getUserByUsername(username).getMessageIDs();
+        for (String iD: um.getUserByUsername(username).getMessageIDs()){
+            messageStrings.add(messages.get(iD).toString());
+        }
+
+        return messageStrings;
     }
 
     /**
