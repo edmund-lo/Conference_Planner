@@ -1,8 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.io.*;import java.io.*;
+import java.io.*;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 public class EventGateway implements GatewayInterface, Serializable {
     /**
      * TODO: JAVADOC
@@ -66,7 +69,7 @@ public class EventGateway implements GatewayInterface, Serializable {
     public static void main(String[] args) {
         //TODO: CREATE TEST CASES
         EventGateway eg = new EventGateway();
-        Event e = new Event();
+        Event e = new Event("Name", "eventID123", "SpeakerID123",);
         EventManager em = new EventManager();
         em.("", r);
         rg.serializeData(rm);
