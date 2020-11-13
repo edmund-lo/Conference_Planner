@@ -4,12 +4,12 @@ import java.util.List;
 /**
  * Implementation of a message and all details about it.
  */
-public class Message<LocalDataTime> {
+public class Message {
     private final String messageId;
     private final String senderId;
     private final String content;
     private final List<String> receiverIds;
-    private final LocalDataTime messageTime;
+    private final LocalDateTime messageTime;
 
     /**
      * Constructor for Message
@@ -22,7 +22,7 @@ public class Message<LocalDataTime> {
      */
 
     public Message(String content, String senderId, String messageId,
-                   List<String> receiverIds, LocalDataTime messageTime){
+                   List<String> receiverIds, LocalDateTime messageTime){
         this.content = content;
         this.senderId = senderId;
         this.messageId = messageId;
