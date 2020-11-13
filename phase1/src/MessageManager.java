@@ -93,7 +93,7 @@ public class MessageManager implements Serializable {
      * @param receiverIds The list of ids for the receivers of this message
      * @param messageTime The time this message is sent and received
      *
-     * Return True iff the message has been sent successfully, False otherwise
+     * Return the messageId that is created
      */
 
     public String sendMessage(String content, String senderId, List<String> receiverIds,
