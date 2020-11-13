@@ -44,7 +44,7 @@ public class LoginController extends LoginPresenter  {
                 LoginPresenter.UsernameTaken();
                 String login = sc.nextLine();
                 if (login.equals("login"))
-                    Login();
+                    login();
             }
 
         }while(!UsernameSet);
@@ -59,7 +59,7 @@ public class LoginController extends LoginPresenter  {
         Accounts.add(new String[] {Username, Password, type});
     }
 
-    public void Login(){
+    public void login(){
         String Username;
         String Password;
 
