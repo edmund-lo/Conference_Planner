@@ -125,7 +125,7 @@ public abstract class User implements Serializable {
      * @return String of user's username and role
      */
     public String toString() {
-        return "Username: " + this.username + "\n" +  "Role: " + this.getClass().getSimpleName();
+        return "Username: " + this.username + "\n" +  "Role: " + this.getClass().getSimpleName() + "\n";
     }
 
 }

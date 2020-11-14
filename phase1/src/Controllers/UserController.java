@@ -218,7 +218,9 @@ public abstract class UserController {
     public List<String> getAllEvents(){
         ArrayList<String> eventDesc = new ArrayList<>();
         for (String id : em.getAllEventIds()){
-            eventDesc.add(em.getEventDescription(id));
+            if(um.canSignUp(username, id, em.getEventStartTime(id), em.getEventEndTime(id))) {
+                eventDesc.add(em.getEventDescription(id));
+            }
         }
 
         return eventDesc;
