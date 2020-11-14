@@ -72,22 +72,26 @@ public class SpeakerController extends UserController {
         getSpeakerEvents();
         sp.messageEventAttendeesPrompt();
         String eventIdsString = input.nextLine();
-        List<String> eventIds = new ArrayList<>();
-        Map<String, LocalDateTime[]> schedule = um.getSpeakerSchedule(username);
-        List<String> allSpeakerEventIds = new ArrayList<>(schedule.keySet());
-        for (String i : eventIdsString.split(",")) {
-            int index;
-            try {
-                index = parseInt(i);
-            } catch (NumberFormatException e) {
-                sp.invalidEventNumber();
-                continue;
+        if (eventIdsString.equals("")) {
+            sp.invalidEventNumberError();
+        } else {
+            List<String> eventIds = new ArrayList<>();
+            Map<String, LocalDateTime[]> schedule = um.getSpeakerSchedule(username);
+            List<String> allSpeakerEventIds = new ArrayList<>(schedule.keySet());
+            for (String i : eventIdsString.split(",")) {
+                int index;
+                try {
+                    index = parseInt(i);
+                } catch (NumberFormatException e) {
+                    sp.invalidEventNumberError();
+                    continue;
+                }
+                eventIds.add(allSpeakerEventIds.get(index));
             }
-            eventIds.add(allSpeakerEventIds.get(index));
+            sp.enterMessagePrompt();
+            String message = input.nextLine();
+            messageEventsAttendees(eventIds, message);
         }
-        sp.enterMessagePrompt();
-        String message = input.nextLine();
-        messageEventsAttendees(eventIds, message);
     }
 
     /**
