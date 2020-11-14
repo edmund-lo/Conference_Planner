@@ -1,6 +1,10 @@
 package Presenters;
 import java.util.List;
 
+/**
+ * Presenter class that prints Message related functionality to the user
+ *
+ */
 public class MessagePresenter {
     public void writeMessage() {
         System.out.println("Write your message here: ");
