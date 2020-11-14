@@ -219,7 +219,7 @@ public class OrganizerController extends UserController {
         getAllEvents();
         op.eventNumberPrompt();
         int index = parseInt(input.nextLine());
-        String eventId = new ArrayList<>(em.getAllEvents().keySet()).get(index);
+        String eventId = em.getAllEventIds().get(index);
         List<String> speakerNames = um.getAllSpeakerNames();
         for (String name : speakerNames)
             System.out.println(name);
@@ -236,8 +236,8 @@ public class OrganizerController extends UserController {
      * @return A boolean value signifying whether method was successful.
      */
     public boolean scheduleSpeaker(String speakerName, String eventId) {
-        LocalDateTime start = em.getEventById(eventId).getStartTime();
-        LocalDateTime end = em.getEventById(eventId).getEndTime();
+        LocalDateTime start = em.getEventStartTime(eventId);
+        LocalDateTime end = em.getEventEndTime(eventId);
         if (!em.canAddSpeakerToEvent(eventId)) {
             op.existingSpeakerAtEventError();
             return false;

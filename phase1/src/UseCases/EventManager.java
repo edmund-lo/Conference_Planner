@@ -121,16 +121,6 @@ public class EventManager implements Serializable {
     }
 
     /**
-     * For getting the actual event objects
-     *
-     * @param eventID the ID of the event
-     * @return the Entities.Event object corresponding to eventID
-     */
-    public Event getEventById(String eventID) {
-        return allEvents.get(eventID);
-    }
-
-    /**
      * checks to see if speaker with ID speakerID can be added to event with ID eventID
      *
      * @param eventID the ID of the event
@@ -151,15 +141,6 @@ public class EventManager implements Serializable {
     }
 
     /**
-     * For getting the list of all events with corresponding IDs
-     *
-     * @return allEvents
-     */
-    public HashMap<String, Event> getAllEvents() {
-        return allEvents;
-    }
-
-    /**
      * Getter for a list of IDs of all events
      *
      * @return An arraylist with all of the IDs of the events in allEvents
@@ -177,4 +158,45 @@ public class EventManager implements Serializable {
     public String getEventDescription(String eventID){
         return allEvents.get(eventID).toString();
     }
+
+    /**
+     * getter for the start time for event with ID eventID
+     *
+     * @param eventID ID of the event
+     * @return the start time of event with ID eventID
+     */
+    public LocalDateTime getEventStartTime(String eventID){
+        return allEvents.get(eventID).getStartTime();
+    }
+
+    /**
+     * getter for the end time for event with ID eventID
+     *
+     * @param eventID ID of the event
+     * @return the end time of event with ID eventID
+     */
+    public LocalDateTime getEventEndTime(String eventID){
+        return allEvents.get(eventID).getEndTime();
+    }
+
+    /**
+     * getter for the event name of event with ID eventID
+     *
+     * @param eventID the ID of the eventID
+     * @return the name of the event wth ID eventID
+     */
+    public String getEventName(String eventID){
+        return allEvents.get(eventID).getEventName();
+    }
+
+    /**
+     * getter for the list of attending users for event with ID eventID
+     *
+     * @param eventID ID of the event
+     * @return the list of attending users for event with ID eventID
+     */
+    public ArrayList<String> getAttendingUsers(String eventID){
+        return allEvents.get(eventID).getAttendingUsers();
+    }
+
 }

@@ -137,8 +137,8 @@ public abstract class UserController {
      *
      */
     public boolean signUpEventAttendance(String eventId) {
-        LocalDateTime start = em.getEventById(eventId).getStartTime();
-        LocalDateTime end = em.getEventById(eventId).getEndTime();
+        LocalDateTime start = em.getEventStartTime(eventId);
+        LocalDateTime end = em.getEventEndTime(eventId);
         if (!um.canSignUp(username, eventId, start, end)) {
             up.alreadySignedUpError();
             return false;
@@ -148,7 +148,7 @@ public abstract class UserController {
         } else {
             em.addUserToEvent(eventId,username);
             um.signUp(username, eventId, start, end);
-            up.signUpResult(em.getEventById(eventId).toString());
+            up.signUpResult(em.getEventDescription(eventId));
             return true;
         }
     }
@@ -162,10 +162,10 @@ public abstract class UserController {
     public boolean cancelEventAttendance(String eventId) {
         if(em.removeUserFromEvent(eventId, username)) {
             um.cancel(eventId, username);
-            up.cancelResult(em.getEventById(eventId).toString());
+            up.cancelResult(em.getEventDescription(eventId));
             return true;
         }
-        up.notAttendingEventError(em.getEventById(eventId).toString());
+        up.notAttendingEventError(em.getEventDescription(eventId));
         return false;
     }
 
@@ -179,7 +179,7 @@ public abstract class UserController {
         HashMap<String, LocalDateTime[]> schedule = um.getSchedule(username);
         ArrayList<String> eventDesc = new ArrayList<>();
         for (String eventId : schedule.keySet())
-            eventDesc.add(em.getEventById(eventId).toString());
+            eventDesc.add(em.getEventDescription(eventId));
 
         return eventDesc;
     }

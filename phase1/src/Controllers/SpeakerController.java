@@ -99,7 +99,7 @@ public class SpeakerController extends UserController {
      */
     public boolean messageEventsAttendees(List<String> eventIds, String message) {
         for (String eventId: eventIds) {
-            String eventName = em.getEventById(eventId).getEventName();
+            String eventName = em.getEventName(eventId);
             if (messageEventAttendees(eventId, message))
                 sp.messageEventAttendeesResult(eventName);
             else
@@ -116,7 +116,7 @@ public class SpeakerController extends UserController {
      * @return A boolean value signifying whether method was successful.
      */
     public boolean messageEventAttendees(String eventId, String message) {
-        List<String> attendees = em.getEventById(eventId).getAttendingUsers();
+        List<String> attendees = em.getAttendingUsers(eventId);
         for (String name : attendees) {
             String messageId = mm.sendMessage(name, username, message);
             addMessagesToUser(name, messageId);
@@ -133,7 +133,7 @@ public class SpeakerController extends UserController {
         Map<String, LocalDateTime[]> schedule = um.getSpeakerSchedule(username);
         List<String> eventStrings = new ArrayList<>();
         for (String eventId : schedule.keySet())
-            eventStrings.add(em.getEventById(eventId).toString());
+            eventStrings.add(em.getEventDescription(eventId));
         sp.speakerEventsLabel();
         sp.listEvents(eventStrings);
         return eventStrings;
