@@ -96,23 +96,24 @@ public abstract class UserController {
             else if (option == 1){
                 String name;
                 String content;
+                boolean canSend = false;
                 up.messageUserListLabel();
                 up.listUsers(getAllMessageableUsers());
-                while (true) {
-                    up.enterReceiverPrompt();
-                    name = input.nextLine();
-                    if (um.userExists(name))
-                        break;
-                    else
-                        up.invalidUserError();
+                up.enterReceiverPrompt();
+                name = input.nextLine();
+                if (um.userExists(name)) {
+                    canSend = true;
+                }else {
+                    up.invalidUserError();
                 }
-                up.enterMessagePrompt();
-                content = input.nextLine();
-                if (um.isAttendee(name) || um.isSpeaker(name))
-                    sendMessage(name, content);
-                else
-                    up.cannotMessageOrganizerError();
-
+                if (canSend) {
+                    up.enterMessagePrompt();
+                    content = input.nextLine();
+                    if (um.isAttendee(name) || um.isSpeaker(name))
+                        sendMessage(name, content);
+                    else
+                        up.cannotMessageOrganizerError();
+                }
             } else if (option == 2){
                 MessagePresenter mp = new MessagePresenter();
                 mp.showMessagesLabel();
