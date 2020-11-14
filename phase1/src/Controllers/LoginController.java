@@ -93,17 +93,17 @@ public class LoginController {
 
         //Depending on which account type the user selected, make a different type of user.
         switch(type){
-            case "o":
+            case "1":
                 um.createNewOrganizer(Username, Password);
                 Accounts = um.getAccountInfo();
                 lp.AccountMade();
                 break;
-            case "a":
+            case "2":
                 um.createNewAttendee(Username, Password);
                 Accounts = um.getAccountInfo();
                 lp.AccountMade();
                 break;
-            case "s":
+            case "3":
                 um.createNewSpeaker(Username, Password);
                 Accounts = um.getAccountInfo();
                 lp.AccountMade();

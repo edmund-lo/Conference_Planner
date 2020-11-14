@@ -93,10 +93,12 @@ public class Event implements Serializable {
      * @return a String representation of Entities.Event that contains the event name, time and number of attending users
      */
     public String toString(){
-        return "Entities.Event Name: "+this.eventName+"\n" +
-                "Time: "+String.valueOf(this.startTime.getHour())+" to "+String.valueOf(this.endTime.getHour())+" on "+
-                String.valueOf(this.startTime.getDayOfMonth())+"/"+String.valueOf(this.startTime.getMonthValue())+"\n" +
-                "# of Attending Users: "+String.valueOf(this.attendingUsers.size());
+        return "Event Name: "+this.eventName+"\n" +
+                "Time: "+this.startTime.getHour()+":"+this.startTime.getMinute()+" on "
+                +this.startTime.getDayOfMonth()+"/"+this.startTime.getMonthValue()+" to "+
+                this.endTime.getHour()+":"+this.endTime.getMinute()+" on "+
+                this.endTime.getDayOfMonth()+"/"+this.endTime.getMonthValue() +"\n" +
+                "Number of Attending Users: "+this.attendingUsers.size();
     }
 
     /**
