@@ -11,7 +11,7 @@ import java.util.Map;
 import static java.lang.Integer.parseInt;
 
 /**
- * A Controller class representing a Controllers.SpeakerController which inherits from Controllers.UserController.
+ * A Controller class representing a SpeakerController which inherits from UserController.
  *
  * @author Echo Li
  * @version 1.0
@@ -21,7 +21,7 @@ public class SpeakerController extends UserController {
     private SpeakerPresenter sp;
 
     /**
-     * Constructor for Controllers.SpeakerController object. Uses constructor from Controllers.UserController.
+     * Constructor for SpeakerController object. Uses constructor from UserController.
      *
      * @param em  current session's UseCases.EventManager class.
      * @param um  current session's UseCases.UserManager class.
@@ -34,6 +34,7 @@ public class SpeakerController extends UserController {
         sp = new SpeakerPresenter();
 
         boolean inSession = true;
+        // Enters a while loop that allows the user to continuously use Speaker and Attendee functions
         while(inSession) {
             sp.displayMenu();
             int option = parseInt(input.nextLine());

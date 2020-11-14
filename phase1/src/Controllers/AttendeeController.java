@@ -6,7 +6,7 @@ import UseCases.*;
 import static java.lang.Integer.parseInt;
 
 /**
- * A Controller class representing an Controllers.AttendeeController which inherits from Controllers.UserController.
+ * A Controller class representing an AttendeeController which inherits from UserController.
  *
  * @author Echo Li
  * @version 1.0

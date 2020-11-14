@@ -11,7 +11,7 @@ import java.util.Set;
 import static java.lang.Integer.parseInt;
 
 /**
- * A Controller class representing a Controllers.OrganizerController which inherits from Controllers.UserController.
+ * A Controller class representing a OrganizerController which inherits from UserController.
  *
  * @author Echo Li
  * @version 1.0
@@ -21,7 +21,7 @@ public class OrganizerController extends UserController {
     private OrganizerPresenter op;
 
     /**
-     * Constructor for Controllers.OrganizerController object. Uses constructor from Controllers.UserController.
+     * Constructor for OrganizerController object. Uses constructor from UserController.
      *
      * @param em  current session's UseCases.EventManager class.
      * @param um  current session's UseCases.UserManager class.
@@ -34,6 +34,7 @@ public class OrganizerController extends UserController {
         this.op = new OrganizerPresenter();
 
         boolean inSession = true;
+        // Enters a while loop that allows the user to continuously use Organizer and Attendee functions
         while(inSession) {
             op.displayMenu();
             int option = parseInt(input.nextLine());
@@ -67,6 +68,9 @@ public class OrganizerController extends UserController {
         }
     }
 
+    /**
+     * Called when user chooses to display new creation options
+     */
     public void createNewMenu() {
         while (true) {
             op.createNewPrompt();
@@ -82,6 +86,9 @@ public class OrganizerController extends UserController {
         }
     }
 
+    /**
+     * Called when user chooses to display organizer messaging options
+     */
     public void organizerMessageMenu() {
         while (true) {
             op.organizerMessagePrompt();
