@@ -88,8 +88,12 @@ public class MessageManager implements Serializable {
      * Return the messageId that is created
      */
 
-    public String sendMessage(String receiverId, String senderId, String content){
-        return createMessage(receiverId, senderId, content);
+    public boolean sendMessage(String receiverId, String senderId, String content) {
+        if (receiverId != senderId && content != "") {
+            createMessage(receiverId, senderId, content);
+            return true;
+        }
+        return false;
     }
 
     public String getMessageToString(String messageID) {

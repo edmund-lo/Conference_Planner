@@ -64,7 +64,7 @@ public class UserPresenter {
     }
 
     public void invalidUserError() {
-        System.out.println("The user you entered was invalid. Enter a valid option.");
+        System.out.println("The user you entered was invalid.");
     }
     public void cannotMessageOrganizerError() {
         System.out.println("You cannot message an Organizer!");
