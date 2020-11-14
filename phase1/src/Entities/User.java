@@ -15,7 +15,6 @@ public abstract class User implements Serializable {
     private String username;
     private String password;
     private HashMap<String, LocalDateTime[]> schedule;
-    //private ArrayList<String> messageIDs;
     private ArrayList<String> sentMessages;
     private ArrayList<String> receivedMessages;
 
@@ -30,7 +29,6 @@ public abstract class User implements Serializable {
         this.username = username;
         this.password = password;
         this.schedule = new HashMap<>();
-        //this.messageIDs = new ArrayList<>();
         this.sentMessages = new ArrayList<>();
         this.receivedMessages = new ArrayList<>();
     }
@@ -63,18 +61,19 @@ public abstract class User implements Serializable {
     }
 
     /**
-     * Getter for a user's message IDs.
+     * Getter for a user's sent messages.
      *
-     * @return An arraylist of all of a user's message IDs.
+     * @return An arraylist containing message IDs of all sent messages
      */
-//    public ArrayList<String> getMessageIDs() {
-//        return messageIDs;
-//    }
-
     public ArrayList<String> getSentMessages() {
         return sentMessages;
     }
 
+    /**
+     * Getter for a user's received messages.
+     *
+     * @return An arraylist containing message IDs of all received messages
+     */
     public ArrayList<String> getReceivedMessages() {
         return receivedMessages;
     }
@@ -123,18 +122,19 @@ public abstract class User implements Serializable {
     }
 
     /**
-     * Add a message ID to a user's list of message IDs
+     * Adds message ID of the sent message to user's list of sent messages.
      *
-     * @param messageID the message ID
+     * @param messageID the message ID of the sent message
      */
-//    public void addMessageID(String messageID) {
-//        messageIDs.add(messageID);
-//    }
-
     public void sendMessage(String messageID) {
         sentMessages.add(messageID);
     }
 
+    /**
+     * Adds message ID of the received message to user's list of received messages.
+     *
+     * @param messageID the message ID of the received message
+     */
     public void receiveMessage(String messageID) {
         receivedMessages.add(messageID);
     }
