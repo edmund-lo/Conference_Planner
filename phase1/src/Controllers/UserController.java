@@ -250,25 +250,10 @@ public abstract class UserController {
     }
 
     /**
-     *Returns list of all messages the user received
+     * Returns list of all messages the user sent.
      *
-     *@return list of all messages the user received in string format
+     * @return A list of all messages the user sent
      */
-//    public List<String> getAllMessages(){
-//        List<String> messageStrings = new ArrayList<>();
-//        List<String> userMessages = um.getUserMessages(username);
-//        if (userMessages.size() == 0) {
-//            up.noMessagesLabel();
-//        } else {
-//            System.out.println("You have " + userMessages.size() + " messages.");
-//            for (String id : userMessages) {
-//                messageStrings.add(mm.getMessageToString(id));
-//            }
-//        }
-//
-//        return messageStrings;
-//    }
-
     public List<String> getAllSentMessages(){
         List<String> messageStrings = new ArrayList<>();
         List<String> userMessages = um.getSentMessages(username);
@@ -284,6 +269,11 @@ public abstract class UserController {
         return messageStrings;
     }
 
+    /**
+     * Returns list of all messages the user has received.
+     *
+     * @return a list of all messages the user has received
+     */
     public List<String> getAllReceivedMessages(){
         List<String> messageStrings = new ArrayList<>();
         List<String> userMessages = um.getReceivedMessages(username);
@@ -300,7 +290,7 @@ public abstract class UserController {
     }
 
     /**
-     *Calls the user manager to add a messageId to a user's list
+     *Calls the user manager to add a messageID to sender's and receiver's list
      *
      *@param  messageId id of the message user is adding.
      *@param  recipientName username of the user the message is for.

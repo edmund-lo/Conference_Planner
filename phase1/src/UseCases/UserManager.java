@@ -136,19 +136,21 @@ public class UserManager implements Serializable {
     }
 
     /**
-     * Add a message's ID to a user's list of messages.
+     * Adds message ID of the sent message to user's list of sent messages.
      *
-     * @param username the username
+     * @param username the username of the sender
      * @param messageID the message ID
      */
-//    public void addMessageToUser(String username, String messageID) {
-//        allUsers.get(username).addMessageID(messageID);
-//    }
-
     public void sendMessage(String username, String messageID) {
         allUsers.get(username).sendMessage(messageID);
     }
 
+    /**
+     * Adds message ID of the received message to user's list of received messages.
+     *
+     * @param username the username of the receiver
+     * @param messageID the message ID
+     */
     public void receiveMessage(String username, String messageID) {
         allUsers.get(username).receiveMessage(messageID);
     }
@@ -170,19 +172,21 @@ public class UserManager implements Serializable {
     }
 
     /**
-     * Gets all message IDs of the user.
+     * Gets the user's sent messages.
      *
-     * @param username the username
-     * @return An arraylist of all the message IDs of the user
+     * @param username the username of the sender
+     * @return An arraylist of the user's sent messages
      */
-//    public ArrayList<String> getUserMessages(String username) {
-//        return allUsers.get(username).getMessageIDs();
-//    }
-
     public ArrayList<String> getSentMessages(String username) {
         return allUsers.get(username).getSentMessages();
     }
 
+    /**
+     * Gets the user's received messages.
+     *
+     * @param username the username of the receiver
+     * @return An arraylist of the user's received messages
+     */
     public ArrayList<String> getReceivedMessages(String username) {
         return allUsers.get(username).getReceivedMessages();
     }
