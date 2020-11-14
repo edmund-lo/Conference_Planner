@@ -15,8 +15,8 @@ public class OrganizerPresenter extends UserPresenter {
     public void createNewPrompt() {
         System.out.println("Press: " +
                 "\n 0. Go back" +
-                "\n 1. Create a new speaker account" +
-                "\n 2. Create a new room");
+                "\n 1. Create a new room" +
+                "\n 2. Create a new speaker account");
     }
     //Numbered prompts for organizer's options
     public void organizerMessagePrompt() {
