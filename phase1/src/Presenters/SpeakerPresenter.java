@@ -3,7 +3,7 @@ package Presenters;
 public class SpeakerPresenter extends UserPresenter {
     public void displayMenu(){
         super.displayMenu();
-        System.out.println("4. Message Attendees at Events as Speaker" +
+        System.out.println(" 4. Message Attendees at Events as Speaker" +
                 "\n 5. Show Events as Speaker");
     }
 

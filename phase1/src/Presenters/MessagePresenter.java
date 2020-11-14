@@ -20,11 +20,15 @@ public class MessagePresenter {
                 "\nPress \"2\" to send a message to an Entities.Attendee." +
                 "\nPress \"3\" to send a message to All Speakers. \nPress \"4\" to send a message to All Attendees.");
     }
+
+    public void showMessagesLabel() {
+        System.out.println("Here are your messages:");
+    }
+
     //display messages, iterating as a for-loop
-    public void showUserMessages(List<String> messages) {
+    public void listMessages(List<String> messages) {
         for (String x : messages) {
             System.out.println(x);
         }
     }
-
 }
