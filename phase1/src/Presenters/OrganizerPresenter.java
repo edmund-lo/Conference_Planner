@@ -4,7 +4,7 @@ public class OrganizerPresenter extends UserPresenter {
 
     public void displayMenu(){
         super.displayMenu();
-        System.out.println("4. Create New Options" +
+        System.out.println(" 4. Create New Options" +
                 "\n 5. Organizer Messaging" +
                 "\n 6. Schedule a Speaker");
     }
