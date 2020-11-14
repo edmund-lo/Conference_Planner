@@ -5,12 +5,24 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * An abstract Entity class representing a user.
+ *
+ * @author Edmund Lo
+ *
+ */
 public abstract class User implements Serializable {
     private String username;
     private String password;
     private HashMap<String, LocalDateTime[]> schedule;
     private ArrayList<String> messageIDs;
 
+    /**
+     * Constructor for User object.
+     *
+     * @param username the user's username
+     * @param password the user's password
+     */
     public User(String username, String password) {
         this.username = username;
         this.password = password;
@@ -18,31 +30,71 @@ public abstract class User implements Serializable {
         this.messageIDs = new ArrayList<>();
     }
 
+    /**
+     * Getter for user's username.
+     *
+     * @return user's username
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Getter for user's password.
+     *
+     * @return user's password
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Getter for a user's schedule of events that they are attending.
+     *
+     * @return A hashmap of the containing event IDs as keys and start and end times as values
+     */
     public HashMap<String, LocalDateTime[]> getSchedule() {
         return schedule;
     }
 
+    /**
+     * Getter for a user's message IDs.
+     *
+     * @return An arraylist of all of a user's message IDs.
+     */
     public ArrayList<String> getMessageIDs() {
         return messageIDs;
     }
 
+    /**
+     * Signs up a user for an event.
+     *
+     * @param eventID the event ID that they want to sign up for
+     * @param startTime the event start time
+     * @param endTime the event end time
+     */
     public void signUp(String eventID, LocalDateTime startTime, LocalDateTime endTime) {
         LocalDateTime[] time = {startTime, endTime};
         schedule.put(eventID, time);
     }
 
+    /**
+     * Removes user from an event.
+     *
+     * @param eventID the event ID they want to cancel their attendance at
+     */
     public void cancel(String eventID) {
         schedule.remove(eventID);
     }
 
+    /**
+     * Checks if a user is available at the times of the event they want to sign up for.
+     *
+     * @param eventID the event ID that they want to sign up for
+     * @param startTime the event start time
+     * @param endTime the event end time
+     * @return true iff they can sign up for the event
+     */
     public boolean canSignUp(String eventID, LocalDateTime startTime, LocalDateTime endTime) {
         if (schedule.containsKey(eventID)) {
             return false;
@@ -57,10 +109,20 @@ public abstract class User implements Serializable {
         }
     }
 
+    /**
+     * Add a message ID to a user's list of message IDs
+     *
+     * @param messageID the message ID
+     */
     public void addMessageID(String messageID) {
         messageIDs.add(messageID);
     }
 
+    /**
+     * toString with the User's username and role
+     *
+     * @return String of user's username and role
+     */
     public String toString() {
         return "Username: " + this.username + "\n" +  "Role: " + this.getClass().getSimpleName();
     }

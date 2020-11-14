@@ -37,25 +37,25 @@ public class SpeakerController extends UserController {
         // Enters a while loop that allows the user to continuously use Speaker and Attendee functions
         while(inSession) {
             sp.displayMenu();
-            int option = parseInt(input.nextLine());
+            String option = input.nextLine();
             switch(option) {
-                case 0:
+                case "0":
                     logout();
                     inSession = false;
                     break;
-                case 1:
+                case "1":
                     signUpMenu();
                     break;
-                case 2:
+                case "2":
                     cancelMenu();
                     break;
-                case 3:
+                case "3":
                     messageMenu();
                     break;
-                case 4:
+                case "4":
                     messageEventsAttendeesCmd();
                     break;
-                case 5:
+                case "5":
                     getSpeakerEvents();
                     break;
                 default:
@@ -72,22 +72,26 @@ public class SpeakerController extends UserController {
         getSpeakerEvents();
         sp.messageEventAttendeesPrompt();
         String eventIdsString = input.nextLine();
-        List<String> eventIds = new ArrayList<>();
-        Map<String, LocalDateTime[]> schedule = um.getSpeakerSchedule(username);
-        List<String> allSpeakerEventIds = new ArrayList<>(schedule.keySet());
-        for (String i : eventIdsString.split(",")) {
-            int index;
-            try {
-                index = parseInt(i);
-            } catch (NumberFormatException e) {
-                sp.invalidEventNumber();
-                continue;
+        if (eventIdsString.equals("")) {
+            sp.invalidEventNumberError();
+        } else {
+            List<String> eventIds = new ArrayList<>();
+            Map<String, LocalDateTime[]> schedule = um.getSpeakerSchedule(username);
+            List<String> allSpeakerEventIds = new ArrayList<>(schedule.keySet());
+            for (String i : eventIdsString.split(",")) {
+                int index;
+                try {
+                    index = parseInt(i);
+                } catch (NumberFormatException e) {
+                    sp.invalidEventNumberError();
+                    continue;
+                }
+                eventIds.add(allSpeakerEventIds.get(index));
             }
-            eventIds.add(allSpeakerEventIds.get(index));
+            sp.enterMessagePrompt();
+            String message = input.nextLine();
+            messageEventsAttendees(eventIds, message);
         }
-        sp.enterMessagePrompt();
-        String message = input.nextLine();
-        messageEventsAttendees(eventIds, message);
     }
 
     /**
