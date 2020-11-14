@@ -37,4 +37,12 @@ public class MessagePresenter {
             System.out.println(x);
         }
     }
+
+    public void showSentMessagesLabel() {
+        System.out.println("Here are your sent messages: ");
+    }
+
+    public void showReceivedMessagesLabel() {
+        System.out.println("Here are your received messages: ");
+    }
 }
