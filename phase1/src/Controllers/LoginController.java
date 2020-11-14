@@ -88,30 +88,38 @@ public class LoginController {
         lp.EnterPassword();
         Password = sc.nextLine();
 
-        lp.AccountType();
-        type = sc.nextLine();
 
-        //Depending on which account type the user selected, make a different type of user.
-        switch(type){
-            case "1":
-                um.createNewOrganizer(Username, Password);
-                Accounts = um.getAccountInfo();
-                lp.AccountMade();
-                break;
-            case "2":
-                um.createNewAttendee(Username, Password);
-                Accounts = um.getAccountInfo();
-                lp.AccountMade();
-                break;
-            case "3":
-                um.createNewSpeaker(Username, Password);
-                Accounts = um.getAccountInfo();
-                lp.AccountMade();
-                break;
-            default:
-                lp.ValidNumber();
-        }
 
+        boolean AccountTypeSet = false;
+
+        do {
+            lp.AccountType();
+            type = sc.nextLine();
+
+            //Depending on which account type the user selected, make a different type of user.
+            switch (type) {
+                case "1":
+                    um.createNewOrganizer(Username, Password);
+                    Accounts = um.getAccountInfo();
+                    AccountTypeSet = true;
+                    lp.AccountMade();
+                    break;
+                case "2":
+                    um.createNewAttendee(Username, Password);
+                    Accounts = um.getAccountInfo();
+                    AccountTypeSet = true;
+                    lp.AccountMade();
+                    break;
+                case "3":
+                    um.createNewSpeaker(Username, Password);
+                    Accounts = um.getAccountInfo();
+                    AccountTypeSet = true;
+                    lp.AccountMade();
+                    break;
+                default:
+                    lp.ValidNumber();
+            }
+        }while(!AccountTypeSet);
     }
 
     public void login(){

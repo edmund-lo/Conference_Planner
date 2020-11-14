@@ -24,7 +24,7 @@ public abstract class UserController {
     protected MessageManager mm;
     protected String username;
     protected Scanner input;
-    private UserPresenter up;
+    private final UserPresenter up;
     private MessagePresenter mp;
 
     /**
@@ -128,7 +128,7 @@ public abstract class UserController {
                             up.cannotMessageOrganizerError();
                     }
                 } else if (option == 2){
-                    MessagePresenter mp = new MessagePresenter();
+                    mp = new MessagePresenter();
                     mp.showMessagesLabel();
                     mp.listMessages(getAllMessages());
                 } else
@@ -229,9 +229,9 @@ public abstract class UserController {
     }
 
     /**
-     *Returns list of all messages the user recieved
+     *Returns list of all messages the user received
      *
-     *@return list of all messages the user recieved in string format
+     *@return list of all messages the user received in string format
      */
     public List<String> getAllMessages(){
         List<String> messageStrings = new ArrayList<>();
@@ -239,8 +239,7 @@ public abstract class UserController {
         if (userMessages.size() == 0) {
             up.noMessagesLabel();
         } else {
-            int numMessages = userMessages.size();
-            mp.showNumMessages(numMessages);
+            System.out.println("You have " + userMessages.size() + " messages.");
             for (String id : userMessages) {
                 messageStrings.add(mm.getMessageToString(id));
             }

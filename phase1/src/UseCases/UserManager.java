@@ -141,8 +141,16 @@ public class UserManager implements Serializable {
      * @param username the username
      * @param messageID the message ID
      */
-    public void addMessageToUser(String username, String messageID) {
-        allUsers.get(username).addMessageID(messageID);
+//    public void addMessageToUser(String username, String messageID) {
+//        allUsers.get(username).addMessageID(messageID);
+//    }
+
+    public void sendMessage(String username, String messageID) {
+        allUsers.get(username).sendMessage(messageID);
+    }
+
+    public void receiveMessage(String username, String messageID) {
+        allUsers.get(username).receiveMessage(messageID);
     }
 
     /**
@@ -167,8 +175,16 @@ public class UserManager implements Serializable {
      * @param username the username
      * @return An arraylist of all the message IDs of the user
      */
-    public ArrayList<String> getUserMessages(String username) {
-        return allUsers.get(username).getMessageIDs();
+//    public ArrayList<String> getUserMessages(String username) {
+//        return allUsers.get(username).getMessageIDs();
+//    }
+
+    public ArrayList<String> getUserSentMessages(String username) {
+        return allUsers.get(username).getSentMessages();
+    }
+
+    public ArrayList<String> getUserReceivedMessages(String username) {
+        return allUsers.get(username).getReceivedMessages();
     }
 
     /**

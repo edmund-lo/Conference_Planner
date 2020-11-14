@@ -57,9 +57,8 @@ public class EventGateway implements GatewayInterface<EventManager>, Serializabl
         catch (FileNotFoundException e) {
             System.out.println("File not Found!!");
         }
-        catch (IOException e){
-            System.out.println("IO Exception Raised!!");
-        }
+        catch (IOException e){}
+
         catch (ClassNotFoundException e) {
             System.out.println("Entities.Event Manager Class was not found");
         }
