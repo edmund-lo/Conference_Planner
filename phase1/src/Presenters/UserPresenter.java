@@ -12,7 +12,7 @@ public class UserPresenter {
     // cancel an event with a known number
     // message a user, view list of messages
     public void displayMenu() {
-        System.out.println("Select Option " +
+        System.out.println("\nSelect Option " +
                 "\n 0. Logout" +
                 "\n 1. Sign Up for Events" +
                 "\n 2. Cancel Attendance from Events" +

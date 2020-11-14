@@ -62,6 +62,7 @@ public abstract class UserController {
                     up.invalidOptionError();
                 else
                     signUpEventAttendance(em.getAllEventIds().get(option - 1));
+                    break;
             } catch (NumberFormatException e) {
                 up.invalidOptionError();
             }
@@ -85,6 +86,7 @@ public abstract class UserController {
                     up.invalidOptionError();
                 else
                     cancelEventAttendance(getAttendingEvents().get(option-1));
+                    break;
             } catch (NumberFormatException e) {
                 up.invalidOptionError();
             }
@@ -161,7 +163,7 @@ public abstract class UserController {
         } else {
             em.addUserToEvent(eventId,username);
             um.signUp(username, eventId, start, end);
-            up.signUpResult(em.getEventDescription(eventId));
+            up.signUpResult(em.getEventName(eventId));
             return true;
         }
     }
