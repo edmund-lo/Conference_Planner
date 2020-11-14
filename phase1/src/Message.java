@@ -85,7 +85,7 @@ public class Message {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         return "Sender Name: "+ this.senderId +"\n" +
                 "Time: "+String.valueOf(dtf.format(this.messageTime))+
-                "\n" + "The Attending User: "+ this.receiverId +
+                "\n" + "The Attending Entities.User: "+ this.receiverId +
                 "\n" + getContent();
     }
 }

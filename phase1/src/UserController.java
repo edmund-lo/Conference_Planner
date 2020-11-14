@@ -1,3 +1,8 @@
+import Entities.Attendee;
+import Entities.Organizer;
+import Entities.Speaker;
+import Entities.User;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -244,7 +249,7 @@ public abstract class UserController {
     /**
      *Sends a message to an attendee.
      *
-     *@param  recipientName username of the Attendee the message is for.
+     *@param  recipientName username of the Entities.Attendee the message is for.
      *@param  content the contents of the message being sent.
      *
      *@return returns true if the message was sent successfully.

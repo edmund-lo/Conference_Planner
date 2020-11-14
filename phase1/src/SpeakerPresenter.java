@@ -12,7 +12,7 @@ public abstract class SpeakerPresenter {
                 "\n 3. Message Menu" +
                 "\n 4. Message All Attendees" +
                 "\n 5. Message All Speakers" +
-                "\n 6. Schedule a Speaker" +
+                "\n 6. Schedule a Entities.Speaker" +
                 "\n 7. Create a Room");
     }
 

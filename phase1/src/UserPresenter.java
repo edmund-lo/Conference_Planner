@@ -22,7 +22,7 @@ public abstract class UserPresenter {
     }
 
     public void cannotMessageOrganizer() {
-        System.out.println("You cannot message an Organizer");
+        System.out.println("You cannot message an Entities.Organizer");
     }
     public void InvalidUserEntry() {
         System.out.println("The user you entered was not valid. Enter a valid option.");

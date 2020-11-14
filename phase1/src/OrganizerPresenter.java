@@ -29,7 +29,7 @@ public abstract class OrganizerPresenter {
     public void invalidSpeakerAnotherSpeakerAtThisEvent() {
         System.out.println("Another speaker is already speaking at this event.");
     }
-    //Speaker is already speaking at another event
+    //Entities.Speaker is already speaking at another event
     public void invalidSpeakerSpeakingAtAnotherEvent() {
         System.out.println("This speaker is already speaking at another event.");
     }
@@ -46,7 +46,7 @@ public abstract class OrganizerPresenter {
                 "\n 3. Message Menu" +
                 "\n 4. Message All Attendees" +
                 "\n 5. Message All Speakers" +
-                "\n 6. Schedule a Speaker" +
+                "\n 6. Schedule a Entities.Speaker" +
                 "\n 7. Create a Room");
     }
 

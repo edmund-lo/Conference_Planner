@@ -13,7 +13,7 @@ public class MessageGateway implements GatewayInterface<MessageManager>, Seriali
     }
 
     /**
-     * This method serializes an inputted User Manager's data
+     * This method serializes an inputted Entities.User Manager's data
      * @param mm MessageManager object
      * @catch FileNotFoundException
      * @catch IOException

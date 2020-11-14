@@ -9,8 +9,8 @@ public abstract class MessagePresenter extends LoginPresenter {
     }
     //This needs work, determine if separate method to send to all Speakers and Attendees
     public void specifyReceiverOfMessage() {
-        System.out.println("Enter \"1\" if you would like to send a message to a Speaker. " +
-                "\nPress \"2\" to send a message to an Attendee." +
+        System.out.println("Enter \"1\" if you would like to send a message to a Entities.Speaker. " +
+                "\nPress \"2\" to send a message to an Entities.Attendee." +
                 "\nPress \"3\" to send a message to All Speakers. \nPress \"4\" to send a message to All Attendees.");
     }
     //display messages

@@ -1,3 +1,8 @@
+import Entities.Attendee;
+import Entities.Organizer;
+import Entities.Speaker;
+import Entities.User;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

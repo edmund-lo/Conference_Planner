@@ -15,7 +15,7 @@ public class UserGateway implements GatewayInterface<UserManager>, Serializable 
     }
 
     /**
-     * This method serializes an inputted User Manager's data
+     * This method serializes an inputted Entities.User Manager's data
      * @param um UserManager object
      * @catch IOException
      * @catch FileNotFoundException

@@ -1,7 +1,9 @@
+package Entities;
+
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
-public class Speaker extends User{
+public class Speaker extends User {
     private HashMap<String, LocalDateTime[]> speakerSchedule;
 
     public Speaker(String username, String password) {
