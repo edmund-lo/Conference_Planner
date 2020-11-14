@@ -52,8 +52,8 @@ public class UserGateway implements GatewayInterface<UserManager>, Serializable 
             ObjectInputStream input = new ObjectInputStream(file2);
 
             um = (UserManager) input.readObject();
-            file2.close();
             input.close();
+            file2.close();
             return um;
         }
         catch (FileNotFoundException e) {

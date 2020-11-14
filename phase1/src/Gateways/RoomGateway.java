@@ -53,8 +53,8 @@ public class RoomGateway implements GatewayInterface<RoomManager>, Serializable 
             ObjectInputStream input = new ObjectInputStream(file2);
 
             rm = (RoomManager) input.readObject();
-            file2.close();
             input.close();
+            file2.close();
             return rm;
         }
         catch (FileNotFoundException e) {

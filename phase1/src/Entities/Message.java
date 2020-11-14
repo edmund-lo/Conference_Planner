@@ -1,12 +1,13 @@
 package Entities;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
  * Implementation of a message and all details about it.
  */
-public class Message {
+public class Message implements Serializable {
     private String messageId;
     private String senderId;
     private String content;

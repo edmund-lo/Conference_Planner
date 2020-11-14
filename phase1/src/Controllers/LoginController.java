@@ -127,13 +127,13 @@ public class LoginController extends LoginPresenter {
         }while(!(UsernameExists && PasswordExists));
 
         switch(AccountType){
-            case "o":
+            case "Organizer":
                 this.controller = new OrganizerController(em, um, rm, mm, Username);
                 break;
-            case "a":
+            case "Attendee":
                 this.controller = new AttendeeController(em, um, rm, mm, Username);
                 break;
-            case "s":
+            case "Speaker":
                 this.controller = new SpeakerController(em, um, rm, mm, Username);
                 break;
             default:

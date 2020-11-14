@@ -1,10 +1,11 @@
 package Entities;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class User {
+public abstract class User implements Serializable {
     private String username;
     private String password;
     private HashMap<String, LocalDateTime[]> schedule;

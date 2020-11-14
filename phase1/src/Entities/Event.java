@@ -1,5 +1,6 @@
 package Entities;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Implementation of an event with all details pretaining to it stored inside.
  */
-public class Event {
+public class Event implements Serializable {
     private String eventName;
     private String eventID;
     private String speakerID;

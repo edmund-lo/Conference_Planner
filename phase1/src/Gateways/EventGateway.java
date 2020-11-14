@@ -50,8 +50,8 @@ public class EventGateway implements GatewayInterface<EventManager>, Serializabl
             ObjectInputStream input = new ObjectInputStream(file2);
 
             em = (EventManager) input.readObject();
-            file2.close();
             input.close();
+            file2.close();
             return em;
         }
         catch (FileNotFoundException e) {

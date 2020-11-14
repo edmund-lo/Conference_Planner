@@ -54,8 +54,8 @@ public class MessageGateway implements GatewayInterface<MessageManager>, Seriali
             ObjectInputStream input = new ObjectInputStream(file2);
 
             mm = (MessageManager) input.readObject();
-            file2.close();
             input.close();
+            file2.close();
             return mm;
         }
         catch (FileNotFoundException e) {

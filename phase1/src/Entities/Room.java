@@ -1,5 +1,6 @@
 package Entities;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.TreeMap;
@@ -12,7 +13,7 @@ import java.util.TreeMap;
  *
  */
 
-public class Room {
+public class Room implements Serializable {
     private String name;
     private TreeMap<LocalDateTime, String> schedule;
 
