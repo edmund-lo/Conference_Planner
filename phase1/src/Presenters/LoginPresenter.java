@@ -41,4 +41,8 @@ public class LoginPresenter {
     public void CreateAccountP() {
         System.out.println("Create Account");
     }
+
+    public void AccountMade() {
+        System.out.println("Account has been made! Return to the login screen to login to your account.");
+    }
 }

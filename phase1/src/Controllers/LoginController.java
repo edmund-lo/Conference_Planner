@@ -72,14 +72,17 @@ public class LoginController {
             case "o":
                 um.createNewOrganizer(Username, Password);
                 Accounts = um.getAccountInfo();
+                lp.AccountMade();
                 break;
             case "a":
                 um.createNewAttendee(Username, Password);
                 Accounts = um.getAccountInfo();
+                lp.AccountMade();
                 break;
             case "s":
                 um.createNewSpeaker(Username, Password);
                 Accounts = um.getAccountInfo();
+                lp.AccountMade();
                 break;
             default:
                 lp.ValidNumber();
