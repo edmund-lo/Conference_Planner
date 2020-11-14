@@ -62,7 +62,7 @@ public class UserPresenter {
     public void listEvents(List<String> events) {
         int count = 1;
         for (String x: events) {
-            System.out.println("("+count + "): " + x);
+            System.out.println("("+count + "): " + x+"\n");
             count++;
         }
     }

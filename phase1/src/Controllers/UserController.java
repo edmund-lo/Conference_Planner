@@ -61,6 +61,7 @@ public abstract class UserController {
                 up.invalidOptionError();
             else
                 signUpEventAttendance(em.getAllEventIds().get(option-1));
+                break;
         }
     }
 
@@ -80,6 +81,7 @@ public abstract class UserController {
                 up.invalidOptionError();
             else
                 cancelEventAttendance(getAttendingEvents().get(option-1));
+                break;
         }
     }
 
