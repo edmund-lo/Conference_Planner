@@ -6,6 +6,7 @@ package Presenters;
  * Displays successful/incorrect credential account sign-in
  * Displays option for new account creation, and confirms success of account creation
  */
+
 public class LoginPresenter {
     //If username is already in use
     public void UsernameTaken(){
@@ -19,9 +20,9 @@ public class LoginPresenter {
     //prompts type of Account
     public void AccountType(){
         System.out.println("What is the account type? Press:" +
-                "\n\"o\" for Entities.Organizer" +
-                "\n\"a\" for Entities.Attendee" +
-                "\n\"s\" for Entities.Speaker");
+                "\n1. for Entities.Organizer" +
+                "\n2. for Entities.Attendee" +
+                "\n3. for Entities.Speaker");
     }
     //Outputs request for password
     public void EnterPassword(){
