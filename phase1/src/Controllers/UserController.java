@@ -234,8 +234,8 @@ public abstract class UserController {
         if (um.getUserMessages(username).size() == 0) {
             up.noMessagesLabel();
         } else {
-            for (String iD : um.getUserMessages(username)) {
-                messageStrings.add(mm.getMessageToString(iD));
+            for (String id : um.getUserMessages(username)) {
+                messageStrings.add(mm.getMessageToString(id));
             }
         }
 
@@ -246,10 +246,10 @@ public abstract class UserController {
      *Calls the user manager to add a messageId to a user's list
      *
      *@param  messageId id of the message user is adding.
-     *@param  username username of the user the message is for.
+     *@param  recipientName username of the user the message is for.
      */
-    protected void addMessagesToUser(String username, String messageId) {
-        um.addMessageToUser(username, messageId);
+    public void addMessagesToUser(String recipientName, String messageId) {
+        um.addMessageToUser(recipientName, messageId);
         um.addMessageToUser(this.username, messageId);
     }
 
