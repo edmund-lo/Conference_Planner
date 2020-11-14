@@ -122,4 +122,26 @@ public class UserManager implements Serializable {
         return accountInfo;
     }
 
+    public boolean isAttendee(String username) {
+        return allUsers.get(username) instanceof Attendee;
+    }
+
+    public boolean isOrganizer(String username) {
+        return allUsers.get(username) instanceof Organizer;
+    }
+
+    public boolean isSpeaker(String username) {
+        return allUsers.get(username) instanceof Speaker;
+    }
+
+    public ArrayList<String> getAllMessageableUsers(String username) {
+        ArrayList<String> usernames = new ArrayList<>();
+        for (User user: allUsers.values()){
+            if (user instanceof Speaker || user instanceof Organizer && user.getUsername().equals(username))
+                usernames.add(user.toString());
+        }
+
+        return usernames;
+    }
+
 }

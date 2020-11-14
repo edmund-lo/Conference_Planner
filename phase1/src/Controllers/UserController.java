@@ -1,10 +1,6 @@
 package Controllers;
 
 import Presenters.*;
-import Entities.Attendee;
-import Entities.Organizer;
-import Entities.Speaker;
-import Entities.User;
 import UseCases.EventManager;
 import UseCases.MessageManager;
 import UseCases.RoomManager;
@@ -120,7 +116,7 @@ public abstract class UserController {
                 }
                 System.out.println("Type in your message below: ");
                 content = input.next();
-                if (um.getUserByUsername(name) instanceof Attendee || um.getUserByUsername(name) instanceof Speaker)
+                if (um.isAttendee(name) || um.isSpeaker(name))
                     sendMessage(name, content);
                 else
                     System.out.println("You cannot message an organizer.");
@@ -141,16 +137,10 @@ public abstract class UserController {
      *
      *@return list of speakers and attendees in a string format
      */
-    public List<String> getAllMessageableUsers(){
-        HashMap<String, User> users = um.getAllUsers();
-        ArrayList<String> usernames = new ArrayList<>();
-        for (User u: users.values()){
-            if(u instanceof Speaker||u instanceof Organizer && u.getUsername().equals(username))
-                usernames.add(u.toString());
-        }
-
-        return usernames;
+    public ArrayList<String> getAllMessageableUsers(){
+        return um.getAllMessageableUsers(username);
     }
+
     /**
      *Called when user signs up for an event.
      * @param  eventId id of the event user is signing up for.
