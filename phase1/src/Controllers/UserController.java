@@ -176,11 +176,11 @@ public abstract class UserController {
      */
     public boolean cancelEventAttendance(String eventId) {
         if(em.removeUserFromEvent(eventId, username)) {
-            um.cancel(eventId, username);
-            up.cancelResult(em.getEventDescription(eventId));
+            um.cancel(username, eventId);
+            up.cancelResult(em.getEventName(eventId));
             return true;
         }
-        up.notAttendingEventError(em.getEventDescription(eventId));
+        up.notAttendingEventError(em.getEventName(eventId));
         return false;
     }
 

@@ -75,11 +75,11 @@ public class UserPresenter {
     }
     //confirm signup result
     public void signUpResult(String event) {
-        System.out.println("You have signed up for " + event);
+        System.out.println("You have signed up for event " + event);
     }
     //cancel attendance for passed in event
     public void cancelResult(String event) {
-        System.out.println("You have cancelled your attendance for " + event);
+        System.out.println("You have cancelled your attendance for event " + event);
     }
     //prints user that message is sent to
     public void messageResult(String recipient) {
@@ -111,7 +111,7 @@ public class UserPresenter {
     }
     //not attending or not signed up for event error (passes in Event event to determine
     public void notAttendingEventError(String event) {
-        System.out.println("You are not signed up for " + event);
+        System.out.println("You are not signed up for event1 " + event);
     }
     //print statement at logout
     public void logoutMessage() {
