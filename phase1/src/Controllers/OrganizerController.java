@@ -219,7 +219,7 @@ public class OrganizerController extends UserController {
         getAllEvents();
         op.eventNumberPrompt();
         int index = parseInt(input.nextLine());
-        String eventId = new ArrayList<>(em.getAllEvents().keySet()).get(index);
+        String eventId = new ArrayList<>(em.getAllEventIds()).get(index);
         List<String> speakerNames = um.getAllSpeakerNames();
         for (String name : speakerNames)
             System.out.println(name);
