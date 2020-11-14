@@ -28,7 +28,7 @@ public abstract class UserController {
     private MessagePresenter mp;
 
     /**
-     * Constructor for Controllers.UserController object.
+     * Constructor for UserController object.
      *
      * @param em  current session's UseCases.EventManager class.
      * @param um  current session's UseCases.UserManager class.
@@ -250,25 +250,10 @@ public abstract class UserController {
     }
 
     /**
-     *Returns list of all messages the user received
+     * Gets all of current user's sent messages.
      *
-     *@return list of all messages the user received in string format
+     * @return List of Strings representing all of the user's sent messages.
      */
-//    public List<String> getAllMessages(){
-//        List<String> messageStrings = new ArrayList<>();
-//        List<String> userMessages = um.getUserMessages(username);
-//        if (userMessages.size() == 0) {
-//            up.noMessagesLabel();
-//        } else {
-//            System.out.println("You have " + userMessages.size() + " messages.");
-//            for (String id : userMessages) {
-//                messageStrings.add(mm.getMessageToString(id));
-//            }
-//        }
-//
-//        return messageStrings;
-//    }
-
     public List<String> getAllSentMessages(){
         List<String> messageStrings = new ArrayList<>();
         List<String> userMessages = um.getSentMessages(username);
@@ -284,6 +269,11 @@ public abstract class UserController {
         return messageStrings;
     }
 
+    /**
+     * Gets all of current user's received messages.
+     *
+     * @return List of Strings representing all of the user's received messages.
+     */
     public List<String> getAllReceivedMessages(){
         List<String> messageStrings = new ArrayList<>();
         List<String> userMessages = um.getReceivedMessages(username);
