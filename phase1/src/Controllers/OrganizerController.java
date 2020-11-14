@@ -237,8 +237,18 @@ public class OrganizerController extends UserController {
     public void scheduleSpeakerCmd() {
         getAllEvents();
         op.eventNumberPrompt();
+
         int index = parseInt(input.nextLine());
+        if (!em.getAllEventIds().contains(index))
+        {
+            while (!em.getAllEventIds().contains(index)) {
+                System.out.println("Try again, this time with a valid number");
+                index = parseInt(input.nextLine());
+            }
+        }
+
         String eventId = em.getAllEventIds().get(index);
+
         List<String> speakerNames = um.getAllSpeakerNames();
         for (String name : speakerNames)
             System.out.println(name);
