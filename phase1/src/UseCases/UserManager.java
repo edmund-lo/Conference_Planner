@@ -137,7 +137,7 @@ public class UserManager implements Serializable {
     public ArrayList<String> getAllMessageableUsers(String username) {
         ArrayList<String> usernames = new ArrayList<>();
         for (User user: allUsers.values()){
-            if (user instanceof Speaker || user instanceof Organizer && user.getUsername().equals(username))
+            if (user instanceof Speaker || user instanceof Attendee && !user.getUsername().equals(username))
                 usernames.add(user.toString());
         }
 
