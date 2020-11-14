@@ -13,14 +13,18 @@ public class MessagePresenter {
     }
     //displays menu options
     public void displayMessageOptions() {
-        System.out.println("Press \"1\" if you would like to display all messages. " +
-                "\n Press \"2\" if you would like to send a message. \n If not, press enter to continue. ");
+        System.out.println("Press:" +
+                "\n 1. Display all messages. " +
+                "\n 2. Snd a message. " +
+                "\n Press enter to continue. ");
     }
     //This needs work, determine if separate method to send to all Speakers and Attendees
     public void specifyReceiverOfMessage() {
-        System.out.println("Enter \"1\" if you would like to send a message to a Entities.Speaker. " +
-                "\nPress \"2\" to send a message to an Entities.Attendee." +
-                "\nPress \"3\" to send a message to All Speakers. \nPress \"4\" to send a message to All Attendees.");
+        System.out.println("Enter:" +
+                "\n 1. Send message to a Speaker. " +
+                "\n 2. Send message to an Attendee." +
+                "\n 3. Send message to All Speakers. " +
+                "\n 4. Send message to All Attendees.");
     }
     //Introduces following messages
     public void showMessagesLabel() {
