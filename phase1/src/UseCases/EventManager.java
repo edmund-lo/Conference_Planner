@@ -167,4 +167,14 @@ public class EventManager implements Serializable {
     public ArrayList<String> getAllEventIds() {
         return new ArrayList<>(allEvents.keySet());
     }
+
+    /**
+     * To return the event description of event with ID eventID
+     *
+     * @param eventID the ID of the event to which we want the description of
+     * @return the description of the event with ID eventID
+     */
+    public String getEventDescription(String eventID){
+        return allEvents.get(eventID).toString();
+    }
 }

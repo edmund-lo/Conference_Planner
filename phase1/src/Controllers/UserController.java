@@ -202,7 +202,7 @@ public abstract class UserController {
     public List<String> getAllEvents(){
         ArrayList<String> eventDesc = new ArrayList<>();
         for (String id : em.getAllEventIds()){
-            eventDesc.add(em.getAllEvents().get(id).toString());
+            eventDesc.add(em.getEventDescription(id));
         }
 
         return eventDesc;
