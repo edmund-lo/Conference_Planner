@@ -14,7 +14,7 @@ public class SpeakerPresenter extends UserPresenter {
         System.out.println(" 4. Message Attendees at Events as Speaker" +
                 "\n 5. Show Events as Speaker");
     }
-    //Prints label for speaker's events
+    //Prints statement introducing list of events
     public void speakerEventsLabel() {
         System.out.println("Here are a list of events you are speaking at:");
     }
