@@ -24,11 +24,15 @@ public class UserPresenter {
     }
     //prompts user option for cancelling event
     public void cancelEventPrompt() {
-        System.out.println("Enter 0 to go back or enter a number to select an event to cancel:");
+        System.out.println("Enter a number to select an event to cancel:" +
+                "\n Press 0 to go back.");
     }
     //prompt for messaging options
     public void messageMenuPrompt() {
-        System.out.println("Enter 0 to go back, enter 1 to message a user, or enter 2 to view your messages.");
+        System.out.println("Press :" +
+                "\n 0. Go back" +
+                "\n 1. Message a user" +
+                "\n 2. View your messages");
     }
     //prompt for receiver option
     public void enterReceiverPrompt() {
