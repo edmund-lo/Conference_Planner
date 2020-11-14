@@ -41,7 +41,7 @@ public class ProjectConfig {
                 lc.CreateAccount();
                 break;
             default:
-                System.out.println("Please enter a valid number.");
+                LoginPresenter.ValidNumber();
 
         }
         return lc;

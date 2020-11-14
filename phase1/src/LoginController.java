@@ -28,6 +28,7 @@ public class LoginController extends LoginPresenter  {
         int UsernameCheck;
         boolean UsernameSet = false;
         do {
+            LoginPresenter.CreateAccountP();
             UsernameCheck = 0;
             LoginPresenter.EnterUsername();
             Username = sc.nextLine();
@@ -43,8 +44,10 @@ public class LoginController extends LoginPresenter  {
             else{
                 LoginPresenter.UsernameTaken();
                 String login = sc.nextLine();
-                if (login.equals("login"))
+                if (login.equals("login")){
                     login();
+                    return;
+                }
             }
 
         }while(!UsernameSet);
@@ -69,7 +72,7 @@ public class LoginController extends LoginPresenter  {
                 Accounts = um.getAccountInfo();
                 break;
             default:
-                System.out.println("Please enter a valid option");
+                LoginPresenter.ValidNumber();
         }
 
     }
@@ -83,6 +86,7 @@ public class LoginController extends LoginPresenter  {
         String AccountType = "";
 
         do {
+            LoginPresenter.Login();
             UsernameExists = false;
             PasswordExists = false;
 
@@ -102,8 +106,15 @@ public class LoginController extends LoginPresenter  {
                 }
             }
 
-            if (!(UsernameExists && PasswordExists))
+            if (!(UsernameExists && PasswordExists)){
                 LoginPresenter.IncorrectCredentials();
+                LoginPresenter.New();
+                if (sc.nextLine().equals("New")){
+                    CreateAccount();
+                    return;
+                }
+
+            }
 
         }while(!(UsernameExists && PasswordExists));
 
@@ -118,7 +129,7 @@ public class LoginController extends LoginPresenter  {
                 this.controller = new SpeakerController(em, um, rm, mm, Username);
                 break;
             default:
-                System.out.println("Please enter a valid option");
+                LoginPresenter.ValidNumber();
         }
 
         this.em = controller.em;

@@ -24,4 +24,19 @@ public abstract class LoginPresenter {
         System.out.println("Incorrect Username or Password.");
     }
 
+    protected static void New() {
+        System.out.println("Type \"New\" to create new account. Press enter to continue");
+    }
+
+    public static void ValidNumber() {
+        System.out.println("Please enter a valid number.");
+    }
+
+    protected static void Login() {
+        System.out.println("Login:");
+    }
+
+    protected static void CreateAccountP() {
+        System.out.println("Create Account");
+    }
 }
