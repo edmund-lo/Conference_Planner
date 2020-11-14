@@ -1,5 +1,12 @@
 package Presenters;
 
+/**
+ * Presenter class that outputs speaker attributes that client-users can view
+ * Displays menu options
+ * Displays list of speaker's events
+ * Prompts request to send message to event attendees
+ * confirms and rejects success of sending messages to event attendees based on invalid credentials
+ */
 public class SpeakerPresenter extends UserPresenter {
     public void displayMenu(){
         super.displayMenu();
