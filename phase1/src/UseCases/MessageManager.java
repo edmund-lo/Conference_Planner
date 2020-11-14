@@ -39,7 +39,7 @@ public class MessageManager implements Serializable {
      * @return allContents
      */
 
-    public List<String> messageContents(){
+    public List<String> getMessageContents(){
         for (Message message : this.allMessages.values()){
             this.allContents.add(message.toString());
         }
@@ -91,6 +91,14 @@ public class MessageManager implements Serializable {
     public boolean messageCheck(String receiverId, String senderId, String content) {
         return (!receiverId.equals(senderId) && !content.equals(""));
     }
+
+    /**
+     * Make all the messages in allMessages to String
+     *
+     * @param messageID The id of message want to construct to string
+     *
+     * Return the String of all messages
+     */
 
     public String getMessageToString(String messageID) {
         return allMessages.get(messageID).toString();
