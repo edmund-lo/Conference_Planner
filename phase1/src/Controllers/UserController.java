@@ -24,10 +24,11 @@ public abstract class UserController {
     protected MessageManager mm;
     protected String username;
     protected Scanner input;
-    private UserPresenter up;
+    private final UserPresenter up;
+    private MessagePresenter mp;
 
     /**
-     * Constructor for Controllers.UserController object.
+     * Constructor for UserController object.
      *
      * @param em  current session's UseCases.EventManager class.
      * @param um  current session's UseCases.UserManager class.
@@ -43,6 +44,7 @@ public abstract class UserController {
         this.username = username;
         this.input = new Scanner(System.in);
         this.up = new UserPresenter();
+        this.mp = new MessagePresenter();
     }
 
     /**
@@ -94,6 +96,28 @@ public abstract class UserController {
     }
 
     /**
+     * UI for when users want to see all events they're attending
+     *
+     */
+    public void viewEventsMenu(){
+        while(true){
+            up.listAllEventsLabel();
+            up.listEvents(getAttendingEventsString());
+            up.exitlistAllEventsLabel();
+            try{
+                int option = parseInt(input.nextLine());
+                if(option == 0){
+                    break;
+                }else{
+                    up.invalidOptionError();
+                }
+            }catch(NumberFormatException e){
+                up.invalidOptionError();
+            }
+        }
+    }
+
+    /**
      *UI for when users want to message other users or view their messages.
      *
      */
@@ -126,9 +150,13 @@ public abstract class UserController {
                             up.cannotMessageOrganizerError();
                     }
                 } else if (option == 2){
-                    MessagePresenter mp = new MessagePresenter();
-                    mp.showMessagesLabel();
-                    mp.listMessages(getAllMessages());
+                    mp = new MessagePresenter();
+                    mp.showSentMessagesLabel();
+                    mp.listMessages(getAllSentMessages());
+                } else if (option == 3) {
+                    mp = new MessagePresenter();
+                    mp.showReceivedMessagesLabel();
+                    mp.listMessages(getAllReceivedMessages());
                 } else
                     up.invalidOptionError();
             } catch (NumberFormatException e) {
@@ -227,17 +255,37 @@ public abstract class UserController {
     }
 
     /**
-     *Returns list of all messages the user recieved
+     * Gets all of current user's sent messages.
      *
-     *@return list of all messages the user recieved in string format
+     * @return List of Strings representing all of the user's sent messages.
      */
-    public List<String> getAllMessages(){
+    public List<String> getAllSentMessages(){
         List<String> messageStrings = new ArrayList<>();
-        List<String> userMessages = um.getUserMessages(username);
+        List<String> userMessages = um.getSentMessages(username);
         if (userMessages.size() == 0) {
             up.noMessagesLabel();
         } else {
-            System.out.println("You have " + userMessages.size() + " messages.");
+            System.out.println("You have " + userMessages.size() + " sent messages.");
+            for (String id : userMessages) {
+                messageStrings.add(mm.getMessageToString(id));
+            }
+        }
+
+        return messageStrings;
+    }
+
+    /**
+     * Gets all of current user's received messages.
+     *
+     * @return List of Strings representing all of the user's received messages.
+     */
+    public List<String> getAllReceivedMessages(){
+        List<String> messageStrings = new ArrayList<>();
+        List<String> userMessages = um.getReceivedMessages(username);
+        if (userMessages.size() == 0) {
+            up.noMessagesLabel();
+        } else {
+            System.out.println("You have " + userMessages.size() + " received messages.");
             for (String id : userMessages) {
                 messageStrings.add(mm.getMessageToString(id));
             }
@@ -253,8 +301,8 @@ public abstract class UserController {
      *@param  recipientName username of the user the message is for.
      */
     public void addMessagesToUser(String recipientName, String messageId) {
-        um.addMessageToUser(recipientName, messageId);
-        um.addMessageToUser(this.username, messageId);
+        um.receiveMessage(recipientName, messageId);
+        um.sendMessage(this.username, messageId);
     }
 
     /**

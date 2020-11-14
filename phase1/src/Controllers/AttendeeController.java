@@ -46,6 +46,9 @@ public class AttendeeController extends UserController {
                 case "3":
                     messageMenu();
                     break;
+                case "4":
+                    viewEventsMenu();
+                    break;
                 default:
                     up.invalidOptionError();
                     break;

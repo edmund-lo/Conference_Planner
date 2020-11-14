@@ -7,16 +7,16 @@ public class OrganizerPresenter extends UserPresenter {
     //Displays numbered menu options
     public void displayMenu(){
         super.displayMenu();
-        System.out.println(" 4. Create New Options" +
-                "\n 5. Organizer Messaging" +
-                "\n 6. Schedule a Speaker");
+        System.out.println(" 5. Create New Options" +
+                "\n 6. Organizer Messaging" +
+                "\n 7. Schedule a Speaker");
     }
     //creates new numbered prompts based on options
     public void createNewPrompt() {
         System.out.println("Press: " +
                 "\n 0. Go back" +
-                "\n 1. Create a new speaker account" +
-                "\n 2. Create a new room");
+                "\n 1. Create a new room" +
+                "\n 2. Create a new speaker account");
     }
     //Numbered prompts for organizer's options
     public void organizerMessagePrompt() {

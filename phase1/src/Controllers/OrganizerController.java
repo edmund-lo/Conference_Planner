@@ -54,12 +54,15 @@ public class OrganizerController extends UserController {
                     messageMenu();
                     break;
                 case "4":
-                    createNewMenu();
+                    viewEventsMenu();
                     break;
                 case "5":
-                    organizerMessageMenu();
+                    createNewMenu();
                     break;
                 case "6":
+                    organizerMessageMenu();
+                    break;
+                case "7":
                     scheduleSpeakerCmd();
                     break;
                 default:

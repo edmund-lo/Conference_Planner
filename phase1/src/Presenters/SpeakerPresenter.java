@@ -11,8 +11,8 @@ public class SpeakerPresenter extends UserPresenter {
     //displays numbered menu options
     public void displayMenu(){
         super.displayMenu();
-        System.out.println(" 4. Message Attendees at Events as Speaker" +
-                "\n 5. Show Events as Speaker");
+        System.out.println(" 5. Message Attendees at Events as Speaker" +
+                "\n 6. Show Events as Speaker");
     }
     //Prints statement introducing list of events
     public void speakerEventsLabel() {

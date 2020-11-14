@@ -2,6 +2,7 @@ package Entities;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -93,11 +94,9 @@ public class Event implements Serializable {
      * @return a String representation of Entities.Event that contains the event name, time and number of attending users
      */
     public String toString(){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         return "Event Name: "+this.eventName+"\n" +
-                "Time: "+this.startTime.getHour()+":"+this.startTime.getMinute()+" on "
-                +this.startTime.getDayOfMonth()+"/"+this.startTime.getMonthValue()+" to "+
-                this.endTime.getHour()+":"+this.endTime.getMinute()+" on "+
-                this.endTime.getDayOfMonth()+"/"+this.endTime.getMonthValue() +"\n" +
+                "Time: "+dtf.format(this.startTime)+" to "+dtf.format(this.endTime)+"\n" +
                 "Number of Attending Users: "+this.attendingUsers.size();
     }
 

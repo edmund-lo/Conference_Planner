@@ -31,10 +31,26 @@ public class MessagePresenter {
         System.out.println("Here are your messages: ");
     }
 
+    public void showNumMessages(int numMessages) {
+        if (numMessages == 1) {
+            System.out.println("You have " + numMessages + " message.");
+        } else {
+            System.out.println("You have " + numMessages + " messages.");
+        }
+    }
+
     //display messages, iterating as a for-loop
     public void listMessages(List<String> messages) {
         for (String x : messages) {
             System.out.println(x);
         }
+    }
+
+    public void showSentMessagesLabel() {
+        System.out.println("Here are your sent messages: ");
+    }
+
+    public void showReceivedMessagesLabel() {
+        System.out.println("Here are your received messages: ");
     }
 }
