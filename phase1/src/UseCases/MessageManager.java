@@ -34,16 +34,6 @@ public class MessageManager implements Serializable {
     }
 
     /**
-     * For getting the list of all events with corresponding IDs
-     *
-     * @return allEvents
-     */
-
-    public HashMap<String, Message> getAllMessages() {
-        return this.allMessages;
-    }
-
-    /**
      * A string representation of all the message contents
      *
      * @return allContents
@@ -102,4 +92,7 @@ public class MessageManager implements Serializable {
         return createMessage(receiverId, senderId, content);
     }
 
+    public String getMessageToString(String messageID) {
+        return allMessages.get(messageID).toString();
+    }
 }

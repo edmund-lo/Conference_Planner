@@ -216,7 +216,7 @@ public abstract class UserController {
     public List<String> getAllMessages(){
         ArrayList<String> messageStrings = new ArrayList<>();
         for (String iD: um.getUserMessages(username)){
-            messageStrings.add(mm.getAllMessages().get(iD).toString());
+            messageStrings.add(mm.getMessageToString(iD));
         }
 
         return messageStrings;
