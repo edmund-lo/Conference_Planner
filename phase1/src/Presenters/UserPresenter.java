@@ -50,6 +50,10 @@ public class UserPresenter {
     public void messageUserListLabel() {
         System.out.println("Here is a list of all users you can message:");
     }
+    public void noMessagesLabel() {
+        System.out.println("You have no messages.");
+    }
+
     //list of events iterated and printed
     public void listEvents(List<String> events) {
         int count = 1;

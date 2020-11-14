@@ -216,7 +216,10 @@ public abstract class UserController {
      *@return list of all messages the user recieved in string format
      */
     public List<String> getAllMessages(){
-        ArrayList<String> messageStrings = new ArrayList<>();
+        List<String> messageStrings = new ArrayList<>();
+        if (um.getUserMessages(username).size() == 0) {
+            up.noMessagesLabel();
+        }
         for (String iD: um.getUserMessages(username)){
             messageStrings.add(mm.getMessageToString(iD));
         }
