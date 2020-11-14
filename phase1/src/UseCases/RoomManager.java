@@ -1,3 +1,7 @@
+package UseCases;
+
+import Entities.Room;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -15,14 +19,14 @@ public class RoomManager implements Serializable {
     private HashMap<String, Room> allRooms;
 
     /**
-     * Constructs a new empty RoomManager object containing no rooms.
+     * Constructs a new empty UseCases.RoomManager object containing no rooms.
      */
     public RoomManager() {
         this.allRooms = new HashMap<>();
     }
 
     /**
-     * Creates a new Room object with an empty schedule and adds it into this RoomManager.
+     * Creates a new Entities.Room object with an empty schedule and adds it into this UseCases.RoomManager.
      * @param name  the name of the new room.
      * @return      a boolean value of true if the room was successfully created, false otherwise.
      */
@@ -35,7 +39,7 @@ public class RoomManager implements Serializable {
     }
 
     /**
-     * Removes an existing Room object from this RoomManager.
+     * Removes an existing Entities.Room object from this UseCases.RoomManager.
      * @param name  the name of the room to be removed.
      * @return      a boolean value of true if the room was successfully removed, false otherwise.
      */
@@ -52,7 +56,7 @@ public class RoomManager implements Serializable {
     }
 
     /**
-     * Adds an event to the schedule of a given Room in this RoomManager.
+     * Adds an event to the schedule of a given Entities.Room in this UseCases.RoomManager.
      * @param time      the scheduled time of the event to add
      * @param roomName  the name of the room to add the event to.
      * @return          a boolean value of true if the event was successfully added to the room, false otherwise.
@@ -67,7 +71,7 @@ public class RoomManager implements Serializable {
     }
 
     /**
-     * Removes an event to the schedule of a given Room in this RoomManager.
+     * Removes an event to the schedule of a given Entities.Room in this UseCases.RoomManager.
      *
      * @param time      the time of the event to be removed to the schedule of a room.
      * @param roomName  the name of the room to remove the event from.
@@ -84,27 +88,27 @@ public class RoomManager implements Serializable {
     }
 
     /**
-     * Gets the string representation for a Room in this RoomManager.
+     * Gets the string representation for a Entities.Room in this UseCases.RoomManager.
      *
-     * @param   roomName the name of the Room to get the String representation of.
-     * @return  the String representation of a Room in this RoomManager
+     * @param   roomName the name of the Entities.Room to get the String representation of.
+     * @return  the String representation of a Entities.Room in this UseCases.RoomManager
      */
     public String getRoomString(String roomName){
         return getRoom(roomName).toString();
     }
 
     /**
-     * Gets the string representation for a Room in this RoomManager.
+     * Gets the string representation for a Entities.Room in this UseCases.RoomManager.
      *
-     * @param   roomName the name of the Room to get the String representation of the schedule.
-     * @return  the String representation of a Room's schedule in this RoomManager.
+     * @param   roomName the name of the Entities.Room to get the String representation of the schedule.
+     * @return  the String representation of a Entities.Room's schedule in this UseCases.RoomManager.
      */
     public String getRoomSchedule(String roomName){
         return getRoom(roomName).roomScheduleToString();
     }
 
     /**
-     * Reschedules an event that is happening inside a Room in this RoomManager.
+     * Reschedules an event that is happening inside a Entities.Room in this UseCases.RoomManager.
      *
      * @param eventName the name of the event to be rescheduled.
      * @param currTime  the current start time of the event.

@@ -1,17 +1,21 @@
+package UseCases;
+
+import Entities.Message;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
 
 
 /**
- * Helper that manages all interaction with the Message classes and ensures no rules are broken.
+ * Helper that manages all interaction with the Entities.Message classes and ensures no rules are broken.
  */
 public class MessageManager implements Serializable {
     private HashMap<String, Message> allMessages;
     private List<String> allContents;
 
     /**
-     * Constructor for MessageManager
+     * Constructor for UseCases.MessageManager
      *
      */
     public MessageManager(){
@@ -35,7 +39,7 @@ public class MessageManager implements Serializable {
      * @return allEvents
      */
 
-    public HashMap<String,Message> getAllMessages() {
+    public HashMap<String, Message> getAllMessages() {
         return this.allMessages;
     }
 
@@ -61,7 +65,7 @@ public class MessageManager implements Serializable {
     }
 
     /**
-     * Creator for a new Message
+     * Creator for a new Entities.Message
      *
      * Precondition: the senderID and receiverIds exist in users
      *
@@ -85,7 +89,7 @@ public class MessageManager implements Serializable {
     }
 
     /**
-     * Sender for a new Message
+     * Sender for a new Entities.Message
      *
      * @param content The text of this message
      * @param senderId The id of the sender of this message

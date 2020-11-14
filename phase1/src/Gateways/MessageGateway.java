@@ -1,3 +1,7 @@
+package Gateways;
+
+import Gateways.GatewayInterface;
+import UseCases.MessageManager;
 
 import java.io.*;
 
@@ -14,7 +18,7 @@ public class MessageGateway implements GatewayInterface<MessageManager>, Seriali
 
     /**
      * This method serializes an inputted Entities.User Manager's data
-     * @param mm MessageManager object
+     * @param mm UseCases.MessageManager object
      * @catch FileNotFoundException
      * @catch IOException
      */
@@ -61,7 +65,7 @@ public class MessageGateway implements GatewayInterface<MessageManager>, Seriali
             System.out.println("IO Exception Raised!!");
         }
         catch (ClassNotFoundException e) {
-            System.out.println("Message Manager Class was not found");
+            System.out.println("Entities.Message Manager Class was not found");
         }
         finally {
             return mm;
@@ -72,12 +76,12 @@ public class MessageGateway implements GatewayInterface<MessageManager>, Seriali
 //
 //    public static void main(String[] args) {
 //        //TODO: CREATE TEST CASES
-//        EventGateway eg = new EventGateway();
-//        Event e = new Event();
-//        EventManager em = new EventManager();
+//        Gateways.EventGateway eg = new Gateways.EventGateway();
+//        Entities.Event e = new Entities.Event();
+//        UseCases.EventManager em = new UseCases.EventManager();
 //        em.("RoomManage", r);
 //        rg.serializeData(rm);
-//        RoomManager rr = rg.deserializeData();
+//        UseCases.RoomManager rr = rg.deserializeData();
 //
 //    }
 

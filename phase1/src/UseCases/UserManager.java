@@ -1,3 +1,5 @@
+package UseCases;
+
 import Entities.Attendee;
 import Entities.Organizer;
 import Entities.Speaker;

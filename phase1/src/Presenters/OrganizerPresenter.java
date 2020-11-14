@@ -1,3 +1,5 @@
+package Presenters;
+
 import java.util.*;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -17,11 +19,11 @@ public abstract class OrganizerPresenter {
     public void createRoom() {
         System.out.println("Enter your room name: ");
     }
-    //interacts with scheduleSpeaker in OrganizerController
+    //interacts with scheduleSpeaker in Controllers.OrganizerController
     public void eventNumber() {
         System.out.println("Enter event number for the talk: ");
     }
-    //interacts with scheduleSpeaker in OrganizerController
+    //interacts with scheduleSpeaker in Controllers.OrganizerController
     public void enterSpeaker() {
         System.out.println("Enter the speaker's name: ");
     }
@@ -43,11 +45,11 @@ public abstract class OrganizerPresenter {
                 "\n 0. Logout" +
                 "\n 1. Sign Up for Events" +
                 "\n 2. Cancel Events" +
-                "\n 3. Message Menu" +
-                "\n 4. Message All Attendees" +
-                "\n 5. Message All Speakers" +
+                "\n 3. Entities.Message Menu" +
+                "\n 4. Entities.Message All Attendees" +
+                "\n 5. Entities.Message All Speakers" +
                 "\n 6. Schedule a Entities.Speaker" +
-                "\n 7. Create a Room");
+                "\n 7. Create a Entities.Room");
     }
 
     public void messagedAllSpeakers() {

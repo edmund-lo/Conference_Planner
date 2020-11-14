@@ -1,3 +1,7 @@
+package UseCases;
+
+import Entities.Event;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -6,13 +10,13 @@ import java.util.UUID;
 
 
 /**
- * Helper that manages all interaction with the Event classes and ensures no rules are broken.
+ * Helper that manages all interaction with the Entities.Event classes and ensures no rules are broken.
  */
 public class EventManager implements Serializable {
     private HashMap<String, Event> allEvents;
 
     /**
-     * Constructor for EventManager. Just initializes an empty hashmap
+     * Constructor for UseCases.EventManager. Just initializes an empty hashmap
      *
      */
     public EventManager(){
@@ -120,7 +124,7 @@ public class EventManager implements Serializable {
      * For getting the actual event objects
      *
      * @param eventID the ID of the event
-     * @return the Event object corresponding to eventID
+     * @return the Entities.Event object corresponding to eventID
      */
     public Event getEventById(String eventID) {
         return allEvents.get(eventID);

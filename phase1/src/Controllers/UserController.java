@@ -1,7 +1,14 @@
+package Controllers;
+
+import Presenters.*;
 import Entities.Attendee;
 import Entities.Organizer;
 import Entities.Speaker;
 import Entities.User;
+import UseCases.EventManager;
+import UseCases.MessageManager;
+import UseCases.RoomManager;
+import UseCases.UserManager;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -26,12 +33,12 @@ public abstract class UserController {
     protected Scanner input;
 
     /**
-     * Constructor for UserController object.
+     * Constructor for Controllers.UserController object.
      *
-     * @param em  current session's EventManager class.
-     * @param um  current session's UserManager class.
-     * @param rm  current session's RoomManager class.
-     * @param mm  current session's MessageManager class.
+     * @param em  current session's UseCases.EventManager class.
+     * @param um  current session's UseCases.UserManager class.
+     * @param rm  current session's UseCases.RoomManager class.
+     * @param mm  current session's UseCases.MessageManager class.
      * @param username current logged in user's username.
      */
     public UserController(EventManager em, UserManager um, RoomManager rm, MessageManager mm, String username) {
@@ -258,7 +265,7 @@ public abstract class UserController {
         String messageId = mm.sendMessage(recipientName, username, content);
         addMessagesToUser(recipientName, messageId);
 
-        System.out.println("Message sent to " + recipientName);
+        System.out.println("Entities.Message sent to " + recipientName);
         return true;
     }
 

@@ -1,8 +1,16 @@
+package Controllers;
+
+import Presenters.*;
+import UseCases.EventManager;
+import UseCases.MessageManager;
+import UseCases.RoomManager;
+import UseCases.UserManager;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class LoginController extends LoginPresenter  {
+public class LoginController extends LoginPresenter {
     private ArrayList<String[]> Accounts;
     private Scanner sc;
     protected UserManager um;

@@ -1,3 +1,15 @@
+package Controllers;
+
+import Gateways.EventGateway;
+import Gateways.MessageGateway;
+import Gateways.RoomGateway;
+import Gateways.UserGateway;
+import Presenters.LoginPresenter;
+import UseCases.EventManager;
+import UseCases.MessageManager;
+import UseCases.RoomManager;
+import UseCases.UserManager;
+
 import java.util.Scanner;
 
 public class ProjectConfig {

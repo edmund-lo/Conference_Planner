@@ -1,3 +1,5 @@
+package Entities;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -12,7 +14,7 @@ public class Message {
     private String receiverId;
 
     /**
-     * Constructor for Message
+     * Constructor for Entities.Message
      *
      * @param content The text of this message
      * @param messageId The randomly generated ID for this message
@@ -76,9 +78,9 @@ public class Message {
     }
 
     /**
-     * the toString method for Message
+     * the toString method for Entities.Message
      *
-     * @return a String representation of Message that contains the senderId, receiverIds, the content in this message
+     * @return a String representation of Entities.Message that contains the senderId, receiverIds, the content in this message
      * and the time when it is sent and received
      */
     public String toString(){

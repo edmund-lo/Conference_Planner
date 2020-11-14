@@ -1,31 +1,31 @@
-import java.util.ArrayList;
-import java.util.List;
+package Gateways;
+
+import Gateways.GatewayInterface;
+import UseCases.RoomManager;
+
 import java.io.*;
-import java.util.HashMap;
-import java.util.List;
-public class UserGateway implements GatewayInterface<UserManager>, Serializable {
+import java.io.Serializable;
+
+public class RoomGateway implements GatewayInterface<RoomManager>, Serializable {
     /**
-     * TODO: JAVADOC
-     * @return
+     * Serial extension file rgt_save which stores serialized and
+     * deserialized data
      */
-    public String fileName = "ugt_save.ser";
-
-    public UserGateway() {
-
-    }
+    public String fileName = "rgt_save.ser";
 
     /**
-     * This method serializes an inputted Entities.User Manager's data
-     * @param um UserManager object
-     * @catch IOException
+     * This method serializes an inputted Entities.Room Manager's list of rooms
+     * @param rm
      * @catch FileNotFoundException
+     * @catch IOException
      */
-    public void serializeData(UserManager um) {
+    public void serializeData(RoomManager rm) {
+
         try {
             File new_file = new File(fileName);
             FileOutputStream store_file = new FileOutputStream(new_file);
             ObjectOutputStream conv_obj = new ObjectOutputStream(store_file);
-            conv_obj.writeObject((UserManager) um);
+            conv_obj.writeObject((RoomManager) rm);
             conv_obj.close();
             store_file.close();
         }
@@ -38,21 +38,24 @@ public class UserGateway implements GatewayInterface<UserManager>, Serializable 
     }
 
     /**
-     * TODO: JAVADOC
-     * @return
+     * This method deserializes the given serialized file, and converts
+     * it to a Entities.Room Manager object
+     * @return Entities.Room Manager object
      */
-    public UserManager deserializeData() {
-        UserManager um = new UserManager();
+    public RoomManager deserializeData() {
+
+        RoomManager rm = new RoomManager();
         try {
+
             File new_file2 = new File(fileName);
             //
             FileInputStream file2 = new FileInputStream(new_file2);
             ObjectInputStream input = new ObjectInputStream(file2);
 
-            um = (UserManager) input.readObject();
+            rm = (RoomManager) input.readObject();
             file2.close();
             input.close();
-            return um;
+            return rm;
         }
         catch (FileNotFoundException e) {
             System.out.println("File not Found!!");
@@ -61,21 +64,19 @@ public class UserGateway implements GatewayInterface<UserManager>, Serializable 
             System.out.println("IO Exception Raised!!");
         }
         catch (ClassNotFoundException e) {
-            System.out.println("Room Manager Class was not found");
+            System.out.println("Entities.Room Manager Class was not found");
         }
         finally {
-            return um;
+            return rm;
         }
     }
 //    public static void main(String[] args) {
-//        //TODO: CREATE TEST CASES
-//        EventGateway eg = new EventGateway();
-//        Event e = new Event();
-//        EventManager em = new EventManager();
-//        em.("RoomManage", r);
+//        Gateways.RoomGateway rg = new Gateways.RoomGateway();
+//        Entities.Room r = new Entities.Room("");
+//        UseCases.RoomManager rm = new UseCases.RoomManager();
 //        rg.serializeData(rm);
-//        RoomManager rr = rg.deserializeData();
-//
-//    }
+//        UseCases.RoomManager rr = rg.deserializeData();
 
 }
+
+

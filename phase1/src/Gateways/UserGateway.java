@@ -1,32 +1,33 @@
-import java.util.ArrayList;
-import java.util.List;
+package Gateways;
+
+import Gateways.GatewayInterface;
+import UseCases.UserManager;
+
 import java.io.*;
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.List;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-public class EventGateway implements GatewayInterface<EventManager>, Serializable {
+
+public class UserGateway implements GatewayInterface<UserManager>, Serializable {
     /**
      * TODO: JAVADOC
      * @return
      */
-    public String fileName = "egt_save.ser";
+    public String fileName = "ugt_save.ser";
+
+    public UserGateway() {
+
+    }
 
     /**
-     * This method serializes an inputted Event Manager's data
-     * @param em EventManager object
-     * @catch FileNotFoundException
+     * This method serializes an inputted Entities.User Manager's data
+     * @param um UseCases.UserManager object
      * @catch IOException
+     * @catch FileNotFoundException
      */
-
-    public void serializeData(EventManager em){
-
+    public void serializeData(UserManager um) {
         try {
             File new_file = new File(fileName);
             FileOutputStream store_file = new FileOutputStream(new_file);
             ObjectOutputStream conv_obj = new ObjectOutputStream(store_file);
-            conv_obj.writeObject((EventManager) em);
+            conv_obj.writeObject((UserManager) um);
             conv_obj.close();
             store_file.close();
         }
@@ -37,23 +38,23 @@ public class EventGateway implements GatewayInterface<EventManager>, Serializabl
             System.out.println("IO Exception Raised!!");
         }
     }
+
     /**
      * TODO: JAVADOC
      * @return
      */
-    public EventManager deserializeData() {
-        EventManager em = new EventManager();
+    public UserManager deserializeData() {
+        UserManager um = new UserManager();
         try {
-
             File new_file2 = new File(fileName);
             //
             FileInputStream file2 = new FileInputStream(new_file2);
             ObjectInputStream input = new ObjectInputStream(file2);
 
-            em = (EventManager) input.readObject();
+            um = (UserManager) input.readObject();
             file2.close();
             input.close();
-            return em;
+            return um;
         }
         catch (FileNotFoundException e) {
             System.out.println("File not Found!!");
@@ -62,21 +63,20 @@ public class EventGateway implements GatewayInterface<EventManager>, Serializabl
             System.out.println("IO Exception Raised!!");
         }
         catch (ClassNotFoundException e) {
-            System.out.println("Event Manager Class was not found");
+            System.out.println("Entities.Room Manager Class was not found");
         }
         finally {
-            return em;
+            return um;
         }
     }
-
 //    public static void main(String[] args) {
 //        //TODO: CREATE TEST CASES
-//        EventGateway eg = new EventGateway();
-//        Event e = new Event("Name", "eventID123", "SpeakerID123",);
-//        EventManager em = new EventManager();
-//        em.("", r);
+//        Gateways.EventGateway eg = new Gateways.EventGateway();
+//        Entities.Event e = new Entities.Event();
+//        UseCases.EventManager em = new UseCases.EventManager();
+//        em.("RoomManage", r);
 //        rg.serializeData(rm);
-//        RoomManager rr = rg.deserializeData();
+//        UseCases.RoomManager rr = rg.deserializeData();
 //
 //    }
 

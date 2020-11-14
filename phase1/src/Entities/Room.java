@@ -1,3 +1,5 @@
+package Entities;
+
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.TreeMap;
@@ -15,7 +17,7 @@ public class Room {
     private TreeMap<LocalDateTime, String> schedule;
 
     /**
-     * Constructor for a Room object
+     * Constructor for a Entities.Room object
      *
      * @param name  the name of the room
      */
@@ -25,7 +27,7 @@ public class Room {
     }
 
 //    /**
-//     * Returns the name of the Room
+//     * Returns the name of the Entities.Room
 //     *
 //     * @return the room's name
 //     */
@@ -34,7 +36,7 @@ public class Room {
 //    }
 
     /**
-     * Checks to see if this Room can be booked for an event. A room can be booked if there is a free
+     * Checks to see if this Entities.Room can be booked for an event. A room can be booked if there is a free
      * time slot and the event ends before or at 5pm.
      *
      * @return true if the room can be booked, false otherwise
@@ -45,7 +47,7 @@ public class Room {
     }
 
     /**
-     * Adds an event to this Room at the given time.
+     * Adds an event to this Entities.Room at the given time.
      *
      * @param time      the time the event starts.
      * @param eventName the name of the event to be added.
@@ -55,7 +57,7 @@ public class Room {
     }
 
     /**
-     * Checks to see if this Room's schedule has a specific event.
+     * Checks to see if this Entities.Room's schedule has a specific event.
      *
      * @param time      the time the event starts.
      * @param eventName the name of the event to check for.
@@ -67,7 +69,7 @@ public class Room {
     }
 
     /**
-     * Removes an event at a certain time from the schedule of this Room.
+     * Removes an event at a certain time from the schedule of this Entities.Room.
      *
      * @param time  the time the event starts.
      */
@@ -76,22 +78,22 @@ public class Room {
     }
 
     /**
-     * Gives the String representation of this Room.
+     * Gives the String representation of this Entities.Room.
      *
-     * @return the string representation of this Room
+     * @return the string representation of this Entities.Room
      */
     @Override
     public String toString() {
-        return this.name + " Room";
+        return this.name + " Entities.Room";
     }
 
     /**
-     * Gives the String representation of this Room's schedule.
+     * Gives the String representation of this Entities.Room's schedule.
      *
-     * @return the string representation of this Room's schedule
+     * @return the string representation of this Entities.Room's schedule
      */
     public String roomScheduleToString() {
-        String ret = this.name + " Room's Schedule:" + "\n";
+        String ret = this.name + " Entities.Room's Schedule:" + "\n";
         for (Map.Entry<LocalDateTime, String> time : this.schedule.entrySet()) {
             String eventHour = Integer.toString(time.getKey().getHour());
             String eventName = time.getValue();

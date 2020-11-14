@@ -1,10 +1,12 @@
+package Gateways;
+
 import java.io.*;
 import java.util.List;
 
 public interface GatewayInterface<T> extends Serializable {
     /**
      * This is a gateway interface that interacts with all other gateway classes
-     * GatewayInterface has a static final variable directoryName and extends Serializable
+     * Gateways.GatewayInterface has a static final variable directoryName and extends Serializable
      * There are two methods, serializeData which serializes the inputted parameter
      * using Serializable and returns none.
      * Method deserializeData unpacks a given serialized parameter producing

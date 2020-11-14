@@ -1,3 +1,5 @@
+package Presenters;
+
 public abstract class SpeakerPresenter {
     //writes messages to attendees
     public void writeMessageToAttendees() {
@@ -9,11 +11,11 @@ public abstract class SpeakerPresenter {
                 "\n 0. Logout" +
                 "\n 1. Sign Up for Events" +
                 "\n 2. Cancel Events" +
-                "\n 3. Message Menu" +
-                "\n 4. Message All Attendees" +
-                "\n 5. Message All Speakers" +
+                "\n 3. Entities.Message Menu" +
+                "\n 4. Entities.Message All Attendees" +
+                "\n 5. Entities.Message All Speakers" +
                 "\n 6. Schedule a Entities.Speaker" +
-                "\n 7. Create a Room");
+                "\n 7. Create a Entities.Room");
     }
 
 }

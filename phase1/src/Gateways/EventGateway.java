@@ -1,27 +1,31 @@
+package Gateways;
+
+import UseCases.EventManager;
 
 import java.io.*;
 import java.io.Serializable;
 
-public class RoomGateway implements GatewayInterface<RoomManager>, Serializable {
+public class EventGateway implements GatewayInterface<EventManager>, Serializable {
     /**
-     * Serial extension file rgt_save which stores serialized and
-     * deserialized data
+     * TODO: JAVADOC
+     * @return
      */
-    public String fileName = "rgt_save.ser";
+    public String fileName = "egt_save.ser";
 
     /**
-     * This method serializes an inputted Room Manager's list of rooms
-     * @param rm
+     * This method serializes an inputted Entities.Event Manager's data
+     * @param em UseCases.EventManager object
      * @catch FileNotFoundException
      * @catch IOException
      */
-    public void serializeData(RoomManager rm) {
+
+    public void serializeData(EventManager em){
 
         try {
             File new_file = new File(fileName);
             FileOutputStream store_file = new FileOutputStream(new_file);
             ObjectOutputStream conv_obj = new ObjectOutputStream(store_file);
-            conv_obj.writeObject((RoomManager) rm);
+            conv_obj.writeObject((EventManager) em);
             conv_obj.close();
             store_file.close();
         }
@@ -32,15 +36,12 @@ public class RoomGateway implements GatewayInterface<RoomManager>, Serializable 
             System.out.println("IO Exception Raised!!");
         }
     }
-
     /**
-     * This method deserializes the given serialized file, and converts
-     * it to a Room Manager object
-     * @return Room Manager object
+     * TODO: JAVADOC
+     * @return
      */
-    public RoomManager deserializeData() {
-
-        RoomManager rm = new RoomManager();
+    public EventManager deserializeData() {
+        EventManager em = new EventManager();
         try {
 
             File new_file2 = new File(fileName);
@@ -48,10 +49,10 @@ public class RoomGateway implements GatewayInterface<RoomManager>, Serializable 
             FileInputStream file2 = new FileInputStream(new_file2);
             ObjectInputStream input = new ObjectInputStream(file2);
 
-            rm = (RoomManager) input.readObject();
+            em = (EventManager) input.readObject();
             file2.close();
             input.close();
-            return rm;
+            return em;
         }
         catch (FileNotFoundException e) {
             System.out.println("File not Found!!");
@@ -60,19 +61,22 @@ public class RoomGateway implements GatewayInterface<RoomManager>, Serializable 
             System.out.println("IO Exception Raised!!");
         }
         catch (ClassNotFoundException e) {
-            System.out.println("Room Manager Class was not found");
+            System.out.println("Entities.Event Manager Class was not found");
         }
         finally {
-            return rm;
+            return em;
         }
     }
+
 //    public static void main(String[] args) {
-//        RoomGateway rg = new RoomGateway();
-//        Room r = new Room("");
-//        RoomManager rm = new RoomManager();
+//        //TODO: CREATE TEST CASES
+//        Gateways.EventGateway eg = new Gateways.EventGateway();
+//        Entities.Event e = new Entities.Event("Name", "eventID123", "SpeakerID123",);
+//        UseCases.EventManager em = new UseCases.EventManager();
+//        em.("", r);
 //        rg.serializeData(rm);
-//        RoomManager rr = rg.deserializeData();
+//        UseCases.RoomManager rr = rg.deserializeData();
+//
+//    }
 
 }
-
-

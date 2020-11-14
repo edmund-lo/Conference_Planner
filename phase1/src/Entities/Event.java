@@ -1,3 +1,5 @@
+package Entities;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
@@ -14,9 +16,9 @@ public class Event {
     private ArrayList<String> attendingUsers;
 
     /**
-     * Constructor for Event
+     * Constructor for Entities.Event
      *
-     * @param eventID The randomly generated ID for this Event
+     * @param eventID The randomly generated ID for this Entities.Event
      * @param eventName Name of the event
      * @param startTime Start time of the event
      * @param endTime End time of the event
@@ -85,12 +87,12 @@ public class Event {
     }
 
     /**
-     * the toString method for Event
+     * the toString method for Entities.Event
      *
-     * @return a String representation of Event that contains the event name, time and number of attending users
+     * @return a String representation of Entities.Event that contains the event name, time and number of attending users
      */
     public String toString(){
-        return "Event Name: "+this.eventName+"\n" +
+        return "Entities.Event Name: "+this.eventName+"\n" +
                 "Time: "+String.valueOf(this.startTime.getHour())+" to "+String.valueOf(this.endTime.getHour())+" on "+
                 String.valueOf(this.startTime.getDayOfMonth())+"/"+String.valueOf(this.startTime.getMonthValue())+"\n" +
                 "# of Attending Users: "+String.valueOf(this.attendingUsers.size());
@@ -137,7 +139,7 @@ public class Event {
     /**
      * setter for the speakerID
      *
-     * @param speakerID the ID of the speaker that wants to be added to Event
+     * @param speakerID the ID of the speaker that wants to be added to Entities.Event
      */
     public void setSpeaker(String speakerID){
         this.speakerID = speakerID;
