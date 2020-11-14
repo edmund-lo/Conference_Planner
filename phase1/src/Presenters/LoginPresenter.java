@@ -20,9 +20,9 @@ public class LoginPresenter {
     //prompts type of Account
     public void AccountType(){
         System.out.println("What is the account type? Press:" +
-                "\n1. for Entities.Organizer" +
-                "\n2. for Entities.Attendee" +
-                "\n3. for Entities.Speaker");
+                "\n1. for Organizer" +
+                "\n2. for Attendee" +
+                "\n3. for Speaker");
     }
     //Outputs request for password
     public void EnterPassword(){
