@@ -24,7 +24,8 @@ public abstract class UserController {
     protected MessageManager mm;
     protected String username;
     protected Scanner input;
-    private UserPresenter up;
+    private final UserPresenter up;
+    private MessagePresenter mp;
 
     /**
      * Constructor for Controllers.UserController object.
@@ -43,6 +44,7 @@ public abstract class UserController {
         this.username = username;
         this.input = new Scanner(System.in);
         this.up = new UserPresenter();
+        this.mp = new MessagePresenter();
     }
 
     /**
@@ -126,7 +128,7 @@ public abstract class UserController {
                             up.cannotMessageOrganizerError();
                     }
                 } else if (option == 2){
-                    MessagePresenter mp = new MessagePresenter();
+                    mp = new MessagePresenter();
                     mp.showMessagesLabel();
                     mp.listMessages(getAllMessages());
                 } else
@@ -227,9 +229,9 @@ public abstract class UserController {
     }
 
     /**
-     *Returns list of all messages the user recieved
+     *Returns list of all messages the user received
      *
-     *@return list of all messages the user recieved in string format
+     *@return list of all messages the user received in string format
      */
     public List<String> getAllMessages(){
         List<String> messageStrings = new ArrayList<>();
