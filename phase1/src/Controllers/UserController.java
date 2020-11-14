@@ -231,10 +231,12 @@ public abstract class UserController {
      */
     public List<String> getAllMessages(){
         List<String> messageStrings = new ArrayList<>();
-        if (um.getUserMessages(username).size() == 0) {
+        List<String> userMessages = um.getUserMessages(username);
+        if (userMessages.size() == 0) {
             up.noMessagesLabel();
         } else {
-            for (String id : um.getUserMessages(username)) {
+            System.out.println("You have " + userMessages.size() + " messages.");
+            for (String id : userMessages) {
                 messageStrings.add(mm.getMessageToString(id));
             }
         }
