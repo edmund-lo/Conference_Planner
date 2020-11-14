@@ -1,14 +1,8 @@
 package Controllers;
 
-import Gateways.EventGateway;
-import Gateways.MessageGateway;
-import Gateways.RoomGateway;
-import Gateways.UserGateway;
+import Gateways.*;
 import Presenters.LoginPresenter;
-import UseCases.EventManager;
-import UseCases.MessageManager;
-import UseCases.RoomManager;
-import UseCases.UserManager;
+import UseCases.*;
 
 import java.util.Scanner;
 
@@ -36,6 +30,7 @@ public class ProjectConfig {
         RoomManager rm = rg.deserializeData();
         MessageManager mm = mg.deserializeData();
         EventManager em = eg.deserializeData();
+        LoginPresenter lp = new LoginPresenter();
 
         Scanner sc = new Scanner(System.in);
 
@@ -53,7 +48,7 @@ public class ProjectConfig {
                 lc.CreateAccount();
                 break;
             default:
-                LoginPresenter.ValidNumber();
+                lp.ValidNumber();
 
         }
         return lc;
