@@ -1,44 +1,44 @@
 package Presenters;
 
-public abstract class LoginPresenter {
+public class LoginPresenter {
 
-    public static void UsernameTaken(){
+    public void UsernameTaken(){
         System.out.println("Username is taken! \nType \"login\" to login if account already exists and you wish to " +
                 "login. \n If not, press enter to continue");
     }
 
-    public static void EnterUsername(){
+    public void EnterUsername(){
         System.out.println("Enter Username:");
     }
 
-    public static void AccountType(){
+    public void AccountType(){
         System.out.println("What is the account type? Press:" +
                 "\n\"o\" for Entities.Organizer" +
                 "\n\"a\" for Entities.Attendee" +
                 "\n\"s\" for Entities.Speaker");
     }
 
-    public static void EnterPassword(){
+    public void EnterPassword(){
         System.out.println("Enter Your Password");
     }
 
-    public static void IncorrectCredentials(){
+    public void IncorrectCredentials(){
         System.out.println("Incorrect Username or Password.");
     }
 
-    protected static void New() {
+    public void New() {
         System.out.println("Type \"New\" to create new account. Press enter to continue");
     }
 
-    public static void ValidNumber() {
+    public void ValidNumber() {
         System.out.println("Please enter a valid number.");
     }
 
-    protected static void Login() {
+    public void Login() {
         System.out.println("Login:");
     }
 
-    protected static void CreateAccountP() {
+    public void CreateAccountP() {
         System.out.println("Create Account");
     }
 }

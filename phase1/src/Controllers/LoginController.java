@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class LoginController extends LoginPresenter {
+public class LoginController {
     private ArrayList<String[]> Accounts;
     private Scanner sc;
     protected UserManager um;
@@ -18,6 +18,7 @@ public class LoginController extends LoginPresenter {
     protected MessageManager mm;
     protected EventManager em;
     protected UserController controller;
+    private LoginPresenter lp;
 
     public LoginController(UserManager um, RoomManager rm, MessageManager mm, EventManager em){
         this.Accounts = um.getAccountInfo();
@@ -26,6 +27,7 @@ public class LoginController extends LoginPresenter {
         this.rm = rm;
         this.mm = mm;
         this.em = em;
+        this.lp = new LoginPresenter();
     }
 
     public void CreateAccount(){
@@ -36,9 +38,9 @@ public class LoginController extends LoginPresenter {
         int UsernameCheck;
         boolean UsernameSet = false;
         do {
-            LoginPresenter.CreateAccountP();
+            lp.CreateAccountP();
             UsernameCheck = 0;
-            LoginPresenter.EnterUsername();
+            lp.EnterUsername();
             Username = sc.nextLine();
 
             for (String[] users : Accounts){
@@ -50,7 +52,7 @@ public class LoginController extends LoginPresenter {
             if (UsernameCheck == 0)
                 UsernameSet = true;
             else{
-                LoginPresenter.UsernameTaken();
+                lp.UsernameTaken();
                 String login = sc.nextLine();
                 if (login.equals("login")){
                     login();
@@ -60,10 +62,10 @@ public class LoginController extends LoginPresenter {
 
         }while(!UsernameSet);
 
-        LoginPresenter.EnterPassword();
+        lp.EnterPassword();
         Password = sc.nextLine();
 
-        LoginPresenter.AccountType();
+        lp.AccountType();
         type = sc.nextLine();
 
         switch(type){
@@ -80,7 +82,7 @@ public class LoginController extends LoginPresenter {
                 Accounts = um.getAccountInfo();
                 break;
             default:
-                LoginPresenter.ValidNumber();
+                lp.ValidNumber();
         }
 
     }
@@ -94,14 +96,14 @@ public class LoginController extends LoginPresenter {
         String AccountType = "";
 
         do {
-            LoginPresenter.Login();
+            lp.Login();
             UsernameExists = false;
             PasswordExists = false;
 
-            LoginPresenter.EnterUsername();
+            lp.EnterUsername();
             Username = sc.nextLine();
 
-            LoginPresenter.EnterPassword();
+            lp.EnterPassword();
             Password = sc.nextLine();
 
             for (String[] users : Accounts){
@@ -115,8 +117,8 @@ public class LoginController extends LoginPresenter {
             }
 
             if (!(UsernameExists && PasswordExists)){
-                LoginPresenter.IncorrectCredentials();
-                LoginPresenter.New();
+                lp.IncorrectCredentials();
+                lp.New();
                 if (sc.nextLine().equals("New")){
                     CreateAccount();
                     return;
@@ -137,7 +139,7 @@ public class LoginController extends LoginPresenter {
                 this.controller = new SpeakerController(em, um, rm, mm, Username);
                 break;
             default:
-                LoginPresenter.ValidNumber();
+                lp.ValidNumber();
         }
 
         this.em = controller.em;

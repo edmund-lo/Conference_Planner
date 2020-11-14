@@ -36,6 +36,7 @@ public class ProjectConfig {
         RoomManager rm = rg.deserializeData();
         MessageManager mm = mg.deserializeData();
         EventManager em = eg.deserializeData();
+        LoginPresenter lp = new LoginPresenter();
 
         Scanner sc = new Scanner(System.in);
 
@@ -53,7 +54,7 @@ public class ProjectConfig {
                 lc.CreateAccount();
                 break;
             default:
-                LoginPresenter.ValidNumber();
+                lp.ValidNumber();
 
         }
         return lc;
