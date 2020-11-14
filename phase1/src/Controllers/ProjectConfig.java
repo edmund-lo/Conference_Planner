@@ -1,14 +1,8 @@
 package Controllers;
 
-import Gateways.EventGateway;
-import Gateways.MessageGateway;
-import Gateways.RoomGateway;
-import Gateways.UserGateway;
+import Gateways.*;
 import Presenters.LoginPresenter;
-import UseCases.EventManager;
-import UseCases.MessageManager;
-import UseCases.RoomManager;
-import UseCases.UserManager;
+import UseCases.*;
 
 import java.util.Scanner;
 
