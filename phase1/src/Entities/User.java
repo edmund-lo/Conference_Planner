@@ -15,11 +15,13 @@ public abstract class User implements Serializable {
     private String username;
     private String password;
     private HashMap<String, LocalDateTime[]> schedule;
-    private ArrayList<String> messageIDs;
+    //private ArrayList<String> messageIDs;
+    private ArrayList<String> sentMessages;
+    private ArrayList<String> receivedMessages;
 
     /**
      * Constructor for User object. Initializes an empty hashmap for a user's schedule and
-     * an empty arraylist for a user's message IDs.
+     * an empty arraylist for a user's sent message IDs and an empty arraylist for a user's received message IDs.
      *
      * @param username the user's username
      * @param password the user's password
@@ -28,7 +30,9 @@ public abstract class User implements Serializable {
         this.username = username;
         this.password = password;
         this.schedule = new HashMap<>();
-        this.messageIDs = new ArrayList<>();
+        //this.messageIDs = new ArrayList<>();
+        this.sentMessages = new ArrayList<>();
+        this.receivedMessages = new ArrayList<>();
     }
 
     /**
@@ -63,8 +67,16 @@ public abstract class User implements Serializable {
      *
      * @return An arraylist of all of a user's message IDs.
      */
-    public ArrayList<String> getMessageIDs() {
-        return messageIDs;
+//    public ArrayList<String> getMessageIDs() {
+//        return messageIDs;
+//    }
+
+    public ArrayList<String> getSentMessages() {
+        return sentMessages;
+    }
+
+    public ArrayList<String> getReceivedMessages() {
+        return receivedMessages;
     }
 
     /**
@@ -115,8 +127,16 @@ public abstract class User implements Serializable {
      *
      * @param messageID the message ID
      */
-    public void addMessageID(String messageID) {
-        messageIDs.add(messageID);
+//    public void addMessageID(String messageID) {
+//        messageIDs.add(messageID);
+//    }
+
+    public void sendMessage(String messageID) {
+        sentMessages.add(messageID);
+    }
+
+    public void receiveMessage(String messageID) {
+        receivedMessages.add(messageID);
     }
 
     /**
