@@ -94,6 +94,11 @@ public abstract class UserController {
             }
         }
     }
+
+    /**
+     * UI for when users want to see all events they're attending
+     *
+     */
     public void viewEventsMenu(){
         while(true){
             up.listAllEventsLabel();

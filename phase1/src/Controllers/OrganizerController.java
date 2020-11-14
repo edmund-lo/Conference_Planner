@@ -54,10 +54,10 @@ public class OrganizerController extends UserController {
                     messageMenu();
                     break;
                 case "4":
-                    createNewMenu();
+                    viewEventsMenu();
                     break;
                 case "5":
-                    viewEventsMenu();
+                    createNewMenu();
                     break;
                 case "6":
                     organizerMessageMenu();
