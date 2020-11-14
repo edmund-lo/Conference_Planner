@@ -37,28 +37,28 @@ public class OrganizerController extends UserController {
         // Enters a while loop that allows the user to continuously use Organizer and Attendee functions
         while(inSession) {
             op.displayMenu();
-            int option = parseInt(input.nextLine());
+            String option = input.nextLine();
             switch(option) {
-                case 0:
+                case "0":
                     logout();
                     inSession = false;
                     break;
-                case 1:
+                case "1":
                     signUpMenu();
                     break;
-                case 2:
+                case "2":
                     cancelMenu();
                     break;
-                case 3:
+                case "3":
                     messageMenu();
                     break;
-                case 4:
+                case "4":
                     createNewMenu();
                     break;
-                case 5:
+                case "5":
                     organizerMessageMenu();
                     break;
-                case 6:
+                case "6":
                     scheduleSpeakerCmd();
                     break;
                 default:

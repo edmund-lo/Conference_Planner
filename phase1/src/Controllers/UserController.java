@@ -90,10 +90,10 @@ public abstract class UserController {
     public void messageMenu(){
         while (true) {
             up.messageMenuPrompt();
-            int option = parseInt(input.nextLine());
-            if (option == 0)
+            String option = input.nextLine();
+            if (option.equals("0"))
                 break;
-            else if (option == 1){
+            else if (option.equals("1")){
                 String name;
                 String content;
                 boolean canSend = false;
@@ -114,7 +114,7 @@ public abstract class UserController {
                     else
                         up.cannotMessageOrganizerError();
                 }
-            } else if (option == 2){
+            } else if (option.equals("2")){
                 MessagePresenter mp = new MessagePresenter();
                 mp.showMessagesLabel();
                 mp.listMessages(getAllMessages());
