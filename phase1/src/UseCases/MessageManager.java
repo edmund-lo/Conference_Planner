@@ -19,8 +19,8 @@ public class MessageManager implements Serializable {
      *
      */
     public MessageManager(){
-        this.allMessages = new HashMap<String, Message>();
-        this.allContents = new ArrayList<String>();
+        this.allMessages = new HashMap<>();
+        this.allContents = new ArrayList<>();
     }
 
     /**
@@ -89,7 +89,7 @@ public class MessageManager implements Serializable {
      */
 
     public boolean messageCheck(String receiverId, String senderId, String content) {
-        return (receiverId.equals(senderId) && content.equals(""));
+        return (!receiverId.equals(senderId) && !content.equals(""));
     }
 
     public String getMessageToString(String messageID) {

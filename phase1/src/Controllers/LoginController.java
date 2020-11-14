@@ -5,10 +5,16 @@ import UseCases.EventManager;
 import UseCases.MessageManager;
 import UseCases.RoomManager;
 import UseCases.UserManager;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * A Controller class which deals with users logging in and creating new accounts.
+ *
+ * @author Haider Bokhari
+ * @version 1.0
+ *
+ */
 
 public class LoginController {
     private ArrayList<String[]> Accounts;
@@ -20,13 +26,25 @@ public class LoginController {
     protected UserController controller;
     private LoginPresenter lp;
 
+    /**
+     * Constructor for OrganizerController object. Uses constructor from UserController.
+     *
+     * @param um  current session's UseCases.UserManager class.
+     * @param rm  current session's UseCases.RoomManager class.
+     * @param mm  current session's UseCases.MessageManager class.
+     * @param em  current session's UseCases.EventManager class.
+     *
+     */
+
     public LoginController(UserManager um, RoomManager rm, MessageManager mm, EventManager em){
-        this.Accounts = um.getAccountInfo();
+        //Scanner to read user input
         this.sc = new Scanner(System.in);
         this.um = um;
         this.rm = rm;
         this.mm = mm;
         this.em = em;
+        //Get list of all existing accounts from the user manager
+        this.Accounts = um.getAccountInfo();
         this.lp = new LoginPresenter();
     }
 
@@ -43,15 +61,20 @@ public class LoginController {
             lp.EnterUsername();
             Username = sc.nextLine();
 
+            //Loops through all existing usernames.
             for (String[] users : Accounts){
                 if (users[0].equals(Username)){
+                    //If the Username the user entered already exists then UsernameCheck counter is increased.
                     UsernameCheck++;
                 }
             }
 
+            //If the counter is 0, that means the username isn't taken and can be set.
             if (UsernameCheck == 0)
                 UsernameSet = true;
             else{
+                //If it is taken, then give the user an option to return to login menu
+                // or continue to login with new username
                 lp.UsernameTaken();
                 String login = sc.nextLine();
                 if (login.equals("login")){
@@ -59,7 +82,7 @@ public class LoginController {
                     return;
                 }
             }
-
+            //Repeat Do loop until a username is set which isn't taken.
         }while(!UsernameSet);
 
         lp.EnterPassword();
@@ -68,18 +91,19 @@ public class LoginController {
         lp.AccountType();
         type = sc.nextLine();
 
+        //Depending on which account type the user selected, make a different type of user.
         switch(type){
-            case "o":
+            case "1":
                 um.createNewOrganizer(Username, Password);
                 Accounts = um.getAccountInfo();
                 lp.AccountMade();
                 break;
-            case "a":
+            case "2":
                 um.createNewAttendee(Username, Password);
                 Accounts = um.getAccountInfo();
                 lp.AccountMade();
                 break;
-            case "s":
+            case "3":
                 um.createNewSpeaker(Username, Password);
                 Accounts = um.getAccountInfo();
                 lp.AccountMade();
@@ -109,9 +133,11 @@ public class LoginController {
             lp.EnterPassword();
             Password = sc.nextLine();
 
+            //Go through all existing account to see if username entered exists in the database.
             for (String[] users : Accounts){
                 if (users[0].equals(Username)){
                     UsernameExists = true;
+                    //If it does exist, check if the password matches.
                     if (users[1].equals(Password)){
                         PasswordExists = true;
                         AccountType = users[2];
@@ -119,9 +145,11 @@ public class LoginController {
                 }
             }
 
+            //If the username doesn't exist or password doesn't match, let the user know.
             if (!(UsernameExists && PasswordExists)){
                 lp.IncorrectCredentials();
                 lp.New();
+                //Give user an option to return to account creation menu if they don't have an account.
                 if (sc.nextLine().equals("New")){
                     CreateAccount();
                     return;
@@ -129,8 +157,10 @@ public class LoginController {
 
             }
 
+            //Keep looping until the user enters a set of Username and Password which match and exist in the database.
         }while(!(UsernameExists && PasswordExists));
 
+        //Depending on the account type attached to the account, give the user access to different controllers.
         switch(AccountType){
             case "Organizer":
                 this.controller = new OrganizerController(em, um, rm, mm, Username);
@@ -145,6 +175,7 @@ public class LoginController {
                 lp.ValidNumber();
         }
 
+        //Update the values of the login controller.
         this.em = controller.em;
         this.um = controller.um;
         this.rm = controller.rm;

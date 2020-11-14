@@ -22,7 +22,7 @@ public class MessagePresenter {
                 "\nPress \"2\" to send a message to an Entities.Attendee." +
                 "\nPress \"3\" to send a message to All Speakers. \nPress \"4\" to send a message to All Attendees.");
     }
-    //Shows message labels
+    //Introduces following messages
     public void showMessagesLabel() {
         System.out.println("Here are your messages: ");
     }

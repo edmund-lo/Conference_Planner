@@ -13,11 +13,17 @@ public class OrganizerPresenter extends UserPresenter {
     }
     //creates new numbered prompts based on options
     public void createNewPrompt() {
-        System.out.println("Enter 0 to go back, enter 1 to create a new speaker account, or enter 2 to create a new room.");
+        System.out.println("Press: " +
+                "\n 0. Go back" +
+                "\n 1. Create a new speaker account" +
+                "\n 2. Create a new room");
     }
     //Numbered prompts for organizer's options
     public void organizerMessagePrompt() {
-        System.out.println("Enter 0 to go back, enter 1 to message all Speakers, or enter 2 to message all Attendees.");
+        System.out.println("Press: " +
+                "\n 0. Go back " +
+                "\n 1. Message all Speakers " +
+                "\n 2. Message all Attendees");
     }
     //interacts with createRoom
     public void roomNamePrompt() {

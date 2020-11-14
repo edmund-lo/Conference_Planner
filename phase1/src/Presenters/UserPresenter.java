@@ -24,11 +24,15 @@ public class UserPresenter {
     }
     //prompts user option for cancelling event
     public void cancelEventPrompt() {
-        System.out.println("Enter 0 to go back or enter a number to select an event to cancel:");
+        System.out.println("Enter a number to select an event to cancel:" +
+                "\n Press 0 to go back.");
     }
     //prompt for messaging options
     public void messageMenuPrompt() {
-        System.out.println("Enter 0 to go back, enter 1 to message a user, or enter 2 to view your messages.");
+        System.out.println("Press :" +
+                "\n 0. Go back" +
+                "\n 1. Message a user" +
+                "\n 2. View your messages");
     }
     //prompt for receiver option
     public void enterReceiverPrompt() {
@@ -38,23 +42,29 @@ public class UserPresenter {
     public void enterMessagePrompt() {
         System.out.println("Enter the message you wish to send:");
     }
-    //list of events
+    //Introduces list of events that can be signed up for
     public void signUpEventListLabel() {
         System.out.println("Here are a list of events you can sign up for:");
     }
-    //prompt for cancel event based on list
+    //Introduces list of events that can be cancelled
     public void cancelEventListLabel() {
         System.out.println("Here are a list of events you can cancel attendance from:");
     }
-    //list of users that can be messaged list
+    //Introduces list of users that can be messaged
     public void messageUserListLabel() {
         System.out.println("Here is a list of all users you can message:");
     }
+    //Prints that there are no messages
+    public void noMessagesLabel() {
+        System.out.println("You have no messages.");
+    }
+
     //list of events iterated and printed
     public void listEvents(List<String> events) {
         int count = 1;
         for (String x: events) {
-            System.out.println(count + ": " + x);
+            System.out.println("("+count + "): " + x);
+            count++;
         }
     }
     //list of users iterated and printed
