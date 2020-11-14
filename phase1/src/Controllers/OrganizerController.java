@@ -21,6 +21,7 @@ import static java.lang.Integer.parseInt;
  *
  */
 public class OrganizerController extends UserController {
+    private OrganizerPresenter op;
 
     /**
      * Constructor for Controllers.OrganizerController object. Uses constructor from Controllers.UserController.
@@ -33,10 +34,11 @@ public class OrganizerController extends UserController {
      */
     public OrganizerController(EventManager em, UserManager um, RoomManager rm, MessageManager mm, String username) {
         super(em, um, rm, mm, username);
+        this.op = new OrganizerPresenter();
 
         boolean inSession = true;
         while(inSession) {
-            OrganizerPresenter.displayMenu();
+            op.displayMenu();
             int option = parseInt(input.nextLine());
             switch(option) {
                 case 0:
@@ -53,24 +55,48 @@ public class OrganizerController extends UserController {
                     messageMenu();
                     break;
                 case 4:
-                    createSpeakerAccountCmd();
+                    createNewMenu();
                     break;
                 case 5:
-                    messageAllAttendeesCmd();
+                    organizerMessageMenu();
                     break;
                 case 6:
-                    messageAllSpeakersCmd();
-                    break;
-                case 7:
                     scheduleSpeakerCmd();
                     break;
-                case 8:
-                    createRoomCmd();
-                    break;
                 default:
-                    System.out.println("Please enter a valid option!");
+                    op.invalidOptionError();
                     break;
             }
+        }
+    }
+
+    public void createNewMenu() {
+        while (true) {
+            op.createNewPrompt();
+            int option = parseInt(input.nextLine());
+            if (option == 0)
+                break;
+            else if (option == 1)
+                createRoomCmd();
+            else if (option == 2)
+                createSpeakerAccountCmd();
+            else
+                op.invalidOptionError();
+        }
+    }
+
+    public void organizerMessageMenu() {
+        while (true) {
+            op.organizerMessagePrompt();
+            int option = parseInt(input.nextLine());
+            if (option == 0)
+                break;
+            else if (option == 1)
+                messageAllSpeakersCmd();
+            else if (option == 2)
+                messageAllAttendeesCmd();
+            else
+                op.invalidOptionError();
         }
     }
 
@@ -78,9 +104,9 @@ public class OrganizerController extends UserController {
      * Called when user chooses to create a new speaker user account.
      */
     public void createSpeakerAccountCmd() {
-        System.out.println("Enter speaker's username:");
+        op.speakerUsernamePrompt();
         String username = input.nextLine();
-        System.out.println("Enter speaker's password:");
+        op.speakerPasswordPrompt();
         String password = input.nextLine();
         createSpeakerAccount(username, password);
     }
@@ -95,10 +121,10 @@ public class OrganizerController extends UserController {
     public boolean createSpeakerAccount(String username, String password) {
         if (um.checkUniqueUsername(username)) {
             um.createNewSpeaker(username, password);
-            System.out.println("Successfully created new speaker account.");
+            op.speakerCreationResult();
             return true;
         }
-        System.out.println("Unable to create new speaker account: username was not unique.");
+        op.InvalidSpeakerNameError();
         return false;
     }
 
@@ -106,7 +132,7 @@ public class OrganizerController extends UserController {
      * Called when user chooses to message all speakers.
      */
     public void messageAllSpeakersCmd() {
-        System.out.println("Enter your message:");
+        op.enterMessagePrompt();
         String message = input.nextLine();
         messageAllSpeakers(message);
     }
@@ -123,7 +149,7 @@ public class OrganizerController extends UserController {
             String messageId = mm.sendMessage(name, username, message);
             addMessagesToUser(name, messageId);
         }
-        System.out.println("Successfully sent message to all speakers.");
+        op.messagedAllSpeakersResult();
         return true;
     }
 
@@ -131,7 +157,7 @@ public class OrganizerController extends UserController {
      * Called when user chooses to message all attendees.
      */
     public void messageAllAttendeesCmd() {
-        System.out.println("Enter your message:");
+        op.enterMessagePrompt();
         String message = input.nextLine();
         messageAllAttendees(message);
     }
@@ -150,7 +176,7 @@ public class OrganizerController extends UserController {
                 addMessagesToUser(name, messageId);
             }
         }
-        System.out.println("Successfully sent message to all attendees.");
+        op.messagedAllAttendeesResult();
         return true;
     }
 
@@ -158,10 +184,10 @@ public class OrganizerController extends UserController {
      * Called when user chooses to create a new room.
      */
     public void createRoomCmd() {
-        System.out.println("Enter room's name:");
+        op.roomNamePrompt();
         String name = input.nextLine();
-        /*System.out.println("Enter room's capacity:");
-        int capacity = parseInt(sc.nextLine());*/
+        /*op.roomCapacityPrompt();
+        int capacity = parseInt(input.nextLine());*/
         int capacity = 2;
         createRoom(name, capacity);
     }
@@ -175,10 +201,10 @@ public class OrganizerController extends UserController {
      */
     public boolean createRoom(String roomName, int capacity) {
         if (rm.createRoom(roomName)) {
-            System.out.println("Successfully created new room.");
+            op.roomCreationResult();
             return true;
         }
-        System.out.println("Unable to create new room: room name was not unique.");
+        op.InvalidRoomNameError();
         return false;
     }
 
@@ -187,13 +213,13 @@ public class OrganizerController extends UserController {
      */
     public void scheduleSpeakerCmd() {
         getAllEvents();
-        System.out.println("Type event number:");
+        op.eventNumberPrompt();
         int index = parseInt(input.nextLine());
         String eventId = new ArrayList<>(em.getAllEvents().keySet()).get(index);
         List<String> speakerNames = um.getAllSpeakerNames();
         for (String name : speakerNames)
             System.out.println(name);
-        System.out.println("Type speaker name:");
+        op.speakerNamePrompt();
         String speakerName = input.nextLine();
         scheduleSpeaker(speakerName, eventId);
     }
@@ -209,15 +235,15 @@ public class OrganizerController extends UserController {
         LocalDateTime start = em.getEventById(eventId).getStartTime();
         LocalDateTime end = em.getEventById(eventId).getEndTime();
         if (!em.canAddSpeakerToEvent(eventId)) {
-            System.out.println("Another speaker is already speaking at this event.");
+            op.ExistingSpeakerAtEventError();
             return false;
         } else if (!um.canAddSpeakerEvent(speakerName, eventId, start, end)) {
-            System.out.println("This speaker is already speaking at another event.");
+            op.SpeakerUnavailableError();
             return false;
         }
         em.addSpeakerToEvent(speakerName, eventId);
         um.addSpeakerEvent(speakerName, eventId, start, end);
-        System.out.println("Successfully added speaker to selected event.");
+        op.scheduleSpeakerResult();
         return true;
     }
 

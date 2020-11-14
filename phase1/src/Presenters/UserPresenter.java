@@ -15,16 +15,6 @@ public class UserPresenter {
                 "\n 3. Message Users / View Messages");
     }
 
-    public void signUpEventListLabel() {
-        System.out.println("Here are a list of events you can sign up for:");
-    }
-    public void cancelEventListLabel() {
-        System.out.println("Here are a list of events you can cancel attendance from:");
-    }
-    public void messageUserListLabel() {
-        System.out.println("Here is a list of all users you can message:");
-    }
-
     public void signUpEventPrompt() {
         System.out.println("Enter 0 to go back or enter a number to select an event to sign up for:");
     }
@@ -39,6 +29,16 @@ public class UserPresenter {
     }
     public void enterMessagePrompt() {
         System.out.println("Enter the message you wish to send:");
+    }
+
+    public void signUpEventListLabel() {
+        System.out.println("Here are a list of events you can sign up for:");
+    }
+    public void cancelEventListLabel() {
+        System.out.println("Here are a list of events you can cancel attendance from:");
+    }
+    public void messageUserListLabel() {
+        System.out.println("Here is a list of all users you can message:");
     }
 
     public void listEvents(List<String> events) {
