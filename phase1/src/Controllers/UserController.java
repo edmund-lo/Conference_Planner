@@ -96,23 +96,24 @@ public abstract class UserController {
             else if (option == 1){
                 String name;
                 String content;
+                boolean canSend = false;
                 up.messageUserListLabel();
                 up.listUsers(getAllMessageableUsers());
-                while (true) {
-                    up.enterReceiverPrompt();
-                    name = input.nextLine();
-                    if (um.userExists(name))
-                        break;
-                    else
-                        up.invalidUserError();
+                up.enterReceiverPrompt();
+                name = input.nextLine();
+                if (um.userExists(name)) {
+                    canSend = true;
+                }else {
+                    up.invalidUserError();
                 }
-                up.enterMessagePrompt();
-                content = input.nextLine();
-                if (um.isAttendee(name) || um.isSpeaker(name))
-                    sendMessage(name, content);
-                else
-                    up.cannotMessageOrganizerError();
-
+                if (canSend) {
+                    up.enterMessagePrompt();
+                    content = input.nextLine();
+                    if (um.isAttendee(name) || um.isSpeaker(name))
+                        sendMessage(name, content);
+                    else
+                        up.cannotMessageOrganizerError();
+                }
             } else if (option == 2){
                 MessagePresenter mp = new MessagePresenter();
                 mp.showMessagesLabel();
@@ -215,7 +216,10 @@ public abstract class UserController {
      *@return list of all messages the user recieved in string format
      */
     public List<String> getAllMessages(){
-        ArrayList<String> messageStrings = new ArrayList<>();
+        List<String> messageStrings = new ArrayList<>();
+        if (um.getUserMessages(username).size() == 0) {
+            up.noMessagesLabel();
+        }
         for (String iD: um.getUserMessages(username)){
             messageStrings.add(mm.getMessageToString(iD));
         }
@@ -243,10 +247,14 @@ public abstract class UserController {
      *@return returns true if the message was sent successfully.
      */
     public boolean sendMessage(String recipientName, String content) {
-        String messageId = mm.sendMessage(recipientName, username, content);
-        addMessagesToUser(recipientName, messageId);
+        if (mm.messageCheck(recipientName, username, content)) {
+            String messageId = mm.createMessage(recipientName, username, content);
+            up.messageResult(recipientName);
+            addMessagesToUser(recipientName, messageId);
+        } else {
+            up.invalidMessageError();
+        }
 
-        up.messageResult(recipientName);
         return true;
     }
 

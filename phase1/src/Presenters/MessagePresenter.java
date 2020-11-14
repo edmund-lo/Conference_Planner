@@ -3,7 +3,9 @@ import java.util.List;
 
 /**
  * Presenter class that prints Message related functionality to the user
- *
+ * Displays numbered Message options
+ * Prints statement to ask user to specify receiver
+ * Displays list of messages
  */
 public class MessagePresenter {
     public void writeMessage() {
@@ -20,9 +22,9 @@ public class MessagePresenter {
                 "\nPress \"2\" to send a message to an Entities.Attendee." +
                 "\nPress \"3\" to send a message to All Speakers. \nPress \"4\" to send a message to All Attendees.");
     }
-
+    //Shows message labels
     public void showMessagesLabel() {
-        System.out.println("Here are your messages:");
+        System.out.println("Here are your messages: ");
     }
 
     //display messages, iterating as a for-loop

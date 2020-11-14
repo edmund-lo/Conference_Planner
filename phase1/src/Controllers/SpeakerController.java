@@ -117,9 +117,14 @@ public class SpeakerController extends UserController {
      */
     public boolean messageEventAttendees(String eventId, String message) {
         List<String> attendees = em.getAttendingUsers(eventId);
-        for (String name : attendees) {
-            String messageId = mm.sendMessage(name, username, message);
-            addMessagesToUser(name, messageId);
+        for (String recipientName : attendees) {
+            if (mm.messageCheck(recipientName, username, message)) {
+                String messageId = mm.createMessage(recipientName, username, message);
+                sp.messageResult(recipientName);
+                addMessagesToUser(recipientName, messageId);
+            } else {
+                sp.invalidMessageError();
+            }
         }
         return true;
     }
