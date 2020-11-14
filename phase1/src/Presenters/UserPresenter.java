@@ -83,6 +83,10 @@ public class UserPresenter {
     public void cannotMessageOrganizerError() {
         System.out.println("You cannot message an Organizer!");
     }
+    // invalid message format
+    public void invalidMessageError() {
+        System.out.println("Message was formatted incorrectly!");
+    }
     //invalid option
     public void invalidOptionError() {
         System.out.println("Please enter a valid option!");

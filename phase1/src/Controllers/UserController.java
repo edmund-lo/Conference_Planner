@@ -244,10 +244,14 @@ public abstract class UserController {
      *@return returns true if the message was sent successfully.
      */
     public boolean sendMessage(String recipientName, String content) {
-        String messageId = mm.sendMessage(recipientName, username, content);
-        addMessagesToUser(recipientName, messageId);
+        if (mm.messageCheck(recipientName, username, content)) {
+            String messageId = mm.createMessage(recipientName, username, content);
+            up.messageResult(recipientName);
+            addMessagesToUser(recipientName, messageId);
+        } else {
+            up.invalidMessageError();
+        }
 
-        up.messageResult(recipientName);
         return true;
     }
 

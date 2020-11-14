@@ -79,21 +79,17 @@ public class MessageManager implements Serializable {
     }
 
     /**
-     * Sender for a new Entities.Message
+     * Checks if a message fulfils all the requirements to be sent.
      *
      * @param content The text of this message
      * @param senderId The id of the sender of this message
      * @param receiverId The Id of the receiver
      *
-     * Return the messageId that is created
+     * @return boolean value that signifies the result of the check.
      */
 
-    public boolean sendMessage(String receiverId, String senderId, String content) {
-        if (receiverId != senderId && content != "") {
-            createMessage(receiverId, senderId, content);
-            return true;
-        }
-        return false;
+    public boolean messageCheck(String receiverId, String senderId, String content) {
+        return (receiverId.equals(senderId) && content.equals(""));
     }
 
     public String getMessageToString(String messageID) {
