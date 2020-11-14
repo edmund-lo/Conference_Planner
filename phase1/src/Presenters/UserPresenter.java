@@ -16,7 +16,8 @@ public class UserPresenter {
                 "\n 0. Logout" +
                 "\n 1. Sign Up for Events" +
                 "\n 2. Cancel Attendance from Events" +
-                "\n 3. Message Users / View Messages");
+                "\n 3. Message Users / View Messages" +
+                "\n 4. View all events you're attending");
     }
     //Numbered options during signup
     public void signUpEventPrompt() {
@@ -45,6 +46,13 @@ public class UserPresenter {
     //Introduces list of events that can be signed up for
     public void signUpEventListLabel() {
         System.out.println("Here are a list of events you can sign up for:");
+    }
+    //Introduces list of events that are attending
+    public void listAllEventsLabel(){
+        System.out.println("Here is a list of all the events you are attending:");
+    }
+    public void exitlistAllEventsLabel(){
+        System.out.println("Press 0 to go back");
     }
     //Introduces list of events that can be cancelled
     public void cancelEventListLabel() {

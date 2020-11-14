@@ -94,6 +94,23 @@ public abstract class UserController {
             }
         }
     }
+    public void viewEventsMenu(){
+        while(true){
+            up.listAllEventsLabel();
+            up.listEvents(getAttendingEventsString());
+            up.exitlistAllEventsLabel();
+            try{
+                int option = parseInt(input.nextLine());
+                if(option == 0){
+                    break;
+                }else{
+                    up.invalidOptionError();
+                }
+            }catch(NumberFormatException e){
+                up.invalidOptionError();
+            }
+        }
+    }
 
     /**
      *UI for when users want to message other users or view their messages.

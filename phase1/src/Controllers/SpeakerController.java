@@ -53,9 +53,12 @@ public class SpeakerController extends UserController {
                     messageMenu();
                     break;
                 case "4":
-                    messageEventsAttendeesCmd();
+                    viewEventsMenu();
                     break;
                 case "5":
+                    messageEventsAttendeesCmd();
+                    break;
+                case "6":
                     getSpeakerEvents();
                     break;
                 default:
