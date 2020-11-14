@@ -179,11 +179,11 @@ public class UserManager implements Serializable {
 //        return allUsers.get(username).getMessageIDs();
 //    }
 
-    public ArrayList<String> getUserSentMessages(String username) {
+    public ArrayList<String> getSentMessages(String username) {
         return allUsers.get(username).getSentMessages();
     }
 
-    public ArrayList<String> getUserReceivedMessages(String username) {
+    public ArrayList<String> getReceivedMessages(String username) {
         return allUsers.get(username).getReceivedMessages();
     }
 

@@ -129,8 +129,12 @@ public abstract class UserController {
                     }
                 } else if (option == 2){
                     mp = new MessagePresenter();
-                    mp.showMessagesLabel();
-                    mp.listMessages(getAllMessages());
+                    mp.showSentMessagesLabel();
+                    mp.listMessages(getAllSentMessages());
+                } else if (option == 3) {
+                    mp = new MessagePresenter();
+                    mp.showReceivedMessagesLabel();
+                    mp.listMessages(getAllReceivedMessages());
                 } else
                     up.invalidOptionError();
             } catch (NumberFormatException e) {
@@ -233,13 +237,43 @@ public abstract class UserController {
      *
      *@return list of all messages the user received in string format
      */
-    public List<String> getAllMessages(){
+//    public List<String> getAllMessages(){
+//        List<String> messageStrings = new ArrayList<>();
+//        List<String> userMessages = um.getUserMessages(username);
+//        if (userMessages.size() == 0) {
+//            up.noMessagesLabel();
+//        } else {
+//            System.out.println("You have " + userMessages.size() + " messages.");
+//            for (String id : userMessages) {
+//                messageStrings.add(mm.getMessageToString(id));
+//            }
+//        }
+//
+//        return messageStrings;
+//    }
+
+    public List<String> getAllSentMessages(){
         List<String> messageStrings = new ArrayList<>();
-        List<String> userMessages = um.getUserMessages(username);
+        List<String> userMessages = um.getSentMessages(username);
         if (userMessages.size() == 0) {
             up.noMessagesLabel();
         } else {
-            System.out.println("You have " + userMessages.size() + " messages.");
+            System.out.println("You have " + userMessages.size() + " sent messages.");
+            for (String id : userMessages) {
+                messageStrings.add(mm.getMessageToString(id));
+            }
+        }
+
+        return messageStrings;
+    }
+
+    public List<String> getAllReceivedMessages(){
+        List<String> messageStrings = new ArrayList<>();
+        List<String> userMessages = um.getReceivedMessages(username);
+        if (userMessages.size() == 0) {
+            up.noMessagesLabel();
+        } else {
+            System.out.println("You have " + userMessages.size() + " received messages.");
             for (String id : userMessages) {
                 messageStrings.add(mm.getMessageToString(id));
             }
@@ -255,8 +289,8 @@ public abstract class UserController {
      *@param  recipientName username of the user the message is for.
      */
     public void addMessagesToUser(String recipientName, String messageId) {
-        um.addMessageToUser(recipientName, messageId);
-        um.addMessageToUser(this.username, messageId);
+        um.receiveMessage(recipientName, messageId);
+        um.sendMessage(this.username, messageId);
     }
 
     /**
