@@ -94,8 +94,7 @@ public class UserPresenter {
         System.out.println("You cannot message an Organizer!");
     }
     // invalid message format
-    public void invalidMessageError() {
-        System.out.println("Message was formatted incorrectly!");
+    public void invalidMessageError() {System.out.println("Invalid user or message format!");
     }
     //invalid option
     public void invalidOptionError() {
