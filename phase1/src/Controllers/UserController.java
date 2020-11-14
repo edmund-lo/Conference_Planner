@@ -54,13 +54,17 @@ public abstract class UserController {
             up.signUpEventListLabel();
             up.listEvents(getAllEvents());
             up.signUpEventPrompt();
-            int option = parseInt(input.nextLine());
-            if (option == 0)
-                break;
-            else if (option > em.getAllEventIds().size())
+            try {
+                int option = parseInt(input.nextLine());
+                if (option == 0)
+                    break;
+                else if (option > em.getAllEventIds().size())
+                    up.invalidOptionError();
+                else
+                    signUpEventAttendance(em.getAllEventIds().get(option - 1));
+            } catch (NumberFormatException e) {
                 up.invalidOptionError();
-            else
-                signUpEventAttendance(em.getAllEventIds().get(option-1));
+            }
         }
     }
 
@@ -73,13 +77,17 @@ public abstract class UserController {
             up.cancelEventListLabel();
             up.listEvents(getAttendingEventsString());
             up.cancelEventPrompt();
-            int option = parseInt(input.nextLine());
-            if (option == 0)
-                break;
-            else if (option > getAttendingEvents().size())
+            try {
+                int option = parseInt(input.nextLine());
+                if (option == 0)
+                    break;
+                else if (option > getAttendingEvents().size())
+                    up.invalidOptionError();
+                else
+                    cancelEventAttendance(getAttendingEvents().get(option-1));
+            } catch (NumberFormatException e) {
                 up.invalidOptionError();
-            else
-                cancelEventAttendance(getAttendingEvents().get(option-1));
+            }
         }
     }
 
@@ -90,36 +98,40 @@ public abstract class UserController {
     public void messageMenu(){
         while (true) {
             up.messageMenuPrompt();
-            int option = parseInt(input.nextLine());
-            if (option == 0)
-                break;
-            else if (option == 1){
-                String name;
-                String content;
-                boolean canSend = false;
-                up.messageUserListLabel();
-                up.listUsers(getAllMessageableUsers());
-                up.enterReceiverPrompt();
-                name = input.nextLine();
-                if (um.userExists(name)) {
-                    canSend = true;
-                }else {
-                    up.invalidUserError();
-                }
-                if (canSend) {
-                    up.enterMessagePrompt();
-                    content = input.nextLine();
-                    if (um.isAttendee(name) || um.isSpeaker(name))
-                        sendMessage(name, content);
-                    else
-                        up.cannotMessageOrganizerError();
-                }
-            } else if (option == 2){
-                MessagePresenter mp = new MessagePresenter();
-                mp.showMessagesLabel();
-                mp.listMessages(getAllMessages());
-            } else
+            try {
+                int option = parseInt(input.nextLine());
+                if (option == 0)
+                    break;
+                else if (option == 1){
+                    String name;
+                    String content;
+                    boolean canSend = false;
+                    up.messageUserListLabel();
+                    up.listUsers(getAllMessageableUsers());
+                    up.enterReceiverPrompt();
+                    name = input.nextLine();
+                    if (um.userExists(name)) {
+                        canSend = true;
+                    }else {
+                        up.invalidUserError();
+                    }
+                    if (canSend) {
+                        up.enterMessagePrompt();
+                        content = input.nextLine();
+                        if (um.isAttendee(name) || um.isSpeaker(name))
+                            sendMessage(name, content);
+                        else
+                            up.cannotMessageOrganizerError();
+                    }
+                } else if (option == 2){
+                    MessagePresenter mp = new MessagePresenter();
+                    mp.showMessagesLabel();
+                    mp.listMessages(getAllMessages());
+                } else
+                    up.invalidOptionError();
+            } catch (NumberFormatException e) {
                 up.invalidOptionError();
+            }
         }
     }
 
