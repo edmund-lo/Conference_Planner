@@ -27,7 +27,7 @@ public class SpeakerPresenter extends UserPresenter {
         System.out.println("Successfully sent message to attendees of " + event + ".");
     }
     //If invalid event provided
-    public void invalidEventNumber() {
+    public void invalidEventNumberError() {
         System.out.println("Event number is formatted incorrectly!");
     }
     //If messages aren't successfully sent

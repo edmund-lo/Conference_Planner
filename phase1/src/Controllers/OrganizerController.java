@@ -3,6 +3,7 @@ package Controllers;
 import Presenters.OrganizerPresenter;
 import UseCases.*;
 
+import javax.swing.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,15 +75,19 @@ public class OrganizerController extends UserController {
     public void createNewMenu() {
         while (true) {
             op.createNewPrompt();
-            int option = parseInt(input.nextLine());
-            if (option == 0)
-                break;
-            else if (option == 1)
-                createRoomCmd();
-            else if (option == 2)
-                createSpeakerAccountCmd();
-            else
+            try {
+                int option = parseInt(input.nextLine());
+                if (option == 0)
+                    break;
+                else if (option == 1)
+                    createRoomCmd();
+                else if (option == 2)
+                    createSpeakerAccountCmd();
+                else
+                    op.invalidOptionError();
+            } catch (NumberFormatException e) {
                 op.invalidOptionError();
+            }
         }
     }
 
@@ -92,15 +97,19 @@ public class OrganizerController extends UserController {
     public void organizerMessageMenu() {
         while (true) {
             op.organizerMessagePrompt();
-            int option = parseInt(input.nextLine());
-            if (option == 0)
-                break;
-            else if (option == 1)
-                messageAllSpeakersCmd();
-            else if (option == 2)
-                messageAllAttendeesCmd();
-            else
+            try {
+                int option = parseInt(input.nextLine());
+                if (option == 0)
+                    break;
+                else if (option == 1)
+                    messageAllSpeakersCmd();
+                else if (option == 2)
+                    messageAllAttendeesCmd();
+                else
+                    op.invalidOptionError();
+            } catch (NumberFormatException e) {
                 op.invalidOptionError();
+            }
         }
     }
 
