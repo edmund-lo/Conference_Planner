@@ -149,9 +149,14 @@ public class OrganizerController extends UserController {
      */
     public boolean messageAllSpeakers(String message) {
         List<String> speakerNames = um.getAllSpeakerNames();
-        for (String name : speakerNames) {
-            String messageId = mm.sendMessage(name, username, message);
-            addMessagesToUser(name, messageId);
+        for (String recipientName : speakerNames) {
+            if (mm.messageCheck(recipientName, username, message)) {
+                String messageId = mm.createMessage(recipientName, username, message);
+                op.messageResult(recipientName);
+                addMessagesToUser(recipientName, messageId);
+            } else {
+                op.invalidMessageError();
+            }
         }
         op.messagedAllSpeakersResult();
         return true;
@@ -174,10 +179,15 @@ public class OrganizerController extends UserController {
      */
     public boolean messageAllAttendees(String message) {
         Set<String> attendeeNames = um.getAllUsernames();
-        for (String name : attendeeNames) {
-            if (!name.equals(username)) {
-                String messageId = mm.sendMessage(name, username, message);
-                addMessagesToUser(name, messageId);
+        for (String recipientName : attendeeNames) {
+            if (!recipientName.equals(username)) {
+                if (mm.messageCheck(recipientName, username, message)) {
+                    String messageId = mm.createMessage(recipientName, username, message);
+                    op.messageResult(recipientName);
+                    addMessagesToUser(recipientName, messageId);
+                } else {
+                    op.invalidMessageError();
+                }
             }
         }
         op.messagedAllAttendeesResult();
@@ -219,7 +229,7 @@ public class OrganizerController extends UserController {
         getAllEvents();
         op.eventNumberPrompt();
         int index = parseInt(input.nextLine());
-        String eventId = new ArrayList<>(em.getAllEventIds()).get(index);
+        String eventId = em.getAllEventIds().get(index);
         List<String> speakerNames = um.getAllSpeakerNames();
         for (String name : speakerNames)
             System.out.println(name);
@@ -236,8 +246,8 @@ public class OrganizerController extends UserController {
      * @return A boolean value signifying whether method was successful.
      */
     public boolean scheduleSpeaker(String speakerName, String eventId) {
-        LocalDateTime start = em.getEventById(eventId).getStartTime();
-        LocalDateTime end = em.getEventById(eventId).getEndTime();
+        LocalDateTime start = em.getEventStartTime(eventId);
+        LocalDateTime end = em.getEventEndTime(eventId);
         if (!em.canAddSpeakerToEvent(eventId)) {
             op.existingSpeakerAtEventError();
             return false;
