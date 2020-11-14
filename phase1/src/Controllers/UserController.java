@@ -1,5 +1,6 @@
 package Controllers;
 
+import Presenters.MessagePresenter;
 import Presenters.UserPresenter;
 import UseCases.*;
 
@@ -113,9 +114,9 @@ public abstract class UserController {
                     up.cannotMessageOrganizerError();
 
             } else if (option == 2){
-                for (String x : getAllMessages()) {
-                    System.out.println(x);
-                }
+                MessagePresenter mp = new MessagePresenter();
+                mp.showMessagesLabel();
+                mp.listMessages(getAllMessages());
             } else
                 up.invalidOptionError();
         }
@@ -216,7 +217,7 @@ public abstract class UserController {
     public List<String> getAllMessages(){
         ArrayList<String> messageStrings = new ArrayList<>();
         for (String iD: um.getUserMessages(username)){
-            messageStrings.add(mm.getAllMessages().get(iD).toString());
+            messageStrings.add(mm.getMessageToString(iD));
         }
 
         return messageStrings;

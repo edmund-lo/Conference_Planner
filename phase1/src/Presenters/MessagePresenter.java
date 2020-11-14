@@ -1,4 +1,5 @@
 package Presenters;
+import java.util.List;
 
 public class MessagePresenter {
     public void writeMessage() {
@@ -15,9 +16,15 @@ public class MessagePresenter {
                 "\nPress \"2\" to send a message to an Entities.Attendee." +
                 "\nPress \"3\" to send a message to All Speakers. \nPress \"4\" to send a message to All Attendees.");
     }
-    //display messages
-    public void showMessages() {
-        System.out.println("Here are your messages.");
+
+    public void showMessagesLabel() {
+        System.out.println("Here are your messages:");
     }
 
+    //display messages, iterating as a for-loop
+    public void listMessages(List<String> messages) {
+        for (String x : messages) {
+            System.out.println(x);
+        }
+    }
 }
