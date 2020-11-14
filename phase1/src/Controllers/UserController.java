@@ -28,7 +28,7 @@ public abstract class UserController {
     private MessagePresenter mp;
 
     /**
-     * Constructor for Controllers.UserController object.
+     * Constructor for UserController object.
      *
      * @param em  current session's UseCases.EventManager class.
      * @param um  current session's UseCases.UserManager class.
@@ -94,6 +94,11 @@ public abstract class UserController {
             }
         }
     }
+
+    /**
+     * UI for when users want to see all events they're attending
+     *
+     */
     public void viewEventsMenu(){
         while(true){
             up.listAllEventsLabel();
@@ -250,9 +255,9 @@ public abstract class UserController {
     }
 
     /**
-     * Returns list of all messages the user sent.
+     * Gets all of current user's sent messages.
      *
-     * @return A list of all messages the user sent
+     * @return List of Strings representing all of the user's sent messages.
      */
     public List<String> getAllSentMessages(){
         List<String> messageStrings = new ArrayList<>();
@@ -270,9 +275,9 @@ public abstract class UserController {
     }
 
     /**
-     * Returns list of all messages the user has received.
+     * Gets all of current user's received messages.
      *
-     * @return a list of all messages the user has received
+     * @return List of Strings representing all of the user's received messages.
      */
     public List<String> getAllReceivedMessages(){
         List<String> messageStrings = new ArrayList<>();
@@ -290,7 +295,7 @@ public abstract class UserController {
     }
 
     /**
-     *Calls the user manager to add a messageID to sender's and receiver's list
+     *Calls the user manager to add a messageId to a user's list
      *
      *@param  messageId id of the message user is adding.
      *@param  recipientName username of the user the message is for.
