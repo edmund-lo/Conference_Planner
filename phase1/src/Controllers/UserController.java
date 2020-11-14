@@ -25,6 +25,7 @@ public abstract class UserController {
     protected String username;
     protected Scanner input;
     private UserPresenter up;
+    private MessagePresenter mp;
 
     /**
      * Constructor for Controllers.UserController object.
@@ -43,6 +44,7 @@ public abstract class UserController {
         this.username = username;
         this.input = new Scanner(System.in);
         this.up = new UserPresenter();
+        this.mp = new MessagePresenter();
     }
 
     /**
@@ -237,7 +239,8 @@ public abstract class UserController {
         if (userMessages.size() == 0) {
             up.noMessagesLabel();
         } else {
-            System.out.println("You have " + userMessages.size() + " messages.");
+            int numMessages = userMessages.size();
+            mp.showNumMessages(numMessages);
             for (String id : userMessages) {
                 messageStrings.add(mm.getMessageToString(id));
             }
