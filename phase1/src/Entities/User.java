@@ -18,7 +18,8 @@ public abstract class User implements Serializable {
     private ArrayList<String> messageIDs;
 
     /**
-     * Constructor for User object.
+     * Constructor for User object. Initializes an empty hashmap for a user's schedule and
+     * an empty arraylist for a user's message IDs.
      *
      * @param username the user's username
      * @param password the user's password
