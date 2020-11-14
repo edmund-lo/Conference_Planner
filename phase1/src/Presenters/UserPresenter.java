@@ -42,18 +42,19 @@ public class UserPresenter {
     public void enterMessagePrompt() {
         System.out.println("Enter the message you wish to send:");
     }
-    //list of events
+    //Introduces list of events that can be signed up for
     public void signUpEventListLabel() {
         System.out.println("Here are a list of events you can sign up for:");
     }
-    //prompt for cancel event based on list
+    //Introduces list of events that can be cancelled
     public void cancelEventListLabel() {
         System.out.println("Here are a list of events you can cancel attendance from:");
     }
-    //list of users that can be messaged list
+    //Introduces list of users that can be messaged
     public void messageUserListLabel() {
         System.out.println("Here is a list of all users you can message:");
     }
+    //Prints that there are no messages
     public void noMessagesLabel() {
         System.out.println("You have no messages.");
     }

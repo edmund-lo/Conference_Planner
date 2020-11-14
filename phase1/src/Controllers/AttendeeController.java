@@ -31,19 +31,19 @@ public class AttendeeController extends UserController {
         // Enters a while loop that allows the user to continuously use Attendee functions
         while(inSession) {
             up.displayMenu();
-            int option = parseInt(input.nextLine());
+            String option = input.nextLine();
             switch(option) {
-                case 0:
+                case "0":
                     logout();
                     inSession = false;
                     break;
-                case 1:
+                case "1":
                     signUpMenu();
                     break;
-                case 2:
+                case "2":
                     cancelMenu();
                     break;
-                case 3:
+                case "3":
                     messageMenu();
                     break;
                 default:
