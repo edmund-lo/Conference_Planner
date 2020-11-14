@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * Implementation of an event with all details pretaining to it stored inside.
+ * Implementation of an event with all details pertaining to it stored inside.
  */
 public class Event implements Serializable {
     private String eventName;
