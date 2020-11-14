@@ -1,10 +1,7 @@
 package Controllers;
 
-import Presenters.*;
-import UseCases.EventManager;
-import UseCases.MessageManager;
-import UseCases.RoomManager;
-import UseCases.UserManager;
+import Presenters.SpeakerPresenter;
+import UseCases.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -21,6 +18,7 @@ import static java.lang.Integer.parseInt;
  *
  */
 public class SpeakerController extends UserController {
+    private SpeakerPresenter sp;
 
     /**
      * Constructor for Controllers.SpeakerController object. Uses constructor from Controllers.UserController.
@@ -33,10 +31,11 @@ public class SpeakerController extends UserController {
      */
     public SpeakerController(EventManager em, UserManager um, RoomManager rm, MessageManager mm, String username) {
         super(em, um, rm, mm, username);
+        sp = new SpeakerPresenter();
 
         boolean inSession = true;
         while(inSession) {
-            SpeakerPresenter.displayMenu();
+            sp.displayMenu();
             int option = parseInt(input.nextLine());
             switch(option) {
                 case 0:
@@ -59,7 +58,7 @@ public class SpeakerController extends UserController {
                     getSpeakerEvents();
                     break;
                 default:
-                    System.out.println("Please enter a valid option!");
+                    sp.invalidOptionError();
                     break;
             }
         }
@@ -70,22 +69,28 @@ public class SpeakerController extends UserController {
      */
     public void messageEventsAttendeesCmd() {
         getSpeakerEvents();
-        System.out.println("Enter the event numbers separated by a comma:");
+        sp.messageEventAttendeesPrompt();
         String eventIdsString = input.nextLine();
         List<String> eventIds = new ArrayList<>();
         Map<String, LocalDateTime[]> schedule = um.getSpeakerSchedule(username);
         List<String> allSpeakerEventIds = new ArrayList<>(schedule.keySet());
         for (String i : eventIdsString.split(",")) {
-            int index = parseInt(i);
+            int index;
+            try {
+                index = parseInt(i);
+            } catch (NumberFormatException e) {
+                sp.invalidEventNumber();
+                continue;
+            }
             eventIds.add(allSpeakerEventIds.get(index));
         }
-        System.out.println("Enter your message:");
+        sp.enterMessagePrompt();
         String message = input.nextLine();
         messageEventsAttendees(eventIds, message);
     }
 
     /**
-     * Messages the attendees of the given list of events.
+     * Messages the attendees of the given list of events and prints if message was sent or not.
      *
      * @param eventIds List of strings representing unique event IDs.
      * @param message String representing the user's message.
@@ -93,8 +98,11 @@ public class SpeakerController extends UserController {
      */
     public boolean messageEventsAttendees(List<String> eventIds, String message) {
         for (String eventId: eventIds) {
+            String eventName = em.getEventById(eventId).getEventName();
             if (messageEventAttendees(eventId, message))
-                System.out.println("Successfully sent message to attendees of selected event(s).");
+                sp.messageEventAttendeesResult(eventName);
+            else
+                sp.messageEventAttendeesError(eventName);
         }
         return true;
     }
@@ -123,12 +131,10 @@ public class SpeakerController extends UserController {
     public List<String> getSpeakerEvents() {
         Map<String, LocalDateTime[]> schedule = um.getSpeakerSchedule(username);
         List<String> eventStrings = new ArrayList<>();
-        int count = 1;
-        for (String eventId : schedule.keySet()) {
-            String eventString = em.getEventById(eventId).toString();
-            eventStrings.add(eventString);
-            System.out.println((count + ": " + eventString));
-        }
+        for (String eventId : schedule.keySet())
+            eventStrings.add(em.getEventById(eventId).toString());
+        sp.speakerEventsLabel();
+        sp.listEvents(eventStrings);
         return eventStrings;
     }
 }

@@ -1,8 +1,6 @@
 package Presenters;
 
-import Presenters.LoginPresenter;
-
-public abstract class MessagePresenter extends LoginPresenter {
+public class MessagePresenter {
     public void writeMessage() {
         System.out.println("Write your message here: ");
     }

@@ -1,7 +1,5 @@
 package Presenters;
 
-import java.util.List;
-
 public class OrganizerPresenter extends UserPresenter {
 
     public void displayMenu(){
@@ -31,10 +29,6 @@ public class OrganizerPresenter extends UserPresenter {
     public void speakerPasswordPrompt() {
         System.out.println("Enter speaker's password:");
     }
-    //messageAllSpeakersCmd should interact with this
-    public void enterMessagePrompt() {
-        System.out.println("Enter your message:");
-    }
     //interacts with scheduleSpeaker in Controllers.OrganizerController
     public void eventNumberPrompt() {
         System.out.println("Enter event number for the talk:");
@@ -61,18 +55,18 @@ public class OrganizerPresenter extends UserPresenter {
         System.out.println("This speaker was successfully added to selected event!");
     }
 
-    public void InvalidRoomNameError() {
+    public void invalidRoomNameError() {
         System.out.println("Unable to create new room: room's name was not unique.");
     }
-    public void InvalidSpeakerNameError() {
+    public void invalidSpeakerNameError() {
         System.out.println("Unable to create new speaker account: speaker's username was not unique.");
     }
     //There is already another speaker speaking at this event.
-    public void ExistingSpeakerAtEventError() {
+    public void existingSpeakerAtEventError() {
         System.out.println("Another speaker is already speaking at this event.");
     }
     //Entities.Speaker is already speaking at another event
-    public void SpeakerUnavailableError() {
+    public void speakerUnavailableError() {
         System.out.println("This speaker is already speaking at another event.");
     }
 }

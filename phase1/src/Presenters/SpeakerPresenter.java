@@ -1,21 +1,28 @@
 package Presenters;
 
-public abstract class SpeakerPresenter {
-    //writes messages to attendees
-    public void writeMessageToAttendees() {
-        System.out.println("Enter the message that you would like to send to the Attendees: ");
+public class SpeakerPresenter extends UserPresenter {
+    public void displayMenu(){
+        super.displayMenu();
+        System.out.println("4. Message Attendees at Events as Speaker" +
+                "\n 5. Show Events as Speaker");
     }
 
-    public static void displayMenu(){
-        System.out.println("Select Option " +
-                "\n 0. Logout" +
-                "\n 1. Sign Up for Events" +
-                "\n 2. Cancel Events" +
-                "\n 3. Entities.Message Menu" +
-                "\n 4. Entities.Message All Attendees" +
-                "\n 5. Entities.Message All Speakers" +
-                "\n 6. Schedule a Entities.Speaker" +
-                "\n 7. Create a Entities.Room");
+    public void speakerEventsLabel() {
+        System.out.println("Here are a list of events you are speaking at:");
     }
 
+    public void messageEventAttendeesPrompt() {
+        System.out.println("Enter the event numbers separated by a comma:");
+    }
+
+    public void messageEventAttendeesResult(String event) {
+        System.out.println("Successfully sent message to attendees of " + event + ".");
+    }
+
+    public void invalidEventNumber() {
+        System.out.println("Event number is formatted incorrectly!");
+    }
+    public void messageEventAttendeesError(String event) {
+        System.out.println("Unable to message attendees of " + event + "!");
+    }
 }

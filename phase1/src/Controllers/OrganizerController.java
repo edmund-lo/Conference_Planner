@@ -1,10 +1,7 @@
 package Controllers;
 
-import Presenters.*;
-import UseCases.EventManager;
-import UseCases.MessageManager;
-import UseCases.RoomManager;
-import UseCases.UserManager;
+import Presenters.OrganizerPresenter;
+import UseCases.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -124,7 +121,7 @@ public class OrganizerController extends UserController {
             op.speakerCreationResult();
             return true;
         }
-        op.InvalidSpeakerNameError();
+        op.invalidSpeakerNameError();
         return false;
     }
 
@@ -204,7 +201,7 @@ public class OrganizerController extends UserController {
             op.roomCreationResult();
             return true;
         }
-        op.InvalidRoomNameError();
+        op.invalidRoomNameError();
         return false;
     }
 
@@ -235,10 +232,10 @@ public class OrganizerController extends UserController {
         LocalDateTime start = em.getEventById(eventId).getStartTime();
         LocalDateTime end = em.getEventById(eventId).getEndTime();
         if (!em.canAddSpeakerToEvent(eventId)) {
-            op.ExistingSpeakerAtEventError();
+            op.existingSpeakerAtEventError();
             return false;
         } else if (!um.canAddSpeakerEvent(speakerName, eventId, start, end)) {
-            op.SpeakerUnavailableError();
+            op.speakerUnavailableError();
             return false;
         }
         em.addSpeakerToEvent(speakerName, eventId);
