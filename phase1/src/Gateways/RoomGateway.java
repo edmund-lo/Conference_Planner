@@ -32,7 +32,9 @@ public class RoomGateway implements GatewayInterface<RoomManager>, Serializable 
         catch (FileNotFoundException e) {
             System.out.println("File not Found!!");
         }
-        catch (IOException e){}
+        catch (IOException e){
+            System.out.println("IO Exception Raised!!");
+        }
     }
 
     /**
@@ -58,9 +60,8 @@ public class RoomGateway implements GatewayInterface<RoomManager>, Serializable 
         catch (FileNotFoundException e) {
             System.out.println("File not Found!!");
         }
-        catch (IOException e){
-            System.out.println("IO Exception Raised!");
-        }
+        catch (IOException e){}
+
         catch (ClassNotFoundException e) {
             System.out.println("Entities.Room Manager Class was not found");
         }
