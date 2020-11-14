@@ -166,7 +166,7 @@ public class OrganizerController extends UserController {
      * @return A boolean value signifying whether method was successful.
      */
     public boolean messageAllAttendees(String message) {
-        Set<String> attendeeNames = um.getAllUsers().keySet();
+        Set<String> attendeeNames = um.getAllUsernames();
         for (String name : attendeeNames) {
             if (!name.equals(username)) {
                 String messageId = mm.sendMessage(name, username, message);

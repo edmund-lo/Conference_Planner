@@ -9,21 +9,13 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Set;
 
 public class UserManager implements Serializable {
     private HashMap<String, User> allUsers;
 
-    public UserManager(HashMap<String, User> allUsers) {
-        this.allUsers = allUsers;
-    }
-
     public UserManager() {
         this.allUsers = new HashMap<>();
-    }
-
-    public HashMap<String, User> getAllUsers() {
-        return allUsers;
     }
 
     public void createNewAttendee(String username, String password) {
@@ -72,6 +64,52 @@ public class UserManager implements Serializable {
         allUsers.get(username).addMessageID(messageID);
     }
 
+    public ArrayList<String> getAllMessageableUsers(String username) {
+        ArrayList<String> usernames = new ArrayList<>();
+        for (User user: allUsers.values()){
+            if (user instanceof Speaker || user instanceof Organizer && user.getUsername().equals(username))
+                usernames.add(user.toString());
+        }
+
+        return usernames;
+    }
+
+    public ArrayList<String> getUserMessages(String username) {
+        return allUsers.get(username).getMessageIDs();
+    }
+
+    public HashMap<String, LocalDateTime[]> getSchedule(String username) {
+        return allUsers.get(username).getSchedule();
+    }
+
+    public HashMap<String, LocalDateTime[]> getSpeakerSchedule(String username) {
+        Speaker speaker = (Speaker) allUsers.get(username);
+        return speaker.getSpeakerSchedule();
+    }
+
+    public Set<String> getAllUsernames() {
+        return allUsers.keySet();
+    }
+
+    public ArrayList<String> getAllSpeakerNames() {
+        ArrayList<String> speakers = new ArrayList<>();
+        for (User user : allUsers.values()) {
+           if (user instanceof Speaker) {
+               speakers.add(user.getUsername());
+           }
+        }
+        return speakers;
+    }
+
+    public ArrayList<String[]> getAccountInfo() {
+        ArrayList<String[]> accountInfo = new ArrayList<>();
+        for (User user : allUsers.values()) {
+            String[] info = {user.getUsername(), user.getPassword(), user.getClass().getSimpleName()};
+            accountInfo.add(info);
+        }
+        return accountInfo;
+    }
+
     public boolean checkUniqueUsername(String username) {
         for (User user : allUsers.values()) {
             if (username.equals(user.getUsername())) {
@@ -90,38 +128,6 @@ public class UserManager implements Serializable {
         return false;
     }
 
-    public HashMap<String, LocalDateTime[]> getSchedule(String username) {
-        return allUsers.get(username).getSchedule();
-    }
-
-    public HashMap<String, LocalDateTime[]> getSpeakerSchedule(String username) {
-        Speaker speaker = (Speaker) allUsers.get(username);
-        return speaker.getSpeakerSchedule();
-    }
-
-    public User getUserByUsername(String username) {
-        return allUsers.get(username);
-    }
-
-    public List<String> getAllSpeakerNames() {
-        List<String> speakers = new ArrayList<>();
-        for (User user : allUsers.values()) {
-           if (user instanceof Speaker) {
-               speakers.add(user.getUsername());
-           }
-        }
-        return speakers;
-    }
-
-    public ArrayList<String[]> getAccountInfo() {
-        ArrayList<String[]> accountInfo = new ArrayList<>();
-        for (User user : allUsers.values()) {
-            String[] info = {user.getUsername(), user.getPassword(), user.getClass().getSimpleName()};
-            accountInfo.add(info);
-        }
-        return accountInfo;
-    }
-
     public boolean isAttendee(String username) {
         return allUsers.get(username) instanceof Attendee;
     }
@@ -134,14 +140,8 @@ public class UserManager implements Serializable {
         return allUsers.get(username) instanceof Speaker;
     }
 
-    public ArrayList<String> getAllMessageableUsers(String username) {
-        ArrayList<String> usernames = new ArrayList<>();
-        for (User user: allUsers.values()){
-            if (user instanceof Speaker || user instanceof Organizer && user.getUsername().equals(username))
-                usernames.add(user.toString());
-        }
-
-        return usernames;
+    public boolean userExists(String username) {
+        return allUsers.get(username) != null;
     }
 
 }

@@ -100,7 +100,7 @@ public abstract class UserController {
                 while (true) {
                     up.enterReceiverPrompt();
                     name = input.nextLine();
-                    if (um.getAllUsers().get(name) != null)
+                    if (um.userExists(name))
                         break;
                     else
                         up.invalidUserError();
@@ -215,7 +215,7 @@ public abstract class UserController {
      */
     public List<String> getAllMessages(){
         ArrayList<String> messageStrings = new ArrayList<>();
-        for (String iD: um.getUserByUsername(username).getMessageIDs()){
+        for (String iD: um.getUserMessages(username)){
             messageStrings.add(mm.getAllMessages().get(iD).toString());
         }
 
