@@ -1,10 +1,7 @@
 package Controllers;
 
-import Presenters.*;
-import UseCases.EventManager;
-import UseCases.MessageManager;
-import UseCases.RoomManager;
-import UseCases.UserManager;
+import Presenters.UserPresenter;
+import UseCases.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,7 +16,6 @@ import static java.lang.Integer.parseInt;
  *
  */
 
-
 public abstract class UserController {
     protected EventManager em;
     protected UserManager um;
@@ -27,6 +23,7 @@ public abstract class UserController {
     protected MessageManager mm;
     protected String username;
     protected Scanner input;
+    private UserPresenter up;
 
     /**
      * Constructor for Controllers.UserController object.
@@ -44,7 +41,7 @@ public abstract class UserController {
         this.mm = mm;
         this.username = username;
         this.input = new Scanner(System.in);
-
+        this.up = new UserPresenter();
     }
 
     /**
@@ -52,17 +49,15 @@ public abstract class UserController {
      *
      */
     public void signUpMenu(){
-        while(true) {
-            int count = 1;
-            for (String x: getAllEvents()) {
-                System.out.println(count + ": " + x);
-            }
-            System.out.println("Enter 0 to go back or enter a number to select an event to sign up for: ");
+        while (true) {
+            up.signUpEventListLabel();
+            up.listEvents(getAllEvents());
+            up.signUpEventPrompt();
             int option = parseInt(input.nextLine());
-            if(option == 0)
+            if (option == 0)
                 break;
-            else if(option > em.getAllEventIds().size())
-                System.out.println("Please enter a valid option");
+            else if (option > em.getAllEventIds().size())
+                up.invalidOptionError();
             else
                 signUpEventAttendance(em.getAllEventIds().get(option-1));
         }
@@ -74,16 +69,14 @@ public abstract class UserController {
      */
     public void cancelMenu(){
         while(true) {
-            int count = 1;
-            for (String x: getAttendingEventsString()) {
-                System.out.println(count + ": " + x);
-            }
-            System.out.println("Enter 0 to go back or enter a number to select an event to cancel: ");
+            up.cancelEventListLabel();
+            up.listEvents(getAttendingEventsString());
+            up.cancelEventPrompt();
             int option = parseInt(input.nextLine());
-            if(option == 0)
+            if (option == 0)
                 break;
-            else if(option > getAttendingEvents().size())
-                System.out.println("Please enter a valid option.");
+            else if (option > getAttendingEvents().size())
+                up.invalidOptionError();
             else
                 cancelEventAttendance(getAttendingEvents().get(option-1));
         }
@@ -94,41 +87,37 @@ public abstract class UserController {
      *
      */
     public void messageMenu(){
-        while(true) {
-            System.out.println("Enter 0 to go back, enter 1 to message a user, enter 2 to view your messages.");
+        while (true) {
+            up.messageMenuPrompt();
             int option = parseInt(input.nextLine());
-            if(option == 0)
+            if (option == 0)
                 break;
-            else if(option == 1){
+            else if (option == 1){
                 String name;
                 String content;
-                System.out.println("Here is a list of all users you can message: ");
-                for (String x : getAllMessageableUsers()) {
-                    System.out.println(x);
-                }
-                while(true) {
-                    System.out.println("Type in the user you wish to message: ");
-                    name = input.next();
+                up.messageUserListLabel();
+                up.listUsers(getAllMessageableUsers());
+                while (true) {
+                    up.enterReceiverPrompt();
+                    name = input.nextLine();
                     if (um.getAllUsers().get(name) != null)
                         break;
                     else
-                        System.out.println("Enter a valid user.");
+                        up.invalidUserError();
                 }
-                System.out.println("Type in your message below: ");
-                content = input.next();
+                up.enterMessagePrompt();
+                content = input.nextLine();
                 if (um.isAttendee(name) || um.isSpeaker(name))
                     sendMessage(name, content);
                 else
-                    System.out.println("You cannot message an organizer.");
+                    up.cannotMessageOrganizerError();
 
-            }else if(option == 2){
+            } else if (option == 2){
                 for (String x : getAllMessages()) {
                     System.out.println(x);
                 }
-            }else{
-                System.out.println("Enter a valid option.");
-            }
-
+            } else
+                up.invalidOptionError();
         }
     }
 
@@ -147,17 +136,18 @@ public abstract class UserController {
      *
      */
     public boolean signUpEventAttendance(String eventId) {
-        if(!um.canSignUp(username, eventId, em.getEventById(eventId).getStartTime(), em.getEventById(eventId).getEndTime())){
-            System.out.println("You are already signed up for an event at this time.");
+        LocalDateTime start = em.getEventById(eventId).getStartTime();
+        LocalDateTime end = em.getEventById(eventId).getEndTime();
+        if (!um.canSignUp(username, eventId, start, end)) {
+            up.alreadySignedUpError();
             return false;
-        }else if(!em.canAddUserToEvent(eventId,username)){
-            System.out.println("The event is already at full capacity");
+        } else if (!em.canAddUserToEvent(eventId,username)){
+            up.eventFullCapacityError();
             return false;
-        }else{
+        } else {
             em.addUserToEvent(eventId,username);
-            um.signUp(username, eventId, em.getEventById(eventId).getStartTime(), em.getEventById(eventId).getEndTime());
-
-            System.out.println("You have signed up for " + em.getEventById(eventId).toString());
+            um.signUp(username, eventId, start, end);
+            up.signUpResult(em.getEventById(eventId).toString());
             return true;
         }
     }
@@ -171,10 +161,10 @@ public abstract class UserController {
     public boolean cancelEventAttendance(String eventId) {
         if(em.removeUserFromEvent(eventId, username)) {
             um.cancel(eventId, username);
-            System.out.println("You have cancelled you attendance for " + em.getEventById(eventId).toString());
+            up.cancelResult(em.getEventById(eventId).toString());
             return true;
         }
-        System.out.println("You are not signed up for " + em.getEventById(eventId).toString());
+        up.notAttendingEventError(em.getEventById(eventId).toString());
         return false;
     }
 
@@ -255,18 +245,17 @@ public abstract class UserController {
         String messageId = mm.sendMessage(recipientName, username, content);
         addMessagesToUser(recipientName, messageId);
 
-        System.out.println("Entities.Message sent to " + recipientName);
+        up.messageResult(recipientName);
         return true;
     }
-
 
     /**
      *logs the user out of the program
      *
-     *@return returns the current usercontroller class.
+     *@return returns the current UserController class.
      */
     public UserController logout() {
-        System.out.println("Logging out...");
+        up.logoutMessage();
         return this;
     }
 }

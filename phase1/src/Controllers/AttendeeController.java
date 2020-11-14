@@ -1,10 +1,7 @@
 package Controllers;
 
 import Presenters.*;
-import UseCases.EventManager;
-import UseCases.MessageManager;
-import UseCases.RoomManager;
-import UseCases.UserManager;
+import UseCases.*;
 
 import static java.lang.Integer.parseInt;
 
@@ -18,7 +15,7 @@ import static java.lang.Integer.parseInt;
 public class AttendeeController extends UserController {
 
     /**
-     * Constructor for Controllers.AttendeeController object. Uses constructor from Controllers.UserController.
+     * Constructor for AttendeeController object. Uses constructor from UserController.
      *
      * @param em  current session's UseCases.EventManager class.
      * @param um  current session's UseCases.UserManager class.
@@ -28,10 +25,12 @@ public class AttendeeController extends UserController {
      */
     public AttendeeController(EventManager em, UserManager um, RoomManager rm, MessageManager mm, String username) {
         super(em, um, rm, mm, username);
+        UserPresenter up = new UserPresenter();
 
         boolean inSession = true;
+        // Enters a while loop that allows the user to continuously use Attendee functions
         while(inSession) {
-            AttendeePresenter.displayMenu();
+            up.displayMenu();
             int option = parseInt(input.nextLine());
             switch(option) {
                 case 0:
@@ -48,7 +47,7 @@ public class AttendeeController extends UserController {
                     messageMenu();
                     break;
                 default:
-                    System.out.println("Please enter a valid option!");
+                    up.invalidOptionError();
                     break;
             }
         }
