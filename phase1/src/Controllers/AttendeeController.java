@@ -30,7 +30,7 @@ public class AttendeeController extends UserController {
         boolean inSession = true;
         // Enters a while loop that allows the user to continuously use Attendee functions
         while(inSession) {
-            up.displayMenu();
+            up.displayMenu(um);
             String option = input.nextLine();
             switch(option) {
                 case "0":

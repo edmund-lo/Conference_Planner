@@ -1,7 +1,7 @@
 package Presenters;
 
 import java.util.List;
-
+import UseCases.UserManager;
 /**
  * Presenter outputs for client type User
  */
@@ -11,8 +11,8 @@ public class UserPresenter {
     // go back, sign up for an event with a number
     // cancel an event with a known number
     // message a user, view list of messages
-    public void displayMenu() {
-        System.out.println("\nSelect Option " +
+    public void displayMenu(UserManager user) {
+        System.out.println("Hello, " + user + "(" + user.getClass() + ")" +"!\nSelect Option " +
                 "\n 0. Logout" +
                 "\n 1. Sign Up for Events" +
                 "\n 2. Cancel Attendance from Events" +
@@ -52,7 +52,7 @@ public class UserPresenter {
     public void listAllEventsLabel(){
         System.out.println("Here is a list of all the events you are attending:");
     }
-    public void exitlistAllEventsLabel(){
+    public void exitListAllEventsLabel(){
         System.out.println("Press 0 to go back");
     }
     //Introduces list of events that can be cancelled
