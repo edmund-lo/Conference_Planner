@@ -11,7 +11,7 @@ public class LoginPresenter {
     //If username is already in use
     public void UsernameTaken(){
         System.out.println("Username is taken! \nType \"login\" to login if account already exists and you wish to " +
-                "login. \n If not, press enter to continue");
+                "login. \nIf not, press enter to try a different username");
     }
     //prompts username request
     public void EnterUsername(){
@@ -34,7 +34,7 @@ public class LoginPresenter {
     }
     //Create new account
     public void New() {
-        System.out.println("Type \"New\" to create new account. Press enter to continue");
+        System.out.println("Type \"New\" to create new account. Press enter to continue to the login screen");
     }
     //If invalid number is entered, prints statement
     public void ValidNumber() {
