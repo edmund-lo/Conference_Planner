@@ -12,10 +12,6 @@ public class MessageGateway implements GatewayInterface<MessageManager>, Seriali
      */
     public String fileName = "mgt_save.ser";
 
-    public MessageGateway() {
-
-    }
-
     /**
      * This method serializes an inputted Entities.User Manager's data
      * @param mm UseCases.MessageManager object
