@@ -86,15 +86,15 @@ public class Message implements Serializable {
      */
     public String toStringSent(){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        return "To: " + this.receiverId + "\n" +
-                "Time: "+(dtf.format(this.messageTime)) +
+        return "To: " + getReceiverId() + "\n" +
+                "Time: "+(dtf.format(getMessageTime())) +
                 "\n" + "Message: " + getContent() + "\n";
     }
 
     public String toStringReceived(){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        return "From: " + this.senderId + "\n" +
-                "Time: " + (dtf.format(this.messageTime)) +
+        return "From: " + getSenderId() + "\n" +
+                "Time: " + (dtf.format(getMessageTime())) +
                 "\n" + "Message: " + getContent() + "\n";
     }
 }

@@ -93,16 +93,24 @@ public class MessageManager implements Serializable {
     }
 
     /**
-     * Make all the messages in allMessages to String
+     * Make the sent message to String
      *
      * @param messageID The id of message want to construct to string
      *
-     * Return the String of all messages
+     * Return the String of that message
      */
 
     public String getSentMessageToString(String messageID) {
         return allMessages.get(messageID).toStringSent();
     }
+
+    /**
+     * Make the received message to String
+     *
+     * @param messageID The id of message want to construct to string
+     *
+     * Return the String of that message
+     */
 
     public String getReceivedMessageToString(String messageID) {
         return allMessages.get(messageID).toStringReceived();
