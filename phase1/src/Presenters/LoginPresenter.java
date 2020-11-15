@@ -26,7 +26,7 @@ public class LoginPresenter {
     }
     //Outputs request for password
     public void EnterPassword(){
-        System.out.println("Enter Your Password");
+        System.out.println("Enter Your Password:");
     }
     //Prints if incorrect credentials are provided
     public void IncorrectCredentials(){
