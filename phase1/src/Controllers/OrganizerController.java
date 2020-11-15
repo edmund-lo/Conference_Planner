@@ -290,37 +290,41 @@ public class OrganizerController extends UserController {
      * Called when user chooses to create a new event
      */
     public void createEventCmd() {
-        for (String room : rm.getAllRooms()) {
-            System.out.println(room);
-        }
-        System.out.println("Enter the room name:");
-        String roomName = input.nextLine();
-        while (roomName.equals("")) {
-            System.out.println("Try again: cannot leave field empty!");
-            roomName = input.nextLine();
-        }
-        System.out.println(rm.getRoomSchedule(roomName));
-        System.out.println("Enter the event name:");
-        String eventName = input.nextLine();
-        while (eventName.equals("")) {
-            System.out.println("Try again: cannot leave field empty!");
-            eventName = input.nextLine();
-        }
-        System.out.println("Enter the event start time (formatted 'yyyy-MM-dd HH:mm'):");
-        String startString = input.nextLine();
-        while (startString.equals("")) {
-            System.out.println("Try again: cannot leave field empty!");
-            startString = input.nextLine();
-        }
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            LocalDateTime startTime = LocalDateTime.parse(startString, formatter);
-            if (createEvent(eventName, startTime, roomName))
-                System.out.println("Successfully created new event.");
-            else
-                System.out.println("Unable to create new event: scheduling conflict occurred.");
-        } catch (DateTimeParseException e) {
-            System.out.println("Unable to parse date input!");
+        if (rm.getAllRooms().size() == 0)
+            System.out.println("There are no rooms in the system. You cannot create an event.");
+        else{
+            for (String room : rm.getAllRooms()) {
+                System.out.println(room);
+            }
+            System.out.println("Enter the room name:");
+            String roomName = input.nextLine();
+            while (roomName.equals("")) {
+                System.out.println("Try again: cannot leave field empty!");
+                roomName = input.nextLine();
+            }
+            System.out.println(rm.getRoomSchedule(roomName));
+            System.out.println("Enter the event name:");
+            String eventName = input.nextLine();
+            while (eventName.equals("")) {
+                System.out.println("Try again: cannot leave field empty!");
+                eventName = input.nextLine();
+            }
+            System.out.println("Enter the event start time (formatted 'yyyy-MM-dd HH:mm'):");
+            String startString = input.nextLine();
+            while (startString.equals("")) {
+                System.out.println("Try again: cannot leave field empty!");
+                startString = input.nextLine();
+            }
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                LocalDateTime startTime = LocalDateTime.parse(startString, formatter);
+                if (createEvent(eventName, startTime, roomName))
+                    System.out.println("Successfully created new event.");
+                else
+                    System.out.println("Unable to create new event: scheduling conflict occurred.");
+            } catch (DateTimeParseException e) {
+                System.out.println("Unable to parse date input!");
+            }
         }
     }
 
