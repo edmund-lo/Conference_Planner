@@ -20,7 +20,7 @@ public class EventManager implements Serializable {
      *
      */
     public EventManager(){
-        this.allEvents = new HashMap<String, Event>();
+        this.allEvents = new HashMap<>();
     }
 
     /**

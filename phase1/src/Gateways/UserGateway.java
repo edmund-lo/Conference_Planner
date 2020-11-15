@@ -12,10 +12,6 @@ public class UserGateway implements GatewayInterface<UserManager>, Serializable 
      */
     public String fileName = "ugt_save.ser";
 
-    public UserGateway() {
-
-    }
-
     /**
      * This method serializes an inputted Entities.User Manager's data
      * @param um UseCases.UserManager object

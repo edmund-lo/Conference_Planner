@@ -5,18 +5,22 @@ import UseCases.EventManager;
 import java.io.*;
 import java.io.Serializable;
 
+/**
+ * A Gateway class that serializes and deserializes the Event Manager class
+ *
+ */
 public class EventGateway implements GatewayInterface<EventManager>, Serializable {
+
     /**
-     * TODO: JAVADOC
-     * @return
+     * Serial extension file egt_save which stores serialized and
+     * deserialized data
      */
     public String fileName = "egt_save.ser";
 
     /**
-     * This method serializes an inputted Entities.Event Manager's data
+     * Serializes an inputted Event Manager's data
+     *
      * @param em UseCases.EventManager object
-     * @catch FileNotFoundException
-     * @catch IOException
      */
 
     public void serializeData(EventManager em){
@@ -30,15 +34,17 @@ public class EventGateway implements GatewayInterface<EventManager>, Serializabl
             store_file.close();
         }
         catch (FileNotFoundException e) {
-            System.out.println("serial");
+            System.out.println("File not Found!!");
         }
         catch (IOException e){
             System.out.println("IO Exception Raised!!");
         }
     }
+
     /**
-     * TODO: JAVADOC
-     * @return
+     * Deserializes an Event Manager's data
+     *
+     * @return the Event Manager class
      */
     public EventManager deserializeData() {
         EventManager em = new EventManager();
@@ -55,7 +61,7 @@ public class EventGateway implements GatewayInterface<EventManager>, Serializabl
             return em;
         }
         catch (FileNotFoundException e) {
-
+            System.out.println("File not Found!!");
         }
         catch (IOException e){}
 
@@ -66,4 +72,5 @@ public class EventGateway implements GatewayInterface<EventManager>, Serializabl
             return em;
         }
     }
+
 }

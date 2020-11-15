@@ -1,11 +1,13 @@
 package Gateways;
 
-import Gateways.GatewayInterface;
 import UseCases.RoomManager;
 
 import java.io.*;
-import java.io.Serializable;
 
+/**
+ * A Gateway class that serializes and deserializes the Room Manager class
+ *
+ */
 public class RoomGateway implements GatewayInterface<RoomManager>, Serializable {
     /**
      * Serial extension file rgt_save which stores serialized and
@@ -14,10 +16,9 @@ public class RoomGateway implements GatewayInterface<RoomManager>, Serializable 
     public String fileName = "rgt_save.ser";
 
     /**
-     * This method serializes an inputted Entities.Room Manager's list of rooms
-     * @param rm
-     * @catch FileNotFoundException
-     * @catch IOException
+     * Serializes an inputted Room Manager's list of rooms
+     *
+     * @param rm the Room Manager class to be serialized
      */
     public void serializeData(RoomManager rm) {
 
@@ -38,9 +39,9 @@ public class RoomGateway implements GatewayInterface<RoomManager>, Serializable 
     }
 
     /**
-     * This method deserializes the given serialized file, and converts
-     * it to a Entities.Room Manager object
-     * @return Entities.Room Manager object
+     * Deserializes the given serialized file, and converts it to a Room Manager object
+     *
+     * @return Room Manager object
      */
     public RoomManager deserializeData() {
 
