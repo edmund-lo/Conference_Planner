@@ -17,20 +17,19 @@ public class AttendeeController extends UserController {
     /**
      * Constructor for AttendeeController object. Uses constructor from UserController.
      *
-     * @param em  current session's UseCases.EventManager class.
-     * @param um  current session's UseCases.UserManager class.
-     * @param rm  current session's UseCases.RoomManager class.
-     * @param mm  current session's UseCases.MessageManager class.
+     * @param em  current session's EventManager class.
+     * @param um  current session's UserManager class.
+     * @param rm  current session's RoomManager class.
+     * @param mm  current session's MessageManager class.
      * @param username current logged in user's username.
      */
     public AttendeeController(EventManager em, UserManager um, RoomManager rm, MessageManager mm, String username) {
         super(em, um, rm, mm, username);
         UserPresenter up = new UserPresenter();
-        String stringType = "Attendee";
         boolean inSession = true;
         // Enters a while loop that allows the user to continuously use Attendee functions
         while(inSession) {
-            up.displayMenu(stringType, username);
+            up.displayMenu("Attendee", username);
             String option = input.nextLine();
             switch(option) {
                 case "0":
