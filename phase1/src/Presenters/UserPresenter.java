@@ -33,7 +33,8 @@ public class UserPresenter {
         System.out.println("Press :" +
                 "\n 0. Go back" +
                 "\n 1. Message a user" +
-                "\n 2. View your messages");
+                "\n 2. View the messages you sent" +
+                "\n 3. View the messages you received");
     }
     //prompt for receiver option
     public void enterReceiverPrompt() {
