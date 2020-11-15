@@ -1,6 +1,5 @@
 package Presenters;
-import UseCases.UserManager;
-import Controllers.SpeakerController;
+
 /**
  * Presenter class that outputs speaker attributes that client-users can view
  * Displays menu options
