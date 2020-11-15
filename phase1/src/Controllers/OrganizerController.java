@@ -252,7 +252,7 @@ public class OrganizerController extends UserController {
                 else{
                     break;
                 }
-            }catch(NumberFormatException e){
+            }catch(NumberFormatException | IndexOutOfBoundsException e){
                 op.invalidOptionError();
             }
         }
@@ -264,7 +264,7 @@ public class OrganizerController extends UserController {
                 speakerIndex = input.nextLine();
                 scheduleSpeaker(um.getAllSpeakerNames().get(parseInt(speakerIndex)-1), eventId);
                 break;
-            }catch(NumberFormatException e){
+            }catch(NumberFormatException | IndexOutOfBoundsException e){
                 op.invalidOptionError();
             }
         }

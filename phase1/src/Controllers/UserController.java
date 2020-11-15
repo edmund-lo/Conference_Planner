@@ -65,7 +65,7 @@ public abstract class UserController {
                 else
                     signUpEventAttendance(em.getAllEventIds().get(option - 1));
                     break;
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 up.invalidOptionError();
             }
         }
@@ -89,7 +89,7 @@ public abstract class UserController {
                 else
                     cancelEventAttendance(getAttendingEvents().get(option-1));
                     break;
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 up.invalidOptionError();
             }
         }
