@@ -84,9 +84,17 @@ public class Message implements Serializable {
      * @return a String representation of Entities.Message that contains the senderId, receiverIds, the content in this message
      * and the time when it is sent and received
      */
-    public String toString(){
+    public String toStringSent(){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        return "Time: "+(dtf.format(this.messageTime)) +
+        return "To: " + this.senderId + "\n" +
+                "Time: "+(dtf.format(this.messageTime)) +
+                "\n" + "Message: " + getContent() + "\n";
+    }
+
+    public String toStringReceived(){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        return "From: " + this.receiverId + "\n" +
+                "Time: " + (dtf.format(this.messageTime)) +
                 "\n" + "Message: " + getContent() + "\n";
     }
 }
