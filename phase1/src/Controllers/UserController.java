@@ -25,7 +25,7 @@ public abstract class UserController {
     protected String username;
     protected Scanner input;
     private final UserPresenter up;
-    private final MessagePresenter mp;
+    protected final MessagePresenter mp;
 
     /**
      * Constructor for UserController object.

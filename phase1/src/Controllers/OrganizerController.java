@@ -20,7 +20,7 @@ import static java.lang.Integer.parseInt;
  *
  */
 public class OrganizerController extends UserController {
-    private OrganizerPresenter op;
+    private final OrganizerPresenter op;
 
     /**
      * Constructor for OrganizerController object. Uses constructor from UserController.
@@ -147,7 +147,7 @@ public class OrganizerController extends UserController {
      * Called when user chooses to message all speakers.
      */
     public void messageAllSpeakersCmd() {
-        op.enterMessagePrompt();
+        mp.enterMessagePrompt();
         String message = input.nextLine();
         messageAllSpeakers(message);
     }
@@ -162,10 +162,10 @@ public class OrganizerController extends UserController {
         for (String recipientName : speakerNames) {
             if (mm.messageCheck(recipientName, username, message)) {
                 String messageId = mm.createMessage(recipientName, username, message);
-                op.messageResult(recipientName);
+                mp.messageResult(recipientName);
                 addMessagesToUser(recipientName, messageId);
             } else {
-                op.invalidMessageError();
+                mp.invalidMessageError();
             }
         }
         op.messagedAllSpeakersResult();
@@ -175,7 +175,7 @@ public class OrganizerController extends UserController {
      * Called when user chooses to message all attendees.
      */
     public void messageAllAttendeesCmd() {
-        op.enterMessagePrompt();
+        mp.enterMessagePrompt();
         String message = input.nextLine();
         messageAllAttendees(message);
     }
@@ -191,10 +191,10 @@ public class OrganizerController extends UserController {
             if (!recipientName.equals(username)) {
                 if (mm.messageCheck(recipientName, username, message)) {
                     String messageId = mm.createMessage(recipientName, username, message);
-                    op.messageResult(recipientName);
+                    mp.messageResult(recipientName);
                     addMessagesToUser(recipientName, messageId);
                 } else {
-                    op.invalidMessageError();
+                    mp.invalidMessageError();
                 }
             }
         }
