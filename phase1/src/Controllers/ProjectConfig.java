@@ -25,7 +25,7 @@ public class ProjectConfig {
         while(running) {
             LoginController lc = startSession(ug, rg, mg, eg);
             endSession(ug, rg, mg, eg, lc);
-            System.out.println("Type 'exit' to exit program, anything else returns to login screen.");
+            System.out.println("Type 'exit' to exit program, anything else returns to the main menu");
             if (sc.nextLine().equals("exit"))
                 running = false;
         }
