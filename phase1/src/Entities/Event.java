@@ -111,7 +111,8 @@ public class Event implements Serializable {
             return "Event Name: " + this.eventName + "\n" +
                     "Speaker: Currently Unassigned\n" +
                     "Time: " + dtf.format(this.startTime) + " to " + dtf.format(this.endTime) + "\n" +
-                    "Number of Attending Users: " + this.attendingUsers.size();
+                    "Number of Attending Users: " + this.attendingUsers.size() + "\n" +
+                    "Room Name: " + this.roomName;
         }
         return "Event Name: "+this.eventName+"\n" +
                 "Speaker: "+this.speakerName+"\n" +
