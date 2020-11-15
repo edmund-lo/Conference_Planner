@@ -2,33 +2,55 @@ package Presenters;
 import java.util.List;
 
 /**
- * Presenter class that prints Message related functionality to the user
+ * Presenter class that prints Message related functionality to the user's screen
  * Displays numbered Message options
  * Prints statement to ask user to specify receiver
  * Displays list of messages
  */
 public class MessagePresenter {
-    public void writeMessage() {
-        System.out.println("Write your message here: ");
+
+    //prompt for messaging options
+    public void messageMenuPrompt() {
+        System.out.println("Press :" +
+                "\n 0. Go back" +
+                "\n 1. Message a user" +
+                "\n 2. View the messages you sent" +
+                "\n 3. View the messages you received");
     }
-    //displays menu options
-    public void displayMessageOptions() {
-        System.out.println("Press:" +
-                "\n 1. Display all messages. " +
-                "\n 2. Snd a message. " +
-                "\n Press enter to continue. ");
+    //prompt for receiver option
+    public void enterReceiverPrompt() {
+        System.out.println("Enter the user you wish to message:");
     }
-    //This needs work, determine if separate method to send to all Speakers and Attendees
-    public void specifyReceiverOfMessage() {
-        System.out.println("Enter:" +
-                "\n 1. Send message to a Speaker. " +
-                "\n 2. Send message to an Attendee." +
-                "\n 3. Send message to All Speakers. " +
-                "\n 4. Send message to All Attendees.");
+    //prompt for writing message
+    public void enterMessagePrompt() {
+        System.out.println("Enter the message you wish to send:");
     }
-    //Introduces following messages
-    public void showMessagesLabel() {
-        System.out.println("Here are your messages: ");
+    //Introduces list of users that can be messaged
+    public void messageUserListLabel() {
+        System.out.println("Here is a list of all users you can message:");
+    }
+    //Prints that there are no messages
+    public void noMessagesLabel() {
+        System.out.println("You have no messages.");
+    }
+    //Tells user there is no one to message
+    public void noMessagableUsers(){
+        System.out.println("There are no users to message.");
+    }
+    //prints user that message is sent to
+    public void messageResult(String recipient) {
+        System.out.println("Message sent to " + recipient);
+    }
+    //prints error for invalid user
+    public void invalidUserError() {
+        System.out.println("The user you entered was invalid.");
+    }
+    //invalid messaging to organizer
+    public void cannotMessageOrganizerError() {
+        System.out.println("You cannot message an Organizer!");
+    }
+    // invalid message format
+    public void invalidMessageError() {System.out.println("Invalid user or message format!");
     }
 
     public void showNumMessages(int numMessages, String sentOrReceived) {
