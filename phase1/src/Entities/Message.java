@@ -79,22 +79,29 @@ public class Message implements Serializable {
     }
 
     /**
-     * the toString method for Entities.Message
+     * the toString method for sent message
      *
-     * @return a String representation of Entities.Message that contains the senderId, receiverIds, the content in this message
-     * and the time when it is sent and received
+     * @return a String representation of Entities.Message that contains the senderId, receiverIds, the content in this
+     * message and the time when it is sent and received
      */
     public String toStringSent(){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        return "To: " + getReceiverId() + "\n" +
-                "Time: "+(dtf.format(getMessageTime())) +
-                "\n" + "Message: " + getContent() + "\n";
+        return "To: " + this.receiverId + "\n" +
+                "Time: "+(dtf.format(this.messageTime)) +
+                "\n" + "Message: " + this.content + "\n";
     }
+
+    /**
+     * the toString method for received message
+     *
+     * @return a String representation of Entities.Message that contains the senderId, receiverIds, the content in this
+     * message and the time when it is sent and received
+     */
 
     public String toStringReceived(){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        return "From: " + getSenderId() + "\n" +
-                "Time: " + (dtf.format(getMessageTime())) +
-                "\n" + "Message: " + getContent() + "\n";
+        return "From: " + this.senderId + "\n" +
+                "Time: " + (dtf.format(this.messageTime)) +
+                "\n" + "Message: " + this.content + "\n";
     }
 }

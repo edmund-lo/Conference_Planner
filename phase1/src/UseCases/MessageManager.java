@@ -19,8 +19,17 @@ public class MessageManager implements Serializable {
      *
      */
     public MessageManager(){
-        this.allMessages = new HashMap<>();
-        this.allContents = new ArrayList<>();
+        this.allMessages = new HashMap<String, Message>();
+        this.allContents = new ArrayList<String>();
+    }
+
+    /**
+     * getter for all the messages
+     *
+     * @return all messages in the format HashMap<
+     */
+    public HashMap<String, Message> getAllMessages() {
+        return this.allMessages;
     }
 
     /**
@@ -70,7 +79,7 @@ public class MessageManager implements Serializable {
         String messageId;
         do {
             messageId = UUID.randomUUID().toString();
-        } while(messageExists(messageId));
+        } while(this.messageExists(messageId));
         LocalDateTime messageTime = LocalDateTime.now();
         Message newMessage = new Message(content, senderId, messageId, receiverId, messageTime);
         this.allMessages.put(newMessage.getMessageID(), newMessage);
@@ -101,7 +110,7 @@ public class MessageManager implements Serializable {
      */
 
     public String getSentMessageToString(String messageID) {
-        return allMessages.get(messageID).toStringSent();
+        return this.allMessages.get(messageID).toStringSent();
     }
 
     /**
@@ -113,6 +122,6 @@ public class MessageManager implements Serializable {
      */
 
     public String getReceivedMessageToString(String messageID) {
-        return allMessages.get(messageID).toStringReceived();
+        return this.allMessages.get(messageID).toStringReceived();
     }
 }
