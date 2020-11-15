@@ -25,7 +25,7 @@ public abstract class UserController {
     protected String username;
     protected Scanner input;
     private final UserPresenter up;
-    private final MessagePresenter mp;
+    protected final MessagePresenter mp;
 
     /**
      * Constructor for UserController object.
@@ -123,7 +123,7 @@ public abstract class UserController {
      */
     public void messageMenu(){
         while (true) {
-            up.messageMenuPrompt();
+            mp.messageMenuPrompt();
             try {
                 int option = parseInt(input.nextLine());
                 if (option == 0)
@@ -134,25 +134,25 @@ public abstract class UserController {
                     boolean canSend = false;
                     List<String> ms = getAllMessageableUsers();
                     if (ms.size() > 0) {
-                        up.messageUserListLabel();
+                        mp.messageUserListLabel();
                         up.listUsers(ms);
-                        up.enterReceiverPrompt();
+                        mp.enterReceiverPrompt();
                         name = input.nextLine();
                         if (um.userExists(name) && !name.equals(username)) {
                             canSend = true;
                         } else {
-                            up.invalidUserError();
+                            mp.invalidUserError();
                         }
                         if (canSend) {
-                            up.enterMessagePrompt();
+                            mp.enterMessagePrompt();
                             content = input.nextLine();
                             if (um.isAttendee(name) || um.isSpeaker(name))
                                 sendMessage(name, content);
                             else
-                                up.cannotMessageOrganizerError();
+                                mp.cannotMessageOrganizerError();
                         }
                     }else
-                        up.noMessagableUsers();
+                        mp.noMessagableUsers();
                 } else if (option == 2){
                     mp.showSentMessagesLabel();
                     mp.listMessages(getAllSentMessages());
@@ -273,7 +273,7 @@ public abstract class UserController {
         List<String> messageStrings = new ArrayList<>();
         List<String> userMessages = um.getSentMessages(username);
         if (userMessages.size() == 0) {
-            up.noMessagesLabel();
+            mp.noMessagesLabel();
         } else {
             mp.showNumMessages(userMessages.size(), "sent");
             for (String id : userMessages) {
@@ -293,7 +293,7 @@ public abstract class UserController {
         List<String> messageStrings = new ArrayList<>();
         List<String> userMessages = um.getReceivedMessages(username);
         if (userMessages.size() == 0) {
-            up.noMessagesLabel();
+            mp.noMessagesLabel();
         } else {
             mp.showNumMessages(userMessages.size(), "received");
             for (String id : userMessages) {
@@ -325,10 +325,10 @@ public abstract class UserController {
     public void sendMessage(String recipientName, String content) {
         if (mm.messageCheck(recipientName, username, content)) {
             String messageId = mm.createMessage(recipientName, username, content);
-            up.messageResult(recipientName);
+            mp.messageResult(recipientName);
             addMessagesToUser(recipientName, messageId);
         } else {
-            up.invalidMessageError();
+            mp.invalidMessageError();
         }
     }
 

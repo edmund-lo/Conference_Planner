@@ -91,7 +91,7 @@ public class SpeakerController extends UserController {
                 }
                 eventIds.add(allSpeakerEventIds.get(index));
             }
-            sp.enterMessagePrompt();
+            mp.enterMessagePrompt();
             String message = input.nextLine();
             messageEventsAttendees(eventIds, message);
         }
@@ -125,10 +125,10 @@ public class SpeakerController extends UserController {
         for (String recipientName : attendees) {
             if (mm.messageCheck(recipientName, username, message)) {
                 String messageId = mm.createMessage(recipientName, username, message);
-                sp.messageResult(recipientName);
+                mp.messageResult(recipientName);
                 addMessagesToUser(recipientName, messageId);
             } else {
-                sp.invalidMessageError();
+                mp.invalidMessageError();
             }
         }
         return true;
