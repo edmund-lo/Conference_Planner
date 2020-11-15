@@ -1,12 +1,11 @@
 package Controllers;
 
 import Presenters.OrganizerPresenter;
-import UseCases.EventManager;
-import UseCases.MessageManager;
-import UseCases.RoomManager;
-import UseCases.UserManager;
+import UseCases.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Set;
 
@@ -87,6 +86,8 @@ public class OrganizerController extends UserController {
                     createRoomCmd();
                 else if (option == 2)
                     createSpeakerAccountCmd();
+                else if (option == 3) //testing purposes, when not using comment out lines 89-90
+                    createEventCmd();
                 else
                     op.invalidOptionError();
             } catch (NumberFormatException e) {
@@ -285,11 +286,61 @@ public class OrganizerController extends UserController {
         op.scheduleSpeakerResult();
     }
 
-    /*public boolean createEvent() {
-        return true;
+    /**
+     * Called when user chooses to create a new event
+     */
+    public void createEventCmd() {
+        for (String room : rm.getAllRooms()) {
+            System.out.println(room);
+        }
+        System.out.println("Enter the room name:");
+        String roomName = input.nextLine();
+        while (roomName.equals("")) {
+            System.out.println("Try again: cannot leave field empty!");
+            roomName = input.nextLine();
+        }
+        System.out.println(rm.getRoomSchedule(roomName));
+        System.out.println("Enter the event name:");
+        String eventName = input.nextLine();
+        while (eventName.equals("")) {
+            System.out.println("Try again: cannot leave field empty!");
+            eventName = input.nextLine();
+        }
+        System.out.println("Enter the event start time (formatted 'yyyy-MM-dd HH:mm'):");
+        String startString = input.nextLine();
+        while (startString.equals("")) {
+            System.out.println("Try again: cannot leave field empty!");
+            startString = input.nextLine();
+        }
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime startTime = LocalDateTime.parse(startString, formatter);
+            if (createEvent(eventName, startTime, roomName))
+                System.out.println("Successfully created new event.");
+            else
+                System.out.println("Unable to create new event: scheduling conflict occurred.");
+        } catch (DateTimeParseException e) {
+            System.out.println("Unable to parse date input!");
+        }
     }
 
-    public boolean cancelEvent(String eventId) {
+    /**
+     * Attempts to create a new event with given parameters
+     * @param eventName String representing the name of the event
+     * @param start LocalDateTime representing the starting time of the event
+     * @param roomName String representing the room
+     * @return Boolean value signifying whether creation was successful
+     */
+    public boolean createEvent(String eventName, LocalDateTime start, String roomName) {
+        LocalDateTime end = start.plusHours(1);
+        if (rm.addToRoomSchedule(start, roomName, eventName)) {
+            em.createNewEvent(eventName, start, end);
+            return true;
+        }
+        return false;
+    }
+
+    /*public boolean cancelEvent(String eventId) {
         return true;
     }
 
