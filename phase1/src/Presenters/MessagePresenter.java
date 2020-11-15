@@ -31,11 +31,11 @@ public class MessagePresenter {
         System.out.println("Here are your messages: ");
     }
 
-    public void showNumMessages(int numMessages) {
+    public void showNumMessages(int numMessages, String sentOrReceived) {
         if (numMessages == 1) {
-            System.out.println("You have " + numMessages + " message.");
+            System.out.println("You have " + numMessages + " " + sentOrReceived + " message.");
         } else {
-            System.out.println("You have " + numMessages + " messages.");
+            System.out.println("You have " + numMessages + " " + sentOrReceived + " messages.");
         }
     }
 

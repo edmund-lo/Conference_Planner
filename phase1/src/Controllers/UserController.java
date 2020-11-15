@@ -281,9 +281,9 @@ public abstract class UserController {
         if (userMessages.size() == 0) {
             up.noMessagesLabel();
         } else {
-            System.out.println("You have " + userMessages.size() + " sent messages.");
+            mp.showNumMessages(userMessages.size(), "sent");
             for (String id : userMessages) {
-                messageStrings.add(mm.getMessageToString(id));
+                messageStrings.add(mm.getSentMessageToString(id));
             }
         }
 
@@ -301,9 +301,9 @@ public abstract class UserController {
         if (userMessages.size() == 0) {
             up.noMessagesLabel();
         } else {
-            System.out.println("You have " + userMessages.size() + " received messages.");
+            mp.showNumMessages(userMessages.size(), "received");
             for (String id : userMessages) {
-                messageStrings.add(mm.getMessageToString(id));
+                messageStrings.add(mm.getReceivedMessageToString(id));
             }
         }
 

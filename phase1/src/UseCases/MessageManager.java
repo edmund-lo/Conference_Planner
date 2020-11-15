@@ -100,7 +100,11 @@ public class MessageManager implements Serializable {
      * Return the String of all messages
      */
 
-    public String getMessageToString(String messageID) {
-        return allMessages.get(messageID).toString();
+    public String getSentMessageToString(String messageID) {
+        return allMessages.get(messageID).toStringSent();
+    }
+
+    public String getReceivedMessageToString(String messageID) {
+        return allMessages.get(messageID).toStringReceived();
     }
 }
