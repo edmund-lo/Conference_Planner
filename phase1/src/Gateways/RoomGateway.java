@@ -19,6 +19,7 @@ public class RoomGateway implements GatewayInterface<RoomManager>, Serializable 
      * Serializes an inputted Room Manager's list of rooms
      *
      * @param rm the Room Manager class to be serialized
+     *
      */
     public void serializeData(RoomManager rm) {
 
