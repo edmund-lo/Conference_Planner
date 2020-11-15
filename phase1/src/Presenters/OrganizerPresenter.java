@@ -1,6 +1,7 @@
 package Presenters;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Presenter prints attributes that user of program (if organizer) can do/see.
@@ -161,5 +162,43 @@ public class OrganizerPresenter extends UserPresenter {
             System.out.println("("+count + "): " + x+"\n");
             count++;
         }
+    }
+
+    public void listRooms(Set<String> allRooms) {
+        for (String room : allRooms) {
+            System.out.println(room);
+        }
+    }
+
+    public void noRoomError() {
+        System.out.println("There are no rooms in the system. You cannot create an event.");
+    }
+
+    public void listRoomSchedule(String roomSchedule) {
+        System.out.println(roomSchedule);
+    }
+
+    public void eventNamePrompt() {
+        System.out.println("Enter the event name:");
+    }
+
+    public void emptyFieldError() {
+        System.out.println("Try again: cannot leave field empty!");
+    }
+
+    public void eventTimePrompt() {
+        System.out.println("Enter the event start time (formatted 'yyyy-MM-dd HH:mm'):");
+    }
+
+    public void eventCreationResult() {
+        System.out.println("Successfully created new event.");
+    }
+
+    public void eventFailedCreationResult() {
+        System.out.println("Unable to create new event: scheduling conflict occurred.");
+    }
+
+    public void invalidDateError() {
+        System.out.println("Unable to parse date input!");
     }
 }
