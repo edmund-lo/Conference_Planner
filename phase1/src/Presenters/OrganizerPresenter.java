@@ -78,14 +78,14 @@ public class OrganizerPresenter extends UserPresenter {
      * Outputs the label that prompts the user to enter the number of the event they wish to add a speaker to
      */
     public void eventNumberPrompt() {
-        System.out.println("Enter the number of what event you wish to add a speaker to:");
+        System.out.println("Enter the number of the event you wish to add a speaker to or enter 0 to go back:");
     }
 
     /**
      * Outputs the label that prompts the user to enter the number of which speaker they wish to assign
      */
     public void speakerNamePrompt() {
-        System.out.println("Enter the number of what speaker you wish to assign:");
+        System.out.println("Enter the number of the speaker you wish to assign or enter 0 to go back:");
     }
 
     /**
