@@ -36,7 +36,7 @@ public class SpeakerController extends UserController {
         boolean inSession = true;
         // Enters a while loop that allows the user to continuously use Speaker and Attendee functions
         while(inSession) {
-            sp.displayMenu(um);
+            sp.displayMenu("Speaker", username);
             String option = input.nextLine();
             switch(option) {
                 case "0":

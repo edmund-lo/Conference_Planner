@@ -1,5 +1,6 @@
 package Presenters;
-
+import UseCases.UserManager;
+import Controllers.SpeakerController;
 /**
  * Presenter class that outputs speaker attributes that client-users can view
  * Displays menu options
@@ -11,8 +12,10 @@ public class SpeakerPresenter extends UserPresenter {
     /**
      * Outputs the main menu display. Note that it is the same as the user menu with 2 extra options
      */
-    public void displayMenu(){
-        super.displayMenu();
+
+    public void displayMenu(UserManager um, String username){
+        String speaker = "Speaker";
+        super.displayMenu(speaker, username);
         System.out.println(" 5. Message Attendees at Events as Speaker" +
                 "\n 6. Show Events you are speaking at");
     }

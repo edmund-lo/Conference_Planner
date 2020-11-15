@@ -38,7 +38,7 @@ public class OrganizerController extends UserController {
         boolean inSession = true;
         // Enters a while loop that allows the user to continuously use Organizer and Attendee functions
         while(inSession) {
-            op.displayMenu(um);
+            op.displayMenu("Organizer", username);
             String option = input.nextLine();
             switch(option) {
                 case "0":

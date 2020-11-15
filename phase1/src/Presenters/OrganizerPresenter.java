@@ -1,7 +1,8 @@
 package Presenters;
 
 import java.util.List;
-
+import UseCases.UserManager;
+import Controllers.OrganizerController;
 /**
  * Presenter prints attributes that user of program (if organizer) can do/see.
  */
@@ -10,8 +11,9 @@ public class OrganizerPresenter extends UserPresenter {
     /**
      * Outputs the display menu for an organizer
      */
-    public void displayMenu(){
-        super.displayMenu();
+    public void displayMenu(UserManager organizer, String username){
+        String org = "Organizer";
+        super.displayMenu(org, username);
         System.out.println(" 5. Create New Options" +
                 "\n 6. Organizer Messaging" +
                 "\n 7. Schedule a Speaker");

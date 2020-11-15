@@ -1,7 +1,8 @@
 package Presenters;
 
 import java.util.List;
-
+import UseCases.UserManager;
+import Controllers.UserController;
 /**
  * Presenter outputs for client type User
  */
@@ -11,8 +12,8 @@ public class UserPresenter {
     // go back, sign up for an event with a number
     // cancel an event with a known number
     // message a user, view list of messages
-    public void displayMenu() {
-        System.out.println("\nSelect Option " +
+    public void displayMenu(String s, String username) {
+        System.out.println("Hello, " + username + "(" + s + ")!\nSelect Option " +
                 "\n 0. Logout" +
                 "\n 1. Sign Up for Events" +
                 "\n 2. Cancel Attendance from Events" +
@@ -27,6 +28,45 @@ public class UserPresenter {
     public void cancelEventPrompt() {
         System.out.println("Enter a number to select an event to cancel:" +
                 "\n Press 0 to go back.");
+    }
+    //prompt for messaging options
+    public void messageMenuPrompt() {
+        System.out.println("Press :" +
+                "\n 0. Go back" +
+                "\n 1. Message a user" +
+                "\n 2. View the messages you sent" +
+                "\n 3. View the messages you received");
+    }
+    //prompt for receiver option
+    public void enterReceiverPrompt() {
+        System.out.println("Enter the user you wish to message:");
+    }
+    //prompt for writing message
+    public void enterMessagePrompt() {
+        System.out.println("Enter the message you wish to send:");
+    }
+    //Introduces list of events that can be signed up for
+    public void signUpEventListLabel() {
+        System.out.println("Here are a list of events you can sign up for:");
+    }
+    //Introduces list of events that are attending
+    public void listAllEventsLabel(){
+        System.out.println("Here is a list of all the events you are attending:");
+    }
+    public void exitlistAllEventsLabel(){
+        System.out.println("Press 0 to go back");
+    }
+    //Introduces list of events that can be cancelled
+    public void cancelEventListLabel() {
+        System.out.println("Here are a list of events you can cancel attendance from:");
+    }
+    //Introduces list of users that can be messaged
+    public void messageUserListLabel() {
+        System.out.println("Here is a list of all users you can message:");
+    }
+    //Prints that there are no messages
+    public void noMessagesLabel() {
+        System.out.println("You have no messages.");
     }
 
     //list of events iterated and printed
@@ -43,27 +83,32 @@ public class UserPresenter {
             System.out.println(x);
         }
     }
-    //Introduces list of events that can be signed up for
-    public void signUpEventListLabel() {
-        System.out.println("Here are a list of events you can sign up for:");
-    }
-    //Introduces list of events that can be cancelled
-    public void cancelEventListLabel() {
-        System.out.println("Here are a list of events you can cancel attendance from:");
-    }
-    //Introduces list of events that are attending
-    public void listAllEventsLabel(){
-        System.out.println("Here is a list of all the events you are attending:");
-    }
-    public void exitlistAllEventsLabel(){
-        System.out.println("Press 0 to go back");
-    }
     //confirm signup result
     public void signUpResult(String event) {
         System.out.println("You have signed up for event " + event);
     }
     //cancel attendance for passed in event
-    public void cancelResult(String event) { System.out.println("You have cancelled your attendance for event " + event);
+    public void cancelResult(String event) {
+        System.out.println("You have cancelled your attendance for event " + event);
+    }
+    //Tells user there is no one to message
+    public void noMessagableUsers(){
+        System.out.println("There are no users to message.");
+    }
+    //prints user that message is sent to
+    public void messageResult(String recipient) {
+        System.out.println("Message sent to " + recipient);
+    }
+    //prints error for invalid user
+    public void invalidUserError() {
+        System.out.println("The user you entered was invalid.");
+    }
+    //invalid messaging to organizer
+    public void cannotMessageOrganizerError() {
+        System.out.println("You cannot message an Organizer!");
+    }
+    // invalid message format
+    public void invalidMessageError() {System.out.println("Invalid user or message format!");
     }
     //invalid option
     public void invalidOptionError() {
