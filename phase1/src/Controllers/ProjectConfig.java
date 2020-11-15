@@ -54,7 +54,8 @@ public class ProjectConfig {
         String x;
         System.out.println("Choose:" +
                 "\n1. Login" +
-                "\n2. Create Account");
+                "\n2. Create Account" +
+                "\n3. Exit Program");
         x = sc.nextLine();
         switch(x){
             case "1":
@@ -62,6 +63,8 @@ public class ProjectConfig {
                 break;
             case "2":
                 lc.CreateAccount();
+                break;
+            case "3":
                 break;
             default:
                 lp.ValidNumber();
