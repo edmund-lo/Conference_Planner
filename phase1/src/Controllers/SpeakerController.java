@@ -91,7 +91,7 @@ public class SpeakerController extends UserController {
                 }
                 eventIds.add(allSpeakerEventIds.get(index));
             }
-            sp.enterMessagePrompt();
+            mp.enterMessagePrompt();
             String message = input.nextLine();
             messageEventsAttendees(eventIds, message);
         }
@@ -102,9 +102,8 @@ public class SpeakerController extends UserController {
      *
      * @param eventIds List of strings representing unique event IDs.
      * @param message String representing the user's message.
-     * @return A boolean value signifying whether method was successful.
      */
-    public boolean messageEventsAttendees(List<String> eventIds, String message) {
+    public void messageEventsAttendees(List<String> eventIds, String message) {
         for (String eventId: eventIds) {
             String eventName = em.getEventName(eventId);
             if (messageEventAttendees(eventId, message))
@@ -112,7 +111,6 @@ public class SpeakerController extends UserController {
             else
                 sp.messageEventAttendeesError(eventName);
         }
-        return true;
     }
 
     /**
@@ -127,10 +125,10 @@ public class SpeakerController extends UserController {
         for (String recipientName : attendees) {
             if (mm.messageCheck(recipientName, username, message)) {
                 String messageId = mm.createMessage(recipientName, username, message);
-                sp.messageResult(recipientName);
+                mp.messageResult(recipientName);
                 addMessagesToUser(recipientName, messageId);
             } else {
-                sp.invalidMessageError();
+                mp.invalidMessageError();
             }
         }
         return true;
@@ -139,15 +137,13 @@ public class SpeakerController extends UserController {
     /**
      * Prints to console a list of events that this speaker is speaking at.
      *
-     * @return A List of Strings representing the events that the speaker is speaking at.
      */
-    public List<String> getSpeakerEvents() {
+    public void getSpeakerEvents() {
         Map<String, LocalDateTime[]> schedule = um.getSpeakerSchedule(username);
         List<String> eventStrings = new ArrayList<>();
         for (String eventId : schedule.keySet())
             eventStrings.add(em.getEventDescription(eventId));
         sp.speakerEventsLabel();
         sp.listEvents(eventStrings);
-        return eventStrings;
     }
 }
