@@ -25,7 +25,7 @@ public abstract class UserController {
     protected String username;
     protected Scanner input;
     private final UserPresenter up;
-    private MessagePresenter mp;
+    private final MessagePresenter mp;
 
     /**
      * Constructor for UserController object.
@@ -65,7 +65,7 @@ public abstract class UserController {
                 else
                     signUpEventAttendance(em.getAllEventIds().get(option - 1));
                     break;
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 up.invalidOptionError();
             }
         }
@@ -89,7 +89,7 @@ public abstract class UserController {
                 else
                     cancelEventAttendance(getAttendingEvents().get(option-1));
                     break;
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 up.invalidOptionError();
             }
         }
@@ -154,11 +154,9 @@ public abstract class UserController {
                     }else
                         up.noMessagableUsers();
                 } else if (option == 2){
-                    mp = new MessagePresenter();
                     mp.showSentMessagesLabel();
                     mp.listMessages(getAllSentMessages());
                 } else if (option == 3) {
-                    mp = new MessagePresenter();
                     mp.showReceivedMessagesLabel();
                     mp.listMessages(getAllReceivedMessages());
                 } else
