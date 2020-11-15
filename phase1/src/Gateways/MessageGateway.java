@@ -1,6 +1,5 @@
 package Gateways;
 
-import Gateways.GatewayInterface;
 import UseCases.MessageManager;
 
 import java.io.*;
