@@ -18,13 +18,13 @@ import java.util.Scanner;
 
 public class LoginController {
     private ArrayList<String[]> Accounts;
-    private Scanner sc;
+    private final Scanner sc;
     protected UserManager um;
     protected RoomManager rm;
     protected MessageManager mm;
     protected EventManager em;
     protected UserController controller;
-    private LoginPresenter lp;
+    private final LoginPresenter lp;
 
     /**
      * Constructor for OrganizerController object. Uses constructor from UserController.

@@ -12,10 +12,6 @@ public class MessageGateway implements GatewayInterface<MessageManager>, Seriali
      */
     public String fileName = "mgt_save.ser";
 
-    public MessageGateway() {
-
-    }
-
     /**
      * This method serializes an inputted Entities.User Manager's data
      * @param mm UseCases.MessageManager object
@@ -72,17 +68,4 @@ public class MessageGateway implements GatewayInterface<MessageManager>, Seriali
 
 
     }
-//
-//    public static void main(String[] args) {
-//        //TODO: CREATE TEST CASES
-//        Gateways.EventGateway eg = new Gateways.EventGateway();
-//        Entities.Event e = new Entities.Event();
-//        UseCases.EventManager em = new UseCases.EventManager();
-//        em.("RoomManage", r);
-//        rg.serializeData(rm);
-//        UseCases.RoomManager rr = rg.deserializeData();
-//
-//    }
-
-
 }

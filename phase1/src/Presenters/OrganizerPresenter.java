@@ -78,14 +78,14 @@ public class OrganizerPresenter extends UserPresenter {
      * Outputs the label that prompts the user to enter the number of the event they wish to add a speaker to
      */
     public void eventNumberPrompt() {
-        System.out.println("Enter the number of what event you wish to add a speaker to:");
+        System.out.println("Enter the number of the event you wish to add a speaker to or enter 0 to go back:");
     }
 
     /**
      * Outputs the label that prompts the user to enter the number of which speaker they wish to assign
      */
     public void speakerNamePrompt() {
-        System.out.println("Enter the number of what speaker you wish to assign:");
+        System.out.println("Enter the number of the speaker you wish to assign or enter 0 to go back:");
     }
 
     /**
@@ -210,6 +210,20 @@ public class OrganizerPresenter extends UserPresenter {
      */
     public void eventTimePrompt() {
         System.out.println("Enter the event start time (formatted 'yyyy-MM-dd HH:mm'):");
+    }
+
+    /**
+     * Outputs a label introducing the list of rooms
+     */
+    public void roomIntroduceListLabel(){
+        System.out.println("List of all the rooms: ");
+    }
+
+    /**
+     * Outputs a label indicating that the room doesn't exist
+     */
+    public void roomDoesNotExistLabel(){
+        System.out.println("That room doesn't exist!");
     }
 
     /**

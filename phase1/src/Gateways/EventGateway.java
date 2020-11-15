@@ -5,18 +5,22 @@ import UseCases.EventManager;
 import java.io.*;
 import java.io.Serializable;
 
+/**
+ * A Gateway class that serializes and deserializes the Event Manager class
+ *
+ */
 public class EventGateway implements GatewayInterface<EventManager>, Serializable {
+
     /**
-     * TODO: JAVADOC
-     * @return
+     * Serial extension file egt_save which stores serialized and
+     * deserialized data
      */
     public String fileName = "egt_save.ser";
 
     /**
-     * This method serializes an inputted Entities.Event Manager's data
+     * Serializes an inputted Event Manager's data
+     *
      * @param em UseCases.EventManager object
-     * @catch FileNotFoundException
-     * @catch IOException
      */
 
     public void serializeData(EventManager em){
@@ -36,9 +40,11 @@ public class EventGateway implements GatewayInterface<EventManager>, Serializabl
             System.out.println("IO Exception Raised!!");
         }
     }
+
     /**
-     * TODO: JAVADOC
-     * @return
+     * Deserializes an Event Manager's data
+     *
+     * @return the Event Manager class
      */
     public EventManager deserializeData() {
         EventManager em = new EventManager();
@@ -66,16 +72,5 @@ public class EventGateway implements GatewayInterface<EventManager>, Serializabl
             return em;
         }
     }
-
-//    public static void main(String[] args) {
-//        //TODO: CREATE TEST CASES
-//        Gateways.EventGateway eg = new Gateways.EventGateway();
-//        Entities.Event e = new Entities.Event("Name", "eventID123", "SpeakerID123",);
-//        UseCases.EventManager em = new UseCases.EventManager();
-//        em.("", r);
-//        rg.serializeData(rm);
-//        UseCases.RoomManager rr = rg.deserializeData();
-//
-//    }
 
 }

@@ -234,33 +234,43 @@ public class OrganizerController extends UserController {
     public void scheduleSpeakerCmd() {
         int index;
         String speakerIndex;
+        String eventId = null;
         op.speakerListAllEventsPrompt();
         op.listEvents(getAllEvents());
-        op.eventNumberPrompt();
         while(true){
+            op.eventNumberPrompt();
             try{
                 index = parseInt(input.nextLine());
-                if (em.getAllEventIds().size() < index){
+                if(index == 0){
+                    break;
+                }
+                else if (em.getAllEventIds().size() < index){
                     op.invalidOptionError();
                 }
                 else{
+                    eventId = em.getAllEventIds().get(index-1);
                     break;
                 }
-            }catch(NumberFormatException | IndexOutOfBoundsException e){
+            }catch(NumberFormatException | ArrayIndexOutOfBoundsException e){
                 op.invalidOptionError();
             }
         }
-        String eventId = em.getAllEventIds().get(index-1);
-        op.listSpeakers(um.getAllSpeakerNames());
-        op.speakerNamePrompt();
-        while(true){
-            try{
-                speakerIndex = input.nextLine();
-                scheduleSpeaker(um.getAllSpeakerNames().get(parseInt(speakerIndex)-1), eventId);
-                break;
-            }catch(NumberFormatException | IndexOutOfBoundsException e){
-                op.invalidOptionError();
-            }
+        if(index != 0){
+            op.listSpeakers(um.getAllSpeakerNames());
+            op.speakerNamePrompt();
+            while(true){
+                try{
+                    speakerIndex = input.nextLine();
+                    if(speakerIndex.equals("0")){
+                        break;
+                    }
+                    scheduleSpeaker(um.getAllSpeakerNames().get(parseInt(speakerIndex)-1), eventId);
+                    break;
+                }catch(NumberFormatException | IndexOutOfBoundsException e){
+                    op.invalidOptionError();
+                }
+        }
+
         }
     }
 
@@ -293,14 +303,22 @@ public class OrganizerController extends UserController {
         if (rm.getAllRooms().size() == 0)
             op.noRoomError();
         else{
+            op.roomIntroduceListLabel();
             op.listRooms(rm.getAllRooms());
-            op.roomNamePrompt();
-            String roomName = input.nextLine();
-            while (roomName.equals("")) {
-                op.emptyFieldError();
+            String roomName;
+            while (true) {
+                op.roomNamePrompt();
                 roomName = input.nextLine();
+                try{
+                    if(roomName.equals("")){
+                        op.emptyFieldError();
+                    }
+                    op.listRoomSchedule(rm.getRoomSchedule(roomName));
+                    break;
+                }catch(NullPointerException e){
+                    op.roomDoesNotExistLabel();
+                }
             }
-            op.listRoomSchedule(rm.getRoomSchedule(roomName));
             op.eventNamePrompt();
             String eventName = input.nextLine();
             while (eventName.equals("")) {

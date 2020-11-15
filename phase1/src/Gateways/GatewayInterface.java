@@ -1,7 +1,6 @@
 package Gateways;
 
-import java.io.*;
-import java.util.List;
+import java.io.Serializable;
 
 public interface GatewayInterface<T> extends Serializable {
     /**

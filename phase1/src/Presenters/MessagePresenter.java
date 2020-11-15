@@ -9,7 +9,7 @@ public class MessagePresenter {
      * Displays the user's options in the form of a messaging menu.
      */
     public void messageMenuPrompt() {
-        System.out.println("Press :" +
+        System.out.println("Enter :" +
                 "\n 0. Go back" +
                 "\n 1. Message a user" +
                 "\n 2. View the messages you sent" +
