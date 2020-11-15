@@ -9,13 +9,13 @@ Upon running the program, you first need to create a new account by following th
 in will be impossible.
 
 Messages
-Respond messages by first check the message you received by instructions on the menu and find who send you the message
-and view the message content. Then respond by send a new message to the sender.
+Respond to messages by first checking received messages and finding who the sender of the message is. Then respond by
+sending a new message to the sender.
 
 Logging Out
 When logging out, it will give an option to exit the program by typing "exit", and inputting anything else will return
 the user to the login menu.
 
-*** Remember to fully run the program, do not stop the program, it will cause problems and the program will give you a
-null pointer exception, the only way to let the program work again is delete all data that has been saved. Instead,
-logout and type exit. ***
+*** In order to ensure that all data is saved correctly, please exit the program properly and do not terminate the
+program by force. One of the possible errors is a NullPointerException, and the only way to make the program work again
+is to delete all data inside the .ser files that has been serialized. ***
