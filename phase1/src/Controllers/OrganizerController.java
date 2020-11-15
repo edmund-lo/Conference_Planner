@@ -293,14 +293,22 @@ public class OrganizerController extends UserController {
         if (rm.getAllRooms().size() == 0)
             op.noRoomError();
         else{
+            op.roomIntroduceListLabel();
             op.listRooms(rm.getAllRooms());
-            op.roomNamePrompt();
-            String roomName = input.nextLine();
-            while (roomName.equals("")) {
-                op.emptyFieldError();
+            String roomName;
+            while (true) {
+                op.roomNamePrompt();
                 roomName = input.nextLine();
+                try{
+                    if(roomName.equals("")){
+                        op.emptyFieldError();
+                    }
+                    op.listRoomSchedule(rm.getRoomSchedule(roomName));
+                    break;
+                }catch(NullPointerException e){
+                    op.roomDoesNotExistLabel();
+                }
             }
-            op.listRoomSchedule(rm.getRoomSchedule(roomName));
             op.eventNamePrompt();
             String eventName = input.nextLine();
             while (eventName.equals("")) {
