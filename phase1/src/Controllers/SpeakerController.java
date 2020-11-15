@@ -89,7 +89,7 @@ public class SpeakerController extends UserController {
                     sp.invalidEventNumberError();
                     continue;
                 }
-                eventIds.add(allSpeakerEventIds.get(index));
+                eventIds.add(allSpeakerEventIds.get(index-1));
             }
             mp.enterMessagePrompt();
             String message = input.nextLine();
