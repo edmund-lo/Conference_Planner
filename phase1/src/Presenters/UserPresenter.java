@@ -89,6 +89,10 @@ public class UserPresenter {
     public void cancelResult(String event) {
         System.out.println("You have cancelled your attendance for event " + event);
     }
+    //Tells user there is no one to message
+    public void noMessagableUsers(){
+        System.out.println("There are no users to message.");
+    }
     //prints user that message is sent to
     public void messageResult(String recipient) {
         System.out.println("Message sent to " + recipient);

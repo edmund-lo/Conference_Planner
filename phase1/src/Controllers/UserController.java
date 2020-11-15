@@ -132,23 +132,27 @@ public abstract class UserController {
                     String name;
                     String content;
                     boolean canSend = false;
-                    up.messageUserListLabel();
-                    up.listUsers(getAllMessageableUsers());
-                    up.enterReceiverPrompt();
-                    name = input.nextLine();
-                    if (um.userExists(name)) {
-                        canSend = true;
-                    }else {
-                        up.invalidUserError();
-                    }
-                    if (canSend) {
-                        up.enterMessagePrompt();
-                        content = input.nextLine();
-                        if (um.isAttendee(name) || um.isSpeaker(name))
-                            sendMessage(name, content);
-                        else
-                            up.cannotMessageOrganizerError();
-                    }
+                    List<String> ms = getAllMessageableUsers();
+                    if (ms.size() > 0) {
+                        up.messageUserListLabel();
+                        up.listUsers(ms);
+                        up.enterReceiverPrompt();
+                        name = input.nextLine();
+                        if (um.userExists(name) && !name.equals(username)) {
+                            canSend = true;
+                        } else {
+                            up.invalidUserError();
+                        }
+                        if (canSend) {
+                            up.enterMessagePrompt();
+                            content = input.nextLine();
+                            if (um.isAttendee(name) || um.isSpeaker(name))
+                                sendMessage(name, content);
+                            else
+                                up.cannotMessageOrganizerError();
+                        }
+                    }else
+                        up.noMessagableUsers();
                 } else if (option == 2){
                     mp = new MessagePresenter();
                     mp.showSentMessagesLabel();
