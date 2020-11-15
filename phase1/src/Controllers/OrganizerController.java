@@ -238,26 +238,36 @@ public class OrganizerController extends UserController {
      * Called when user chooses to schedule a speaker to an event.
      */
     public void scheduleSpeakerCmd() {
-        getAllEvents();
+        int index;
+        String speakerIndex;
+        op.speakerListAllEventsPrompt();
+        op.listEvents(getAllEvents());
         op.eventNumberPrompt();
-
-        int index = parseInt(input.nextLine());
-        if (!em.getAllEventIds().contains(index))
-        {
-            while (!em.getAllEventIds().contains(index)) {
-                System.out.println("Try again, this time with a valid number");
+        while(true){
+            try{
                 index = parseInt(input.nextLine());
+                if (em.getAllEventIds().size() < index){
+                    op.invalidOptionError();
+                }
+                else{
+                    break;
+                }
+            }catch(NumberFormatException e){
+                op.invalidOptionError();
             }
         }
-
-        String eventId = em.getAllEventIds().get(index);
-
-        List<String> speakerNames = um.getAllSpeakerNames();
-        for (String name : speakerNames)
-            System.out.println(name);
+        String eventId = em.getAllEventIds().get(index-1);
+        op.listSpeakers(um.getAllSpeakerNames());
         op.speakerNamePrompt();
-        String speakerName = input.nextLine();
-        scheduleSpeaker(speakerName, eventId);
+        while(true){
+            try{
+                speakerIndex = input.nextLine();
+                scheduleSpeaker(um.getAllSpeakerNames().get(parseInt(speakerIndex)-1), eventId);
+                break;
+            }catch(NumberFormatException e){
+                op.invalidOptionError();
+            }
+        }
     }
 
     /**
@@ -273,7 +283,8 @@ public class OrganizerController extends UserController {
         if (!em.canAddSpeakerToEvent(eventId)) {
             op.existingSpeakerAtEventError();
             return false;
-        } else if (!um.canAddSpeakerEvent(speakerName, eventId, start, end)) {
+        }
+        if (!um.canAddSpeakerEvent(speakerName, eventId, start, end)) {
             op.speakerUnavailableError();
             return false;
         }

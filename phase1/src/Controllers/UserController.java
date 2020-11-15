@@ -54,7 +54,7 @@ public abstract class UserController {
     public void signUpMenu(){
         while (true) {
             up.signUpEventListLabel();
-            up.listEvents(getAllEvents());
+            up.listEvents(getAllEventsCanSignUp());
             up.signUpEventPrompt();
             try {
                 int option = parseInt(input.nextLine());
@@ -243,18 +243,30 @@ public abstract class UserController {
     }
 
     /**
-     *Returns list of all events in the conference
+     *Returns list of all events in the conference that user with username can sign up to
      *
      *@return list of all events in the conference in a string format
      */
-    public List<String> getAllEvents(){
+    public List<String> getAllEventsCanSignUp(){
         ArrayList<String> eventDesc = new ArrayList<>();
         for (String id : em.getAllEventIds()){
             if(um.canSignUp(username, id, em.getEventStartTime(id), em.getEventEndTime(id))) {
                 eventDesc.add(em.getEventDescription(id));
             }
         }
+        return eventDesc;
+    }
 
+    /**
+     * Gets a list of all events
+     *
+     * @return a list of all events
+     */
+    public List<String> getAllEvents(){
+        ArrayList<String> eventDesc = new ArrayList<>();
+        for (String id : em.getAllEventIds()){
+            eventDesc.add(em.getEventDescription(id));
+        }
         return eventDesc;
     }
 

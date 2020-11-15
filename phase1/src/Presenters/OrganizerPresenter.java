@@ -1,5 +1,7 @@
 package Presenters;
 
+import java.util.List;
+
 /**
  * Presenter prints attributes that user of program (if organizer) can do/see.
  */
@@ -39,13 +41,16 @@ public class OrganizerPresenter extends UserPresenter {
     public void speakerPasswordPrompt() {
         System.out.println("Enter speaker's password:");
     }
+    public void speakerListAllEventsPrompt(){
+        System.out.println("Here is a list of all the events:");
+    }
     //interacts with scheduleSpeaker in Controllers.OrganizerController
     public void eventNumberPrompt() {
-        System.out.println("Enter event number for the talk:");
+        System.out.println("Enter the number of what event you wish to add a speaker to:");
     }
     //interacts with scheduleSpeaker in Controllers.OrganizerController
     public void speakerNamePrompt() {
-        System.out.println("Enter the speaker's name:");
+        System.out.println("Enter the number of what speaker you wish to assign:");
     }
 
     //confirms success of new speaker account
@@ -82,5 +87,12 @@ public class OrganizerPresenter extends UserPresenter {
     //Entities.Speaker is already speaking at another event
     public void speakerUnavailableError() {
         System.out.println("This speaker is already speaking at another event.");
+    }
+    public void listSpeakers(List<String> speakerNames){
+        int count = 1;
+        for (String x: speakerNames) {
+            System.out.println("("+count + "): " + x+"\n");
+            count++;
+        }
     }
 }
