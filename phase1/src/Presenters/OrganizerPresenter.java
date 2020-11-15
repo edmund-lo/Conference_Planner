@@ -11,7 +11,7 @@ public class OrganizerPresenter extends UserPresenter {
     /**
      * Outputs the display menu for an organizer
      */
-    public void displayMenu(UserManager organizer, String username){
+    public void displayMenu(String organizer, String username){
         String org = "Organizer";
         super.displayMenu(org, username);
         System.out.println(" 5. Create New Options" +

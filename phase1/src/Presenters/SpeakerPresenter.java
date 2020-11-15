@@ -13,9 +13,9 @@ public class SpeakerPresenter extends UserPresenter {
      * Outputs the main menu display. Note that it is the same as the user menu with 2 extra options
      */
 
-    public void displayMenu(UserManager um, String username){
-        String speaker = "Speaker";
-        super.displayMenu(speaker, username);
+    public void displayMenu(String speaker, String username){
+        String speak = "Speaker";
+        super.displayMenu(speak, username);
         System.out.println(" 5. Message Attendees at Events as Speaker" +
                 "\n 6. Show Events you are speaking at");
     }
