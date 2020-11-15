@@ -2,6 +2,7 @@ package Entities;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -95,11 +96,12 @@ public class Room implements Serializable {
      */
     public StringBuilder roomScheduleToString() {
         StringBuilder ret = new StringBuilder(this.name + " Room's Schedule:" + "\n");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         for (Map.Entry<LocalDateTime, String> time : this.schedule.entrySet()) {
-            String eventHour = Integer.toString(time.getKey().getHour());
+            String eventTime = dtf.format(time.getKey());
             String eventName = time.getValue();
-            ret.append(eventHour);
-            ret.append(":00 - ");
+            ret.append(eventTime);
+            ret.append(" - ");
             ret.append(eventName);
             ret.append("\n");
         }

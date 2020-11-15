@@ -12,10 +12,6 @@ public class UserGateway implements GatewayInterface<UserManager>, Serializable 
      */
     public String fileName = "ugt_save.ser";
 
-    public UserGateway() {
-
-    }
-
     /**
      * This method serializes an inputted Entities.User Manager's data
      * @param um UseCases.UserManager object
@@ -68,15 +64,4 @@ public class UserGateway implements GatewayInterface<UserManager>, Serializable 
             return um;
         }
     }
-//    public static void main(String[] args) {
-//        //TODO: CREATE TEST CASES
-//        Gateways.EventGateway eg = new Gateways.EventGateway();
-//        Entities.Event e = new Entities.Event();
-//        UseCases.EventManager em = new UseCases.EventManager();
-//        em.("RoomManage", r);
-//        rg.serializeData(rm);
-//        UseCases.RoomManager rr = rg.deserializeData();
-//
-//    }
-
 }

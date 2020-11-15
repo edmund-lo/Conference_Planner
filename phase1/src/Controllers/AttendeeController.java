@@ -3,8 +3,6 @@ package Controllers;
 import Presenters.UserPresenter;
 import UseCases.*;
 
-import static java.lang.Integer.parseInt;
-
 /**
  * A Controller class representing an AttendeeController which inherits from UserController.
  *

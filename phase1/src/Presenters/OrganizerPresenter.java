@@ -213,6 +213,20 @@ public class OrganizerPresenter extends UserPresenter {
     }
 
     /**
+     * Outputs a label introducing the list of rooms
+     */
+    public void roomIntroduceListLabel(){
+        System.out.println("List of all the rooms: ");
+    }
+
+    /**
+     * Outputs a label indicating that the room doesn't exist
+     */
+    public void roomDoesNotExistLabel(){
+        System.out.println("That room doesn't exist!");
+    }
+
+    /**
      * Outputs a label indicating event is created successfully
      */
     public void eventCreationResult() {
