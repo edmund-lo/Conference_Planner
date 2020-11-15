@@ -266,7 +266,7 @@ public class OrganizerController extends UserController {
                     }
                     scheduleSpeaker(um.getAllSpeakerNames().get(parseInt(speakerIndex)-1), eventId);
                     break;
-                }catch(NumberFormatException | ArrayIndexOutOfBoundsException e){
+                }catch(NumberFormatException | IndexOutOfBoundsException e){
                     op.invalidOptionError();
                 }
         }
