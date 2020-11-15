@@ -1,11 +1,12 @@
 package Controllers;
 
 import Presenters.OrganizerPresenter;
-import UseCases.*;
+import UseCases.EventManager;
+import UseCases.MessageManager;
+import UseCases.RoomManager;
+import UseCases.UserManager;
 
-import javax.swing.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -132,16 +133,14 @@ public class OrganizerController extends UserController {
      *
      * @param username String representing new speaker's username.
      * @param password String representing new speaker's password.
-     * @return A boolean value signifying whether method was successful.
      */
-    public boolean createSpeakerAccount(String username, String password) {
+    public void createSpeakerAccount(String username, String password) {
         if (um.checkUniqueUsername(username)) {
             um.createNewSpeaker(username, password);
             op.speakerCreationResult();
-            return true;
+            return;
         }
         op.invalidSpeakerNameError();
-        return false;
     }
 
     /**
@@ -157,9 +156,8 @@ public class OrganizerController extends UserController {
      * Messages all speakers.
      *
      * @param message String representing the user's message.
-     * @return A boolean value signifying whether method was successful.
      */
-    public boolean messageAllSpeakers(String message) {
+    public void messageAllSpeakers(String message) {
         List<String> speakerNames = um.getAllSpeakerNames();
         for (String recipientName : speakerNames) {
             if (mm.messageCheck(recipientName, username, message)) {
@@ -171,7 +169,6 @@ public class OrganizerController extends UserController {
             }
         }
         op.messagedAllSpeakersResult();
-        return true;
     }
 
     /**
@@ -187,9 +184,8 @@ public class OrganizerController extends UserController {
      * Messages all attendees.
      *
      * @param message String representing the user's message.
-     * @return A boolean value signifying whether method was successful.
      */
-    public boolean messageAllAttendees(String message) {
+    public void messageAllAttendees(String message) {
         Set<String> attendeeNames = um.getAllUsernames();
         for (String recipientName : attendeeNames) {
             if (!recipientName.equals(username)) {
@@ -203,7 +199,6 @@ public class OrganizerController extends UserController {
             }
         }
         op.messagedAllAttendeesResult();
-        return true;
     }
 
     /**
@@ -223,15 +218,13 @@ public class OrganizerController extends UserController {
      *
      * @param roomName String representing the new room's name.
      * @param capacity Integer representing the new room's capacity.
-     * @return A boolean value signifying whether method was successful.
      */
-    public boolean createRoom(String roomName, int capacity) {
+    public void createRoom(String roomName, int capacity) {
         if (rm.createRoom(roomName)) {
             op.roomCreationResult();
-            return true;
+            return;
         }
         op.invalidRoomNameError();
-        return false;
     }
 
     /**
@@ -275,23 +268,21 @@ public class OrganizerController extends UserController {
      *
      * @param speakerName String representing the speaker's username.
      * @param eventId String representing the event's unique ID.
-     * @return A boolean value signifying whether method was successful.
      */
-    public boolean scheduleSpeaker(String speakerName, String eventId) {
+    public void scheduleSpeaker(String speakerName, String eventId) {
         LocalDateTime start = em.getEventStartTime(eventId);
         LocalDateTime end = em.getEventEndTime(eventId);
         if (!em.canAddSpeakerToEvent(eventId)) {
             op.existingSpeakerAtEventError();
-            return false;
+            return;
         }
         if (!um.canAddSpeakerEvent(speakerName, eventId, start, end)) {
             op.speakerUnavailableError();
-            return false;
+            return;
         }
         em.addSpeakerToEvent(speakerName, eventId);
         um.addSpeakerEvent(speakerName, eventId, start, end);
         op.scheduleSpeakerResult();
-        return true;
     }
 
     /*public boolean createEvent() {

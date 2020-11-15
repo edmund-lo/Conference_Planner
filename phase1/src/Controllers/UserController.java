@@ -181,20 +181,17 @@ public abstract class UserController {
      * @param  eventId id of the event user is signing up for.
      *
      */
-    public boolean signUpEventAttendance(String eventId) {
+    public void signUpEventAttendance(String eventId) {
         LocalDateTime start = em.getEventStartTime(eventId);
         LocalDateTime end = em.getEventEndTime(eventId);
         if (!um.canSignUp(username, eventId, start, end)) {
             up.alreadySignedUpError();
-            return false;
         } else if (!em.canAddUserToEvent(eventId,username)){
             up.eventFullCapacityError();
-            return false;
         } else {
             em.addUserToEvent(eventId,username);
             um.signUp(username, eventId, start, end);
             up.signUpResult(em.getEventName(eventId));
-            return true;
         }
     }
 
@@ -204,14 +201,13 @@ public abstract class UserController {
      * @param  eventId id of the event user is signing up for.
      *
      */
-    public boolean cancelEventAttendance(String eventId) {
+    public void cancelEventAttendance(String eventId) {
         if(em.removeUserFromEvent(eventId, username)) {
             um.cancel(username, eventId);
             up.cancelResult(em.getEventName(eventId));
-            return true;
+            return;
         }
         up.notAttendingEventError(em.getEventName(eventId));
-        return false;
     }
 
     /**
@@ -322,12 +318,11 @@ public abstract class UserController {
     /**
      *Sends a message to an attendee.
      *
-     *@param  recipientName username of the Entities.Attendee the message is for.
-     *@param  content the contents of the message being sent.
      *
-     *@return returns true if the message was sent successfully.
+     * @param  recipientName username of the Entities.Attendee the message is for.
+     * @param  content the contents of the message being sent.
      */
-    public boolean sendMessage(String recipientName, String content) {
+    public void sendMessage(String recipientName, String content) {
         if (mm.messageCheck(recipientName, username, content)) {
             String messageId = mm.createMessage(recipientName, username, content);
             mp.messageResult(recipientName);
@@ -335,8 +330,6 @@ public abstract class UserController {
         } else {
             mp.invalidMessageError();
         }
-
-        return true;
     }
 
     /**
