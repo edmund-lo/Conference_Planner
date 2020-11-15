@@ -30,7 +30,7 @@ public class EventGateway implements GatewayInterface<EventManager>, Serializabl
             store_file.close();
         }
         catch (FileNotFoundException e) {
-            System.out.println("File not Found!!");
+            System.out.println("serial");
         }
         catch (IOException e){
             System.out.println("IO Exception Raised!!");
@@ -55,7 +55,7 @@ public class EventGateway implements GatewayInterface<EventManager>, Serializabl
             return em;
         }
         catch (FileNotFoundException e) {
-            System.out.println("File not Found!!");
+
         }
         catch (IOException e){}
 
@@ -66,16 +66,4 @@ public class EventGateway implements GatewayInterface<EventManager>, Serializabl
             return em;
         }
     }
-
-//    public static void main(String[] args) {
-//        //TODO: CREATE TEST CASES
-//        Gateways.EventGateway eg = new Gateways.EventGateway();
-//        Entities.Event e = new Entities.Event("Name", "eventID123", "SpeakerID123",);
-//        UseCases.EventManager em = new UseCases.EventManager();
-//        em.("", r);
-//        rg.serializeData(rm);
-//        UseCases.RoomManager rr = rg.deserializeData();
-//
-//    }
-
 }
