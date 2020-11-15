@@ -62,10 +62,11 @@ public class RoomManager implements Serializable {
      * @param roomName  the name of the room to add the event to.
      * @return          a boolean value of true if the event was successfully added to the room, false otherwise.
      */
-    public boolean addToRoomSchedule(LocalDateTime time, String roomName, String eventName) {
+    public boolean addToRoomSchedule(LocalDateTime startTime, LocalDateTime endTime, String roomName,
+                                     String eventName) {
         Room room = getRoom(roomName);
-        if (room.canBook(time)){
-            room.addEvent(time, eventName);
+        if (room.canBook(startTime, endTime)){
+            room.addEvent(startTime, endTime, eventName);
             return true;
         }
         return false;
@@ -79,10 +80,11 @@ public class RoomManager implements Serializable {
      * @param eventName the name of the event to be removed
      * @return          a boolean value of true if the event was successfully removed from the room, false otherwise.
      */
-    public boolean removeFromRoomSchedule(LocalDateTime time, String roomName, String eventName){
+    public boolean removeFromRoomSchedule(LocalDateTime startTime, LocalDateTime endTime, String roomName,
+                                          String eventName){
         Room room = getRoom(roomName);
-        if (room.hasEvent(time, eventName)) {
-            room.removeEvent(time);
+        if (room.hasEvent(startTime, endTime, eventName)) {
+            room.removeEvent(startTime, endTime);
             return true;
         }
         return false;
@@ -117,22 +119,23 @@ public class RoomManager implements Serializable {
         return getRoom(roomName).roomScheduleToString().toString();
     }
 
-    /**
-     * Reschedules an event that is happening inside a Room in this RoomManager.
-     *
-     * @param eventName the name of the event to be rescheduled.
-     * @param currTime  the current start time of the event.
-     * @param newTime   the new start time of the event.
-     * @param roomName  the name of the room where the event is taking place.
-     * @return          true if the event was successfully rescheduled, false otherwise.
-     */
-    public boolean reschedule(LocalDateTime currTime, LocalDateTime newTime, String roomName, String eventName){
-        Room room = getRoom(roomName);
-        if (room.hasEvent(currTime, eventName) && room.canBook(newTime)){
-            room.removeEvent(currTime);
-            room.addEvent(newTime, eventName);
-            return true;
-        }
-        return false;
-    }
+//
+//    /**
+//     * Reschedules an event that is happening inside a Room in this RoomManager.
+//     *
+//     * @param eventName the name of the event to be rescheduled.
+//     * @param currTime  the current start time of the event.
+//     * @param newTime   the new start time of the event.
+//     * @param roomName  the name of the room where the event is taking place.
+//     * @return          true if the event was successfully rescheduled, false otherwise.
+//     */
+//    public boolean reschedule(LocalDateTime currTime, LocalDateTime newTime, String roomName, String eventName){
+//        Room room = getRoom(roomName);
+//        if (room.hasEvent(currTime, eventName) && room.canBook(newTime)){
+//            room.removeEvent(currTime);
+//            room.addEvent(newTime, eventName);
+//            return true;
+//        }
+//        return false;
+//    }
 }
