@@ -334,7 +334,7 @@ public class OrganizerController extends UserController {
     public boolean createEvent(String eventName, LocalDateTime start, String roomName) {
         LocalDateTime end = start.plusHours(1);
         if (rm.addToRoomSchedule(start, roomName, eventName)) {
-            em.createNewEvent(eventName, start, end);
+            em.createNewEvent(eventName, start, end, roomName);
             return true;
         }
         return false;

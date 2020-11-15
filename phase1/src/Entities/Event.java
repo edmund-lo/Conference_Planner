@@ -16,6 +16,7 @@ public class Event implements Serializable {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private ArrayList<String> attendingUsers;
+    private String roomName;
 
     /**
      * Constructor for Entities.Event
@@ -24,13 +25,15 @@ public class Event implements Serializable {
      * @param eventName Name of the event
      * @param startTime Start time of the event
      * @param endTime End time of the event
+     * @param roomName Name of the room the event is in
      */
     public Event(String eventID, String eventName, LocalDateTime startTime,
-                 LocalDateTime endTime){
+                 LocalDateTime endTime, String roomName){
         this.eventID = eventID;
         this.eventName = eventName;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.roomName = roomName;
         attendingUsers = new ArrayList<String>();
     }
 
@@ -89,6 +92,15 @@ public class Event implements Serializable {
     }
 
     /**
+     * getter for the room name of this event
+     *
+     * @return the room name of this event
+     */
+    public String getRoomName() {
+        return roomName;
+    }
+
+    /**
      * the toString method for Entities.Event
      *
      * @return a String representation of Entities.Event that contains the event name, time and number of attending users
@@ -104,7 +116,8 @@ public class Event implements Serializable {
         return "Event Name: "+this.eventName+"\n" +
                 "Speaker: "+this.speakerName+"\n" +
                 "Time: "+dtf.format(this.startTime)+" to "+dtf.format(this.endTime)+"\n" +
-                "Number of Attending Users: "+this.attendingUsers.size();
+                "Number of Attending Users: "+this.attendingUsers.size() + "\n" +
+                "Room Name: " + this.roomName;
 
 
     }
