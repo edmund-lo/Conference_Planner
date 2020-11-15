@@ -33,9 +33,9 @@ public class MessagePresenter {
 
     public void showNumMessages(int numMessages, String sentOrReceived) {
         if (numMessages == 1) {
-            System.out.println("You have " + numMessages + sentOrReceived + " message.");
+            System.out.println("You have " + numMessages + " " + sentOrReceived + " message.");
         } else {
-            System.out.println("You have " + numMessages + sentOrReceived + " messages.");
+            System.out.println("You have " + numMessages + " " + sentOrReceived + " messages.");
         }
     }
 
