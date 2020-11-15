@@ -1,8 +1,7 @@
 package Presenters;
 
 import java.util.List;
-import UseCases.UserManager;
-import Controllers.UserController;
+
 /**
  * Presenter outputs for client type User
  * Displays menu options, prompts to signup or cancel an event
