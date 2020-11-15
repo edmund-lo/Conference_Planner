@@ -6,18 +6,21 @@ import UseCases.UserManager;
 import java.io.*;
 
 public class UserGateway implements GatewayInterface<UserManager>, Serializable {
+
     /**
-     * TODO: JAVADOC
-     * @return
+     * Serial extension file ugt_save.ser which stores serialized and
+     * deserialized data
      */
+
     public String fileName = "ugt_save.ser";
 
     /**
      * This method serializes an inputted Entities.User Manager's data
+     *
      * @param um UseCases.UserManager object
-     * @catch IOException
-     * @catch FileNotFoundException
+     *
      */
+
     public void serializeData(UserManager um) {
         try {
             File new_file = new File(fileName);
@@ -36,9 +39,11 @@ public class UserGateway implements GatewayInterface<UserManager>, Serializable 
     }
 
     /**
-     * TODO: JAVADOC
-     * @return
+     * This method deserializes an User Manager's data
+     *
+     * @return the UserManager class
      */
+
     public UserManager deserializeData() {
         UserManager um = new UserManager();
         try {
