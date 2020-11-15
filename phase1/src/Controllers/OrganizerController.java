@@ -24,10 +24,10 @@ public class OrganizerController extends UserController {
     /**
      * Constructor for OrganizerController object. Uses constructor from UserController.
      *
-     * @param em  current session's UseCases.EventManager class.
-     * @param um  current session's UseCases.UserManager class.
-     * @param rm  current session's UseCases.RoomManager class.
-     * @param mm  current session's UseCases.MessageManager class.
+     * @param em  current session's EventManager class.
+     * @param um  current session's UserManager class.
+     * @param rm  current session's RoomManager class.
+     * @param mm  current session's MessageManager class.
      * @param username current logged in user's username.
      */
     public OrganizerController(EventManager em, UserManager um, RoomManager rm, MessageManager mm, String username) {
@@ -290,37 +290,39 @@ public class OrganizerController extends UserController {
      * Called when user chooses to create a new event
      */
     public void createEventCmd() {
-        for (String room : rm.getAllRooms()) {
-            System.out.println(room);
-        }
-        System.out.println("Enter the room name:");
-        String roomName = input.nextLine();
-        while (roomName.equals("")) {
-            System.out.println("Try again: cannot leave field empty!");
-            roomName = input.nextLine();
-        }
-        System.out.println(rm.getRoomSchedule(roomName));
-        System.out.println("Enter the event name:");
-        String eventName = input.nextLine();
-        while (eventName.equals("")) {
-            System.out.println("Try again: cannot leave field empty!");
-            eventName = input.nextLine();
-        }
-        System.out.println("Enter the event start time (formatted 'yyyy-MM-dd HH:mm'):");
-        String startString = input.nextLine();
-        while (startString.equals("")) {
-            System.out.println("Try again: cannot leave field empty!");
-            startString = input.nextLine();
-        }
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            LocalDateTime startTime = LocalDateTime.parse(startString, formatter);
-            if (createEvent(eventName, startTime, roomName))
-                System.out.println("Successfully created new event.");
-            else
-                System.out.println("Unable to create new event: scheduling conflict occurred.");
-        } catch (DateTimeParseException e) {
-            System.out.println("Unable to parse date input!");
+        if (rm.getAllRooms().size() == 0)
+            op.noRoomError();
+        else{
+            op.listRooms(rm.getAllRooms());
+            op.roomNamePrompt();
+            String roomName = input.nextLine();
+            while (roomName.equals("")) {
+                op.emptyFieldError();
+                roomName = input.nextLine();
+            }
+            op.listRoomSchedule(rm.getRoomSchedule(roomName));
+            op.eventNamePrompt();
+            String eventName = input.nextLine();
+            while (eventName.equals("")) {
+                op.emptyFieldError();
+                eventName = input.nextLine();
+            }
+            op.eventTimePrompt();
+            String startString = input.nextLine();
+            while (startString.equals("")) {
+                op.emptyFieldError();
+                startString = input.nextLine();
+            }
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                LocalDateTime startTime = LocalDateTime.parse(startString, formatter);
+                if (createEvent(eventName, startTime, roomName))
+                    op.eventCreationResult();
+                else
+                    op.eventFailedCreationResult();
+            } catch (DateTimeParseException e) {
+                op.invalidDateError();
+            }
         }
     }
 

@@ -23,10 +23,10 @@ public class SpeakerController extends UserController {
     /**
      * Constructor for SpeakerController object. Uses constructor from UserController.
      *
-     * @param em  current session's UseCases.EventManager class.
-     * @param um  current session's UseCases.UserManager class.
-     * @param rm  current session's UseCases.RoomManager class.
-     * @param mm  current session's UseCases.MessageManager class.
+     * @param em  current session's EventManager class.
+     * @param um  current session's UserManager class.
+     * @param rm  current session's RoomManager class.
+     * @param mm  current session's MessageManager class.
      * @param username current logged in user's username.
      */
     public SpeakerController(EventManager em, UserManager um, RoomManager rm, MessageManager mm, String username) {
@@ -73,28 +73,36 @@ public class SpeakerController extends UserController {
      */
     public void messageEventsAttendeesCmd() {
         getSpeakerEvents();
-        sp.messageEventAttendeesPrompt();
-        String eventIdsString = input.nextLine();
-        if (eventIdsString.equals("")) {
-            sp.invalidEventNumberError();
-        } else {
-            List<String> eventIds = new ArrayList<>();
-            Map<String, LocalDateTime[]> schedule = um.getSpeakerSchedule(username);
-            List<String> allSpeakerEventIds = new ArrayList<>(schedule.keySet());
-            for (String i : eventIdsString.split(",")) {
-                int index;
-                try {
-                    index = parseInt(i);
-                } catch (NumberFormatException e) {
-                    sp.invalidEventNumberError();
-                    continue;
+        List<String> eventIds = new ArrayList<>();
+        while(true){
+            boolean crashed = false;
+            sp.messageEventAttendeesPrompt();
+            String eventIdsString = input.nextLine();
+            if (eventIdsString.equals("")) {
+                sp.invalidEventNumberError();
+                crashed = true;
+            } else {
+                eventIds = new ArrayList<>();
+                Map<String, LocalDateTime[]> schedule = um.getSpeakerSchedule(username);
+                List<String> allSpeakerEventIds = new ArrayList<>(schedule.keySet());
+                for (String i : eventIdsString.split(",")) {
+                    int index;
+                    try {
+                        index = parseInt(i);
+                        eventIds.add(allSpeakerEventIds.get(index-1));
+                    } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                        sp.invalidEventNumberError();
+                        crashed = true;
+                    }
                 }
-                eventIds.add(allSpeakerEventIds.get(index-1));
             }
-            mp.enterMessagePrompt();
-            String message = input.nextLine();
-            messageEventsAttendees(eventIds, message);
+            if(!crashed){
+                break;
+            }
         }
+        mp.enterMessagePrompt();
+        String message = input.nextLine();
+        messageEventsAttendees(eventIds, message);
     }
 
     /**
