@@ -69,13 +69,6 @@ public class RoomGateway implements GatewayInterface<RoomManager>, Serializable 
             return rm;
         }
     }
-//    public static void main(String[] args) {
-//        Gateways.RoomGateway rg = new Gateways.RoomGateway();
-//        Entities.Room r = new Entities.Room("");
-//        UseCases.RoomManager rm = new UseCases.RoomManager();
-//        rg.serializeData(rm);
-//        UseCases.RoomManager rr = rg.deserializeData();
-
 }
 
 
