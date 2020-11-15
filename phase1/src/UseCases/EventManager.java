@@ -39,9 +39,10 @@ public class EventManager implements Serializable {
      * @param eventName the name of the event
      * @param startTime the start time of the event
      * @param endTime the end time of the event
+     * @param roomName the name of the room the event is in
      */
-    public void createNewEvent(String eventName, LocalDateTime startTime, LocalDateTime endTime) {
-        Event newEvent = new Event(UUID.randomUUID().toString(), eventName, startTime, endTime);
+    public void createNewEvent(String eventName, LocalDateTime startTime, LocalDateTime endTime, String roomName) {
+        Event newEvent = new Event(UUID.randomUUID().toString(), eventName, startTime, endTime, roomName);
         allEvents.put(newEvent.getEventID(), newEvent);
     }
 
@@ -127,7 +128,7 @@ public class EventManager implements Serializable {
      * @return True iff the speaker was successfully added to the event with ID eventID
      */
     public boolean canAddSpeakerToEvent(String eventID){
-        return eventExists(eventID) && allEvents.get(eventID).getSpeakerID() == null;
+        return eventExists(eventID) && allEvents.get(eventID).getSpeakerName() == null;
     }
 
     /**

@@ -26,7 +26,8 @@ public class OrganizerPresenter extends UserPresenter {
         System.out.println("Press: " +
                 "\n 0. Go back" +
                 "\n 1. Create a new room" +
-                "\n 2. Create a new speaker account");
+                "\n 2. Create a new speaker account" +
+                "\n 3. Create a new event");
     }
 
     /**
