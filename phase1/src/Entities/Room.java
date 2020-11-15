@@ -94,7 +94,7 @@ public class Room implements Serializable {
      * @return the string representation of this Entities.Room's schedule
      */
     public String roomScheduleToString() {
-        String ret = this.name + " Entities.Room's Schedule:" + "\n";
+        String ret = this.name + "'s Schedule:" + "\n";
         for (Map.Entry<LocalDateTime, String> time : this.schedule.entrySet()) {
             String eventHour = Integer.toString(time.getKey().getHour());
             String eventName = time.getValue();
