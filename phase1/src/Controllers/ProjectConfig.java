@@ -76,7 +76,7 @@ public class ProjectConfig {
      * @param rg Represents the current session's RoomGateway instance
      * @param mg Represents the current session's MessageGateway instance
      * @param eg Represents the current session's EventGateway instance
-     * @param lc The current session's LoginController instance
+     * @param lc Represents the current session's LoginController instance
      */
     public void endSession(UserGateway ug, RoomGateway rg, MessageGateway mg, EventGateway eg, LoginController lc) {
         ug.serializeData(lc.um);
