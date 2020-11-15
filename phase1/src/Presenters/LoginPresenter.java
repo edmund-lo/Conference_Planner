@@ -1,14 +1,13 @@
 package Presenters;
 
 /**
- * Presenter class that provides output to the user at time of login
- * Displays requests for Username and Password
- * Displays successful/incorrect credential account sign-in
- * Displays option for new account creation, and confirms success of account creation
+ * A Presenter class that provides output to the user at time of login
  */
 
 public class LoginPresenter {
-    //If username is already in use
+    /**
+     * Lets the user know that the username entered was taken.
+     */
     public void UsernameTaken(){
         System.out.println("Username is taken! \nType \"login\" to login if account already exists and you wish to " +
                 "login. \nIf not, press enter to try a different username");

@@ -3,9 +3,9 @@ package Controllers;
 import Presenters.OrganizerPresenter;
 import UseCases.*;
 
-import javax.swing.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Set;
 
@@ -19,7 +19,7 @@ import static java.lang.Integer.parseInt;
  *
  */
 public class OrganizerController extends UserController {
-    private OrganizerPresenter op;
+    private final OrganizerPresenter op;
 
     /**
      * Constructor for OrganizerController object. Uses constructor from UserController.
@@ -86,6 +86,8 @@ public class OrganizerController extends UserController {
                     createRoomCmd();
                 else if (option == 2)
                     createSpeakerAccountCmd();
+                else if (option == 3) //testing purposes, when not using comment out lines 89-90
+                    createEventCmd();
                 else
                     op.invalidOptionError();
             } catch (NumberFormatException e) {
@@ -132,23 +134,21 @@ public class OrganizerController extends UserController {
      *
      * @param username String representing new speaker's username.
      * @param password String representing new speaker's password.
-     * @return A boolean value signifying whether method was successful.
      */
-    public boolean createSpeakerAccount(String username, String password) {
+    public void createSpeakerAccount(String username, String password) {
         if (um.checkUniqueUsername(username)) {
             um.createNewSpeaker(username, password);
             op.speakerCreationResult();
-            return true;
+            return;
         }
         op.invalidSpeakerNameError();
-        return false;
     }
 
     /**
      * Called when user chooses to message all speakers.
      */
     public void messageAllSpeakersCmd() {
-        op.enterMessagePrompt();
+        mp.enterMessagePrompt();
         String message = input.nextLine();
         messageAllSpeakers(message);
     }
@@ -157,28 +157,26 @@ public class OrganizerController extends UserController {
      * Messages all speakers.
      *
      * @param message String representing the user's message.
-     * @return A boolean value signifying whether method was successful.
      */
-    public boolean messageAllSpeakers(String message) {
+    public void messageAllSpeakers(String message) {
         List<String> speakerNames = um.getAllSpeakerNames();
         for (String recipientName : speakerNames) {
             if (mm.messageCheck(recipientName, username, message)) {
                 String messageId = mm.createMessage(recipientName, username, message);
-                op.messageResult(recipientName);
+                mp.messageResult(recipientName);
                 addMessagesToUser(recipientName, messageId);
             } else {
-                op.invalidMessageError();
+                mp.invalidMessageError();
             }
         }
         op.messagedAllSpeakersResult();
-        return true;
     }
 
     /**
      * Called when user chooses to message all attendees.
      */
     public void messageAllAttendeesCmd() {
-        op.enterMessagePrompt();
+        mp.enterMessagePrompt();
         String message = input.nextLine();
         messageAllAttendees(message);
     }
@@ -187,23 +185,21 @@ public class OrganizerController extends UserController {
      * Messages all attendees.
      *
      * @param message String representing the user's message.
-     * @return A boolean value signifying whether method was successful.
      */
-    public boolean messageAllAttendees(String message) {
+    public void messageAllAttendees(String message) {
         Set<String> attendeeNames = um.getAllUsernames();
         for (String recipientName : attendeeNames) {
             if (!recipientName.equals(username)) {
                 if (mm.messageCheck(recipientName, username, message)) {
                     String messageId = mm.createMessage(recipientName, username, message);
-                    op.messageResult(recipientName);
+                    mp.messageResult(recipientName);
                     addMessagesToUser(recipientName, messageId);
                 } else {
-                    op.invalidMessageError();
+                    mp.invalidMessageError();
                 }
             }
         }
         op.messagedAllAttendeesResult();
-        return true;
     }
 
     /**
@@ -223,15 +219,13 @@ public class OrganizerController extends UserController {
      *
      * @param roomName String representing the new room's name.
      * @param capacity Integer representing the new room's capacity.
-     * @return A boolean value signifying whether method was successful.
      */
-    public boolean createRoom(String roomName, int capacity) {
+    public void createRoom(String roomName, int capacity) {
         if (rm.createRoom(roomName)) {
             op.roomCreationResult();
-            return true;
+            return;
         }
         op.invalidRoomNameError();
-        return false;
     }
 
     /**
@@ -252,7 +246,7 @@ public class OrganizerController extends UserController {
                 else{
                     break;
                 }
-            }catch(NumberFormatException e){
+            }catch(NumberFormatException | IndexOutOfBoundsException e){
                 op.invalidOptionError();
             }
         }
@@ -264,7 +258,7 @@ public class OrganizerController extends UserController {
                 speakerIndex = input.nextLine();
                 scheduleSpeaker(um.getAllSpeakerNames().get(parseInt(speakerIndex)-1), eventId);
                 break;
-            }catch(NumberFormatException e){
+            }catch(NumberFormatException | IndexOutOfBoundsException e){
                 op.invalidOptionError();
             }
         }
@@ -275,30 +269,78 @@ public class OrganizerController extends UserController {
      *
      * @param speakerName String representing the speaker's username.
      * @param eventId String representing the event's unique ID.
-     * @return A boolean value signifying whether method was successful.
      */
-    public boolean scheduleSpeaker(String speakerName, String eventId) {
+    public void scheduleSpeaker(String speakerName, String eventId) {
         LocalDateTime start = em.getEventStartTime(eventId);
         LocalDateTime end = em.getEventEndTime(eventId);
         if (!em.canAddSpeakerToEvent(eventId)) {
             op.existingSpeakerAtEventError();
-            return false;
+            return;
         }
         if (!um.canAddSpeakerEvent(speakerName, eventId, start, end)) {
             op.speakerUnavailableError();
-            return false;
+            return;
         }
         em.addSpeakerToEvent(speakerName, eventId);
         um.addSpeakerEvent(speakerName, eventId, start, end);
         op.scheduleSpeakerResult();
-        return true;
     }
 
-    /*public boolean createEvent() {
-        return true;
+    /**
+     * Called when user chooses to create a new event
+     */
+    public void createEventCmd() {
+        for (String room : rm.getAllRooms()) {
+            System.out.println(room);
+        }
+        System.out.println("Enter the room name:");
+        String roomName = input.nextLine();
+        while (roomName.equals("")) {
+            System.out.println("Try again: cannot leave field empty!");
+            roomName = input.nextLine();
+        }
+        System.out.println(rm.getRoomSchedule(roomName));
+        System.out.println("Enter the event name:");
+        String eventName = input.nextLine();
+        while (eventName.equals("")) {
+            System.out.println("Try again: cannot leave field empty!");
+            eventName = input.nextLine();
+        }
+        System.out.println("Enter the event start time (formatted 'yyyy-MM-dd HH:mm'):");
+        String startString = input.nextLine();
+        while (startString.equals("")) {
+            System.out.println("Try again: cannot leave field empty!");
+            startString = input.nextLine();
+        }
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime startTime = LocalDateTime.parse(startString, formatter);
+            if (createEvent(eventName, startTime, roomName))
+                System.out.println("Successfully created new event.");
+            else
+                System.out.println("Unable to create new event: scheduling conflict occurred.");
+        } catch (DateTimeParseException e) {
+            System.out.println("Unable to parse date input!");
+        }
     }
 
-    public boolean cancelEvent(String eventId) {
+    /**
+     * Attempts to create a new event with given parameters
+     * @param eventName String representing the name of the event
+     * @param start LocalDateTime representing the starting time of the event
+     * @param roomName String representing the room
+     * @return Boolean value signifying whether creation was successful
+     */
+    public boolean createEvent(String eventName, LocalDateTime start, String roomName) {
+        LocalDateTime end = start.plusHours(1);
+        if (rm.addToRoomSchedule(start, roomName, eventName)) {
+            em.createNewEvent(eventName, start, end, roomName);
+            return true;
+        }
+        return false;
+    }
+
+    /*public boolean cancelEvent(String eventId) {
         return true;
     }
 

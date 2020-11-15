@@ -12,10 +12,11 @@ import java.util.ArrayList;
 public class Event implements Serializable {
     private String eventName;
     private String eventID;
-    private String speakerID;
+    private String speakerName;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private ArrayList<String> attendingUsers;
+    private String roomName;
 
     /**
      * Constructor for Entities.Event
@@ -24,13 +25,15 @@ public class Event implements Serializable {
      * @param eventName Name of the event
      * @param startTime Start time of the event
      * @param endTime End time of the event
+     * @param roomName Name of the room the event is in
      */
     public Event(String eventID, String eventName, LocalDateTime startTime,
-                 LocalDateTime endTime){
+                 LocalDateTime endTime, String roomName){
         this.eventID = eventID;
         this.eventName = eventName;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.roomName = roomName;
         attendingUsers = new ArrayList<String>();
     }
 
@@ -39,8 +42,8 @@ public class Event implements Serializable {
      *
      * @return The ID of the speaker speaking at this event
      */
-    public String getSpeakerID() {
-        return speakerID;
+    public String getSpeakerName() {
+        return speakerName;
     }
 
     /**
@@ -89,15 +92,34 @@ public class Event implements Serializable {
     }
 
     /**
+     * getter for the room name of this event
+     *
+     * @return the room name of this event
+     */
+    public String getRoomName() {
+        return roomName;
+    }
+
+    /**
      * the toString method for Entities.Event
      *
      * @return a String representation of Entities.Event that contains the event name, time and number of attending users
      */
     public String toString(){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+        if(this.speakerName == null){
+            return "Event Name: " + this.eventName + "\n" +
+                    "Speaker: Currently Unassigned\n" +
+                    "Time: " + dtf.format(this.startTime) + " to " + dtf.format(this.endTime) + "\n" +
+                    "Number of Attending Users: " + this.attendingUsers.size();
+        }
         return "Event Name: "+this.eventName+"\n" +
+                "Speaker: "+this.speakerName+"\n" +
                 "Time: "+dtf.format(this.startTime)+" to "+dtf.format(this.endTime)+"\n" +
-                "Number of Attending Users: "+this.attendingUsers.size();
+                "Number of Attending Users: "+this.attendingUsers.size() + "\n" +
+                "Room Name: " + this.roomName;
+
+
     }
 
     /**
@@ -141,10 +163,10 @@ public class Event implements Serializable {
     /**
      * setter for the speakerID
      *
-     * @param speakerID the ID of the speaker that wants to be added to Entities.Event
+     * @param speakerName the ID of the speaker that wants to be added to Entities.Event
      */
-    public void setSpeaker(String speakerID){
-        this.speakerID = speakerID;
+    public void setSpeaker(String speakerName){
+        this.speakerName = speakerName;
     }
 
 }

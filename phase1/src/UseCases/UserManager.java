@@ -72,6 +72,11 @@ public class UserManager implements Serializable {
      * @return true iff user is available to sign up
      */
     public boolean canSignUp(String username, String eventID, LocalDateTime startTime, LocalDateTime endTime) {
+        if (allUsers.get(username) instanceof Speaker) {
+            Speaker speaker = (Speaker) allUsers.get(username);
+            return speaker.canSignUp(eventID, startTime, endTime) &&
+                    speaker.canAddSpeakerEvent(eventID, startTime, endTime);
+        }
         return allUsers.get(username).canSignUp(eventID, startTime, endTime);
     }
 
@@ -108,7 +113,8 @@ public class UserManager implements Serializable {
      */
     public boolean canAddSpeakerEvent(String username, String eventID, LocalDateTime startTime, LocalDateTime endTime) {
         Speaker speaker = (Speaker) allUsers.get(username);
-        return speaker.canAddSpeakerEvent(eventID, startTime, endTime);
+        return speaker.canSignUp(eventID, startTime, endTime) &&
+                speaker.canAddSpeakerEvent(eventID, startTime, endTime);
     }
 
     /**

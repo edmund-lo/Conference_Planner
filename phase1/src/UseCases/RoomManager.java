@@ -5,6 +5,7 @@ import Entities.Room;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  * A Use Case class that stores the rooms of the conference and updates the appropriate
@@ -85,6 +86,15 @@ public class RoomManager implements Serializable {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Gets a list of all the room names in the system.
+     *
+     * @return  a set containing all of the room names
+     */
+    public Set<String> getAllRooms(){
+        return this.allRooms.keySet();
     }
 
     /**
