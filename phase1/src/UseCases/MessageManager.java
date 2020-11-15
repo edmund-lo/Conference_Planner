@@ -12,15 +12,15 @@ import java.util.*;
  */
 public class MessageManager implements Serializable {
     private HashMap<String, Message> allMessages;
-    private List<String> allContents;
+    //private List<String> allContents;
 
     /**
      * Constructor for UseCases.MessageManager
      *
      */
     public MessageManager(){
-        this.allMessages = new HashMap<String, Message>();
-        this.allContents = new ArrayList<String>();
+        this.allMessages = new HashMap<>();
+        //this.allContents = new ArrayList<>();
     }
 
     /**
@@ -42,26 +42,26 @@ public class MessageManager implements Serializable {
         return this.allMessages.containsKey(messageID);
     }
 
-    /**
+    /*/**
      * A string representation of all the message contents
      *
      * @return allContents
      */
 
-    public List<String> getMessageContents(){
+    /*public List<String> getMessageContents(){
         for (Message message : this.allMessages.values()){
             this.allContents.add(message.toString());
         }
         return this.allContents;
-    }
+    }*/
 
-    /**;
+    /*/**;
      * Add new content to all contents
-     */
+     *//*
 
     public void addMessageContent(HashMap<String, Message> message){
         this.allContents.add(message.toString());
-    }
+    }*/
 
     /**
      * Creator for a new Entities.Message
@@ -83,7 +83,7 @@ public class MessageManager implements Serializable {
         LocalDateTime messageTime = LocalDateTime.now();
         Message newMessage = new Message(content, senderId, messageId, receiverId, messageTime);
         this.allMessages.put(newMessage.getMessageID(), newMessage);
-        this.allContents.add(newMessage.toString());
+        //this.allContents.add(newMessage.toString());
         return messageId;
     }
 
