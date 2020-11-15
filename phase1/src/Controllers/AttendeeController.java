@@ -26,11 +26,10 @@ public class AttendeeController extends UserController {
     public AttendeeController(EventManager em, UserManager um, RoomManager rm, MessageManager mm, String username) {
         super(em, um, rm, mm, username);
         UserPresenter up = new UserPresenter();
-        String stringType = "Attendee";
         boolean inSession = true;
         // Enters a while loop that allows the user to continuously use Attendee functions
         while(inSession) {
-            up.displayMenu(stringType, username);
+            up.displayMenu("Attendee", username);
             String option = input.nextLine();
             switch(option) {
                 case "0":
