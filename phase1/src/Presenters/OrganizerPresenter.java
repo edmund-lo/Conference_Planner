@@ -1,6 +1,7 @@
 package Presenters;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Presenter prints attributes that user of program (if organizer) can do/see.
@@ -161,5 +162,74 @@ public class OrganizerPresenter extends UserPresenter {
             System.out.println("("+count + "): " + x+"\n");
             count++;
         }
+    }
+
+    /**
+     * Outputs a list of all the rooms
+     *
+     * @param allRooms A set of strings of all rooms
+     */
+    public void listRooms(Set<String> allRooms) {
+        for (String room : allRooms) {
+            System.out.println(room);
+        }
+    }
+
+    /**
+     * Outputs the label that indicates there are no rooms created
+     */
+    public void noRoomError() {
+        System.out.println("There are no rooms in the system. You cannot create an event.");
+    }
+
+    /**
+     * Outputs a room's schedule
+     *
+     * @param roomSchedule a string representing the room's schedule
+     */
+    public void listRoomSchedule(String roomSchedule) {
+        System.out.println(roomSchedule);
+    }
+
+    /**
+     * Outputs a label to prompt the user to enter an event name
+     */
+    public void eventNamePrompt() {
+        System.out.println("Enter the event name:");
+    }
+
+    /**
+     * Outputs a label indicating a field is empty
+     */
+    public void emptyFieldError() {
+        System.out.println("Try again: cannot leave field empty!");
+    }
+
+    /**
+     * Outputs a label to prompt the user to enter an event time
+     */
+    public void eventTimePrompt() {
+        System.out.println("Enter the event start time (formatted 'yyyy-MM-dd HH:mm'):");
+    }
+
+    /**
+     * Outputs a label indicating event is created successfully
+     */
+    public void eventCreationResult() {
+        System.out.println("Successfully created new event.");
+    }
+
+    /**
+     * Outputs a label indicating event cannot be created
+     */
+    public void eventFailedCreationResult() {
+        System.out.println("Unable to create new event: scheduling conflict occurred.");
+    }
+
+    /**
+     * Outputs a label indicating an invalid date input
+     */
+    public void invalidDateError() {
+        System.out.println("Unable to parse date input!");
     }
 }

@@ -291,39 +291,37 @@ public class OrganizerController extends UserController {
      */
     public void createEventCmd() {
         if (rm.getAllRooms().size() == 0)
-            System.out.println("There are no rooms in the system. You cannot create an event.");
+            op.noRoomError();
         else{
-            for (String room : rm.getAllRooms()) {
-                System.out.println(room);
-            }
-            System.out.println("Enter the room name:");
+            op.listRooms(rm.getAllRooms());
+            op.roomNamePrompt();
             String roomName = input.nextLine();
             while (roomName.equals("")) {
-                System.out.println("Try again: cannot leave field empty!");
+                op.emptyFieldError();
                 roomName = input.nextLine();
             }
-            System.out.println(rm.getRoomSchedule(roomName));
-            System.out.println("Enter the event name:");
+            op.listRoomSchedule(rm.getRoomSchedule(roomName));
+            op.eventNamePrompt();
             String eventName = input.nextLine();
             while (eventName.equals("")) {
-                System.out.println("Try again: cannot leave field empty!");
+                op.emptyFieldError();
                 eventName = input.nextLine();
             }
-            System.out.println("Enter the event start time (formatted 'yyyy-MM-dd HH:mm'):");
+            op.eventTimePrompt();
             String startString = input.nextLine();
             while (startString.equals("")) {
-                System.out.println("Try again: cannot leave field empty!");
+                op.emptyFieldError();
                 startString = input.nextLine();
             }
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 LocalDateTime startTime = LocalDateTime.parse(startString, formatter);
                 if (createEvent(eventName, startTime, roomName))
-                    System.out.println("Successfully created new event.");
+                    op.eventCreationResult();
                 else
-                    System.out.println("Unable to create new event: scheduling conflict occurred.");
+                    op.eventFailedCreationResult();
             } catch (DateTimeParseException e) {
-                System.out.println("Unable to parse date input!");
+                op.invalidDateError();
             }
         }
     }
