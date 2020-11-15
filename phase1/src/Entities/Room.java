@@ -14,11 +14,11 @@ import java.util.TreeMap;
  */
 
 public class Room implements Serializable {
-    private String name;
+    private final String name;
     private TreeMap<LocalDateTime, String> schedule;
 
     /**
-     * Constructor for a Entities.Room object
+     * Constructor for a Room object
      *
      * @param name  the name of the room
      */
@@ -28,7 +28,7 @@ public class Room implements Serializable {
     }
 
 //    /**
-//     * Returns the name of the Entities.Room
+//     * Returns the name of the Room
 //     *
 //     * @return the room's name
 //     */
@@ -37,7 +37,7 @@ public class Room implements Serializable {
 //    }
 
     /**
-     * Checks to see if this Entities.Room can be booked for an event. A room can be booked if there is a free
+     * Checks to see if this Room can be booked for an event. A room can be booked if there is a free
      * time slot and the event ends before or at 5pm.
      *
      * @return true if the room can be booked, false otherwise
@@ -48,7 +48,7 @@ public class Room implements Serializable {
     }
 
     /**
-     * Adds an event to this Entities.Room at the given time.
+     * Adds an event to this Room at the given time.
      *
      * @param time      the time the event starts.
      * @param eventName the name of the event to be added.
@@ -58,7 +58,7 @@ public class Room implements Serializable {
     }
 
     /**
-     * Checks to see if this Entities.Room's schedule has a specific event.
+     * Checks to see if this Room's schedule has a specific event.
      *
      * @param time      the time the event starts.
      * @param eventName the name of the event to check for.
@@ -70,7 +70,7 @@ public class Room implements Serializable {
     }
 
     /**
-     * Removes an event at a certain time from the schedule of this Entities.Room.
+     * Removes an event at a certain time from the schedule of this Room.
      *
      * @param time  the time the event starts.
      */
@@ -79,26 +79,29 @@ public class Room implements Serializable {
     }
 
     /**
-     * Gives the String representation of this Entities.Room.
+     * Gives the String representation of this Room.
      *
-     * @return the string representation of this Entities.Room
+     * @return the string representation of this Room
      */
     @Override
     public String toString() {
-        return this.name + " Entities.Room";
+        return this.name + " Room";
     }
 
     /**
-     * Gives the String representation of this Entities.Room's schedule.
+     * Gives the String representation of this Room's schedule.
      *
-     * @return the string representation of this Entities.Room's schedule
+     * @return the string representation of this Room's schedule
      */
-    public String roomScheduleToString() {
-        String ret = this.name + "'s Schedule:" + "\n";
+    public StringBuilder roomScheduleToString() {
+        StringBuilder ret = new StringBuilder(this.name + " Room's Schedule:" + "\n");
         for (Map.Entry<LocalDateTime, String> time : this.schedule.entrySet()) {
             String eventHour = Integer.toString(time.getKey().getHour());
             String eventName = time.getValue();
-            ret += eventHour + ":00 - " + eventName + "\n";
+            ret.append(eventHour);
+            ret.append(":00 - ");
+            ret.append(eventName);
+            ret.append("\n");
         }
         return ret;
     }
