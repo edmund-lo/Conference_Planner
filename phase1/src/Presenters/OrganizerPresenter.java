@@ -1,8 +1,7 @@
 package Presenters;
 
 import java.util.List;
-import UseCases.UserManager;
-import Controllers.OrganizerController;
+
 /**
  * Presenter prints attributes that user of program (if organizer) can do/see.
  */
