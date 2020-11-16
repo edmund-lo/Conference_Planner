@@ -12,6 +12,7 @@ public class MessageGateway implements GatewayInterface<MessageManager>, Seriali
     /**
      * Serial extension file mgt_save which stores serialized and deserialized data
      */
+    //initializing our fileName in .ser file for saving and persistence of our data.
     public String fileName = "mgt_save.ser";
 
     /**
@@ -20,18 +21,25 @@ public class MessageGateway implements GatewayInterface<MessageManager>, Seriali
      * @param mm MessageManager object
      */
     public void serializeData(MessageManager mm) {
-
+        //try catch block, enters try and catches if there is a FileNotFoundException or silently
+        //catches IO exception
         try {
+            //create new file
             File new_file = new File(fileName);
+            //store file in new variable
+            //convert, save and write to the MessageManager object as a serialized object
             FileOutputStream store_file = new FileOutputStream(new_file);
             ObjectOutputStream conv_obj = new ObjectOutputStream(store_file);
             conv_obj.writeObject((MessageManager) mm);
+            //close files
             conv_obj.close();
             store_file.close();
         }
+        //catch FileNotFound exception
         catch (FileNotFoundException e) {
             System.out.println("File not Found!");
         }
+        //catch IO Exception silently
         catch (IOException ignored){}
 
     }
@@ -42,25 +50,33 @@ public class MessageGateway implements GatewayInterface<MessageManager>, Seriali
      * @return Message Manager object
      */
     public MessageManager deserializeData() {
+        //Instantiate new MessageManager object
         MessageManager mm = new MessageManager();
+        //
         try {
             File new_file2 = new File(fileName);
-            //
+            //store and save data in new file stream
             FileInputStream file2 = new FileInputStream(new_file2);
             ObjectInputStream input = new ObjectInputStream(file2);
-
+            //assign deserialized MessageManager object to instantiated object earlier
             mm = (MessageManager) input.readObject();
+            //close files
             input.close();
             file2.close();
+            //return MessageManager object
             return mm;
         }
+        //catch FileNotFound exception
         catch (FileNotFoundException e) {
             System.out.println("File not Found!");
         }
+        //silently catch IO exception
         catch (IOException ignored) {}
+        //Catch ClassNotFound exception
         catch (ClassNotFoundException e) {
             System.out.println("Message Manager Class was not found!");
         }
+        //return MessageManager object
         finally {
             return mm;
         }
