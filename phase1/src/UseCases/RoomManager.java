@@ -38,7 +38,7 @@ public class RoomManager implements Serializable {
         }
         return false;
     }
-
+//      ***** Saving method for phase 2
 //    /**
 //     * Removes an existing Room object from this RoomManager.
 //     * @param name  the name of the room to be removed.
@@ -73,6 +73,7 @@ public class RoomManager implements Serializable {
         return false;
     }
 
+//      ***** Saving method for phase 2
 //    /**
 //     * Removes an event to the schedule of a given Room in this RoomManager.
 //     *
@@ -101,6 +102,7 @@ public class RoomManager implements Serializable {
         return this.allRooms.keySet();
     }
 
+//      ***** Saving method for phase 2
 //    /**
 //     * Gets the string representation for a Room in this RoomManager.
 //     *
@@ -121,7 +123,7 @@ public class RoomManager implements Serializable {
         return getRoom(roomName).roomScheduleToString();
     }
 
-//
+//      ***** Saving method for phase 2
 //    /**
 //     * Reschedules an event that is happening inside a Room in this RoomManager.
 //     *

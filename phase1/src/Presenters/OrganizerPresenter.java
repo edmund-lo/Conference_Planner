@@ -46,12 +46,13 @@ public class OrganizerPresenter extends UserPresenter {
         System.out.println("Enter room's name:");
     }
 
-    /**
-     * Outputs label that prompts the user to enter the room's capacity
-     */
-    public void roomCapacityPrompt() {
-        System.out.println("Enter room's capacity:");
-    }
+//     ***** Saved for phase 2
+//    /**
+//     * Outputs label that prompts the user to enter the room's capacity
+//     */
+//    public void roomCapacityPrompt() {
+//        System.out.println("Enter room's capacity:");
+//    }
 
     /**
      * Outputs label that prompts the user to enter the speaker's username
@@ -160,7 +161,7 @@ public class OrganizerPresenter extends UserPresenter {
         int count = 1;
         System.out.println("Here's a list of speakers that you can assign to this event:");
         for (String x: speakerNames) {
-            System.out.println("("+count + "): " + x+"\n");
+            System.out.println("(" + count + "): " + x+"\n");
             count++;
         }
     }

@@ -129,17 +129,17 @@ public class UserManager implements Serializable {
         Speaker speaker = (Speaker) allUsers.get(username);
         speaker.addSpeakerEvent(eventID, startTime, endTime);
     }
-
-    /**
-     * Remove the speaker from speaking at an event.
-     *
-     * @param username the username
-     * @param eventID the event ID they are speaking at
-     */
-    public void cancelSpeakerEvent(String username, String eventID) {
-        Speaker speaker = (Speaker) allUsers.get(username);
-        speaker.cancelSpeakerEvent(eventID);
-    }
+//      ***** Saving method for phase 2
+//    /**
+//     * Remove the speaker from speaking at an event.
+//     *
+//     * @param username the username
+//     * @param eventID the event ID they are speaking at
+//     */
+//    public void cancelSpeakerEvent(String username, String eventID) {
+//        Speaker speaker = (Speaker) allUsers.get(username);
+//        speaker.cancelSpeakerEvent(eventID);
+//    }
 
     /**
      * Adds message ID of the sent message to user's list of sent messages.
@@ -272,22 +272,6 @@ public class UserManager implements Serializable {
     }
 
     /**
-     * Checks if user's login is correct.
-     *
-     * @param username the username
-     * @param password the password
-     * @return true iff user's login is correct
-     */
-    public boolean checkLogin(String username, String password) {
-        for (User user : allUsers.values()) {
-            if (username.equals(user.getUsername()) && password.equals(user.getPassword())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * Checks if user is an attendee.
      *
      * @param username the username
@@ -297,15 +281,16 @@ public class UserManager implements Serializable {
         return allUsers.get(username) instanceof Attendee;
     }
 
-    /**
-     * Checks if user is an organizer.
-     *
-     * @param username the username
-     * @return iff user is organizer
-     */
-    public boolean isOrganizer(String username) {
-        return allUsers.get(username) instanceof Organizer;
-    }
+//      ***** Saving method for phase 2
+//    /**
+//     * Checks if user is an organizer.
+//     *
+//     * @param username the username
+//     * @return iff user is organizer
+//     */
+//    public boolean isOrganizer(String username) {
+//        return allUsers.get(username) instanceof Organizer;
+//    }
 
     /**
      * Checks if user is a speaker.

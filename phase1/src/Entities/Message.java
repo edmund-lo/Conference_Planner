@@ -8,11 +8,11 @@ import java.time.format.DateTimeFormatter;
  * Implementation of a message and all details about it.
  */
 public class Message implements Serializable {
-    private String messageId;
-    private String senderId;
-    private String content;
-    private LocalDateTime messageTime;
-    private String receiverId;
+    private final String messageId;
+    private final String senderId;
+    private final String content;
+    private final LocalDateTime messageTime;
+    private final String receiverId;
 
     /**
      * Constructor for Entities.Message
@@ -43,39 +43,12 @@ public class Message implements Serializable {
     }
 
     /**
-     * getter for ID of the sender
-     *
-     * @return The ID of the user who send this message
-     */
-    public String getSenderId() {
-        return this.senderId;
-    }
-
-    /**
-     * getter for the list of receivers
-     *
-     * @return String of the receiver ID
-     */
-    public String getReceiverId() {
-        return this.receiverId;
-    }
-
-    /**
      * getter for the content of this message
      *
      * @return the content of this message
      */
     public String getContent() {
         return this.content;
-    }
-
-    /**
-     * getter for the send and receive time of this message
-     *
-     * @return the send and receive time of this message
-     */
-    public LocalDateTime getMessageTime() {
-        return this.messageTime;
     }
 
     /**
