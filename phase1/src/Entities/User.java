@@ -12,8 +12,8 @@ import java.util.HashMap;
  *
  */
 public abstract class User implements Serializable {
-    private String username;
-    private String password;
+    private final String username;
+    private final String password;
     private HashMap<String, LocalDateTime[]> schedule;
     private ArrayList<String> sentMessages;
     private ArrayList<String> receivedMessages;

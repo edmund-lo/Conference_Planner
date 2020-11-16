@@ -47,34 +47,6 @@ public class UserPresenter {
     }
 
     /**
-     * Outputs prompt for menu options in regards to messaging.
-     */
-    //prompt for messaging options
-    public void messageMenuPrompt() {
-        System.out.println("Enter :" +
-                "\n 0. Go back" +
-                "\n 1. Message a user" +
-                "\n 2. View the messages you sent" +
-                "\n 3. View the messages you received");
-    }
-
-    /**
-     * Prompts user to specify receiver
-     */
-    //prompt for receiver option
-    public void enterReceiverPrompt() {
-        System.out.println("Enter the user you wish to message:");
-    }
-
-    /**
-     * Prompts user to enter a message to send
-     */
-    //prompt for writing message
-    public void enterMessagePrompt() {
-        System.out.println("Enter the message you wish to send:");
-    }
-
-    /**
      * Introduces list of events that can be signed up for
      */
     public void signUpEventListLabel() {
@@ -102,19 +74,7 @@ public class UserPresenter {
         System.out.println("Here are a list of events you can cancel attendance from:");
     }
 
-    /**
-     * Introduces list of users that can be messaged
-     */
-    public void messageUserListLabel() {
-        System.out.println("Here is a list of all users you can message:");
-    }
 
-    /**
-     * Prints that there are no messages
-     */
-    public void noMessagesLabel() {
-        System.out.println("You have no messages.");
-    }
 
     /**
      * list of events iterated and printed
@@ -152,35 +112,6 @@ public class UserPresenter {
      */
     public void cancelResult(String event) {
         System.out.println("You have cancelled your attendance for event " + event);
-    }
-
-    /**
-     * Label to print to user that there are no users to message
-     */
-    public void noMessagableUsers(){
-        System.out.println("There are no users to message.");
-    }
-
-    /**
-     * Prints to user that message is sent to
-     * @param recipient specified recipient that is passed in
-     */
-    public void messageResult(String recipient) {
-        System.out.println("Message sent to " + recipient);
-    }
-
-    /**
-     * Prints to user that an invalid user was entered
-     */
-    public void invalidUserError() {
-        System.out.println("The user you entered was invalid.");
-    }
-
-    /**
-     * Prints to user that there was invalid use of messaging to an Organizer
-     */
-    public void cannotMessageOrganizerError() {
-        System.out.println("You cannot message an Organizer!");
     }
 
     /**

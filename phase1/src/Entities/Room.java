@@ -3,7 +3,6 @@ package Entities;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -26,7 +25,7 @@ public class Room implements Serializable {
      */
     public Room(String name){
         this.name = name;
-        this.schedule = new TreeMap<>(new Comparator<LocalDateTime[]>() {
+        this.schedule = new TreeMap<>(new SerializableComparator<LocalDateTime[]>() {
             @Override
             public int compare(LocalDateTime[] o1, LocalDateTime[] o2) {
                 if (o1[0].isAfter(o2[0])){
@@ -73,6 +72,7 @@ public class Room implements Serializable {
         this.schedule.put(times, eventName);
     }
 
+//      ***** Saving method for phase 2
 //    /**
 //     * Checks to see if this Room's schedule has a specific event.
 //     *
@@ -86,7 +86,7 @@ public class Room implements Serializable {
 //        return  this.schedule.containsKey(times)
 //                && this.schedule.get(times).equals(eventName);
 //    }
-//
+//      ***** Saving method for phase 2
 //    /**
 //     * Removes an event at a certain time from the schedule of this Room.
 //     *

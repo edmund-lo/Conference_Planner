@@ -29,9 +29,7 @@ public class RoomGateway implements GatewayInterface<RoomManager>, Serializable 
             //save file
             FileOutputStream store_file = new FileOutputStream(new_file);
             ObjectOutputStream conv_obj = new ObjectOutputStream(store_file);
-            //write to the  RoomManager, serializing this object
             conv_obj.writeObject((RoomManager) rm);
-            //close files
             conv_obj.close();
             store_file.close();
         }
@@ -68,18 +66,16 @@ public class RoomGateway implements GatewayInterface<RoomManager>, Serializable 
         }
         //catch FileNotFoundException
         catch (FileNotFoundException e) {
-            System.out.println("File not Found!");
+            System.out.println("Generating new file: " + fileName);
         }
         //Silently catch IO exception
         catch (IOException ignored){}
         //Class not found exception
         catch (ClassNotFoundException e) {
-            System.out.println("Room Manager Class was not found!");
+            System.out.println("RoomManager Class was not found!");
         }
-        //Return the RoomManager Object
-        finally {
-            return rm;
-        }
+
+        return rm;
     }
 }
 

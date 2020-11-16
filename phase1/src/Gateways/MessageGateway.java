@@ -30,8 +30,7 @@ public class MessageGateway implements GatewayInterface<MessageManager>, Seriali
             //convert, save and write to the MessageManager object as a serialized object
             FileOutputStream store_file = new FileOutputStream(new_file);
             ObjectOutputStream conv_obj = new ObjectOutputStream(store_file);
-            conv_obj.writeObject((MessageManager) mm);
-            //close files
+            conv_obj.writeObject(mm);
             conv_obj.close();
             store_file.close();
         }
@@ -76,11 +75,7 @@ public class MessageGateway implements GatewayInterface<MessageManager>, Seriali
         catch (ClassNotFoundException e) {
             System.out.println("Message Manager Class was not found!");
         }
-        //return MessageManager object
-        finally {
-            return mm;
-        }
 
-
+        return mm;
     }
 }

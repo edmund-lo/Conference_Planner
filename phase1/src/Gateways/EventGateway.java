@@ -14,7 +14,6 @@ public class EventGateway implements GatewayInterface<EventManager>, Serializabl
      * Serial extension file egt_save which stores serialized and
      * deserialized data
      */
-    //Name of our .ser file that will be used to save data in EventGateway methods below
     public String fileName = "egt_save.ser";
 
     /**
@@ -24,24 +23,18 @@ public class EventGateway implements GatewayInterface<EventManager>, Serializabl
      */
 
     public void serializeData(EventManager em){
-        //try catch block to ensure FileNotFound and IO exceptions are caught
+
         try {
-            //create new file using our initialized String variable
             File new_file = new File(fileName);
-            //Use FileOutputStream and ObjectOutputStream to store the passed in EventManager em
             FileOutputStream store_file = new FileOutputStream(new_file);
             ObjectOutputStream conv_obj = new ObjectOutputStream(store_file);
-            //Serialize object EventManager em
-            conv_obj.writeObject((EventManager) em);
-            //close files
+            conv_obj.writeObject(em);
             conv_obj.close();
             store_file.close();
         }
-        //Catches FileNotFound exception
         catch (FileNotFoundException e) {
             System.out.println("File not Found!");
         }
-        //silently catches IO exception
         catch (IOException ignored){}
     }
 
@@ -68,18 +61,16 @@ public class EventGateway implements GatewayInterface<EventManager>, Serializabl
         }
         //catch FileNotFoundException
         catch (FileNotFoundException e) {
-            System.out.println("File not Found!");
+            System.out.println("Generating new file: " + fileName);
         }
         //silently catch IO exception
         catch (IOException ignored){}
         //catch ClassNotFoundException
         catch (ClassNotFoundException e) {
-            System.out.println("Event Manager Class was not found");
+            System.out.println("EventManager Class was not found");
         }
-        //return EventManager object
-        finally {
-            return em;
-        }
-    }
+        return em;
 
+    }
 }
+

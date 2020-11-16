@@ -12,7 +12,7 @@ public class UserGateway implements GatewayInterface<UserManager>, Serializable 
      * Serial extension file ugt_save.ser which stores serialized and
      * deserialized data
      */
-    //Initializing our file name for our .ser file used below
+
     public String fileName = "ugt_save.ser";
 
     /**
@@ -30,8 +30,7 @@ public class UserGateway implements GatewayInterface<UserManager>, Serializable 
             //Serialize object by writing UserManager um as value to variable conv_obj
             FileOutputStream store_file = new FileOutputStream(new_file);
             ObjectOutputStream conv_obj = new ObjectOutputStream(store_file);
-            conv_obj.writeObject((UserManager) um);
-            //close files
+            conv_obj.writeObject(um);
             conv_obj.close();
             store_file.close();
         }
@@ -64,22 +63,17 @@ public class UserGateway implements GatewayInterface<UserManager>, Serializable 
             //close files
             input.close();
             file2.close();
-            //return UserManager object
-            return um;
         }
         //catch FileNotFoundException
         catch (FileNotFoundException e) {
-            System.out.println("File not Found!!");
+            System.out.println("Generating new file: " + fileName);
         }
         //Silently catch IO exception
         catch (IOException ignored){}
         //Catch ClassNotFoundException
         catch (ClassNotFoundException e) {
-            System.out.println("Entities.Room Manager Class was not found");
+            System.out.println("UserManager Class was not found");
         }
-        //return UserManager object
-        finally {
-            return um;
-        }
+        return um;
     }
 }
