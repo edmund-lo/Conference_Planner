@@ -36,7 +36,7 @@ public class OrganizerController extends UserController {
 
         boolean inSession = true;
         // Enters a while loop that allows the user to continuously use Organizer and Attendee functions
-        while(inSession) {
+        while(inSession) { //loop until user logs out
             op.displayMenu("Organizer", username);
             String option = input.nextLine();
             switch(option) {
@@ -76,7 +76,7 @@ public class OrganizerController extends UserController {
      * Called when user chooses to display new creation options
      */
     public void createNewMenu() {
-        while (true) {
+        while (true) { //loop until valid input
             op.createNewPrompt();
             try {
                 int option = parseInt(input.nextLine());
@@ -86,7 +86,7 @@ public class OrganizerController extends UserController {
                     createRoomCmd();
                 else if (option == 2)
                     createSpeakerAccountCmd();
-                else if (option == 3) //testing purposes, when not using comment out lines 89-90
+                else if (option == 3)
                     createEventCmd();
                 else
                     op.invalidOptionError();
@@ -100,7 +100,7 @@ public class OrganizerController extends UserController {
      * Called when user chooses to display organizer messaging options
      */
     public void organizerMessageMenu() {
-        while (true) {
+        while (true) { //loop until valid input
             op.organizerMessagePrompt();
             try {
                 int option = parseInt(input.nextLine());
@@ -136,10 +136,10 @@ public class OrganizerController extends UserController {
      * @param password String representing new speaker's password.
      */
     public void createSpeakerAccount(String username, String password) {
-        if (um.checkUniqueUsername(username)) {
-            um.createNewSpeaker(username, password);
+        if (um.checkUniqueUsername(username)) { //ensures the username is unique
+            um.createNewSpeaker(username, password); //create new speaker
             op.speakerCreationResult();
-            return;
+            return; //exit method
         }
         op.invalidSpeakerNameError();
     }
@@ -160,8 +160,8 @@ public class OrganizerController extends UserController {
      */
     public void messageAllSpeakers(String message) {
         List<String> speakerNames = um.getAllSpeakerNames();
-        for (String recipientName : speakerNames) {
-            if (mm.messageCheck(recipientName, username, message)) {
+        for (String recipientName : speakerNames) { //loop through every speaker
+            if (mm.messageCheck(recipientName, username, message)) { //ensure that message is valid
                 String messageId = mm.createMessage(recipientName, username, message);
                 mp.messageResult(recipientName);
                 addMessagesToUser(recipientName, messageId);
@@ -188,11 +188,11 @@ public class OrganizerController extends UserController {
      */
     public void messageAllAttendees(String message) {
         Set<String> attendeeNames = um.getAllUsernames();
-        for (String recipientName : attendeeNames) {
-            if (!recipientName.equals(username)) {
-                if (mm.messageCheck(recipientName, username, message)) {
+        for (String recipientName : attendeeNames) { //loop through all attendee names
+            if (!recipientName.equals(username)) { //ensure the organizer doesn't message self
+                if (mm.messageCheck(recipientName, username, message)) { //ensure the message is valid
                     String messageId = mm.createMessage(recipientName, username, message);
-                    mp.messageResult(recipientName);
+                    mp.messageResult(recipientName); //message user
                     addMessagesToUser(recipientName, messageId);
                 } else {
                     mp.invalidMessageError();
@@ -208,7 +208,7 @@ public class OrganizerController extends UserController {
     public void createRoomCmd() {
         op.roomNamePrompt();
         String name = input.nextLine();
-        /*op.roomCapacityPrompt();
+        /*op.roomCapacityPrompt(); capacity for phase 2
         int capacity = parseInt(input.nextLine());*/
         int capacity = 2;
         createRoom(name, capacity);
@@ -220,8 +220,8 @@ public class OrganizerController extends UserController {
      * @param roomName String representing the new room's name.
      * @param capacity Integer representing the new room's capacity.
      */
-    public void createRoom(String roomName, int capacity) {
-        if(roomName.length() < 1)
+    public void createRoom(String roomName, int capacity) { //capacity for phase 2
+        if(roomName.length() < 1)  //ensure that the room name is not empty
             op.emptyFieldError();
         else if (rm.createRoom(roomName))
             op.roomCreationResult();
@@ -235,11 +235,11 @@ public class OrganizerController extends UserController {
     public void scheduleSpeakerCmd() {
         int index;
         String speakerIndex;
-        String eventId = null;
+        String eventId;
 
         List<String> allSpeakers = um.getAllSpeakerNames();
         List<String> allEvents = getAllEvents();
-
+        //custom error messages
         if(allEvents.size()==0){
             op.noEvents();
             return;
@@ -249,43 +249,40 @@ public class OrganizerController extends UserController {
             op.noSpeakers();
             return;
         }
-
+        //user picks an event to assign a speaker to
         op.speakerListAllEventsPrompt();
         op.listEvents(allEvents);
         while(true){
             op.eventNumberPrompt();
             try{
                 index = parseInt(input.nextLine());
-                if(index == 0){
-                    break;
+                if(index == 0){ //index of 0 is the back number hence break the loop
+                    return; //leave method
                 }
-                else if (em.getAllEventIds().size() < index){
+                else if (em.getAllEventIds().size() < index){ //inputted index is not one of the numbered events
                     op.invalidOptionError();
                 }
                 else{
-                    eventId = em.getAllEventIds().get(index-1);
+                    eventId = em.getAllEventIds().get(index-1); //get selected event
                     break;
                 }
             }catch(NumberFormatException | ArrayIndexOutOfBoundsException e){
                 op.invalidOptionError();
             }
         }
-        if(index != 0){
-            op.listSpeakers(allSpeakers);
-            op.speakerNamePrompt();
-            while(true){
-                try{
-                    speakerIndex = input.nextLine();
-                    if(speakerIndex.equals("0")){
-                        break;
-                    }
-                    scheduleSpeaker(allSpeakers.get(parseInt(speakerIndex)-1), eventId);
+        op.listSpeakers(allSpeakers);
+        op.speakerNamePrompt();
+        while(true){
+            try{
+                speakerIndex = input.nextLine();
+                if(speakerIndex.equals("0")){ //if user wanted to go back to main menu in this stage
                     break;
-                }catch(NumberFormatException | IndexOutOfBoundsException e){
-                    op.invalidOptionError();
                 }
-        }
-
+                scheduleSpeaker(allSpeakers.get(parseInt(speakerIndex)-1), eventId); //schedule the selected speaker
+                break;
+            }catch(NumberFormatException | IndexOutOfBoundsException e){
+                op.invalidOptionError();
+            }
         }
     }
 
@@ -298,16 +295,16 @@ public class OrganizerController extends UserController {
     public void scheduleSpeaker(String speakerName, String eventId) {
         LocalDateTime start = em.getEventStartTime(eventId);
         LocalDateTime end = em.getEventEndTime(eventId);
-        if (!em.canAddSpeakerToEvent(eventId)) {
+        if (!em.canAddSpeakerToEvent(eventId)) { //if event already has a speaker
             op.existingSpeakerAtEventError();
-            return;
+            return; //exit method
         }
-        if (!um.canAddSpeakerEvent(speakerName, eventId, start, end)) {
+        if (!um.canAddSpeakerEvent(speakerName, eventId, start, end)) { //if speaker is speaking at another event
             op.speakerUnavailableError();
-            return;
+            return; //exit method
         }
-        em.addSpeakerToEvent(speakerName, eventId);
-        um.addSpeakerEvent(speakerName, eventId, start, end);
+        em.addSpeakerToEvent(speakerName, eventId); //add speaker to event
+        um.addSpeakerEvent(speakerName, eventId, start, end); //add event to speaker
         op.scheduleSpeakerResult();
     }
 
@@ -315,38 +312,40 @@ public class OrganizerController extends UserController {
      * Called when user chooses to create a new event
      */
     public void createEventCmd() {
-        if (rm.getAllRooms().size() == 0)
+        if (rm.getAllRooms().size() == 0) //if there's no rooms
             op.noRoomError();
         else{
             op.roomIntroduceListLabel();
             op.listRooms(rm.getAllRooms());
             String roomName;
-            while (true) {
+            while (true) { //user inputs the room name they wish to create an event in
                 op.roomNamePrompt();
                 roomName = input.nextLine();
                 try{
                     if(roomName.equals("")){
                         op.emptyFieldError();
                     }
-                    op.listRoomSchedule(rm.getRoomSchedule(roomName));
-                    break;
+                    op.listRoomSchedule(rm.getRoomSchedule(roomName)); //list the schedule of the selected room
+                    break; //break the loop as the user has entered a valid input
                 }catch(NullPointerException e){
                     op.roomDoesNotExistLabel();
                 }
             }
+            //user enters the desired event name
             op.eventNamePrompt();
             String eventName = input.nextLine();
-            while (eventName.equals("")) {
+            while (eventName.equals("")) { //ensures that the event name is not empty
                 op.emptyFieldError();
                 eventName = input.nextLine();
             }
+            //user enters the desired starting time
             op.eventTimePrompt();
             String startString = input.nextLine();
-            while (startString.equals("")) {
+            while (startString.equals("")) { //ensures that the starting time is not empty for custom error message
                 op.emptyFieldError();
                 startString = input.nextLine();
             }
-            try {
+            try { //try to ensure that user enters valid format for the dtf
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 LocalDateTime startTime = LocalDateTime.parse(startString, formatter);
                 if (createEvent(eventName, startTime, roomName))
@@ -374,7 +373,7 @@ public class OrganizerController extends UserController {
         }
         return false;
     }
-
+    //phase 2 methods
     /*public boolean cancelEvent(String eventId) {
         return true;
     }
