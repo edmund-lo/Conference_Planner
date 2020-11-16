@@ -160,7 +160,7 @@ public class OrganizerPresenter extends UserPresenter {
         int count = 1;
         System.out.println("Here's a list of speakers that you can assign to this event:");
         for (String x: speakerNames) {
-            System.out.println("("+count + "): " + x+"\n");
+            System.out.println("(" + count + "): " + x+"\n");
             count++;
         }
     }
