@@ -1,6 +1,5 @@
 package Gateways;
 
-import Gateways.GatewayInterface;
 import UseCases.UserManager;
 
 import java.io.*;

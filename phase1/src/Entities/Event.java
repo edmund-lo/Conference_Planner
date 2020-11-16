@@ -3,7 +3,6 @@ package Entities;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.ArrayList;
 
 /**
@@ -34,7 +33,7 @@ public class Event implements Serializable {
         this.startTime = startTime;
         this.endTime = endTime;
         this.roomName = roomName;
-        attendingUsers = new ArrayList<String>();
+        attendingUsers = new ArrayList<>();
     }
 
     /**
@@ -136,7 +135,7 @@ public class Event implements Serializable {
      * Removes the user with ID userID from the attending users list for this event. The user must be in the attending
      * users list.
      *
-     * @param userID the ID of the user taht wants to be removed from this event
+     * @param userID the ID of the user that wants to be removed from this event
      * @return True iff the user was removed successfully and false if not
      */
     public boolean removeUserFromEvent(String userID){
