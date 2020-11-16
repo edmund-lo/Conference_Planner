@@ -14,7 +14,7 @@ public class SpeakerPresenter extends UserPresenter {
 
     public void displayMenu(String speaker, String username){
         super.displayMenu(speaker, username);
-        System.out.println(" 5. Message Attendees at Events as Speaker" +
+        System.out.println(" 5. Message your event attendees" +
                 "\n 6. Show Events you are speaking at");
     }
 

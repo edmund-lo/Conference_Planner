@@ -1,6 +1,8 @@
 Basic Instructions
 When provided with multiple options, type the number to the left of the option and press enter to select it.
 When presented with a "0" option, it can be used to go back to the previous menu.
+All times in the program are based on the 24 hour clock. All time inputs into the program must be formatted in 24 hour
+time to work properly.
 
 Initial Run
 Provide files named "egt_save.ser", "mgt_save.ser", "rgt_save.ser" and "ugt_save.ser" in the project structure before
@@ -11,6 +13,10 @@ in will be impossible.
 Messages
 Respond to messages by checking your received messages, taking note of the sender's username, and sending a new message
 to that person.
+
+Scheduling Speakers
+Scheduling a speaker is a different action than creating an event. You must create an event in the program first, then
+assign a speaker to an event using a separate command.
 
 Multiple User Accounts
 In this version of the program, an account can only have one role associated with it (i.e. you cannot be an organizer
