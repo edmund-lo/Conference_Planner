@@ -24,15 +24,6 @@ public class MessageManager implements Serializable {
     }
 
     /**
-     * getter for all the messages
-     *
-     * @return all messages in the format HashMap<
-     */
-    public HashMap<String, Message> getAllMessages() {
-        return this.allMessages;
-    }
-
-    /**
      * A helper to check if the message is in allMessages by its ID
      *
      * @param messageID the ID of the event we are checking
@@ -42,6 +33,7 @@ public class MessageManager implements Serializable {
         return this.allMessages.containsKey(messageID);
     }
 
+//      Save for phase 2
     /*/**
      * A string representation of all the message contents
      *

@@ -25,7 +25,7 @@ public class MessageGateway implements GatewayInterface<MessageManager>, Seriali
             File new_file = new File(fileName);
             FileOutputStream store_file = new FileOutputStream(new_file);
             ObjectOutputStream conv_obj = new ObjectOutputStream(store_file);
-            conv_obj.writeObject((MessageManager) mm);
+            conv_obj.writeObject(mm);
             conv_obj.close();
             store_file.close();
         }
