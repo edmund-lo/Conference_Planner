@@ -15,6 +15,7 @@ public class ProjectConfig {
      * Main run method that instantiates all the gateways and handles each user session.
      */
     public void run() {
+        // initializes all four gateways
         UserGateway ug = new UserGateway();
         RoomGateway rg = new RoomGateway();
         MessageGateway mg = new MessageGateway();
@@ -23,8 +24,9 @@ public class ProjectConfig {
         boolean running = true;
         Scanner sc = new Scanner(System.in);
         while(running) {
-            LoginController lc = startSession(ug, rg, mg, eg);
-            endSession(ug, rg, mg, eg, lc);
+            LoginController lc = startSession(ug, rg, mg, eg); // start user session
+            endSession(ug, rg, mg, eg, lc); // end user session
+            // allow user to exit or return to login menu
             System.out.println("Type 'exit' to exit program, anything else returns to the main menu");
             if (sc.nextLine().equals("exit"))
                 running = false;
@@ -42,31 +44,32 @@ public class ProjectConfig {
      * @return The current session's LoginController instance
      */
     public LoginController startSession(UserGateway ug, RoomGateway rg, MessageGateway mg, EventGateway eg) {
+        // deserialize all four saved Use Case classes from .ser files
         UserManager um = ug.deserializeData();
         RoomManager rm = rg.deserializeData();
         MessageManager mm = mg.deserializeData();
         EventManager em = eg.deserializeData();
-        LoginPresenter lp = new LoginPresenter();
 
+        LoginPresenter lp = new LoginPresenter();
         Scanner sc = new Scanner(System.in);
 
+        // instantiate a new LoginController with saved Use Case classes as parameters
         LoginController lc = new LoginController(um, rm, mm, em);
-        String x;
         System.out.println("Choose:" +
                 "\n1. Login" +
                 "\n2. Create Account" +
                 "\n3. Exit Program");
-        x = sc.nextLine();
+        String x = sc.nextLine();
         switch(x){
-            case "1":
+            case "1": // Login with existing account
                 lc.login();
                 break;
-            case "2":
+            case "2": // Create a new account
                 lc.CreateAccount();
                 break;
-            case "3":
+            case "3": // Exit program
                 break;
-            default:
+            default: // Invalid input
                 lp.ValidNumber();
 
         }
@@ -82,6 +85,7 @@ public class ProjectConfig {
      * @param lc Represents the current session's LoginController instance
      */
     public void endSession(UserGateway ug, RoomGateway rg, MessageGateway mg, EventGateway eg, LoginController lc) {
+        // serialize all four current session's Use Case classes to .ser files
         ug.serializeData(lc.um);
         rg.serializeData(lc.rm);
         mg.serializeData(lc.mm);
