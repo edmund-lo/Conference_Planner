@@ -28,7 +28,7 @@ public class EventGateway implements GatewayInterface<EventManager>, Serializabl
             File new_file = new File(fileName);
             FileOutputStream store_file = new FileOutputStream(new_file);
             ObjectOutputStream conv_obj = new ObjectOutputStream(store_file);
-            conv_obj.writeObject((EventManager) em);
+            conv_obj.writeObject(em);
             conv_obj.close();
             store_file.close();
         }
