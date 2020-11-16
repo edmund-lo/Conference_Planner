@@ -115,6 +115,8 @@ public abstract class User implements Serializable {
                 if ((time[0].isBefore(startTime) && time[1].isAfter(startTime)) ||
                         (time[0].isBefore(endTime) && time[1].isAfter(endTime))) {
                     return false;
+                } else if (time[0].isEqual(startTime)) {
+                    return false;
                 }
             }
             return true;
