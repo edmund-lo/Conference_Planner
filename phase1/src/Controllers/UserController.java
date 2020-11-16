@@ -60,10 +60,10 @@ public abstract class UserController {
                 int option = parseInt(input.nextLine());
                 if (option == 0)
                     break;
-                else if (option > em.getAllEventIds().size())
+                else if (option > em.getAllEventIds().size()) //prevents index out of bounds
                     up.invalidOptionError();
                 else
-                    signUpEventAttendance(em.getAllEventIds().get(option - 1));
+                    signUpEventAttendance(em.getAllEventIds().get(option - 1)); //option-1 is the index of the selected event
                     break;
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 up.invalidOptionError();
@@ -76,7 +76,7 @@ public abstract class UserController {
      *
      */
     public void cancelMenu(){
-        while(true) {
+        while(true) {//same structure as signing up
             up.cancelEventListLabel();
             up.listEvents(getAttendingEventsString());
             up.cancelEventPrompt();
@@ -100,13 +100,13 @@ public abstract class UserController {
      *
      */
     public void viewEventsMenu(){
-        while(true){
+        while(true){//presenter displays events
             up.listAllEventsLabel();
             up.listEvents(getAttendingEventsString());
             up.exitlistAllEventsLabel();
             try{
                 int option = parseInt(input.nextLine());
-                if(option == 0){
+                if(option == 0){ //enter 0 to go back
                     break;
                 }else{
                     up.invalidOptionError();
@@ -128,22 +128,22 @@ public abstract class UserController {
                 int option = parseInt(input.nextLine());
                 if (option == 0)
                     break;
-                else if (option == 1){
+                else if (option == 1){//1 to message a user
                     String name;
                     String content;
                     boolean canSend = false;
                     List<String> ms = getAllMessageableUsers();
-                    if (ms.size() > 0) {
+                    if (ms.size() > 0) { //checks if there are users to message
                         mp.messageUserListLabel();
                         up.listUsers(ms);
                         mp.enterReceiverPrompt();
                         name = input.nextLine();
-                        if (um.userExists(name) && !name.equals(username)) {
+                        if (um.userExists(name) && !name.equals(username)) { //checks if user is valid
                             canSend = true;
                         } else {
                             mp.invalidUserError();
                         }
-                        if (canSend) {
+                        if (canSend) { //send the message if the user is valid
                             mp.enterMessagePrompt();
                             content = input.nextLine();
                             if (um.isAttendee(name) || um.isSpeaker(name))
@@ -153,10 +153,10 @@ public abstract class UserController {
                         }
                     }else
                         mp.noMessagableUsers();
-                } else if (option == 2){
+                } else if (option == 2){// 2 to view sent messages
                     mp.showSentMessagesLabel();
                     mp.listMessages(getAllSentMessages());
-                } else if (option == 3) {
+                } else if (option == 3) {// 3 to view received messages
                     mp.showReceivedMessagesLabel();
                     mp.listMessages(getAllReceivedMessages());
                 } else
