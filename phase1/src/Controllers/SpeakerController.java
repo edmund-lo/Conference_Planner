@@ -73,11 +73,11 @@ public class SpeakerController extends UserController {
      */
     public void messageEventsAttendeesCmd() {
         List<String> eventStrings = getSpeakerEvents();
-        if (eventStrings.size() != 0) {
+        if (eventStrings.size() != 0) { //check to ensure there exists events that have self speaking at
             sp.speakerEventsLabel();
             sp.listEvents(eventStrings);
             List<String> eventIds = new ArrayList<>();
-            while (true) {
+            while (true) { //loop until user enters valid input
                 boolean crashed = false;
                 sp.messageEventAttendeesPrompt();
                 String eventIdsString = input.nextLine();
@@ -85,18 +85,17 @@ public class SpeakerController extends UserController {
                     if (eventIdsString.equals("")) {
                         sp.invalidEventNumberError();
                         crashed = true;
-
-                    } else if (eventIdsString.equals("0")) {
+                    } else if (eventIdsString.equals("0")) { //0 is the exit index
                         break;
-                    } else {
-                        eventIds = new ArrayList<>();
+                    } else { //user entered valid input
+                        eventIds = new ArrayList<>(); //init new eventIds
                         Map<String, LocalDateTime[]> schedule = um.getSpeakerSchedule(username);
                         List<String> allSpeakerEventIds = new ArrayList<>(schedule.keySet());
-                        for (String i : eventIdsString.split(",")) {
+                        for (String i : eventIdsString.split(",")) { //loop through each of the user's inp. indices
                             int index;
                             try {
                                 index = parseInt(i);
-                                eventIds.add(allSpeakerEventIds.get(index - 1));
+                                eventIds.add(allSpeakerEventIds.get(index - 1)); //add inputted event into the eventIds
                             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                                 sp.invalidEventNumberError();
                                 crashed = true;
@@ -106,13 +105,13 @@ public class SpeakerController extends UserController {
                 } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                     sp.invalidOptionError();
                 }
-                if (!crashed) {
+                if (!crashed) { //if while loop ran without any error then valid input hence leave the loop
                     break;
                 }
             }
             mp.enterMessagePrompt();
-            String message = input.nextLine();
-            messageEventsAttendees(eventIds, message);
+            String message = input.nextLine(); //take the input msg. Note that anything can go in a msg hence no try..
+            messageEventsAttendees(eventIds, message); //message all attendees at each event in eventIds
         } else
             sp.noSpeakerEventsError();
     }
@@ -124,9 +123,9 @@ public class SpeakerController extends UserController {
      * @param message String representing the user's message.
      */
     public void messageEventsAttendees(List<String> eventIds, String message) {
-        for (String eventId: eventIds) {
+        for (String eventId: eventIds) { //loop through all event ids
             String eventName = em.getEventName(eventId);
-            if (messageEventAttendees(eventId, message))
+            if (messageEventAttendees(eventId, message)) //if successfully messaged all attendees at event
                 sp.messageEventAttendeesResult(eventName);
             else
                 sp.messageEventAttendeesError(eventName);
@@ -141,12 +140,12 @@ public class SpeakerController extends UserController {
      * @return A boolean value signifying whether method was successful.
      */
     public boolean messageEventAttendees(String eventId, String message) {
-        List<String> attendees = em.getAttendingUsers(eventId);
-        for (String recipientName : attendees) {
+        List<String> attendees = em.getAttendingUsers(eventId); //get all attendees at event with id eventId
+        for (String recipientName : attendees) { //loop through all attendees at event
             if (mm.messageCheck(recipientName, username, message)) {
                 String messageId = mm.createMessage(recipientName, username, message);
                 mp.messageResult(recipientName);
-                addMessagesToUser(recipientName, messageId);
+                addMessagesToUser(recipientName, messageId); //message user with recipientName
             } else {
                 mp.invalidMessageError();
             }
@@ -169,7 +168,7 @@ public class SpeakerController extends UserController {
     public List<String> getSpeakerEvents() {
         Map<String, LocalDateTime[]> schedule = um.getSpeakerSchedule(username);
         List<String> eventStrings = new ArrayList<>();
-        for (String eventId : schedule.keySet())
+        for (String eventId : schedule.keySet()) //loop through all events in speaker's schedule
             eventStrings.add(em.getEventDescription(eventId));
         return eventStrings;
     }
