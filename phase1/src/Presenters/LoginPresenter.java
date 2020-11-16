@@ -76,4 +76,11 @@ public class LoginPresenter {
     public void AccountMade() {
         System.out.println("Account has been made! Return to the login screen to login to your account.");
     }
+
+    /**
+     * Username cannot be empty.
+     */
+    public void EmptyName() {
+        System.out.println("Username cannot be empty!");
+    }
 }
