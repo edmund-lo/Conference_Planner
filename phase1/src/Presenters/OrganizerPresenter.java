@@ -13,7 +13,7 @@ public class OrganizerPresenter extends UserPresenter {
      */
     public void displayMenu(String organizer, String username){
         super.displayMenu(organizer, username);
-        System.out.println(" 5. Create New Options" +
+        System.out.println(" 5. Create new a room / speaker account / event" +
                 "\n 6. Organizer Messaging" +
                 "\n 7. Schedule a Speaker");
     }
@@ -22,7 +22,7 @@ public class OrganizerPresenter extends UserPresenter {
      * Outputs the input menu for the "create new" menu
      */
     public void createNewPrompt() {
-        System.out.println("Press: " +
+        System.out.println("Select option: " +
                 "\n 0. Go back" +
                 "\n 1. Create a new room" +
                 "\n 2. Create a new speaker account" +
@@ -33,7 +33,7 @@ public class OrganizerPresenter extends UserPresenter {
      *Outputs the input menu for the "message" menu
      */
     public void organizerMessagePrompt() {
-        System.out.println("Press: " +
+        System.out.println("Select option: " +
                 "\n 0. Go back " +
                 "\n 1. Message all Speakers " +
                 "\n 2. Message all Attendees");
