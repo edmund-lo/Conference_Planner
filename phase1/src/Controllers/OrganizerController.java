@@ -221,11 +221,12 @@ public class OrganizerController extends UserController {
      * @param capacity Integer representing the new room's capacity.
      */
     public void createRoom(String roomName, int capacity) {
-        if (rm.createRoom(roomName)) {
+        if(roomName.length() < 1)
+            op.emptyFieldError();
+        else if (rm.createRoom(roomName))
             op.roomCreationResult();
-            return;
-        }
-        op.invalidRoomNameError();
+        else
+            op.invalidRoomNameError();
     }
 
     /**
@@ -235,8 +236,22 @@ public class OrganizerController extends UserController {
         int index;
         String speakerIndex;
         String eventId = null;
+
+        List<String> allSpeakers = um.getAllSpeakerNames();
+        List<String> allEvents = getAllEvents();
+
+        if(allEvents.size()==0){
+            op.noEvents();
+            return;
+        }
+
+        if(allSpeakers.size()==0){
+            op.noSpeakers();
+            return;
+        }
+
         op.speakerListAllEventsPrompt();
-        op.listEvents(getAllEvents());
+        op.listEvents(allEvents);
         while(true){
             op.eventNumberPrompt();
             try{
@@ -256,7 +271,7 @@ public class OrganizerController extends UserController {
             }
         }
         if(index != 0){
-            op.listSpeakers(um.getAllSpeakerNames());
+            op.listSpeakers(allSpeakers);
             op.speakerNamePrompt();
             while(true){
                 try{
@@ -264,7 +279,7 @@ public class OrganizerController extends UserController {
                     if(speakerIndex.equals("0")){
                         break;
                     }
-                    scheduleSpeaker(um.getAllSpeakerNames().get(parseInt(speakerIndex)-1), eventId);
+                    scheduleSpeaker(allSpeakers.get(parseInt(speakerIndex)-1), eventId);
                     break;
                 }catch(NumberFormatException | IndexOutOfBoundsException e){
                     op.invalidOptionError();

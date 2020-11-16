@@ -30,11 +30,9 @@ public class MessageGateway implements GatewayInterface<MessageManager>, Seriali
             store_file.close();
         }
         catch (FileNotFoundException e) {
-            System.out.println("File not Found!!");
+            System.out.println("File not Found!");
         }
-        catch (IOException e){
-            System.out.println("IO Exception Raised!!");
-        }
+        catch (IOException ignored){}
 
     }
 
@@ -57,12 +55,11 @@ public class MessageGateway implements GatewayInterface<MessageManager>, Seriali
             return mm;
         }
         catch (FileNotFoundException e) {
-            System.out.println("File not Found!!");
+            System.out.println("File not Found!");
         }
-        catch (IOException e) {}
-
+        catch (IOException ignored) {}
         catch (ClassNotFoundException e) {
-            System.out.println("Entities.Message Manager Class was not found");
+            System.out.println("Message Manager Class was not found!");
         }
         finally {
             return mm;
