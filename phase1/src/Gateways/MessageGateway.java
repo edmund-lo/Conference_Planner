@@ -4,19 +4,15 @@ import Gateways.GatewayInterface;
 import UseCases.MessageManager;
 
 import java.io.*;
-
+/**
+ * A Gateway class that serializes and deserializes the Message Manager class
+ */
 public class MessageGateway implements GatewayInterface<MessageManager>, Serializable {
-    /**
-     * TODO: JAVADOC
-     * @return
-     */
-    public String fileName = "mgt_save.ser";
 
+    public String fileName = "mgt_save.ser";
     /**
      * This method serializes an inputted Entities.User Manager's data
      * @param mm UseCases.MessageManager object
-     * @catch FileNotFoundException
-     * @catch IOException
      */
     public void serializeData(MessageManager mm) {
 
@@ -29,17 +25,16 @@ public class MessageGateway implements GatewayInterface<MessageManager>, Seriali
             store_file.close();
         }
         catch (FileNotFoundException e) {
-            System.out.println("File not Found!!");
+            System.out.println("File not Found!");
         }
-        catch (IOException e){
-            System.out.println("IO Exception Raised!!");
-        }
+        catch (IOException ignored){}
 
     }
 
     /**
-     * TODO: JAVADOC
-     * @return
+     * Deserializes the given serialized file, and converts it to a Message Manager object
+     *
+     * @return MessageManager object
      */
     public MessageManager deserializeData() {
         MessageManager mm = new MessageManager();
@@ -55,12 +50,11 @@ public class MessageGateway implements GatewayInterface<MessageManager>, Seriali
             return mm;
         }
         catch (FileNotFoundException e) {
-            System.out.println("File not Found!!");
+            System.out.println("File not Found!");
         }
-        catch (IOException e) {}
-
+        catch (IOException ignored) {}
         catch (ClassNotFoundException e) {
-            System.out.println("Entities.Message Manager Class was not found");
+            System.out.println("Message Manager Class was not found!");
         }
         finally {
             return mm;

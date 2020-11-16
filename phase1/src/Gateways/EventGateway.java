@@ -7,7 +7,6 @@ import java.io.Serializable;
 
 /**
  * A Gateway class that serializes and deserializes the Event Manager class
- *
  */
 public class EventGateway implements GatewayInterface<EventManager>, Serializable {
 
@@ -34,11 +33,9 @@ public class EventGateway implements GatewayInterface<EventManager>, Serializabl
             store_file.close();
         }
         catch (FileNotFoundException e) {
-            System.out.println("File not Found!!");
+            System.out.println("File not Found!");
         }
-        catch (IOException e){
-            System.out.println("IO Exception Raised!!");
-        }
+        catch (IOException ignored){}
     }
 
     /**
@@ -61,12 +58,11 @@ public class EventGateway implements GatewayInterface<EventManager>, Serializabl
             return em;
         }
         catch (FileNotFoundException e) {
-            System.out.println("File not Found!!");
+            System.out.println("File not Found!");
         }
-        catch (IOException e){}
-
+        catch (IOException ignored){}
         catch (ClassNotFoundException e) {
-            System.out.println("Entities.Event Manager Class was not found");
+            System.out.println("Event Manager Class was not found");
         }
         finally {
             return em;

@@ -4,7 +4,9 @@ import Gateways.GatewayInterface;
 import UseCases.UserManager;
 
 import java.io.*;
-
+/**
+ * A Gateway class that serializes and deserializes the User Manager class
+ */
 public class UserGateway implements GatewayInterface<UserManager>, Serializable {
 
     /**
@@ -20,7 +22,6 @@ public class UserGateway implements GatewayInterface<UserManager>, Serializable 
      * @param um UseCases.UserManager object
      *
      */
-
     public void serializeData(UserManager um) {
         try {
             File new_file = new File(fileName);
@@ -31,11 +32,9 @@ public class UserGateway implements GatewayInterface<UserManager>, Serializable 
             store_file.close();
         }
         catch (FileNotFoundException e) {
-            System.out.println("File not Found!!");
+            System.out.println("File not Found!");
         }
-        catch (IOException e){
-            System.out.println("IO Exception Raised!!");
-        }
+        catch (IOException ignored){}
     }
 
     /**
@@ -43,7 +42,6 @@ public class UserGateway implements GatewayInterface<UserManager>, Serializable 
      *
      * @return the UserManager class
      */
-
     public UserManager deserializeData() {
         UserManager um = new UserManager();
         try {
@@ -60,8 +58,7 @@ public class UserGateway implements GatewayInterface<UserManager>, Serializable 
         catch (FileNotFoundException e) {
             System.out.println("File not Found!!");
         }
-        catch (IOException e){}
-
+        catch (IOException ignored){}
         catch (ClassNotFoundException e) {
             System.out.println("Entities.Room Manager Class was not found");
         }
