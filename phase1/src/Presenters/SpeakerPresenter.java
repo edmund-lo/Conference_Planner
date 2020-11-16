@@ -49,6 +49,13 @@ public class SpeakerPresenter extends UserPresenter {
     }
 
     /**
+     * Outputs error that the speaker has no events that he/she is speaking at.
+     */
+    public void noSpeakerEventsError() {
+        System.out.println("You are not speaking at any events!");
+    }
+
+    /**
      * Outputs error label for failing to message all attendees of event name event
      *
      * @param event name of event

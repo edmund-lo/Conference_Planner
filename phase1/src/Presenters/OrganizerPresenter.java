@@ -237,7 +237,7 @@ public class OrganizerPresenter extends UserPresenter {
     /**
      * Outputs a label indicating event cannot be created
      */
-    public void eventFailedCreationResult() {
+    public void eventFailedCreationError() {
         System.out.println("Unable to create new event: scheduling conflict occurred.");
     }
 
