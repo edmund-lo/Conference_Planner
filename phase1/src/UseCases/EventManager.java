@@ -130,7 +130,7 @@ public class EventManager implements Serializable {
      * @return True iff the speaker was successfully added to the event with ID eventID
      */
     public boolean canAddSpeakerToEvent(String eventID){
-        return eventExists(eventID) && allEvents.get(eventID).getSpeakerName() == null;
+        return eventExists(eventID) && allEvents.get(eventID).getSpeakerName().equals("Currently Unassigned");
     }
 
     /**
