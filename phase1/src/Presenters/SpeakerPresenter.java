@@ -29,7 +29,7 @@ public class SpeakerPresenter extends UserPresenter {
      * Outputs label for instructions on how to input event numbers for messaging Event attendees
      */
     public void messageEventAttendeesPrompt() {
-        System.out.println("Enter the event numbers separated by a comma:");
+        System.out.println("Enter 0 to go back.\nIf not, enter the event numbers separated by a comma:");
     }
 
     /**

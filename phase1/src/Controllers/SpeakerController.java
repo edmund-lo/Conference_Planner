@@ -74,27 +74,34 @@ public class SpeakerController extends UserController {
     public void messageEventsAttendeesCmd() {
         getSpeakerEvents();
         List<String> eventIds = new ArrayList<>();
-        while(true){
+        while(true) {
             boolean crashed = false;
             sp.messageEventAttendeesPrompt();
             String eventIdsString = input.nextLine();
-            if (eventIdsString.equals("")) {
-                sp.invalidEventNumberError();
-                crashed = true;
-            } else {
-                eventIds = new ArrayList<>();
-                Map<String, LocalDateTime[]> schedule = um.getSpeakerSchedule(username);
-                List<String> allSpeakerEventIds = new ArrayList<>(schedule.keySet());
-                for (String i : eventIdsString.split(",")) {
-                    int index;
-                    try {
-                        index = parseInt(i);
-                        eventIds.add(allSpeakerEventIds.get(index-1));
-                    } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                        sp.invalidEventNumberError();
-                        crashed = true;
+            try {
+                if (eventIdsString.equals("")) {
+                    sp.invalidEventNumberError();
+                    crashed = true;
+
+                } else if (eventIdsString.equals("0")) {
+                    break;
+                } else {
+                    eventIds = new ArrayList<>();
+                    Map<String, LocalDateTime[]> schedule = um.getSpeakerSchedule(username);
+                    List<String> allSpeakerEventIds = new ArrayList<>(schedule.keySet());
+                    for (String i : eventIdsString.split(",")) {
+                        int index;
+                        try {
+                            index = parseInt(i);
+                            eventIds.add(allSpeakerEventIds.get(index - 1));
+                        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                            sp.invalidEventNumberError();
+                            crashed = true;
+                        }
                     }
                 }
+            } catch(NumberFormatException | ArrayIndexOutOfBoundsException e){
+                sp.invalidOptionError();
             }
             if(!crashed){
                 break;
