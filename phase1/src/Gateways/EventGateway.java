@@ -23,18 +23,25 @@ public class EventGateway implements GatewayInterface<EventManager>, Serializabl
      */
 
     public void serializeData(EventManager em){
-
+        //try catch block, enters try and catches if there is a FileNotFoundException or silently
+        //catches IO exception
         try {
+            //create new file
             File new_file = new File(fileName);
+            //Save data to file, and convert the EventManager object em
             FileOutputStream store_file = new FileOutputStream(new_file);
             ObjectOutputStream conv_obj = new ObjectOutputStream(store_file);
+            //Serialize data and store in this file
             conv_obj.writeObject(em);
+            //close files
             conv_obj.close();
             store_file.close();
         }
+        //catch FileNotFound exception
         catch (FileNotFoundException e) {
             System.out.println("File not Found!");
         }
+        //catch IO exception silently
         catch (IOException ignored){}
     }
 
@@ -56,8 +63,7 @@ public class EventGateway implements GatewayInterface<EventManager>, Serializabl
             //close files
             input.close();
             file2.close();
-            //return EventManager object
-            return em;
+
         }
         //catch FileNotFoundException
         catch (FileNotFoundException e) {
@@ -69,6 +75,7 @@ public class EventGateway implements GatewayInterface<EventManager>, Serializabl
         catch (ClassNotFoundException e) {
             System.out.println("EventManager Class was not found");
         }
+        //Return EventManager
         return em;
 
     }

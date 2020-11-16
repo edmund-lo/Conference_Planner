@@ -62,8 +62,6 @@ public class MessageGateway implements GatewayInterface<MessageManager>, Seriali
             //close files
             input.close();
             file2.close();
-            //return MessageManager object
-            return mm;
         }
         //catch FileNotFound exception
         catch (FileNotFoundException e) {
@@ -75,7 +73,7 @@ public class MessageGateway implements GatewayInterface<MessageManager>, Seriali
         catch (ClassNotFoundException e) {
             System.out.println("Message Manager Class was not found!");
         }
-
+        //Return MessageManager
         return mm;
     }
 }

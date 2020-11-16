@@ -31,6 +31,7 @@ public class UserGateway implements GatewayInterface<UserManager>, Serializable 
             FileOutputStream store_file = new FileOutputStream(new_file);
             ObjectOutputStream conv_obj = new ObjectOutputStream(store_file);
             conv_obj.writeObject(um);
+            //close files
             conv_obj.close();
             store_file.close();
         }
