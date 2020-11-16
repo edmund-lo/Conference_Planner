@@ -6,7 +6,6 @@ import java.io.*;
 
 /**
  * A Gateway class that serializes and deserializes the Room Manager class
- *
  */
 public class RoomGateway implements GatewayInterface<RoomManager>, Serializable {
     /**
@@ -32,11 +31,9 @@ public class RoomGateway implements GatewayInterface<RoomManager>, Serializable 
             store_file.close();
         }
         catch (FileNotFoundException e) {
-            System.out.println("File not Found!!");
+            System.out.println("File not Found!");
         }
-        catch (IOException e){
-            System.out.println("IO Exception Raised!!");
-        }
+        catch (IOException ignored){}
     }
 
     /**
@@ -50,7 +47,6 @@ public class RoomGateway implements GatewayInterface<RoomManager>, Serializable 
         try {
 
             File new_file2 = new File(fileName);
-            //
             FileInputStream file2 = new FileInputStream(new_file2);
             ObjectInputStream input = new ObjectInputStream(file2);
 
@@ -60,12 +56,11 @@ public class RoomGateway implements GatewayInterface<RoomManager>, Serializable 
             return rm;
         }
         catch (FileNotFoundException e) {
-            System.out.println("File not Found!!");
+            System.out.println("File not Found!");
         }
-        catch (IOException e){}
-
+        catch (IOException ignored){}
         catch (ClassNotFoundException e) {
-            System.out.println("Entities.Room Manager Class was not found");
+            System.out.println("Room Manager Class was not found!");
         }
         finally {
             return rm;
