@@ -1,22 +1,23 @@
 package Gateways;
 
-import Gateways.GatewayInterface;
 import UseCases.MessageManager;
 
 import java.io.*;
 
+/**
+ * A Gateway class that serializes and deserializes the Message Manager class
+ *
+ */
 public class MessageGateway implements GatewayInterface<MessageManager>, Serializable {
     /**
-     * TODO: JAVADOC
-     * @return
+     * Serial extension file mgt_save which stores serialized and deserialized data
      */
     public String fileName = "mgt_save.ser";
 
     /**
-     * This method serializes an inputted Entities.User Manager's data
-     * @param mm UseCases.MessageManager object
-     * @catch FileNotFoundException
-     * @catch IOException
+     * This method serializes an inputted Message Manager's data
+     *
+     * @param mm MessageManager object
      */
     public void serializeData(MessageManager mm) {
 
@@ -38,8 +39,9 @@ public class MessageGateway implements GatewayInterface<MessageManager>, Seriali
     }
 
     /**
-     * TODO: JAVADOC
-     * @return
+     * Deserializes the given serialized file, and converts it to a Message Manager object
+     *
+     * @return Message Manager object
      */
     public MessageManager deserializeData() {
         MessageManager mm = new MessageManager();

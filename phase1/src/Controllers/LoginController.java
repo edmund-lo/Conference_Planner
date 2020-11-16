@@ -70,8 +70,12 @@ public class LoginController {
             }
 
             //If the counter is 0, that means the username isn't taken and can be set.
-            if (UsernameCheck == 0)
-                UsernameSet = true;
+            if (UsernameCheck == 0){
+                if(Username.length() < 1)
+                    lp.EmptyName();
+                else
+                    UsernameSet = true;
+            }
             else{
                 //If it is taken, then give the user an option to return to login menu
                 // or continue to login with new username
