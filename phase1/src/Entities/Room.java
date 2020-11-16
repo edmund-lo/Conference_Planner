@@ -26,7 +26,7 @@ public class Room implements Serializable {
      */
     public Room(String name){
         this.name = name;
-        this.schedule = new TreeMap<>(new Comparator<LocalDateTime[]>() {
+        this.schedule = new TreeMap<>(new SerializableComparator<LocalDateTime[]>() {
             @Override
             public int compare(LocalDateTime[] o1, LocalDateTime[] o2) {
                 if (o1[0].isAfter(o2[0])){
@@ -73,6 +73,7 @@ public class Room implements Serializable {
         this.schedule.put(times, eventName);
     }
 
+//
 //    /**
 //     * Checks to see if this Room's schedule has a specific event.
 //     *
