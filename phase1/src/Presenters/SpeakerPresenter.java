@@ -29,7 +29,7 @@ public class SpeakerPresenter extends UserPresenter {
      * Outputs label for instructions on how to input event numbers for messaging Event attendees
      */
     public void messageEventAttendeesPrompt() {
-        System.out.println("Enter the event numbers separated by a comma:");
+        System.out.println("Enter 0 to go back.\nIf not, enter the event numbers separated by a comma:");
     }
 
     /**
@@ -46,6 +46,13 @@ public class SpeakerPresenter extends UserPresenter {
      */
     public void invalidEventNumberError() {
         System.out.println("Event number is formatted incorrectly!");
+    }
+
+    /**
+     * Outputs error that the speaker has no events that he/she is speaking at.
+     */
+    public void noSpeakerEventsError() {
+        System.out.println("You are not speaking at any events!");
     }
 
     /**

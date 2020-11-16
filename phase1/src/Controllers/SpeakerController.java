@@ -72,37 +72,49 @@ public class SpeakerController extends UserController {
      * Called when user chooses to message one or more events' attendees.
      */
     public void messageEventsAttendeesCmd() {
-        getSpeakerEvents();
-        List<String> eventIds = new ArrayList<>();
-        while(true){
-            boolean crashed = false;
-            sp.messageEventAttendeesPrompt();
-            String eventIdsString = input.nextLine();
-            if (eventIdsString.equals("")) {
-                sp.invalidEventNumberError();
-                crashed = true;
-            } else {
-                eventIds = new ArrayList<>();
-                Map<String, LocalDateTime[]> schedule = um.getSpeakerSchedule(username);
-                List<String> allSpeakerEventIds = new ArrayList<>(schedule.keySet());
-                for (String i : eventIdsString.split(",")) {
-                    int index;
-                    try {
-                        index = parseInt(i);
-                        eventIds.add(allSpeakerEventIds.get(index-1));
-                    } catch (NumberFormatException | IndexOutOfBoundsException e) {
+        List<String> eventStrings = getSpeakerEvents();
+        if (eventStrings.size() != 0) {
+            sp.speakerEventsLabel();
+            sp.listEvents(eventStrings);
+            List<String> eventIds = new ArrayList<>();
+            while (true) {
+                boolean crashed = false;
+                sp.messageEventAttendeesPrompt();
+                String eventIdsString = input.nextLine();
+                try {
+                    if (eventIdsString.equals("")) {
                         sp.invalidEventNumberError();
                         crashed = true;
+
+                    } else if (eventIdsString.equals("0")) {
+                        break;
+                    } else {
+                        eventIds = new ArrayList<>();
+                        Map<String, LocalDateTime[]> schedule = um.getSpeakerSchedule(username);
+                        List<String> allSpeakerEventIds = new ArrayList<>(schedule.keySet());
+                        for (String i : eventIdsString.split(",")) {
+                            int index;
+                            try {
+                                index = parseInt(i);
+                                eventIds.add(allSpeakerEventIds.get(index - 1));
+                            } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                                sp.invalidEventNumberError();
+                                crashed = true;
+                            }
+                        }
                     }
+                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                    sp.invalidOptionError();
+                }
+                if (!crashed) {
+                    break;
                 }
             }
-            if(!crashed){
-                break;
-            }
-        }
-        mp.enterMessagePrompt();
-        String message = input.nextLine();
-        messageEventsAttendees(eventIds, message);
+            mp.enterMessagePrompt();
+            String message = input.nextLine();
+            messageEventsAttendees(eventIds, message);
+        } else
+            sp.noSpeakerEventsError();
     }
 
     /**
@@ -142,16 +154,24 @@ public class SpeakerController extends UserController {
         return true;
     }
 
-    /**
-     * Prints to console a list of events that this speaker is speaking at.
-     *
-     */
-    public void getSpeakerEvents() {
+    /*public void getSpeakerEvents() {
         Map<String, LocalDateTime[]> schedule = um.getSpeakerSchedule(username);
         List<String> eventStrings = new ArrayList<>();
         for (String eventId : schedule.keySet())
             eventStrings.add(em.getEventDescription(eventId));
         sp.speakerEventsLabel();
         sp.listEvents(eventStrings);
+    }*/
+
+    /**
+     * Gets all events that current speaker is speaking at.
+     * @return List of Strings representing the events the current speaker is speaking at.
+     */
+    public List<String> getSpeakerEvents() {
+        Map<String, LocalDateTime[]> schedule = um.getSpeakerSchedule(username);
+        List<String> eventStrings = new ArrayList<>();
+        for (String eventId : schedule.keySet())
+            eventStrings.add(em.getEventDescription(eventId));
+        return eventStrings;
     }
 }

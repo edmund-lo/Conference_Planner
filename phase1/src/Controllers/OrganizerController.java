@@ -352,7 +352,7 @@ public class OrganizerController extends UserController {
                 if (createEvent(eventName, startTime, roomName))
                     op.eventCreationResult();
                 else
-                    op.eventFailedCreationResult();
+                    op.eventFailedCreationError();
             } catch (DateTimeParseException e) {
                 op.invalidDateError();
             }
