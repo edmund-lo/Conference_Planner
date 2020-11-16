@@ -46,38 +46,40 @@ public class EventManager implements Serializable {
         allEvents.put(newEvent.getEventID(), newEvent);
     }
 
-    /**
-     * remove event with ID eventID from allEvents
-     *
-     * @param eventID the ID of the event that wishes to be removed
-     * @return True iff the event was removed successfully
-     */
-    public boolean removeEvent(String eventID){
-        if(eventExists(eventID)){
-            allEvents.remove(eventID);
-            return true;
-        }else{
-            return false;
-        }
-    }
+//      Saved for phase 2
+//    /**
+//     * remove event with ID eventID from allEvents
+//     *
+//     * @param eventID the ID of the event that wishes to be removed
+//     * @return True iff the event was removed successfully
+//     */
+//    public boolean removeEvent(String eventID){
+//        if(eventExists(eventID)){
+//            allEvents.remove(eventID);
+//            return true;
+//        }else{
+//            return false;
+//        }
+//    }
 
-    /**
-     * changes the time at which the event is held. That is, changes the start and end time of the event
-     *
-     * @param eventID the ID of the event that wishes to have its time changed
-     * @param startTime the new start time of the event
-     * @param endTime the new end time of the event
-     * @return True iff the time was changed successfully
-     */
-    public boolean changeEventTime(String eventID, LocalDateTime startTime, LocalDateTime endTime){
-        if(eventExists(eventID)){
-            allEvents.get(eventID).changeTime(startTime, endTime);
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
+//      Saved for phase 2
+//    /**
+//     * changes the time at which the event is held. That is, changes the start and end time of the event
+//     *
+//     * @param eventID the ID of the event that wishes to have its time changed
+//     * @param startTime the new start time of the event
+//     * @param endTime the new end time of the event
+//     * @return True iff the time was changed successfully
+//     */
+//    public boolean changeEventTime(String eventID, LocalDateTime startTime, LocalDateTime endTime){
+//        if(eventExists(eventID)){
+//            allEvents.get(eventID).changeTime(startTime, endTime);
+//            return true;
+//        }
+//        else{
+//            return false;
+//        }
+//    }
 
     /**
      * adds user with ID userID to event with ID eventID
