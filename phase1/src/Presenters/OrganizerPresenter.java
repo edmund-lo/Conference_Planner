@@ -242,6 +242,20 @@ public class OrganizerPresenter extends UserPresenter {
     }
 
     /**
+     * Outputs a label indicating speaker cannot be created
+     */
+    public void noEvents() {
+        System.out.println("Unable to schedule speaker: There are no events in the system.");
+    }
+
+    /**
+     * Outputs a label indicating speaker cannot be created
+     */
+    public void noSpeakers() {
+        System.out.println("Unable to schedule speaker: There are no speakers in the system.");
+    }
+
+    /**
      * Outputs a label indicating an invalid date input
      */
     public void invalidDateError() {
