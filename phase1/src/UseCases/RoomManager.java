@@ -39,18 +39,18 @@ public class RoomManager implements Serializable {
         return false;
     }
 
-    /**
-     * Removes an existing Room object from this RoomManager.
-     * @param name  the name of the room to be removed.
-     * @return      a boolean value of true if the room was successfully removed, false otherwise.
-     */
-    public boolean removeRoom(String name) {
-        if (this.allRooms.containsKey(name)){
-            this.allRooms.remove(name);
-            return true;
-        }
-        return false;                
-    }
+//    /**
+//     * Removes an existing Room object from this RoomManager.
+//     * @param name  the name of the room to be removed.
+//     * @return      a boolean value of true if the room was successfully removed, false otherwise.
+//     */
+//    public boolean removeRoom(String name) {
+//        if (this.allRooms.containsKey(name)){
+//            this.allRooms.remove(name);
+//            return true;
+//        }
+//        return false;
+//    }
 
     private Room getRoom(String roomName){
         return this.allRooms.get(roomName);
@@ -58,9 +58,10 @@ public class RoomManager implements Serializable {
 
     /**
      * Adds an event to the schedule of a given Room in this RoomManager.
-     * @param time      the scheduled time of the event to add
-     * @param roomName  the name of the room to add the event to.
-     * @return          a boolean value of true if the event was successfully added to the room, false otherwise.
+     * @param startTime      the start time of the event to add
+     * @param endTime        the end time of the event to add
+     * @param roomName       the name of the room to add the event to.
+     * @return               a boolean value of true if the event was successfully added to the room, false otherwise.
      */
     public boolean addToRoomSchedule(LocalDateTime startTime, LocalDateTime endTime, String roomName,
                                      String eventName) {
@@ -72,23 +73,24 @@ public class RoomManager implements Serializable {
         return false;
     }
 
-    /**
-     * Removes an event to the schedule of a given Room in this RoomManager.
-     *
-     * @param time      the time of the event to be removed to the schedule of a room.
-     * @param roomName  the name of the room to remove the event from.
-     * @param eventName the name of the event to be removed
-     * @return          a boolean value of true if the event was successfully removed from the room, false otherwise.
-     */
-    public boolean removeFromRoomSchedule(LocalDateTime startTime, LocalDateTime endTime, String roomName,
-                                          String eventName){
-        Room room = getRoom(roomName);
-        if (room.hasEvent(startTime, endTime, eventName)) {
-            room.removeEvent(startTime, endTime);
-            return true;
-        }
-        return false;
-    }
+//    /**
+//     * Removes an event to the schedule of a given Room in this RoomManager.
+//     *
+//     * @param startTime the start time of the event to be removed to the schedule of a room.
+//     * @param endTime   the end time of the event to be removed from the schedule of a room.
+//     * @param roomName  the name of the room to remove the event from.
+//     * @param eventName the name of the event to be removed
+//     * @return          a boolean value of true if the event was successfully removed from the room, false otherwise.
+//     */
+//    public boolean removeFromRoomSchedule(LocalDateTime startTime, LocalDateTime endTime, String roomName,
+//                                          String eventName){
+//        Room room = getRoom(roomName);
+//        if (room.hasEvent(startTime, endTime, eventName)) {
+//            room.removeEvent(startTime, endTime);
+//            return true;
+//        }
+//        return false;
+//    }
 
     /**
      * Gets a list of all the room names in the system.
@@ -99,15 +101,15 @@ public class RoomManager implements Serializable {
         return this.allRooms.keySet();
     }
 
-    /**
-     * Gets the string representation for a Room in this RoomManager.
-     *
-     * @param   roomName the name of the Room to get the String representation of.
-     * @return  the String representation of a Room in this RoomManager
-     */
-    public String getRoomString(String roomName){
-        return getRoom(roomName).toString();
-    }
+//    /**
+//     * Gets the string representation for a Room in this RoomManager.
+//     *
+//     * @param   roomName the name of the Room to get the String representation of.
+//     * @return  the String representation of a Room in this RoomManager
+//     */
+//    public String getRoomString(String roomName){
+//        return getRoom(roomName).toString();
+//    }
 
     /**
      * Gets the string representation for Room in this RoomManager.
@@ -116,7 +118,7 @@ public class RoomManager implements Serializable {
      * @return  the String representation of a Room's schedule in this RoomManager.
      */
     public String getRoomSchedule(String roomName){
-        return getRoom(roomName).roomScheduleToString().toString();
+        return getRoom(roomName).roomScheduleToString();
     }
 
 //
