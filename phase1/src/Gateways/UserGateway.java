@@ -52,17 +52,15 @@ public class UserGateway implements GatewayInterface<UserManager>, Serializable 
             um = (UserManager) input.readObject();
             input.close();
             file2.close();
-            return um;
         }
         catch (FileNotFoundException e) {
             System.out.println("File not Found!!");
         }
         catch (IOException ignored){}
         catch (ClassNotFoundException e) {
-            System.out.println("Entities.Room Manager Class was not found");
+            System.out.println("UserManager Class was not found");
         }
-        finally {
-            return um;
-        }
+
+        return um;
     }
 }

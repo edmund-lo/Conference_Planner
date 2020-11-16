@@ -53,18 +53,16 @@ public class RoomGateway implements GatewayInterface<RoomManager>, Serializable 
             rm = (RoomManager) input.readObject();
             input.close();
             file2.close();
-            return rm;
         }
         catch (FileNotFoundException e) {
             System.out.println("File not Found!");
         }
         catch (IOException ignored){}
         catch (ClassNotFoundException e) {
-            System.out.println("Room Manager Class was not found!");
+            System.out.println("RoomManager Class was not found!");
         }
-        finally {
-            return rm;
-        }
+        
+        return rm;
     }
 }
 

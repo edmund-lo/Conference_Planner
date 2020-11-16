@@ -27,7 +27,7 @@ public class LoginController {
     private final LoginPresenter lp;
 
     /**
-     * Constructor for OrganizerController object. Uses constructor from UserController.
+     * Constructor for LoginController object.
      *
      * @param um  current session's UseCases.UserManager class.
      * @param rm  current session's UseCases.RoomManager class.
@@ -35,7 +35,6 @@ public class LoginController {
      * @param em  current session's UseCases.EventManager class.
      *
      */
-
     public LoginController(UserManager um, RoomManager rm, MessageManager mm, EventManager em){
         //Scanner to read user input
         this.sc = new Scanner(System.in);
@@ -48,6 +47,9 @@ public class LoginController {
         this.lp = new LoginPresenter();
     }
 
+    /**
+     * Called to create a new account for a user.
+     */
     public void CreateAccount(){
         String Username;
         String Password;
@@ -92,8 +94,6 @@ public class LoginController {
         lp.EnterPassword();
         Password = sc.nextLine();
 
-
-
         boolean AccountTypeSet = false;
 
         do {
@@ -126,6 +126,10 @@ public class LoginController {
         }while(!AccountTypeSet);
     }
 
+
+    /**
+     * Called to let user login to an existing account in the database.
+     */
     public void login(){
         String Username;
         String Password;
