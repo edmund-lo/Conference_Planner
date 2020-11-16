@@ -18,6 +18,10 @@ Scheduling Speakers
 Scheduling a speaker is a different action than creating an event. You must create an event in the program first, then
 assign a speaker to an event using a separate command.
 
+Scheduling Events
+Events can only be scheduled between 9am and 5pm. Any other times will result in a scheduling conflict message to
+appear.
+
 Multiple User Accounts
 In this version of the program, an account can only have one role associated with it (i.e. you cannot be an organizer
 and a speaker at the same time). However, organizers and speakers have the same functionality as attendees, as well

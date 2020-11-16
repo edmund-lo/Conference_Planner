@@ -33,6 +33,7 @@ public class Event implements Serializable {
         this.startTime = startTime;
         this.endTime = endTime;
         this.roomName = roomName;
+        this.speakerName = "Currently Unassigned";
         attendingUsers = new ArrayList<>();
     }
 
@@ -107,13 +108,6 @@ public class Event implements Serializable {
     public String toString(){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         DateTimeFormatter hourMin = DateTimeFormatter.ofPattern("HH:mm");
-        if(this.speakerName == null){
-            return "Event Name: " + this.eventName + "\n" +
-                    "Speaker: Currently Unassigned\n" +
-                    "Time: " + dtf.format(this.startTime) + " - " + hourMin.format(this.endTime) + "\n" +
-                    "Number of Attending Users: " + this.attendingUsers.size() + "\n" +
-                    "Room Name: " + this.roomName;
-        }
         return "Event Name: "+this.eventName+"\n" +
                 "Speaker: "+this.speakerName+"\n" +
                 "Time: "+dtf.format(this.startTime)+" - "+hourMin.format(this.endTime)+"\n" +

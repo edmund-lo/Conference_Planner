@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="224.0" y="1695.0">Entities.Speaker</node>
+    <node x="1900.0" y="800.0">Controllers.AttendeeController</node>
+    <node x="713.0" y="1751.0">Entities.Attendee</node>
+    <node x="0.0" y="1906.0">Presenters.MessagePresenter</node>
+    <node x="1517.0" y="1237.0">Entities.Event</node>
+    <node x="334.0" y="456.0">Presenters.OrganizerPresenter</node>
+    <node x="1977.0" y="1237.0">UseCases.EventManager</node>
+    <node x="1351.0" y="2291.0">Controllers.ProjectConfig</node>
+    <node x="1862.0" y="2032.0">Gateways.RoomGateway</node>
+    <node x="1282.5" y="0.0">Controllers.UserController</node>
+    <node x="255.5" y="1237.0">Entities.User</node>
+    <node x="2040.0" y="2291.0">Demo</node>
+    <node x="909.0" y="1906.0">Presenters.LoginPresenter</node>
+    <node x="1267.0" y="634.0">Controllers.OrganizerController</node>
+    <node x="1166.0" y="1906.0">Entities.Message</node>
+    <node x="2041.75" y="1906.0">Gateways.GatewayInterface</node>
+    <node x="958.0" y="1237.0">UseCases.UserManager</node>
+    <node x="976.0" y="2291.0">UseCases.MessageManager</node>
+    <node x="557.0" y="2291.0">Entities.Room</node>
+    <node x="0.0" y="2291.0">UseCases.RoomManager</node>
+    <node x="645.0" y="733.0">Controllers.SpeakerController</node>
+    <node x="2427.0" y="2032.0">Gateways.EventGateway</node>
+    <node x="175.5" y="0.0">Presenters.UserPresenter</node>
+    <node x="0.0" y="731.0">Presenters.SpeakerPresenter</node>
+    <node x="0.0" y="1751.0">Entities.Organizer</node>
+    <node x="2135.0" y="2032.0">Gateways.MessageGateway</node>
+    <node x="1595.0" y="2032.0">Gateways.UserGateway</node>
+    <node x="321.0" y="1906.0">Controllers.LoginController</node>
+    <node x="2249.0" y="2291.0">Entities.SerializableComparator</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Entities.Attendee" target="Entities.User">
+      <point x="0.0" y="-27.0" />
+      <point x="813.0" y="1670.0" />
+      <point x="593.8333333333334" y="1670.0" />
+      <point x="135.33333333333337" y="204.0" />
+    </edge>
+    <edge source="Controllers.OrganizerController" target="Controllers.UserController">
+      <point x="0.0" y="-193.0" />
+      <point x="0.0" y="292.0" />
+    </edge>
+    <edge source="Controllers.SpeakerController" target="Controllers.UserController">
+      <point x="0.0" y="-94.0" />
+      <point x="946.0" y="609.0" />
+      <point x="1379.5" y="609.0" />
+      <point x="-194.0" y="292.0" />
+    </edge>
+    <edge source="Gateways.EventGateway" target="Gateways.GatewayInterface">
+      <point x="-2.2737367544323206E-13" y="-49.5" />
+      <point x="2553.5" y="2002.0" />
+      <point x="2195.75" y="2002.0" />
+      <point x="66.0" y="38.0" />
+    </edge>
+    <edge source="Gateways.MessageGateway" target="Gateways.GatewayInterface">
+      <point x="0.0" y="-49.5" />
+      <point x="2271.0" y="2012.0" />
+      <point x="2151.75" y="2012.0" />
+      <point x="22.0" y="38.0" />
+    </edge>
+    <edge source="Entities.Speaker" target="Entities.User">
+      <point x="0.0" y="-83.0" />
+      <point x="0.0" y="204.0" />
+    </edge>
+    <edge source="Gateways.UserGateway" target="Gateways.GatewayInterface">
+      <point x="0.0" y="-49.5" />
+      <point x="1718.5" y="2002.0" />
+      <point x="2063.75" y="2002.0" />
+      <point x="-66.0" y="38.0" />
+    </edge>
+    <edge source="Gateways.RoomGateway" target="Gateways.GatewayInterface">
+      <point x="0.0" y="-49.5" />
+      <point x="1988.5" y="2012.0" />
+      <point x="2107.75" y="2012.0" />
+      <point x="-22.0" y="38.0" />
+    </edge>
+    <edge source="Controllers.AttendeeController" target="Controllers.UserController">
+      <point x="0.0" y="-27.0" />
+      <point x="2204.5" y="609.0" />
+      <point x="1767.5" y="609.0" />
+      <point x="194.0" y="292.0" />
+    </edge>
+    <edge source="Presenters.OrganizerPresenter" target="Presenters.UserPresenter">
+      <point x="0.0" y="-368.0" />
+      <point x="467.0" y="431.0" />
+      <point x="380.25" y="431.0" />
+      <point x="68.25" y="203.0" />
+    </edge>
+    <edge source="Presenters.SpeakerPresenter" target="Presenters.UserPresenter">
+      <point x="0.0" y="-93.0" />
+      <point x="157.0" y="431.0" />
+      <point x="243.75" y="431.0" />
+      <point x="-68.25" y="203.0" />
+    </edge>
+    <edge source="Entities.Organizer" target="Entities.User">
+      <point x="0.0" y="-27.0" />
+      <point x="102.0" y="1670.0" />
+      <point x="323.16666666666663" y="1670.0" />
+      <point x="-135.33333333333337" y="204.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.3478126035101355" x="1136.0491010286844" y="1785.7065758594379" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
