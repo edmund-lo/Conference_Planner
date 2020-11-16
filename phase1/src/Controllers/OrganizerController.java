@@ -221,11 +221,12 @@ public class OrganizerController extends UserController {
      * @param capacity Integer representing the new room's capacity.
      */
     public void createRoom(String roomName, int capacity) {
-        if (rm.createRoom(roomName)) {
+        if(roomName.length() < 1)
+            op.emptyFieldError();
+        else if (rm.createRoom(roomName))
             op.roomCreationResult();
-            return;
-        }
-        op.invalidRoomNameError();
+        else
+            op.invalidRoomNameError();
     }
 
     /**
