@@ -54,7 +54,7 @@ public class UserGateway implements GatewayInterface<UserManager>, Serializable 
             file2.close();
         }
         catch (FileNotFoundException e) {
-            System.out.println("File not Found!!");
+            System.out.println("Generating new file: " + fileName);
         }
         catch (IOException ignored){}
         catch (ClassNotFoundException e) {

@@ -55,7 +55,7 @@ public class MessageGateway implements GatewayInterface<MessageManager>, Seriali
             return mm;
         }
         catch (FileNotFoundException e) {
-            System.out.println("File not Found!");
+            System.out.println("Generating new file: " + fileName);
         }
         catch (IOException ignored) {}
         catch (ClassNotFoundException e) {
