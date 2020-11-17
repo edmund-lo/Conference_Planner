@@ -23,18 +23,25 @@ public class EventGateway implements GatewayInterface<EventManager>, Serializabl
      */
 
     public void serializeData(EventManager em){
-
+        //try catch block, enters try and catches if there is a FileNotFoundException or silently
+        //catches IO exception
         try {
+            //create new file
             File new_file = new File(fileName);
+            //Save data to file, and convert the EventManager object em
             FileOutputStream store_file = new FileOutputStream(new_file);
             ObjectOutputStream conv_obj = new ObjectOutputStream(store_file);
+            //Serialize data and store in this file
             conv_obj.writeObject(em);
+            //close files
             conv_obj.close();
             store_file.close();
         }
+        //catch FileNotFound exception
         catch (FileNotFoundException e) {
             System.out.println("File not Found!");
         }
+        //catch IO exception silently
         catch (IOException ignored){}
     }
 
@@ -44,27 +51,33 @@ public class EventGateway implements GatewayInterface<EventManager>, Serializabl
      * @return the Event Manager class
      */
     public EventManager deserializeData() {
+        //Instantiate New EventManager object
         EventManager em = new EventManager();
         try {
-
+            //create new file using String fileName
             File new_file2 = new File(fileName);
-            //
+            //Save data and assign read value object to EventManager object em
             FileInputStream file2 = new FileInputStream(new_file2);
             ObjectInputStream input = new ObjectInputStream(file2);
-
             em = (EventManager) input.readObject();
+            //close files
             input.close();
             file2.close();
-            return em;
+
         }
+        //catch FileNotFoundException
         catch (FileNotFoundException e) {
             System.out.println("Generating new file: " + fileName);
         }
+        //silently catch IO exception
         catch (IOException ignored){}
+        //catch ClassNotFoundException
         catch (ClassNotFoundException e) {
             System.out.println("EventManager Class was not found");
         }
-
+        //Return EventManager
         return em;
+
     }
 }
+
