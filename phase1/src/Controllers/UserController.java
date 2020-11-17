@@ -60,10 +60,10 @@ public abstract class UserController {
                 int option = parseInt(input.nextLine());
                 if (option == 0)
                     break;
-                else if (option > em.getAllEventIds().size()) //prevents index out of bounds
+                else if (option > getAllSignUpEvents().size()) //prevents index out of bounds
                     up.invalidOptionError();
                 else
-                    signUpEventAttendance(em.getAllEventIds().get(option - 1)); //option-1 is the index of the selected event
+                    signUpEventAttendance(getAllSignUpEvents().get(option - 1)); //option-1 is the index of the selected event
                     break;
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 up.invalidOptionError();
@@ -264,6 +264,20 @@ public abstract class UserController {
         return eventDesc;
     }
 
+    /**
+     * Gets a list of all events user can sign up for
+     *
+     * @return a list of all events user can sign up for
+     */
+    public List<String> getAllSignUpEvents(){
+        ArrayList<String> eventDesc = new ArrayList<>();
+        for (String id : em.getAllEventIds()){
+            if(um.canSignUp(username, id, em.getEventStartTime(id), em.getEventEndTime(id))) {
+                eventDesc.add(id);
+            }
+        }
+        return eventDesc;
+    }
     /**
      * Gets all of current user's sent messages.
      *
