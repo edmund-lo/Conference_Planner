@@ -5,12 +5,11 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class LoginView implements ILoginView {
-
-    @FXML
-    public Text title;
     @FXML
     private TextField username;
     @FXML
@@ -32,13 +31,29 @@ public class LoginView implements ILoginView {
     }
     @FXML
     public void initialize() {
-        presenter = new LoginPresenter(this);
+        this.presenter = new LoginPresenter(this);
     }
 
     private LoginPresenter presenter;
     private EventHandler<ActionEvent> registerButtonAction;
     private EventHandler<ActionEvent> loginButtonAction;
     private EventHandler<ActionEvent> forgotPasswordButtonAction;
+    private Stage stage;
+
+    @Override
+    public Stage getStage() {
+        return this.stage;
+    }
+
+    @Override
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    @Override
+    public TextField getUsernameField() {
+        return this.username;
+    }
 
     @Override
     public String getUsername() {
@@ -48,6 +63,11 @@ public class LoginView implements ILoginView {
     @Override
     public void setUsername(String username) {
         this.username.setText(username);
+    }
+
+    @Override
+    public PasswordField getPasswordField() {
+        return this.password;
     }
 
     @Override
@@ -61,7 +81,7 @@ public class LoginView implements ILoginView {
     }
 
     @Override
-    public void setLoginErrorMsg(String error) {
+    public void setErrorMsg(String error) {
         this.loginErrorMsg.setText(error);
     }
 

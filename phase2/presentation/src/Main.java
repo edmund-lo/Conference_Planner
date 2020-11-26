@@ -1,18 +1,14 @@
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
+import util.ComponentFactory;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/login.fxml"));
         primaryStage.setTitle("Project Phase 2");
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("css/login.css");
-        primaryStage.setScene(scene);
+        ComponentFactory.getInstance().createLoginComponent(primaryStage, "login.fxml");
+        primaryStage.setMaximized(true);
         primaryStage.show();
     }
 

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+          xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="login.RegisterView" alignment="CENTER" hgap="10" vgap="10">
+    <padding><Insets top="25" right="25" bottom="25" left="25"></Insets></padding>
+
+    <Text text="Register New User Account" fx:id="title" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
+    <Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+    <TextField fx:id="username" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+    <Label text="First Name:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+    <TextField fx:id="firstName" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+    <Label text="Last Name:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+    <TextField fx:id="lastName" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+    <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+    <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+    <Label text="Confirm Password:" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+    <PasswordField fx:id="confirmPassword" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+    <Text fx:id="registerErrorMsg" GridPane.columnIndex="0" GridPane.rowIndex="7" GridPane.columnSpan="2"/>
+
+    <HBox spacing="10" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="9" GridPane.columnSpan="2">
+        <Button text="Confirm Registration" fx:id="registerButton" onAction="#executeAddRegister"/>
+        <Button text="Go Back" fx:id="backButton" onAction="#executeAddGoBack"/>
+    </HBox>
+
+</GridPane>

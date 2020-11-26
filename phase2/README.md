@@ -5,5 +5,3 @@ Get JavaFX 11 SDK for your respective OS from [JavaFX Download](https://gluonhq.
 
 For more detailed instructions, go to the [JavaFX Setup](https://openjfx.io/openjfx-docs/#install-javafx "JavaFX Getting Started") and clicking the `JavaFX and IntelliJ -> Non-modular from IDE` link.
 
-### Data Persistence
-Remember to fully log out of the program after you are done using it. Do not stop or exit the program while it is still running, as it will cause issues with saving and information persistence. If you come across an unexplainable exception (most commonly null-pointer), the quickest way to fix this is to clear all the data from the *.ser* files and start over.
