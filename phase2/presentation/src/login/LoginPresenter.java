@@ -37,8 +37,8 @@ public class LoginPresenter implements ILoginPresenter {
 
     @Override
     public void forgotPasswordButtonAction(ActionEvent actionEvent) {
-        //Stage stage = this.view.getStage();
-        //ComponentFactory.getInstance().createLoginComponent(stage, "forgot.fxml");
+        Stage stage = this.view.getStage();
+        ComponentFactory.getInstance().createLoginComponent(stage, "forgot.fxml");
     }
 
     @Override

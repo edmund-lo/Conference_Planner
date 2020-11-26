@@ -34,9 +34,9 @@ public class RegisterPresenter implements IRegisterPresenter {
         if (this.view.getUsername().equals("") || this.view.getFirstName().equals("") ||
                 this.view.getLastName().equals("") || this.view.getPassword().equals("") ||
                 this.view.getConfirmPassword().equals(""))
-            setError("Fields cannot be empty!", 0);
-        else if (this.view.getPassword().equals(this.view.getConfirmPassword()))
-            setError("The two passwords do not match!", 1);
+            setError("Fields cannot be empty!", 1);
+        else if (!this.view.getPassword().equals(this.view.getConfirmPassword()))
+            setError("Passwords do not match!", 0);
         else {
             //call lc.register method
         }
@@ -44,12 +44,17 @@ public class RegisterPresenter implements IRegisterPresenter {
 
     @Override
     public void setError(String error, int errorId) {
-        this.view.getPasswordField().pseudoClassStateChanged(errorClass, true);
-        this.view.getConfirmPasswordField().pseudoClassStateChanged(errorClass, true);
         if (errorId == 0) {
+            this.view.getPasswordField().pseudoClassStateChanged(errorClass, true);
+            this.view.getConfirmPasswordField().pseudoClassStateChanged(errorClass, true);
+        } else if (errorId == 1) {
+            this.view.getPasswordField().pseudoClassStateChanged(errorClass, true);
+            this.view.getConfirmPasswordField().pseudoClassStateChanged(errorClass, true);
             this.view.getUsernameField().pseudoClassStateChanged(errorClass, true);
             this.view.getFirstNameField().pseudoClassStateChanged(errorClass, true);
             this.view.getLastNameField().pseudoClassStateChanged(errorClass, true);
+        } else if (errorId == 2) {
+            this.view.getUsernameField().pseudoClassStateChanged(errorClass, true);
         }
         this.view.setErrorMsg(error);
     }
