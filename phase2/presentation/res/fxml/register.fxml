@@ -9,7 +9,9 @@
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
           xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="login.RegisterView" alignment="CENTER" hgap="10" vgap="10">
-    <padding><Insets top="25" right="25" bottom="25" left="25"></Insets></padding>
+    <padding>
+        <Insets top="25" right="25" bottom="25" left="25"/>
+    </padding>
 
     <Text text="Register New User Account" fx:id="title" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
     <Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
@@ -30,6 +32,7 @@
     </HBox>
 
     <stylesheets>
+        <URL value="@../css/project.css"/>
         <URL value="@../css/login.css"/>
     </stylesheets>
 </GridPane>

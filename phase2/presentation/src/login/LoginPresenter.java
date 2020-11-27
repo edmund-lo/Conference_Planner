@@ -8,13 +8,11 @@ import util.ComponentFactory;
 
 public class LoginPresenter implements ILoginPresenter {
     private ILoginView view;
-    private final Stage stage;
     private final PseudoClass errorClass = PseudoClass.getPseudoClass("error");
     //private ILoginController lc;
 
     public LoginPresenter(ILoginView view) {
         this.view = view;
-        this.stage = this.view.getStage();
         init();
     }
 
@@ -33,12 +31,12 @@ public class LoginPresenter implements ILoginPresenter {
 
     @Override
     public void registerButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoginComponent(this.stage, "register.fxml");
+        ComponentFactory.getInstance().createLoginComponent(this.view.getStage(), "register.fxml");
     }
 
     @Override
     public void forgotPasswordButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoginComponent(this.stage, "forgot.fxml");
+        ComponentFactory.getInstance().createLoginComponent(this.view.getStage(), "forgot.fxml");
     }
 
     @Override

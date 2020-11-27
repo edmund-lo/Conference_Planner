@@ -1,99 +1,107 @@
 package toolbar;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 import java.util.Optional;
 import util.ComponentFactory;
 
 public class ToolbarPresenter implements IToolbarPresenter{
     private IToolbarView view;
-    private final Stage stage;
-    private final BorderPane root;
 
     public ToolbarPresenter(IToolbarView view) {
         this.view = view;
-        this.stage = this.view.getStage();
-        this.root = this.view.getRoot();
         init();
     }
 
     @Override
     public void homeButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createCenterComponent(this.stage, this.root, "home.fxml");
+        ComponentFactory.getInstance().createCenterComponent(this.view.getStage(), this.view.getRoot(),
+                "home.fxml");
     }
 
     @Override
     public void viewScheduleButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createCenterComponent(this.stage, this.root, "viewSchedule.fxml");
+        ComponentFactory.getInstance().createCenterComponent(this.view.getStage(), this.view.getRoot(),
+                "viewSchedule.fxml");
     }
 
     @Override
     public void viewEventsButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createCenterComponent(this.stage, this.root, "viewEvents.fxml");
+        ComponentFactory.getInstance().createCenterComponent(this.view.getStage(), this.view.getRoot(),
+                "viewEvents.fxml");
     }
 
     @Override
     public void messagingButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createCenterComponent(this.stage, this.root, "messaging.fxml");
+        ComponentFactory.getInstance().createCenterComponent(this.view.getStage(), this.view.getRoot(),
+                "messaging.fxml");
     }
 
     @Override
     public void createAccountButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createCenterComponent(this.stage, this.root, "createAccount.fxml");
+        ComponentFactory.getInstance().createCenterComponent(this.view.getStage(), this.view.getRoot(),
+                "createAccount.fxml");
     }
 
     @Override
     public void createRoomButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createCenterComponent(this.stage, this.root, "createRoom.fxml");
+        ComponentFactory.getInstance().createCenterComponent(this.view.getStage(), this.view.getRoot(),
+                "createRoom.fxml");
     }
 
     @Override
     public void createEventButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createCenterComponent(this.stage, this.root, "createEvent.fxml");
+        ComponentFactory.getInstance().createCenterComponent(this.view.getStage(), this.view.getRoot(),
+                "createEvent.fxml");
     }
 
     @Override
     public void scheduleSpeakerButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createCenterComponent(this.stage, this.root, "scheduleSpeaker.fxml");
+        ComponentFactory.getInstance().createCenterComponent(this.view.getStage(), this.view.getRoot(),
+                "scheduleSpeaker.fxml");
     }
 
     @Override
     public void rescheduleCancelEventButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createCenterComponent(this.stage, this.root, "rescheduleCancelEvent.fxml");
+        ComponentFactory.getInstance().createCenterComponent(this.view.getStage(), this.view.getRoot(),
+                "rescheduleCancelEvent.fxml");
     }
 
     @Override
     public void messageSpeakersButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createCenterComponent(this.stage, this.root, "messageSpeakers.fxml");
+        ComponentFactory.getInstance().createCenterComponent(this.view.getStage(), this.view.getRoot(),
+                "messageSpeakers.fxml");
     }
 
     @Override
     public void messageAttendeesButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createCenterComponent(this.stage, this.root, "messageAttendee.fxml");
+        ComponentFactory.getInstance().createCenterComponent(this.view.getStage(), this.view.getRoot(),
+                "messageAttendee.fxml");
     }
 
     @Override
     public void speakerEventsButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createCenterComponent(this.stage, this.root, "speakerEvents.fxml");
+        ComponentFactory.getInstance().createCenterComponent(this.view.getStage(), this.view.getRoot(),
+                "speakerEvents.fxml");
     }
 
     @Override
     public void unlockAccountsButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createCenterComponent(this.stage, this.root, "unlockAccounts.fxml");
+        ComponentFactory.getInstance().createCenterComponent(this.view.getStage(), this.view.getRoot(),
+                "unlockAccounts.fxml");
     }
 
     @Override
     public void deleteMessagesButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createCenterComponent(this.stage, this.root, "deleteMessages.fxml");
+        ComponentFactory.getInstance().createCenterComponent(this.view.getStage(), this.view.getRoot(),
+                "deleteMessages.fxml");
     }
 
     @Override
     public void removeEventsButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createCenterComponent(this.stage, this.root, "removeEvents.fxml");
+        ComponentFactory.getInstance().createCenterComponent(this.view.getStage(), this.view.getRoot(),
+                "removeEvents.fxml");
     }
 
     @Override
@@ -103,7 +111,7 @@ public class ToolbarPresenter implements IToolbarPresenter{
         alert.show();
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK)
-            ComponentFactory.getInstance().createLoginComponent(this.stage, "login.fxml");
+            ComponentFactory.getInstance().createLoginComponent(this.view.getStage(), "login.fxml");
     }
 
     @Override

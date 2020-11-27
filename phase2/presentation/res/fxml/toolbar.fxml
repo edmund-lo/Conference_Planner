@@ -8,7 +8,7 @@
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="toolbar.ToolbarView"
       alignment="CENTER_LEFT">
     <ToolBar>
-        <Button text="Home" onAction="#executeAddHome"/>
+        <Button text="home" onAction="#executeAddHome"/>
         <MenuButton text="Scheduling">
             <MenuItem text="View Schedule" onAction="#executeAddViewSchedule"/>
             <MenuItem text="View Events" onAction="#executeAddViewEvents"/>
@@ -39,6 +39,7 @@
                 <MenuItem text="Remove Events" onAction="#executeAddRemoveEvents"/>
             </MenuButton>
         </Group>
+        <Button text="Log Out" onAction="#executeAddLogout"/>
     </ToolBar>
 
     <stylesheets>
