@@ -35,7 +35,7 @@ public class ForgotPresenter implements IForgotPresenter {
             setResult("Prompts do not match!", 1);
         else {
             // call lc.forgot method
-            setResult("Your password has been reset to" + view.getPromptText(), 2);
+            setResult("Your password has been reset to " + view.getPromptText(), 2);
         }
     }
 
