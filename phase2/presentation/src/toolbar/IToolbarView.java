@@ -1,10 +1,10 @@
 package toolbar;
 
-import common.ISessionView;
+import common.IView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-public interface IToolbarView extends ISessionView {
+public interface IToolbarView extends IView {
     EventHandler<ActionEvent> getHomeButtonAction();
     void setHomeButtonAction(EventHandler<ActionEvent> eventHandler);
     EventHandler<ActionEvent> getViewScheduleButtonAction();

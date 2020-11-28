@@ -3,7 +3,6 @@ package toolbar.impl;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import toolbar.IToolbarView;
 
@@ -95,7 +94,6 @@ public class ToolbarView implements IToolbarView {
     private EventHandler<ActionEvent> removeEventsButtonAction;
     private EventHandler<ActionEvent> logoutButtonAction;
     private Stage stage;
-    private BorderPane root;
 
     @Override
     public EventHandler<ActionEvent> getHomeButtonAction() {
@@ -265,15 +263,5 @@ public class ToolbarView implements IToolbarView {
     @Override
     public void setStage(Stage stage) {
         this.stage = stage;
-    }
-
-    @Override
-    public BorderPane getRoot() {
-        return this.root;
-    }
-
-    @Override
-    public void setRoot(BorderPane root) {
-        this.root = root;
     }
 }

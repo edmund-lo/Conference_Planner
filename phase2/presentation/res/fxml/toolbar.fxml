@@ -16,7 +16,7 @@
             </items>
         </MenuButton>
         <Button text="Messaging" onAction="#executeAddMessaging"/>
-        <Group fx:id="organizerGroup">
+        <HBox fx:id="organizerGroup">
             <MenuButton text="Create">
                 <items>
                     <MenuItem text="New Account" onAction="#executeAddCreateAccount"/>
@@ -36,11 +36,11 @@
                     <MenuItem text="Message Attendees" onAction="#executeAddMessageAttendees"/>
                 </items>
             </MenuButton>
-        </Group>
-        <Group fx:id="speakerGroup">
+        </HBox>
+        <HBox fx:id="speakerGroup">
             <Button text="Speaker Events" onAction="#executeAddSpeakerEvents"/>
-        </Group>
-        <Group fx:id="adminGroup">
+        </HBox>
+        <HBox fx:id="adminGroup">
             <MenuButton text="Admin Tools">
                 <items>
                     <MenuItem text="Unlock Accounts" onAction="#executeAddUnlockAccounts"/>
@@ -48,7 +48,7 @@
                     <MenuItem text="Remove Events" onAction="#executeAddRemoveEvents"/>
                 </items>
             </MenuButton>
-        </Group>
+        </HBox>
         <Button text="Log Out" onAction="#executeAddLogout"/>
     </ToolBar>
 

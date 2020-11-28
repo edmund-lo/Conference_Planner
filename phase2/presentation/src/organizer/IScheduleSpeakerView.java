@@ -1,6 +1,6 @@
 package organizer;
 
-import common.ISessionView;
+import common.IView;
 
-public interface IScheduleSpeakerView extends ISessionView {
+public interface IScheduleSpeakerView extends IView {
 }

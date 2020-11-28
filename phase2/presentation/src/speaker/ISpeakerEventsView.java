@@ -1,6 +1,6 @@
 package speaker;
 
-import common.ISessionView;
+import common.IView;
 
-public interface ISpeakerEventsView extends ISessionView {
+public interface ISpeakerEventsView extends IView {
 }

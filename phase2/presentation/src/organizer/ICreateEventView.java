@@ -1,6 +1,6 @@
 package organizer;
 
-import common.ISessionView;
+import common.IView;
 
-public interface ICreateEventView extends ISessionView {
+public interface ICreateEventView extends IView {
 }

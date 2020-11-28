@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import organizer.ICreateAccountView;
@@ -39,11 +38,10 @@ public class CreateAccountView implements ICreateAccountView {
     private CreateAccountPresenter presenter;
     private EventHandler<ActionEvent> createAccountButtonAction;
     private Stage stage;
-    private BorderPane root;
 
     @Override
     public String getUserType() {
-        return (String)this.userType.getValue();
+        return this.userType.getValue();
     }
 
     @Override
@@ -139,16 +137,6 @@ public class CreateAccountView implements ICreateAccountView {
     @Override
     public void setCreateAccountButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.createAccountButtonAction = eventHandler;
-    }
-
-    @Override
-    public BorderPane getRoot() {
-        return this.root;
-    }
-
-    @Override
-    public void setRoot(BorderPane root) {
-        this.root = root;
     }
 
     @Override

@@ -5,7 +5,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -34,7 +33,6 @@ public class HomeView implements IHomeView {
     private EventHandler<ActionEvent> unreadButtonAction;
     private EventHandler<ActionEvent> viewScheduleButtonAction;
     private Stage stage;
-    private BorderPane root;
 
     @Override
     public void setTitle(String title) {
@@ -69,16 +67,6 @@ public class HomeView implements IHomeView {
     @Override
     public void setViewScheduleButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.viewScheduleButtonAction = eventHandler;
-    }
-
-    @Override
-    public BorderPane getRoot() {
-        return this.root;
-    }
-
-    @Override
-    public void setRoot(BorderPane root) {
-        this.root = root;
     }
 
     @Override

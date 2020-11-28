@@ -8,9 +8,9 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="organizer.impl.MessageAttendeesView">
+            fx:controller="organizer.impl.MessageSpeakersView">
     <top>
-        <Text text="Messaging" fx:id="title" />
+        <Text text="Message All Speakers" fx:id="title" />
     </top>
     <center>
         <SplitPane>

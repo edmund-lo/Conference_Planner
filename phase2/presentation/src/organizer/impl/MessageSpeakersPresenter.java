@@ -12,12 +12,12 @@ import organizer.IMessageUsersView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MessageAttendeesPresenter implements IMessageUsersPresenter {
+public class MessageSpeakersPresenter implements IMessageUsersPresenter {
     private IMessageUsersView view;
     private ObservableList<User> users;
     private final PseudoClass errorClass = PseudoClass.getPseudoClass("error");
 
-    public MessageAttendeesPresenter(IMessageUsersView view) {
+    public MessageSpeakersPresenter(IMessageUsersView view) {
         this.view = view;
         init();
     }
@@ -29,7 +29,7 @@ public class MessageAttendeesPresenter implements IMessageUsersPresenter {
         if (this.view.getRecipients().equals(""))
             setResult("Recipients field is empty!", false);
         else {
-            //call oc.sendAllAttendees method
+            //call oc.sendAllSpeakers method
             setResult("Successfully sent message to selected recipients.", true);
         }
     }
@@ -50,7 +50,7 @@ public class MessageAttendeesPresenter implements IMessageUsersPresenter {
 
     @Override
     public List<User> getAllUsers() {
-        //List<Object> userList = uc.getAllUsers method
+        //List<Object> userList = uc.getAllSpeakers method
         return new ArrayList<>();
     }
 

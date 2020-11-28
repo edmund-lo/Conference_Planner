@@ -1,4 +1,6 @@
 package organizer;
 
-public interface ICancelEventView {
+import common.IView;
+
+public interface ICancelEventView extends IView {
 }

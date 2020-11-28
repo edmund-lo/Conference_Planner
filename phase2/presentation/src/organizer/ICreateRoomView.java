@@ -1,6 +1,6 @@
 package organizer;
 
-import common.ISessionView;
+import common.IView;
 
-public interface ICreateRoomView extends ISessionView {
+public interface ICreateRoomView extends IView {
 }

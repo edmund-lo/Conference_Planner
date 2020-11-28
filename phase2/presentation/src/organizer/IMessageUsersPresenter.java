@@ -5,7 +5,7 @@ import javafx.event.ActionEvent;
 import model.User;
 import java.util.List;
 
-public interface IMessageAttendeesPresenter extends IPresenter {
+public interface IMessageUsersPresenter extends IPresenter {
     void sendButtonAction(ActionEvent actionEvent);
     void selectAllAction(ActionEvent actionEvent);
     void setResult(String result, boolean success);

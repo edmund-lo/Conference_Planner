@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import model.User;
 import organizer.IMessageUsersView;
 
-public class MessageAttendeesView implements IMessageUsersView {
+public class MessageSpeakersView implements IMessageUsersView {
     @FXML
     private TableView<User> userTable;
     @FXML
@@ -41,10 +41,10 @@ public class MessageAttendeesView implements IMessageUsersView {
     }
     @FXML
     public void initialize() {
-        this.presenter = new MessageAttendeesPresenter(this);
+        this.presenter = new MessageSpeakersPresenter(this);
     }
 
-    private MessageAttendeesPresenter presenter;
+    private MessageSpeakersPresenter presenter;
     private EventHandler<ActionEvent> createAccountButtonAction;
     private EventHandler<ActionEvent> selectAllAction;
     private Stage stage;

@@ -15,14 +15,12 @@ public class HomePresenter implements IHomePresenter {
 
     @Override
     public void unreadButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createCenterComponent(this.view.getStage(), this.view.getRoot(),
-                "messaging.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "messaging.fxml");
     }
 
     @Override
     public void viewScheduleButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createCenterComponent(this.view.getStage(), this.view.getRoot(),
-                "viewSchedule.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "viewSchedule.fxml");
     }
 
     @Override

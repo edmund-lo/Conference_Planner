@@ -1,12 +1,12 @@
 package organizer;
 
-import common.ISessionView;
+import common.IView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public interface ICreateAccountView extends ISessionView {
+public interface ICreateAccountView extends IView {
     String getUserType();
     void setUserType(String userType);
     String getUsername();

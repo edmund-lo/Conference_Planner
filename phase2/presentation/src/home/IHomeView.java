@@ -1,10 +1,10 @@
 package home;
 
-import common.ISessionView;
+import common.IView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-public interface IHomeView extends ISessionView {
+public interface IHomeView extends IView {
     void setTitle(String title);
     void setUnreadButtonText(String text);
     void setViewScheduleButtonText(String text);

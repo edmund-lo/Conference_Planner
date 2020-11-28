@@ -1,6 +1,6 @@
 package attendee;
 
-import common.ISessionView;
+import common.IView;
 
-public interface IViewScheduleView extends ISessionView {
+public interface IViewScheduleView extends IView {
 }

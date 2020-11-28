@@ -1,4 +1,6 @@
 package organizer;
 
-public interface ICancelEventPresenter {
+import common.IPresenter;
+
+public interface ICancelEventPresenter extends IPresenter {
 }

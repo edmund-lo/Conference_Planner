@@ -1,6 +1,5 @@
 package util;
 
-import common.ISessionView;
 import common.IView;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -21,16 +20,12 @@ public class ComponentFactory {
 
     private ComponentFactory() {}
 
-    private Node createRoot(Stage stage, String fxml, BorderPane bp, boolean loggedIn) {
+    private Node createRoot(Stage stage, String fxml) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(ClassLoader.getSystemResource("fxml/" + fxml));
             Node root = fxmlLoader.load();
             IView view = fxmlLoader.getController();
             view.setStage(stage);
-            if (loggedIn) {
-                ISessionView sessionView = (ISessionView) view;
-                sessionView.setRoot(bp);
-            }
             return root;
         }  catch (IOException e) {
             throw new RuntimeException(e);
@@ -39,20 +34,16 @@ public class ComponentFactory {
 
     public void createLoginComponent(Stage stage, String fxml) {
         Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
-        Scene scene = new Scene((Parent) createRoot(stage, fxml, null, false), screenSize.getWidth(),
+        Scene scene = new Scene((Parent) createRoot(stage, fxml), screenSize.getWidth(),
                 screenSize.getHeight());
         stage.setScene(scene);
     }
 
     public void createLoggedInComponent(Stage stage, String fxml) {
         BorderPane root = new BorderPane();
-        root.setTop(createRoot(stage, "toolbar.fxml", root, false));
-        createCenterComponent(stage, root, fxml);
-    }
-
-    public void createCenterComponent(Stage stage, BorderPane root, String fxml) {
+        root.setTop(createRoot(stage, "toolbar.fxml"));
         Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
-        root.setCenter(createRoot(stage, fxml, root,true));
+        root.setCenter(createRoot(stage, fxml));
         Scene scene = new Scene(root, screenSize.getWidth(), screenSize.getHeight());
         stage.setScene(scene);
     }

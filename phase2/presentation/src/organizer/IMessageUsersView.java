@@ -1,6 +1,6 @@
 package organizer;
 
-import common.ISessionView;
+import common.IView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.CheckBox;
@@ -9,7 +9,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import model.User;
 
-public interface IMessageAttendeesView extends ISessionView {
+public interface IMessageUsersView extends IView {
     TableView<User> getUserTable();
     TableColumn<User, Boolean> getCheckedColumn();
     TableColumn<User, String> getFirstNameColumn();
