@@ -45,7 +45,7 @@ public class CreateAccountPresenter implements ICreateAccountPresenter {
         } else if (errorId == 2) {
             this.view.getUsernameField().pseudoClassStateChanged(errorClass, true);
         }
-        this.view.setErrorMsg(error);
+        this.view.setResultMsg(error);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class CreateAccountPresenter implements ICreateAccountPresenter {
     }
 
     private void clearError() {
-        this.view.setErrorMsg("");
+        this.view.setResultMsg("");
         this.view.getPasswordField().pseudoClassStateChanged(errorClass, false);
         this.view.getConfirmPasswordField().pseudoClassStateChanged(errorClass, false);
         this.view.getUsernameField().pseudoClassStateChanged(errorClass, false);

@@ -24,7 +24,7 @@ public class CreateAccountView implements ICreateAccountView {
     @FXML
     private PasswordField confirmPassword;
     @FXML
-    private Text registerErrorMsg;
+    private Text createResultMsg;
 
     @FXML
     public void executeAddCreateAccount(ActionEvent event) {
@@ -100,8 +100,8 @@ public class CreateAccountView implements ICreateAccountView {
     }
 
     @Override
-    public void setErrorMsg(String error) {
-        this.registerErrorMsg.setText(error);
+    public void setResultMsg(String result) {
+        this.createResultMsg.setText(result);
     }
 
     @Override

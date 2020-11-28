@@ -19,7 +19,7 @@ public interface ICreateAccountView extends IView {
     void setPassword(String password);
     String getConfirmPassword();
     void setConfirmPassword(String password);
-    void setErrorMsg(String error);
+    void setResultMsg(String result);
     TextField getUsernameField();
     TextField getFirstNameField();
     TextField getLastNameField();

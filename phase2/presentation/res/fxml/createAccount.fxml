@@ -37,10 +37,10 @@
     <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
     <Label text="Confirm Password:" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
     <PasswordField fx:id="confirmPassword" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
-    <Text fx:id="registerErrorMsg" GridPane.columnIndex="0" GridPane.rowIndex="8" GridPane.columnSpan="2"/>
+    <Text fx:id="createResultMsg" GridPane.columnIndex="0" GridPane.rowIndex="8" GridPane.columnSpan="2"/>
 
     <HBox spacing="10" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="10" GridPane.columnSpan="2">
-        <Button text="Confirm Registration" fx:id="registerButton" onAction="#executeAddCreateAccount"/>
+        <Button text="Create Account" fx:id="createButton" onAction="#executeAddCreateAccount"/>
     </HBox>
 
     <stylesheets>

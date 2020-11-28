@@ -30,7 +30,7 @@
                         <TableColumn fx:id="usernameColumn" text="Username"/>
                     </columns>
                 </TableView>
-                <GridPane>
+                <GridPane alignment="CENTER" hgap="10" vgap="10">
                     <Label text="From:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
                     <TextField fx:id="sender" GridPane.columnIndex="1" GridPane.rowIndex="0" editable="false"/>
                     <Label text="To:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
