@@ -8,7 +8,7 @@
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
           xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="home.HomeView" >
+          fx:controller="home.impl.HomeView" >
     <padding>
         <Insets top="25" right="25" bottom="25" left="25"/>
     </padding>
@@ -16,7 +16,7 @@
     <Text text="Hello" fx:id="title" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
     <Button text="You have 0 unread messages" fx:id="unreadButton" onAction="#executeAddMessaging"
             GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-    <Button text="You are attending 0 events tomorrow" fx:id="attendingButton" onAction="#executeAddViewSchedule"
+    <Button text="You are attending 0 events today" fx:id="attendingButton" onAction="#executeAddViewSchedule"
             GridPane.columnIndex="0" GridPane.rowIndex="2"/>
 
     <stylesheets>

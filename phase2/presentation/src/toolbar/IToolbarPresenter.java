@@ -12,7 +12,7 @@ public interface IToolbarPresenter extends IPresenter {
     void createRoomButtonAction(ActionEvent actionEvent);
     void createEventButtonAction(ActionEvent actionEvent);
     void scheduleSpeakerButtonAction(ActionEvent actionEvent);
-    void rescheduleCancelEventButtonAction(ActionEvent actionEvent);
+    void cancelEventButtonAction(ActionEvent actionEvent);
     void messageSpeakersButtonAction(ActionEvent actionEvent);
     void messageAttendeesButtonAction(ActionEvent actionEvent);
     void speakerEventsButtonAction(ActionEvent actionEvent);

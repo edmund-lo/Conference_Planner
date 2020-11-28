@@ -1,14 +1,19 @@
-package login;
+package organizer.impl;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import organizer.ICreateAccountView;
 
-public class RegisterView implements IRegisterView {
+public class CreateAccountView implements ICreateAccountView {
+    @FXML
+    private ChoiceBox<String> userType;
     @FXML
     private TextField username;
     @FXML
@@ -23,22 +28,28 @@ public class RegisterView implements IRegisterView {
     private Text registerErrorMsg;
 
     @FXML
-    public void executeAddGoBack(ActionEvent event) {
-        if (backButtonAction != null) backButtonAction.handle(event);
-    }
-    @FXML
-    public void executeAddRegister(ActionEvent event) {
-        if (registerButtonAction != null) registerButtonAction.handle(event);
+    public void executeAddCreateAccount(ActionEvent event) {
+        if (createAccountButtonAction != null) createAccountButtonAction.handle(event);
     }
     @FXML
     public void initialize() {
-        this.presenter = new RegisterPresenter(this);
+        this.presenter = new CreateAccountPresenter(this);
     }
 
-    private RegisterPresenter presenter;
-    private EventHandler<ActionEvent> registerButtonAction;
-    private EventHandler<ActionEvent> backButtonAction;
+    private CreateAccountPresenter presenter;
+    private EventHandler<ActionEvent> createAccountButtonAction;
     private Stage stage;
+    private BorderPane root;
+
+    @Override
+    public String getUserType() {
+        return (String)this.userType.getValue();
+    }
+
+    @Override
+    public void setUserType(String userType) {
+        this.userType.setValue(userType);
+    }
 
     @Override
     public String getUsername() {
@@ -121,23 +132,23 @@ public class RegisterView implements IRegisterView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getBackButtonAction() {
-        return this.backButtonAction;
+    public EventHandler<ActionEvent> getCreateAccountButtonAction() {
+        return this.createAccountButtonAction;
     }
 
     @Override
-    public void setBackButtonAction(EventHandler<ActionEvent> eventHandler) {
-        this.backButtonAction = eventHandler;
+    public void setCreateAccountButtonAction(EventHandler<ActionEvent> eventHandler) {
+        this.createAccountButtonAction = eventHandler;
     }
 
     @Override
-    public EventHandler<ActionEvent> getRegisterButtonAction() {
-        return this.registerButtonAction;
+    public BorderPane getRoot() {
+        return this.root;
     }
 
     @Override
-    public void setRegisterButtonAction(EventHandler<ActionEvent> eventHandler) {
-        this.registerButtonAction = eventHandler;
+    public void setRoot(BorderPane root) {
+        this.root = root;
     }
 
     @Override

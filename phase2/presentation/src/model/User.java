@@ -1,24 +1,37 @@
 package model;
 
+import common.Selectable;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.control.CheckBox;
 
-public class User {
+public class User extends Selectable {
+    private final StringProperty username;
     private final StringProperty firstName;
     private final StringProperty lastName;
     private final IntegerProperty userType;
 
     public User() {
-        this(null, null, 0);
+        this(null, null, null, 0);
     }
 
-    public User(String firstName, String lastName, int userType) {
+    public User(String username, String firstName, String lastName, int userType) {
+        setChecked(false);
+        this.username = new SimpleStringProperty(username);
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
         this.userType = new SimpleIntegerProperty(userType);
     }
+
+    public String getUsername() {
+        return username.get();
+    }
+
+    public StringProperty usernameProperty() { return username; }
+
+    public void setUsername(String username) { this.username.set(username); }
 
     public String getFirstName() {
         return firstName.get();

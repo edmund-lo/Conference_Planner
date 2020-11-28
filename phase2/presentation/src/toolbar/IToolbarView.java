@@ -21,8 +21,8 @@ public interface IToolbarView extends ISessionView {
     void setCreateEventButtonAction(EventHandler<ActionEvent> eventHandler);
     EventHandler<ActionEvent> getScheduleSpeakerButtonAction();
     void setScheduleSpeakerButtonAction(EventHandler<ActionEvent> eventHandler);
-    EventHandler<ActionEvent> getRescheduleCancelEventButtonAction();
-    void setRescheduleCancelEventButtonAction(EventHandler<ActionEvent> eventHandler);
+    EventHandler<ActionEvent> getCancelEventButtonAction();
+    void setCancelEventButtonAction(EventHandler<ActionEvent> eventHandler);
     EventHandler<ActionEvent> getMessageSpeakersButtonAction();
     void setMessageSpeakersButtonAction(EventHandler<ActionEvent> eventHandler);
     EventHandler<ActionEvent> getMessageAttendeesButtonAction();

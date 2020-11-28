@@ -1,12 +1,13 @@
-package toolbar;
+package toolbar.impl;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import toolbar.IToolbarView;
 
-public class ToolbarView implements IToolbarView{
+public class ToolbarView implements IToolbarView {
     @FXML
     public void executeAddHome(ActionEvent event) {
         if (homeButtonAction != null) homeButtonAction.handle(event);
@@ -40,7 +41,7 @@ public class ToolbarView implements IToolbarView{
         if (scheduleSpeakerButtonAction != null) scheduleSpeakerButtonAction.handle(event);
     }
     @FXML
-    public void executeAddRescheduleCancelEvent(ActionEvent event) {
+    public void executeAddCancelEvent(ActionEvent event) {
         if (rescheduleCancelEventButtonAction != null) rescheduleCancelEventButtonAction.handle(event);
     }
     @FXML
@@ -177,12 +178,12 @@ public class ToolbarView implements IToolbarView{
     }
 
     @Override
-    public EventHandler<ActionEvent> getRescheduleCancelEventButtonAction() {
+    public EventHandler<ActionEvent> getCancelEventButtonAction() {
         return this.rescheduleCancelEventButtonAction;
     }
 
     @Override
-    public void setRescheduleCancelEventButtonAction(EventHandler<ActionEvent> eventHandler) {
+    public void setCancelEventButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.rescheduleCancelEventButtonAction = eventHandler;
     }
 

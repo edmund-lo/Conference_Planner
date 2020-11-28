@@ -1,4 +1,4 @@
-package login;
+package login.impl;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -7,6 +7,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import login.IForgotView;
 
 public class ForgotView implements IForgotView {
     @FXML

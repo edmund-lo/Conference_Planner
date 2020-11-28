@@ -1,5 +1,6 @@
-package home;
+package home.impl;
 
+import home.IHomeView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

@@ -1,12 +1,15 @@
-package toolbar;
+package toolbar.impl;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import java.util.Optional;
+
+import toolbar.IToolbarPresenter;
+import toolbar.IToolbarView;
 import util.ComponentFactory;
 
-public class ToolbarPresenter implements IToolbarPresenter{
+public class ToolbarPresenter implements IToolbarPresenter {
     private IToolbarView view;
 
     public ToolbarPresenter(IToolbarView view) {
@@ -63,7 +66,7 @@ public class ToolbarPresenter implements IToolbarPresenter{
     }
 
     @Override
-    public void rescheduleCancelEventButtonAction(ActionEvent actionEvent) {
+    public void cancelEventButtonAction(ActionEvent actionEvent) {
         ComponentFactory.getInstance().createCenterComponent(this.view.getStage(), this.view.getRoot(),
                 "rescheduleCancelEvent.fxml");
     }
@@ -108,7 +111,6 @@ public class ToolbarPresenter implements IToolbarPresenter{
     public void logoutButtonAction(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText("Confirm logout?");
-        alert.show();
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK)
             ComponentFactory.getInstance().createLoginComponent(this.view.getStage(), "login.fxml");
@@ -116,6 +118,7 @@ public class ToolbarPresenter implements IToolbarPresenter{
 
     @Override
     public void init() {
+        //call lc.getAccountType method to restrict function access
         this.view.setHomeButtonAction(this::homeButtonAction);
         this.view.setViewScheduleButtonAction(this::viewScheduleButtonAction);
         this.view.setViewEventsButtonAction(this::viewEventsButtonAction);
@@ -124,7 +127,7 @@ public class ToolbarPresenter implements IToolbarPresenter{
         this.view.setCreateRoomButtonAction(this::createRoomButtonAction);
         this.view.setCreateEventButtonAction(this::createEventButtonAction);
         this.view.setScheduleSpeakerButtonAction(this::scheduleSpeakerButtonAction);
-        this.view.setRescheduleCancelEventButtonAction(this::rescheduleCancelEventButtonAction);
+        this.view.setCancelEventButtonAction(this::cancelEventButtonAction);
         this.view.setMessageSpeakersButtonAction(this::messageSpeakersButtonAction);
         this.view.setMessageAttendeesButtonAction(this::messageAttendeesButtonAction);
         this.view.setSpeakerEventsButtonAction(this::speakerEventsButtonAction);

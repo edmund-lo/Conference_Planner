@@ -1,16 +1,17 @@
-package login;
+package login.impl;
 
 //import Controllers.ILoginController
 import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
+import login.IForgotPresenter;
+import login.IForgotView;
 import util.ComponentFactory;
 import java.util.Random;
 
 public class ForgotPresenter implements IForgotPresenter {
     private IForgotView view;
     private final PseudoClass errorClass = PseudoClass.getPseudoClass("error");
-    //private ILoginController lc;
 
     public ForgotPresenter(IForgotView view) {
         this.view = view;
@@ -25,9 +26,7 @@ public class ForgotPresenter implements IForgotPresenter {
 
     @Override
     public void recoverButtonAction(ActionEvent actionEvent) {
-        this.view.setResultMsg("");
-        this.view.getUsernameField().pseudoClassStateChanged(errorClass, false);
-        this.view.getPromptInputField().pseudoClassStateChanged(errorClass, false);
+        clearError();
 
         if (this.view.getUsername().equals(""))
             setResult("Username cannot be empty!", 0);
@@ -70,5 +69,11 @@ public class ForgotPresenter implements IForgotPresenter {
         this.view.setBackButtonAction(this::backButtonAction);
         this.view.setRecoverButtonAction(this::recoverButtonAction);
         this.view.setPromptText(generatePrompt());
+    }
+
+    private void clearError() {
+        this.view.setResultMsg("");
+        this.view.getUsernameField().pseudoClassStateChanged(errorClass, false);
+        this.view.getPromptInputField().pseudoClassStateChanged(errorClass, false);
     }
 }

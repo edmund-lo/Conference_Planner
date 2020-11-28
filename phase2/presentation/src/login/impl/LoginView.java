@@ -1,13 +1,13 @@
-package login;
+package login.impl;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import login.ILoginView;
 
 public class LoginView implements ILoginView {
     @FXML

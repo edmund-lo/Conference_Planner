@@ -1,15 +1,16 @@
-package login;
+package login.impl;
 
 //import Controllers.ILoginController
 import javafx.css.PseudoClass;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+import login.IRegisterPresenter;
+import login.IRegisterView;
 import util.ComponentFactory;
 
 public class RegisterPresenter implements IRegisterPresenter {
     private IRegisterView view;
     private final PseudoClass errorClass = PseudoClass.getPseudoClass("error");
-    //private ILoginController lc;
 
     public RegisterPresenter(IRegisterView view) {
         this.view = view;
@@ -24,12 +25,7 @@ public class RegisterPresenter implements IRegisterPresenter {
 
     @Override
     public void registerButtonAction(ActionEvent actionEvent) {
-        this.view.setErrorMsg("");
-        this.view.getPasswordField().pseudoClassStateChanged(errorClass, false);
-        this.view.getConfirmPasswordField().pseudoClassStateChanged(errorClass, false);
-        this.view.getUsernameField().pseudoClassStateChanged(errorClass, false);
-        this.view.getFirstNameField().pseudoClassStateChanged(errorClass, false);
-        this.view.getLastNameField().pseudoClassStateChanged(errorClass, false);
+        clearError();
 
         if (this.view.getUsername().equals("") || this.view.getFirstName().equals("") ||
                 this.view.getLastName().equals("") || this.view.getPassword().equals("") ||
@@ -63,5 +59,14 @@ public class RegisterPresenter implements IRegisterPresenter {
     public void init() {
         this.view.setBackButtonAction(this::backButtonAction);
         this.view.setRegisterButtonAction(this::registerButtonAction);
+    }
+
+    private void clearError() {
+        this.view.setErrorMsg("");
+        this.view.getPasswordField().pseudoClassStateChanged(errorClass, false);
+        this.view.getConfirmPasswordField().pseudoClassStateChanged(errorClass, false);
+        this.view.getUsernameField().pseudoClassStateChanged(errorClass, false);
+        this.view.getFirstNameField().pseudoClassStateChanged(errorClass, false);
+        this.view.getLastNameField().pseudoClassStateChanged(errorClass, false);
     }
 }

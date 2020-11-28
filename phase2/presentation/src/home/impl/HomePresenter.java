@@ -1,5 +1,7 @@
-package home;
+package home.impl;
 
+import home.IHomePresenter;
+import home.IHomeView;
 import javafx.event.ActionEvent;
 import util.ComponentFactory;
 
@@ -44,6 +46,6 @@ public class HomePresenter implements IHomePresenter {
         this.view.setViewScheduleButtonAction(this::viewScheduleButtonAction);
         setGreeting("Hello " + "!"); //call ac.getName method
         setUnreadMessages("You have " + 0 + " unread messages"); //call ac.getUnreadMessages method
-        setAttendingEvents("You are attending " + 0 + " events this week"); //call ac.getNearAttendingEvents
+        setAttendingEvents("You are attending " + 0 + " events today"); //call ac.getNearAttendingEvents
     }
 }

@@ -5,28 +5,36 @@
 <?import javafx.scene.Group?>
 <?import java.net.URL?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="toolbar.ToolbarView"
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="toolbar.impl.ToolbarView"
       alignment="CENTER_LEFT">
     <ToolBar>
-        <Button text="home" onAction="#executeAddHome"/>
+        <Button text="Home" onAction="#executeAddHome"/>
         <MenuButton text="Scheduling">
-            <MenuItem text="View Schedule" onAction="#executeAddViewSchedule"/>
-            <MenuItem text="View Events" onAction="#executeAddViewEvents"/>
+            <items>
+                <MenuItem text="View Schedule" onAction="#executeAddViewSchedule"/>
+                <MenuItem text="View Events" onAction="#executeAddViewEvents"/>
+            </items>
         </MenuButton>
         <Button text="Messaging" onAction="#executeAddMessaging"/>
         <Group fx:id="organizerGroup">
             <MenuButton text="Create">
-                <MenuItem text="New Account" onAction="#executeAddCreateAccount"/>
-                <MenuItem text="New Room" onAction="#executeAddCreateRoom"/>
-                <MenuItem text="New Event" onAction="#executeAddCreateEvent"/>
+                <items>
+                    <MenuItem text="New Account" onAction="#executeAddCreateAccount"/>
+                    <MenuItem text="New Room" onAction="#executeAddCreateRoom"/>
+                    <MenuItem text="New Event" onAction="#executeAddCreateEvent"/>
+                </items>
             </MenuButton>
             <MenuButton text="Edit Events">
-                <MenuItem text="Schedule Speaker" onAction="#executeAddScheduleSpeaker"/>
-                <MenuItem text="Reschedule/Cancel Event" onAction="#executeAddRescheduleCancelEvent"/>
+                <items>
+                    <MenuItem text="Schedule Speaker" onAction="#executeAddScheduleSpeaker"/>
+                    <MenuItem text="Reschedule/Cancel Event" onAction="#executeAddCancelEvent"/>
+                </items>
             </MenuButton>
             <MenuButton text="Organizer Messaging">
-                <MenuItem text="Message Speakers" onAction="#executeAddMessageSpeakers"/>
-                <MenuItem text="Message Attendees" onAction="#executeAddMessageAttendees"/>
+                <items>
+                    <MenuItem text="Message Speakers" onAction="#executeAddMessageSpeakers"/>
+                    <MenuItem text="Message Attendees" onAction="#executeAddMessageAttendees"/>
+                </items>
             </MenuButton>
         </Group>
         <Group fx:id="speakerGroup">
@@ -34,15 +42,17 @@
         </Group>
         <Group fx:id="adminGroup">
             <MenuButton text="Admin Tools">
-                <MenuItem text="Unlock Accounts" onAction="#executeAddUnlockAccounts"/>
-                <MenuItem text="Delete Messages" onAction="#executeAddDeleteMessages"/>
-                <MenuItem text="Remove Events" onAction="#executeAddRemoveEvents"/>
+                <items>
+                    <MenuItem text="Unlock Accounts" onAction="#executeAddUnlockAccounts"/>
+                    <MenuItem text="Delete Messages" onAction="#executeAddDeleteMessages"/>
+                    <MenuItem text="Remove Events" onAction="#executeAddRemoveEvents"/>
+                </items>
             </MenuButton>
         </Group>
         <Button text="Log Out" onAction="#executeAddLogout"/>
     </ToolBar>
 
     <stylesheets>
-        <URL value="../css/toolbar.css"/>
+        <URL value="@../css/toolbar.css"/>
     </stylesheets>
 </VBox>
