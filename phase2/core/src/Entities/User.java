@@ -142,6 +142,14 @@ public abstract class User implements Serializable {
         receivedMessages.add(messageID);
     }
 
+    public void deleteSentMessage(String messageID) {
+        sentMessages.remove(messageID);
+    }
+
+    public void deleteReceivedMessage(String messageID) {
+        receivedMessages.remove(messageID);
+    }
+
     /**
      * toString with the User's username and role
      *
