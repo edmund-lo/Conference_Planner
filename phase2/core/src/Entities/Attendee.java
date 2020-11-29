@@ -22,10 +22,20 @@ public class Attendee extends User implements Serializable {
         this.vip = false;
     }
 
-    public void setVip(boolean vip) {
+    /**
+     * Sets the vip status of the attendee
+     *
+     * @param vip the vip status to be set
+     */
+    public void setVipStatus(boolean vip) {
         this.vip = vip;
     }
 
+    /**
+     * Checks whether attendee is a vip
+     *
+     * @return true iff the attendee is a vip
+     */
     public boolean isVip() {
         return vip;
     }

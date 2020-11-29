@@ -142,10 +142,20 @@ public abstract class User implements Serializable {
         receivedMessages.add(messageID);
     }
 
+    /**
+     * Deletes message ID of the sent message from user's list of sent messages.
+     *
+     * @param messageID the message ID of the sent message they want to delete
+     */
     public void deleteSentMessage(String messageID) {
         sentMessages.remove(messageID);
     }
 
+    /**
+     * Deletes message ID of the received message from user's list of received messages.
+     *
+     * @param messageID the message ID of the received message they want to delete
+     */
     public void deleteReceivedMessage(String messageID) {
         receivedMessages.remove(messageID);
     }

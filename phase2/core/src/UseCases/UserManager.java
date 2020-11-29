@@ -1,9 +1,6 @@
 package UseCases;
 
-import Entities.Attendee;
-import Entities.Organizer;
-import Entities.Speaker;
-import Entities.User;
+import Entities.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -63,6 +60,17 @@ public class UserManager implements Serializable {
     }
 
     /**
+     * Creates new admin with username and password.
+     *
+     * @param username the username
+     * @param password the password
+     */
+    public void createNewAdmin(String username, String password) {
+        Admin admin = new Admin(username, password);
+        allUsers.put(username, admin);
+    }
+
+    /**
      * Checks if user is available during the time of the event they want to sign up for.
      *
      * @param username the username
@@ -103,6 +111,18 @@ public class UserManager implements Serializable {
     }
 
     /**
+     * Removes all users from an event.
+     *
+     * @param usernames the usernames of all users attending the event
+     * @param eventID the event ID to cancel their attendance in
+     */
+    public void cancelAll(ArrayList<String> usernames, String eventID) {
+        for (String username : usernames) {
+            allUsers.get(username).cancel(eventID);
+        }
+    }
+
+    /**
      * Checks if speaker is available to speak at the event time.
      *
      * @param username the username
@@ -129,17 +149,17 @@ public class UserManager implements Serializable {
         Speaker speaker = (Speaker) allUsers.get(username);
         speaker.addSpeakerEvent(eventID, startTime, endTime);
     }
-//      ***** Saving method for phase 2
-//    /**
-//     * Remove the speaker from speaking at an event.
-//     *
-//     * @param username the username
-//     * @param eventID the event ID they are speaking at
-//     */
-//    public void cancelSpeakerEvent(String username, String eventID) {
-//        Speaker speaker = (Speaker) allUsers.get(username);
-//        speaker.cancelSpeakerEvent(eventID);
-//    }
+
+    /**
+     * Remove the speaker from speaking at an event.
+     *
+     * @param username the username
+     * @param eventID the event ID they are speaking at
+     */
+    public void cancelSpeakerEvent(String username, String eventID) {
+        Speaker speaker = (Speaker) allUsers.get(username);
+        speaker.cancelSpeakerEvent(eventID);
+    }
 
     /**
      * Adds message ID of the sent message to user's list of sent messages.
@@ -159,6 +179,26 @@ public class UserManager implements Serializable {
      */
     public void receiveMessage(String username, String messageID) {
         allUsers.get(username).receiveMessage(messageID);
+    }
+
+    /**
+     * Deletes message ID of the sent message from user's list of sent messages.
+     *
+     * @param username the username of the sender
+     * @param messageID the message ID
+     */
+    public void deleteSentMessage(String username, String messageID) {
+        allUsers.get(username).deleteSentMessage(messageID);
+    }
+
+    /**
+     * Deletes messageID of the received message from user's list of received messages.
+     *
+     * @param username the username of the receiver
+     * @param messageID the messageID
+     */
+    public void deleteReceivedMessage(String username, String messageID) {
+        allUsers.get(username).deleteReceivedMessage(messageID);
     }
 
     /**
@@ -281,16 +321,15 @@ public class UserManager implements Serializable {
         return allUsers.get(username) instanceof Attendee;
     }
 
-//      ***** Saving method for phase 2
-//    /**
-//     * Checks if user is an organizer.
-//     *
-//     * @param username the username
-//     * @return iff user is organizer
-//     */
-//    public boolean isOrganizer(String username) {
-//        return allUsers.get(username) instanceof Organizer;
-//    }
+    /**
+     * Checks if user is an organizer.
+     *
+     * @param username the username
+     * @return iff user is organizer
+     */
+    public boolean isOrganizer(String username) {
+        return allUsers.get(username) instanceof Organizer;
+    }
 
     /**
      * Checks if user is a speaker.
@@ -303,6 +342,16 @@ public class UserManager implements Serializable {
     }
 
     /**
+     * Checks if user is an admin.
+     *
+     * @param username the username
+     * @return iff user is speaker
+     */
+    public boolean isAdmin(String username) {
+        return allUsers.get(username) instanceof Admin;
+    }
+
+    /**
      * Checks if a user with that username exists.
      *
      * @param username the username
@@ -312,4 +361,34 @@ public class UserManager implements Serializable {
         return allUsers.get(username) != null;
     }
 
+    /**
+     * Sets the attendee as a vip
+     *
+     * @param username the username
+     */
+    public void setAttendeeAsVip(String username) {
+        Attendee attendee = (Attendee) allUsers.get(username);
+        attendee.setVipStatus(true);
+    }
+
+    /**
+     * Sets the attendee as not a vip
+     *
+     * @param username the username
+     */
+    public void setAttendeeAsNotVip(String username) {
+        Attendee attendee = (Attendee) allUsers.get(username);
+        attendee.setVipStatus(false);
+    }
+
+    /**
+     * Checks if an attendee is a vip
+     *
+     * @param username the username
+     * @return true iff the attendee is a vip
+     */
+    public boolean isVip(String username) {
+        Attendee attendee = (Attendee) allUsers.get(username);
+        return attendee.isVip();
+    }
 }
