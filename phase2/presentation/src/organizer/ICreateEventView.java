@@ -1,6 +1,6 @@
 package organizer;
 
-import common.IView;
+import common.ILoggedInView;
 
-public interface ICreateEventView extends IView {
+public interface ICreateEventView extends ILoggedInView {
 }

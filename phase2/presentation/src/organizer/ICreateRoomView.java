@@ -1,13 +1,13 @@
 package organizer;
 
-import common.IView;
+import common.ILoggedInView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import util.NumberTextField;
 
-public interface ICreateRoomView extends IView {
+public interface ICreateRoomView extends ILoggedInView {
     String getRoomName();
     void setRoomName(String roomName);
     int getCapacity();

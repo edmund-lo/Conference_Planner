@@ -1,6 +1,6 @@
 package organizer;
 
-import common.IView;
+import common.ILoggedInView;
 
-public interface IScheduleSpeakerView extends IView {
+public interface IScheduleSpeakerView extends ILoggedInView {
 }

@@ -19,13 +19,11 @@
           GridPane.columnSpan="2"/>
     <Label text="User Type:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
     <ChoiceBox fx:id="userType" value="Attendee" GridPane.columnIndex="1" GridPane.rowIndex="2">
-        <items>
-            <String fx:value="Administrator"/>
-            <String fx:value="Attendee"/>
-            <String fx:value="Organizer"/>
-            <String fx:value="Speaker"/>
-            <String fx:value="VIP"/>
-        </items>
+        <String fx:value="Administrator"/>
+        <String fx:value="Attendee"/>
+        <String fx:value="Organizer"/>
+        <String fx:value="Speaker"/>
+        <String fx:value="VIP"/>
     </ChoiceBox>
     <Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
     <TextField fx:id="username" GridPane.columnIndex="1" GridPane.rowIndex="3"/>

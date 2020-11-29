@@ -94,6 +94,7 @@ public class ToolbarView implements IToolbarView {
     private EventHandler<ActionEvent> removeEventsButtonAction;
     private EventHandler<ActionEvent> logoutButtonAction;
     private Stage stage;
+    private String sessionUsername;
 
     @Override
     public EventHandler<ActionEvent> getHomeButtonAction() {
@@ -263,5 +264,15 @@ public class ToolbarView implements IToolbarView {
     @Override
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    @Override
+    public String getSessionUsername() {
+        return this.sessionUsername;
+    }
+
+    @Override
+    public void setSessionUsername(String username) {
+        this.sessionUsername = username;
     }
 }

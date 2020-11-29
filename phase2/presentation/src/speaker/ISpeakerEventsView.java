@@ -1,6 +1,6 @@
 package speaker;
 
-import common.IView;
+import common.ILoggedInView;
 
-public interface ISpeakerEventsView extends IView {
+public interface ISpeakerEventsView extends ILoggedInView {
 }

@@ -1,12 +1,12 @@
 package organizer;
 
-import common.IView;
+import common.ILoggedInView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public interface ICreateAccountView extends IView {
+public interface ICreateAccountView extends ILoggedInView {
     String getUserType();
     void setUserType(String userType);
     String getUsername();

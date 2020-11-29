@@ -5,9 +5,17 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="attendee.impl.ViewEventsView">
+    <top>
+        <Text text="View All Events" fx:id="title" />
+    </top>
+    <center>
+        <SplitPane orientation="VERTICAL">
 
-</AnchorPane>
+        </SplitPane>
+    </center>
+</BorderPane>

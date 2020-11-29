@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class DateTimeUtil {
-    private static DateTimeUtil Instance = new DateTimeUtil();
+    private static final DateTimeUtil Instance = new DateTimeUtil();
 
     public static DateTimeUtil getInstance() { return Instance; }
 

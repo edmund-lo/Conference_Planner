@@ -38,6 +38,7 @@ public class CreateAccountView implements ICreateAccountView {
     private CreateAccountPresenter presenter;
     private EventHandler<ActionEvent> createAccountButtonAction;
     private Stage stage;
+    private String sessionUsername;
 
     @Override
     public String getUserType() {
@@ -147,5 +148,15 @@ public class CreateAccountView implements ICreateAccountView {
     @Override
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    @Override
+    public String getSessionUsername() {
+        return this.sessionUsername;
+    }
+
+    @Override
+    public void setSessionUsername(String username) {
+        this.sessionUsername = username;
     }
 }

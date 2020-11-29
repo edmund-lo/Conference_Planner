@@ -9,42 +9,40 @@
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="organizer.impl.MessageAttendeesView">
+    <padding>
+        <Insets top="25" right="25" bottom="25" left="25"/>
+    </padding>
     <top>
         <Text text="Messaging" fx:id="title" />
     </top>
     <center>
         <SplitPane>
-            <padding>
-                <Insets top="25" right="25" bottom="25" left="25"/>
-            </padding>
-            <items>
-                <TableView fx:id="userTable">
-                    <columns>
-                        <TableColumn fx:id="checkedColumn">
-                            <graphic>
-                                <CheckBox fx:id="selectAll" mnemonicParsing="false" onAction="#executeAddSelectAll"/>
-                            </graphic>
-                        </TableColumn>
-                        <TableColumn fx:id="firstNameColumn" text="First Name"/>
-                        <TableColumn fx:id="lastNameColumn" text="Last Name"/>
-                        <TableColumn fx:id="usernameColumn" text="Username"/>
-                    </columns>
-                </TableView>
-                <GridPane alignment="CENTER" hgap="10" vgap="10">
-                    <Label text="From:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-                    <TextField fx:id="sender" GridPane.columnIndex="1" GridPane.rowIndex="0" editable="false"/>
-                    <Label text="To:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-                    <TextField fx:id="recipients" GridPane.columnIndex="1" GridPane.rowIndex="1" editable="false"/>
-                    <Label text="Message:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-                    <TextArea fx:id="content" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                    <Text fx:id="result" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2"/>
+            <TableView fx:id="userTable">
+                <columns>
+                    <TableColumn fx:id="checkedColumn">
+                        <graphic>
+                            <CheckBox fx:id="selectAll" mnemonicParsing="false" onAction="#executeAddSelectAll"/>
+                        </graphic>
+                    </TableColumn>
+                    <TableColumn fx:id="firstNameColumn" text="First Name"/>
+                    <TableColumn fx:id="lastNameColumn" text="Last Name"/>
+                    <TableColumn fx:id="usernameColumn" text="Username"/>
+                </columns>
+            </TableView>
+            <GridPane alignment="CENTER" hgap="10" vgap="10">
+                <Label text="From:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <TextField fx:id="sender" GridPane.columnIndex="1" GridPane.rowIndex="0" editable="false"/>
+                <Label text="To:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <TextField fx:id="recipients" GridPane.columnIndex="1" GridPane.rowIndex="1" editable="false"/>
+                <Label text="Message:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <TextArea fx:id="content" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <Text fx:id="result" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2"/>
 
-                    <HBox spacing="10" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="5"
-                          GridPane.columnSpan="2">
-                        <Button text="Send Message" fx:id="sendButton" onAction="#executeAddSend"/>
-                    </HBox>
-                </GridPane>
-            </items>
+                <HBox spacing="10" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="5"
+                      GridPane.columnSpan="2">
+                    <Button text="Send Message" fx:id="sendButton" onAction="#executeAddSend"/>
+                </HBox>
+            </GridPane>
         </SplitPane>
     </center>
 
