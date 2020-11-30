@@ -1,9 +1,6 @@
 package controllers;
 
-import usecases.EventManager;
-import usecases.MessageManager;
-import usecases.RoomManager;
-import usecases.UserManager;
+import usecases.*;
 
 /**
  * A Controller class representing an AdminController which inherits from UserController.

@@ -1,6 +1,7 @@
 package controllers;
 
 import presenters.UserPresenter;
+import usecases.*;
 
 /**
  * A Controller class representing an AttendeeController which inherits from UserController.

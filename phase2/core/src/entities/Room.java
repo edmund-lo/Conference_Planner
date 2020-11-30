@@ -17,14 +17,16 @@ import java.util.TreeMap;
 public class Room implements Serializable {
     private final String name;
     private TreeMap<LocalDateTime[], String> schedule;
+    private final int capacity;
 
     /**
      * Constructor for a Room object
      *
      * @param name  the name of the room
      */
-    public Room(String name){
+    public Room(String name, int capacity){
         this.name = name;
+        this.capacity = capacity;
         this.schedule = new TreeMap<>(new SerializableComparator<LocalDateTime[]>() {
             @Override
             public int compare(LocalDateTime[] o1, LocalDateTime[] o2) {
@@ -72,31 +74,30 @@ public class Room implements Serializable {
         this.schedule.put(times, eventName);
     }
 
-//      ***** Saving method for phase 2
-//    /**
-//     * Checks to see if this Room's schedule has a specific event.
-//     *
-//     * @param startTime     the time the event starts.
-//     * @param endTime       the time the event ends.
-//     * @param eventName     the name of the event to check for.
-//     * @return true if this event is scheduled in this room, false otherwise
-//     */
-//    public boolean hasEvent(LocalDateTime startTime, LocalDateTime endTime, String eventName){
-//       LocalDateTime[] times = new LocalDateTime[]{startTime, endTime};
-//        return  this.schedule.containsKey(times)
-//                && this.schedule.get(times).equals(eventName);
-//    }
-//      ***** Saving method for phase 2
-//    /**
-//     * Removes an event at a certain time from the schedule of this Room.
-//     *
-//     * @param startTime  the time the event starts.
-//     * @param endTime    the time the event ends.
-//     */
-//    public void removeEvent(LocalDateTime startTime, LocalDateTime endTime){
-//        LocalDateTime[] times = new LocalDateTime[]{startTime, endTime};
-//        this.schedule.remove(times);
-//    }
+    /**
+     * Checks to see if this Room's schedule has a specific event.
+     *
+     * @param startTime     the time the event starts.
+     * @param endTime       the time the event ends.
+     * @param eventName     the name of the event to check for.
+     * @return true if this event is scheduled in this room, false otherwise
+     */
+    public boolean hasEvent(LocalDateTime startTime, LocalDateTime endTime, String eventName){
+       LocalDateTime[] times = new LocalDateTime[]{startTime, endTime};
+        return  this.schedule.containsKey(times)
+                && this.schedule.get(times).equals(eventName);
+    }
+
+    /**
+     * Removes an event at a certain time from the schedule of this Room.
+     *
+     * @param startTime  the time the event starts.
+     * @param endTime    the time the event ends.
+     */
+    public void removeEvent(LocalDateTime startTime, LocalDateTime endTime){
+        LocalDateTime[] times = new LocalDateTime[]{startTime, endTime};
+        this.schedule.remove(times);
+    }
 
     /**
      * Gives the String representation of this Room.
