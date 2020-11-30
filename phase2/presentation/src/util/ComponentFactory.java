@@ -27,7 +27,7 @@ public class ComponentFactory {
             Node root = fxmlLoader.load();
             IView view = fxmlLoader.getController();
             view.setStage(stage);
-            if (!username.equals(null)) {
+            if (!username.equals("")) {
                 ILoggedInView loggedInView = (ILoggedInView) view;
                 loggedInView.setSessionUsername(username);
             }
@@ -39,7 +39,7 @@ public class ComponentFactory {
 
     public void createLoggedOutComponent(Stage stage, String fxml) {
         Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
-        Scene scene = new Scene((Parent) createRoot(stage, fxml, null), screenSize.getWidth(),
+        Scene scene = new Scene((Parent) createRoot(stage, fxml, ""), screenSize.getWidth(),
                 screenSize.getHeight());
         stage.setScene(scene);
     }

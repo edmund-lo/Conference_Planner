@@ -82,7 +82,7 @@ public class CreateEventView implements ICreateEventView {
     }
     @FXML
     public void executeAddCreateEvent(ActionEvent event) {
-        if (createRoomButtonAction != null) createRoomButtonAction.handle(event);
+        if (createEventButtonAction != null) createEventButtonAction.handle(event);
     }
     @FXML
     public void initialize() {
@@ -95,7 +95,7 @@ public class CreateEventView implements ICreateEventView {
     private EventHandler<ActionEvent> previewRoomButtonAction;
     private EventHandler<ActionEvent> summaryButtonAction;
     private EventHandler<ActionEvent> previousSecondButtonAction;
-    private EventHandler<ActionEvent> createRoomButtonAction;
+    private EventHandler<ActionEvent> createEventButtonAction;
     private Stage stage;
     private String sessionUsername;
 
@@ -297,12 +297,12 @@ public class CreateEventView implements ICreateEventView {
 
     @Override
     public EventHandler<ActionEvent> getCreateEventButtonAction() {
-        return this.createRoomButtonAction;
+        return this.createEventButtonAction;
     }
 
     @Override
     public void setCreateEventButtonAction(EventHandler<ActionEvent> eventHandler) {
-        this.createRoomButtonAction = eventHandler;
+        this.createEventButtonAction = eventHandler;
     }
 
     @Override
