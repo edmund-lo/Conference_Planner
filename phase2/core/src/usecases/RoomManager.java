@@ -31,9 +31,9 @@ public class RoomManager implements Serializable {
      * @param name  the name of the new room.
      * @return      a boolean value of true if the room was successfully created, false otherwise.
      */
-    public boolean createRoom(String name) {
+    public boolean createRoom(String name, int capacity) {
         if (!this.allRooms.containsKey(name)){
-            this.allRooms.put(name, new Room(name));
+            this.allRooms.put(name, new Room(name, capacity));
             return true;
         }
         return false;
@@ -73,25 +73,24 @@ public class RoomManager implements Serializable {
         return false;
     }
 
-//      ***** Saving method for phase 2
-//    /**
-//     * Removes an event to the schedule of a given Room in this RoomManager.
-//     *
-//     * @param startTime the start time of the event to be removed to the schedule of a room.
-//     * @param endTime   the end time of the event to be removed from the schedule of a room.
-//     * @param roomName  the name of the room to remove the event from.
-//     * @param eventName the name of the event to be removed
-//     * @return          a boolean value of true if the event was successfully removed from the room, false otherwise.
-//     */
-//    public boolean removeFromRoomSchedule(LocalDateTime startTime, LocalDateTime endTime, String roomName,
-//                                          String eventName){
-//        Room room = getRoom(roomName);
-//        if (room.hasEvent(startTime, endTime, eventName)) {
-//            room.removeEvent(startTime, endTime);
-//            return true;
-//        }
-//        return false;
-//    }
+    /**
+     * Removes an event to the schedule of a given Room in this RoomManager.
+     *
+     * @param startTime the start time of the event to be removed to the schedule of a room.
+     * @param endTime   the end time of the event to be removed from the schedule of a room.
+     * @param roomName  the name of the room to remove the event from.
+     * @param eventName the name of the event to be removed
+     * @return          a boolean value of true if the event was successfully removed from the room, false otherwise.
+     */
+    public boolean removeFromRoomSchedule(LocalDateTime startTime, LocalDateTime endTime, String roomName,
+                                          String eventName){
+        Room room = getRoom(roomName);
+        if (room.hasEvent(startTime, endTime, eventName)) {
+            room.removeEvent(startTime, endTime);
+            return true;
+        }
+        return false;
+    }
 
     /**
      * Gets a list of all the room names in the system.

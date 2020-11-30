@@ -223,7 +223,7 @@ public class OrganizerController extends UserController {
     public void createRoom(String roomName, int capacity) { //capacity for phase 2
         if(roomName.length() < 1)  //ensure that the room name is not empty
             op.emptyFieldError();
-        else if (rm.createRoom(roomName))
+        else if (rm.createRoom(roomName, capacity))
             op.roomCreationResult();
         else
             op.invalidRoomNameError();
