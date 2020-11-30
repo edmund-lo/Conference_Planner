@@ -1,8 +1,6 @@
 package controllers;
 
-import gateways.*;
 import presenters.LoginPresenter;
-import usecases.*;
 
 import java.util.Scanner;
 

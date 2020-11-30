@@ -1,6 +1,5 @@
 package controllers;
 
-import presenters.*;
 import usecases.EventManager;
 import usecases.MessageManager;
 import usecases.RoomManager;

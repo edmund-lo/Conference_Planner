@@ -1,7 +1,6 @@
 package controllers;
 
 import presenters.SpeakerPresenter;
-import usecases.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

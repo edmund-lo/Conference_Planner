@@ -1,7 +1,6 @@
 package controllers;
 
 import presenters.OrganizerPresenter;
-import usecases.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
