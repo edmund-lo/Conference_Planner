@@ -62,25 +62,13 @@ public class CreateRoomView implements ICreateRoomView {
 
     @Override
     public boolean getAmenity(int index) {
-        CheckBox amenity = new CheckBox();
-        if (index == 1)
-            amenity = getAmenity1();
-        else if (index == 2)
-            amenity = getAmenity2();
-        else if (index == 3)
-            amenity = getAmenity3();
-        return amenity.isSelected();
+        return getAmenityBox(index).isSelected();
     }
 
     @Override
     public void setAmenity(int index, boolean checked) {
         CheckBox amenity = new CheckBox();
-        if (index == 1)
-            amenity = getAmenity1();
-        else if (index == 2)
-            amenity = getAmenity2();
-        else if (index == 3)
-            amenity = getAmenity3();
+
         amenity.setSelected(checked);
     }
 
@@ -100,18 +88,15 @@ public class CreateRoomView implements ICreateRoomView {
     }
 
     @Override
-    public CheckBox getAmenity1() {
-        return this.amenity1;
-    }
-
-    @Override
-    public CheckBox getAmenity2() {
-        return this.amenity2;
-    }
-
-    @Override
-    public CheckBox getAmenity3() {
-        return this.amenity3;
+    public CheckBox getAmenityBox(int index) {
+        CheckBox amenity = null;
+        if (index == 1)
+            amenity = this.amenity1;
+        else if (index == 2)
+            amenity =  this.amenity2;
+        else if (index == 3)
+            amenity =  this.amenity3;
+        return amenity;
     }
 
     @Override

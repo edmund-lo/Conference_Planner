@@ -30,6 +30,7 @@ public class MessageSpeakersPresenter implements IMessageUsersPresenter {
             setResult("Recipients field is empty!", false);
         else {
             //call oc.sendAllSpeakers method
+            String[] recipients = this.view.getRecipients().split(", ");
             setResult("Successfully sent message to selected recipients.", true);
         }
     }

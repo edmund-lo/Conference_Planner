@@ -3,6 +3,7 @@ package login.impl;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -10,6 +11,8 @@ import javafx.stage.Stage;
 import login.IRegisterView;
 
 public class RegisterView implements IRegisterView {
+    @FXML
+    private ChoiceBox<String> userType;
     @FXML
     private TextField username;
     @FXML
@@ -40,6 +43,16 @@ public class RegisterView implements IRegisterView {
     private EventHandler<ActionEvent> registerButtonAction;
     private EventHandler<ActionEvent> backButtonAction;
     private Stage stage;
+
+    @Override
+    public String getUserType() {
+        return this.userType.getValue();
+    }
+
+    @Override
+    public void setUserType(String userType) {
+        this.userType.setValue(userType);
+    }
 
     @Override
     public String getUsername() {

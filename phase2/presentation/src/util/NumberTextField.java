@@ -47,6 +47,11 @@ public class NumberTextField extends TextField {
     }
 
     private void initHandlers() {
+        // force the field to be numeric only
+        textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*"))
+                setText(newValue.replaceAll("[^\\d]", ""));
+        });
 
         // try to parse when focus is lost or RETURN is hit
         setOnAction(arg0 -> parseAndFormatInput());

@@ -16,6 +16,8 @@ public interface IMessageUsersView extends ILoggedInView {
     TableColumn<User, String> getLastNameColumn();
     TableColumn<User, String> getUsernameColumn();
     CheckBox getSelectAll();
+    TextField getRecipientsField();
+
     String getSender();
     void setSender(String sender);
     String getRecipients();
@@ -23,7 +25,6 @@ public interface IMessageUsersView extends ILoggedInView {
     String getContent();
     void setContent(String content);
     void setResultMsg(String resultMsg);
-    TextField getRecipientsField();
 
     EventHandler<ActionEvent> getSendButtonAction();
     void setSendButtonAction(EventHandler<ActionEvent> eventHandler);

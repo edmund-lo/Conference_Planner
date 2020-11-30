@@ -17,9 +17,7 @@ public interface ICreateRoomView extends ILoggedInView {
     void setResultMsg(String result);
     TextField getRoomNameField();
     NumberTextField getCapacityField();
-    CheckBox getAmenity1();
-    CheckBox getAmenity2();
-    CheckBox getAmenity3();
+    CheckBox getAmenityBox(int index);
 
     EventHandler<ActionEvent> getCreateRoomButtonAction();
     void setCreateRoomButtonAction(EventHandler<ActionEvent> eventHandler);

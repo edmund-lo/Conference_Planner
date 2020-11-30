@@ -7,6 +7,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public interface IRegisterView extends IView {
+    String getUserType();
+    void setUserType(String userType);
     String getUsername();
     void setUsername(String username);
     String getFirstName();

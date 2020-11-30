@@ -16,14 +16,14 @@ public class HomeView implements IHomeView {
     @FXML
     private Button attendingButton;
 
-    @FXML
+    /*@FXML
     public void executeAddMessaging(ActionEvent event) {
         if (unreadButtonAction != null) unreadButtonAction.handle(event);
     }
     @FXML
     public void executeAddViewSchedule(ActionEvent event) {
         if (viewScheduleButtonAction != null) viewScheduleButtonAction.handle(event);
-    }
+    }*/
     @FXML
     public void initialize() {
         this.presenter = new HomePresenter(this);
@@ -50,7 +50,7 @@ public class HomeView implements IHomeView {
         this.attendingButton.setText(text);
     }
 
-    @Override
+    /*@Override
     public EventHandler<ActionEvent> getUnreadButtonAction() {
         return this.unreadButtonAction;
     }
@@ -68,7 +68,7 @@ public class HomeView implements IHomeView {
     @Override
     public void setViewScheduleButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.viewScheduleButtonAction = eventHandler;
-    }
+    }*/
 
     @Override
     public Stage getStage() {

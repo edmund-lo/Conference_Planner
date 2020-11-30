@@ -12,7 +12,6 @@ import organizer.ICreateRoomView;
 public class CreateRoomPresenter implements ICreateRoomPresenter {
     private ICreateRoomView view;
     private final ObservableSet<CheckBox> selectedAmenities = FXCollections.observableSet();
-    private final ObservableSet<CheckBox> unselectedAmenities = FXCollections.observableSet();
     private final PseudoClass errorClass = PseudoClass.getPseudoClass("error");
 
     public CreateRoomPresenter(ICreateRoomView view) {
@@ -44,9 +43,9 @@ public class CreateRoomPresenter implements ICreateRoomPresenter {
 
     @Override
     public void observeAmenities() {
-        configureCheckBox(this.view.getAmenity1());
-        configureCheckBox(this.view.getAmenity2());
-        configureCheckBox(this.view.getAmenity3());
+        configureCheckBox(this.view.getAmenityBox(1));
+        configureCheckBox(this.view.getAmenityBox(2));
+        configureCheckBox(this.view.getAmenityBox(3));
     }
 
     @Override
@@ -58,17 +57,12 @@ public class CreateRoomPresenter implements ICreateRoomPresenter {
     private void configureCheckBox(CheckBox checkBox) {
         if (checkBox.isSelected())
             selectedAmenities.add(checkBox);
-        else
-            unselectedAmenities.add(checkBox);
 
         checkBox.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
-            if (isNowSelected) {
-                unselectedAmenities.remove(checkBox);
+            if (isNowSelected)
                 selectedAmenities.add(checkBox);
-            } else {
+            else
                 selectedAmenities.remove(checkBox);
-                unselectedAmenities.add(checkBox);
-            }
         });
     }
 

@@ -30,6 +30,7 @@ public class MessageAttendeesPresenter implements IMessageUsersPresenter {
             setResult("Recipients field is empty!", false);
         else {
             //call oc.sendAllAttendees method
+            String[] recipients = this.view.getRecipients().split(", ");
             setResult("Successfully sent message to selected recipients.", true);
         }
     }
@@ -50,15 +51,16 @@ public class MessageAttendeesPresenter implements IMessageUsersPresenter {
 
     @Override
     public List<User> getAllUsers() {
-        //List<Object> userList = uc.getAllUsers method
-        return new ArrayList<>();
+        //List<String[]> resultJson = uc.getAllUsers method
+        //List<User> userList = UserAdapter.adapt(resultJson);
+        List<User> userList = new ArrayList<>();
+        return userList;
     }
 
     @Override
     public void displayUserList() {
         //This callback tell the cell how to bind the user model 'selected' property to the cell, itself
-        this.view.getCheckedColumn().setCellValueFactory(
-                param -> param.getValue().getSelected());
+        this.view.getCheckedColumn().setCellValueFactory(param -> param.getValue().getSelected());
         this.view.getFirstNameColumn().setCellValueFactory(new PropertyValueFactory<>("firstName"));
         this.view.getLastNameColumn().setCellValueFactory(new PropertyValueFactory<>("lastName"));
         this.view.getUsernameColumn().setCellValueFactory(new PropertyValueFactory<>("username"));
