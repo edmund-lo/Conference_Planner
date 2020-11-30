@@ -21,7 +21,7 @@ public class ForgotPresenter implements IForgotPresenter {
     @Override
     public void backButtonAction(ActionEvent actionEvent) {
         Stage stage = this.view.getStage();
-        ComponentFactory.getInstance().createLoginComponent(stage, "login.fxml");
+        ComponentFactory.getInstance().createLoggedOutComponent(stage, "login.fxml");
     }
 
     @Override

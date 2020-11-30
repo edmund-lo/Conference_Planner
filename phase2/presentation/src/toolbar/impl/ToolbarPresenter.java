@@ -19,77 +19,92 @@ public class ToolbarPresenter implements IToolbarPresenter {
 
     @Override
     public void homeButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "home.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "home.fxml",
+                this.view.getSessionUsername());
     }
 
     @Override
     public void viewScheduleButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "viewSchedule.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "viewSchedule.fxml",
+                this.view.getSessionUsername());
     }
 
     @Override
     public void viewEventsButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "viewEvents.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "viewEvents.fxml",
+                this.view.getSessionUsername());
     }
 
     @Override
     public void messagingButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "messaging.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "messaging.fxml",
+                this.view.getSessionUsername());
     }
 
     @Override
     public void createAccountButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "createAccount.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "createAccount.fxml",
+                this.view.getSessionUsername());
     }
 
     @Override
     public void createRoomButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "createRoom.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "createRoom.fxml",
+                this.view.getSessionUsername());
     }
 
     @Override
     public void createEventButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "createEvent.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "createEvent.fxml",
+                this.view.getSessionUsername());
     }
 
     @Override
     public void scheduleSpeakerButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "scheduleSpeaker.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "scheduleSpeaker.fxml",
+                this.view.getSessionUsername());
     }
 
     @Override
     public void cancelEventButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "rescheduleCancelEvent.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "rescheduleCancelEvent.fxml",
+                this.view.getSessionUsername());
     }
 
     @Override
     public void messageSpeakersButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "messageSpeakers.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "messageSpeakers.fxml",
+                this.view.getSessionUsername());
     }
 
     @Override
     public void messageAttendeesButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "messageAttendees.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "messageAttendees.fxml",
+                this.view.getSessionUsername());
     }
 
     @Override
     public void speakerEventsButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "speakerEvents.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "speakerEvents.fxml",
+                this.view.getSessionUsername());
     }
 
     @Override
     public void unlockAccountsButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "unlockAccounts.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "unlockAccounts.fxml",
+                this.view.getSessionUsername());
     }
 
     @Override
     public void deleteMessagesButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "deleteMessages.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "deleteMessages.fxml",
+                this.view.getSessionUsername());
     }
 
     @Override
     public void removeEventsButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "removeEvents.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "removeEvents.fxml",
+                this.view.getSessionUsername());
     }
 
     @Override
@@ -98,7 +113,7 @@ public class ToolbarPresenter implements IToolbarPresenter {
         alert.setHeaderText("Confirm logout?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK)
-            ComponentFactory.getInstance().createLoginComponent(this.view.getStage(), "login.fxml");
+            ComponentFactory.getInstance().createLoggedOutComponent(this.view.getStage(), "login.fxml");
     }
 
     @Override

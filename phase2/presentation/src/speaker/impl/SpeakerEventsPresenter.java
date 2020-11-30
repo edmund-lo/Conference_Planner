@@ -32,6 +32,14 @@ public class SpeakerEventsPresenter implements ISpeakerEventsPresenter {
 
         if (selectedRecipients.isEmpty())
             setResult("You have not selected any recipients!");
+        else {
+            List<String> recipients = new ArrayList<>();
+            for (CheckBox cb : selectedRecipients) {
+                if (cb.isSelected())
+                    recipients.add(cb.getText());
+            }
+            //call sc.sendEventMessage
+        }
     }
 
     @Override
@@ -52,9 +60,9 @@ public class SpeakerEventsPresenter implements ISpeakerEventsPresenter {
         DateTimeUtil.getInstance().setScheduleDateTimeCellFactory(this.view.getEventStartColumn());
         DateTimeUtil.getInstance().setScheduleDateTimeCellFactory(this.view.getEventEndColumn());
         this.view.getEventNameColumn().setCellValueFactory(new PropertyValueFactory<>("eventName"));
-        this.view.getRoomNameColumn().setCellValueFactory(new PropertyValueFactory<>("eventName"));
-        this.view.getEventStartColumn().setCellValueFactory(new PropertyValueFactory<>("eventName"));
-        this.view.getEventEndColumn().setCellValueFactory(new PropertyValueFactory<>("eventName"));
+        this.view.getRoomNameColumn().setCellValueFactory(new PropertyValueFactory<>("roomName"));
+        this.view.getEventStartColumn().setCellValueFactory(new PropertyValueFactory<>("start"));
+        this.view.getEventEndColumn().setCellValueFactory(new PropertyValueFactory<>("end"));
 
         ObservableList<ScheduleEntry> observableSchedule = FXCollections.observableArrayList(speakerSchedule);
         this.view.getEventsTable().setItems(observableSchedule);

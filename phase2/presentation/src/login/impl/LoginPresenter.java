@@ -24,18 +24,19 @@ public class LoginPresenter implements ILoginPresenter {
             setError("Fields cannot be empty!");
         else {
             //call lc.login method
-            ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "home.fxml");
+            ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "home.fxml",
+                    this.view.getUsername());
         }
     }
 
     @Override
     public void registerButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoginComponent(this.view.getStage(), "register.fxml");
+        ComponentFactory.getInstance().createLoggedOutComponent(this.view.getStage(), "register.fxml");
     }
 
     @Override
     public void forgotPasswordButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoginComponent(this.view.getStage(), "forgot.fxml");
+        ComponentFactory.getInstance().createLoggedOutComponent(this.view.getStage(), "forgot.fxml");
     }
 
     @Override

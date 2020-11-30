@@ -10,8 +10,8 @@
         <Button text="Home" onAction="#executeAddHome"/>
         <MenuButton text="Scheduling">
             <items>
-                <MenuItem text="View Schedule" onAction="#executeAddViewSchedule"/>
-                <MenuItem text="View Events" onAction="#executeAddViewEvents"/>
+                <MenuItem text="View Own Schedule" onAction="#executeAddViewSchedule"/>
+                <MenuItem text="View All Events" onAction="#executeAddViewEvents"/>
             </items>
         </MenuButton>
         <Button text="Messaging" onAction="#executeAddMessaging"/>

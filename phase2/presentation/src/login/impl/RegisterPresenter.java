@@ -20,7 +20,7 @@ public class RegisterPresenter implements IRegisterPresenter {
     @Override
     public void backButtonAction(ActionEvent actionEvent) {
         Stage stage = this.view.getStage();
-        ComponentFactory.getInstance().createLoginComponent(stage, "login.fxml");
+        ComponentFactory.getInstance().createLoggedOutComponent(stage, "login.fxml");
     }
 
     @Override
