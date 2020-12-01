@@ -20,6 +20,7 @@ public interface ICreateAccountView extends ILoggedInView {
     String getConfirmPassword();
     void setConfirmPassword(String password);
     void setResultMsg(String result);
+
     TextField getUsernameField();
     TextField getFirstNameField();
     TextField getLastNameField();

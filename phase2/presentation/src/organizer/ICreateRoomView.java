@@ -15,6 +15,7 @@ public interface ICreateRoomView extends ILoggedInView {
     boolean getAmenity(int index);
     void setAmenity(int index, boolean checked);
     void setResultMsg(String result);
+
     TextField getRoomNameField();
     NumberTextField getCapacityField();
     CheckBox getAmenityBox(int index);

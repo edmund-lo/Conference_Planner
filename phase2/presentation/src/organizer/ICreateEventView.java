@@ -8,7 +8,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
 import util.DateTimePicker;
-
 import java.time.LocalDateTime;
 
 public interface ICreateEventView extends ILoggedInView {
@@ -32,6 +31,7 @@ public interface ICreateEventView extends ILoggedInView {
     void setSummaryEnd(LocalDateTime end);
     void setSummaryAmenities(String amenities);
     void setResultMsg(String result);
+
     ComboBox<String> getRoomComboBox();
     DateTimePicker getStartPicker();
     DateTimePicker getEndPicker();

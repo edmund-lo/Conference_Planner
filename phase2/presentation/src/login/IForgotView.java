@@ -14,6 +14,7 @@ public interface IForgotView extends IView {
     String getPromptInput();
     void setPromptInput(String promptInput);
     void setResultMsg(String result);
+
     TextField getUsernameField();
     PasswordField getPromptInputField();
 

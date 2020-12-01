@@ -20,6 +20,7 @@ public interface IRegisterView extends IView {
     String getConfirmPassword();
     void setConfirmPassword(String password);
     void setErrorMsg(String error);
+
     TextField getUsernameField();
     TextField getFirstNameField();
     TextField getLastNameField();

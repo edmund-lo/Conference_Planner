@@ -12,6 +12,7 @@ public interface ILoginView extends IView {
     String getPassword();
     void setPassword(String password);
     void setErrorMsg(String error);
+
     TextField getUsernameField();
     PasswordField getPasswordField();
 

@@ -18,7 +18,7 @@
     <center>
         <SplitPane>
             <VBox>
-                <Text text="All Events"/>
+                <Text text="Attending Events"/>
                 <TableView fx:id="eventTable">
                     <columns>
                         <TableColumn fx:id="eventNameColumn" text="Event Name"/>

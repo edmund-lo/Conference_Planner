@@ -95,6 +95,17 @@ public class ToolbarView implements IToolbarView {
     private EventHandler<ActionEvent> logoutButtonAction;
     private Stage stage;
     private String sessionUsername;
+    private int sessionUserType;
+
+    @Override
+    public int getSessionUserType() {
+        return this.sessionUserType;
+    }
+
+    @Override
+    public void setSessionUserType(int userType) {
+        this.sessionUserType = userType;
+    }
 
     @Override
     public EventHandler<ActionEvent> getHomeButtonAction() {
