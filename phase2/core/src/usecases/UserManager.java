@@ -362,6 +362,23 @@ public class UserManager implements Serializable {
     }
 
     /**
+     * Gets the usernames of all the vips.
+     *
+     * @return an arraylist containing the usernames of all vips
+     */
+    public ArrayList<String> getAllVipNames() {
+        ArrayList<String> vips = new ArrayList<>();
+        for (User user : allUsers.values()) {
+            if (user instanceof Attendee) {
+                if (((Attendee) user).isVip()) {
+                    vips.add(user.getUsername());
+                }
+            }
+        }
+        return vips;
+    }
+
+    /**
      * Sets the attendee as a vip
      *
      * @param username the username
@@ -390,5 +407,29 @@ public class UserManager implements Serializable {
     public boolean isVip(String username) {
         Attendee attendee = (Attendee) allUsers.get(username);
         return attendee.isVip();
+    }
+
+    /**
+     * Gets the role of the user
+     *
+     * @param username the username
+     * @return the role of the user
+     */
+    public String getUserRole(String username) {
+        return allUsers.get(username).getClass().getSimpleName();
+    }
+
+    /**
+     * toString for the user's username and user's role
+     *
+     * @return an arraylist of strings of user's username and role
+     */
+    public ArrayList<String> userToString() {
+        ArrayList<String> usernames = new ArrayList<>();
+        for (User user: allUsers.values()){
+            usernames.add(user.toString());
+        }
+
+        return usernames;
     }
 }

@@ -85,8 +85,6 @@ public class OrganizerController extends UserController {
                 else if (option == 1)
                     createRoomCmd();
                 else if (option == 2)
-                    createSpeakerAccountCmd();
-                else if (option == 3)
                     createEventCmd();
                 else
                     op.invalidOptionError();
@@ -116,32 +114,6 @@ public class OrganizerController extends UserController {
                 op.invalidOptionError();
             }
         }
-    }
-
-    /**
-     * Called when user chooses to create a new speaker user account.
-     */
-    public void createSpeakerAccountCmd() {
-        op.speakerUsernamePrompt();
-        String username = input.nextLine();
-        op.speakerPasswordPrompt();
-        String password = input.nextLine();
-        createSpeakerAccount(username, password);
-    }
-
-    /**
-     * Creates a new speaker account after performing necessary checks.
-     *
-     * @param username String representing new speaker's username.
-     * @param password String representing new speaker's password.
-     */
-    public void createSpeakerAccount(String username, String password) {
-        if (um.checkUniqueUsername(username)) { //ensures the username is unique
-            um.createNewSpeaker(username, password); //create new speaker
-            op.speakerCreationResult();
-            return; //exit method
-        }
-        op.invalidSpeakerNameError();
     }
 
     /**
