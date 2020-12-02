@@ -31,9 +31,10 @@ public class RoomManager implements Serializable {
      * @param name  the name of the new room.
      * @return      a boolean value of true if the room was successfully created, false otherwise.
      */
-    public boolean createRoom(String name, int capacity) {
+    public boolean createRoom(String name, int capacity, boolean hasChairs, boolean hasTables, boolean hasProjector,
+                              boolean hasSoundSystem) {
         if (!this.allRooms.containsKey(name)){
-            this.allRooms.put(name, new Room(name, capacity));
+            this.allRooms.put(name, new Room(name, capacity, hasChairs, hasTables, hasProjector, hasSoundSystem));
             return true;
         }
         return false;
@@ -66,7 +67,7 @@ public class RoomManager implements Serializable {
     public boolean addToRoomSchedule(LocalDateTime startTime, LocalDateTime endTime, String roomName,
                                      String eventName) {
         Room room = getRoom(roomName);
-        if (room.canBook(startTime, endTime)){
+        if (room.canBook(startTime, endTime)){ // && eventCap < room.getCapacity()){
             room.addEvent(startTime, endTime, eventName);
             return true;
         }

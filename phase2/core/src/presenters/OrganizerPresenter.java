@@ -46,13 +46,6 @@ public class OrganizerPresenter extends UserPresenter {
         System.out.println("Enter room's name:");
     }
 
-//     ***** Saved for phase 2
-//    /**
-//     * Outputs label that prompts the user to enter the room's capacity
-//     */
-//    public void roomCapacityPrompt() {
-//        System.out.println("Enter room's capacity:");
-//    }
 
     /**
      * Outputs label that prompts the user to enter the speaker's username
@@ -261,5 +254,49 @@ public class OrganizerPresenter extends UserPresenter {
      */
     public void invalidDateError() {
         System.out.println("Unable to parse date input!");
+    }
+
+    /**
+     * Outputs a label prompting the user to input the room capacity
+     */
+    public void roomCapacityPrompt() {
+        System.out.println("Enter the capacity of the room:");
+    }
+
+    /**
+     * Outputs a label prompting the user to input whether the room has chairs or not.
+     */
+    public void haveChairsPrompt() {
+        System.out.println("Does this room have chairs? Type \"Y\" if yes, or \"N\" if No");
+    }
+
+    /**
+     * Outputs a label prompting the user to input whether the room has tables or not.
+     */
+    public void haveTablesPrompt() {
+        System.out.println("Does this room have tables? Type \"Y\" if yes, or \"N\" if No");
+    }
+
+    /**
+     * Outputs a label prompting the user to input whether the room has a projector or not.
+     */
+    public void haveProjectorPrompt() {
+        System.out.println("Does this room have a projector? Type \"Y\" if yes, or \"N\" if No");
+    }
+
+    /**
+     * Outputs a label prompting the user to input whether the room has a projector or not.
+     */
+    public void haveSoundSystemPrompt() {
+        System.out.println("Does this room have a sound system or speakers installed? Type \"Y\" if yes, " +
+                "or \"N\" if No");
+    }
+
+    /**
+     * Outputs an error message telling the user that their input was incorrect
+     */
+    public void incorrectInputError() {
+        System.out.println("Unable to create room: An input you have entered for chairs, tables, projectors or " +
+                "sound system was invalid");
     }
 }

@@ -10,7 +10,7 @@ import java.util.UUID;
 
 
 /**
- * Helper that manages all interaction with the Entities.Event classes and ensures no rules are broken.
+ * Helper that manages all interaction with the Entities. Event classes and ensures no rules are broken.
  */
 public class EventManager implements Serializable {
     private HashMap<String, Event> allEvents;

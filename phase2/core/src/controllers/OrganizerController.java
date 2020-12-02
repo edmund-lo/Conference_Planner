@@ -208,22 +208,42 @@ public class OrganizerController extends UserController {
     public void createRoomCmd() {
         op.roomNamePrompt();
         String name = input.nextLine();
-        /*op.roomCapacityPrompt(); capacity for phase 2
-        int capacity = parseInt(input.nextLine());*/
-        int capacity = 2;
-        createRoom(name, capacity);
+        op.roomCapacityPrompt();
+        int capacity = parseInt(input.nextLine());
+        op.haveChairsPrompt();
+        String hasChairs = input.nextLine();
+        op.haveTablesPrompt();
+        String hasTables = input.nextLine();
+        op.haveProjectorPrompt();
+        String hasProjector = input.nextLine();
+        op.haveSoundSystemPrompt();
+        String hasSoundSystem = input.nextLine();
+        createRoom(name, capacity, hasChairs, hasTables, hasProjector, hasSoundSystem);
+    }
+
+    private boolean isInputCorrect(String userInput){
+        return userInput.equals("Y") | userInput.equals("N");
+    }
+    private boolean convertToBoolean(String userInput){
+        return userInput.equals("Y");
     }
 
     /**
-     * Creates a mew room.
+     * Creates a new room.
      *
      * @param roomName String representing the new room's name.
      * @param capacity Integer representing the new room's capacity.
      */
-    public void createRoom(String roomName, int capacity) { //capacity for phase 2
+    public void createRoom(String roomName, int capacity, String hasChairs, String hasTables, String hasProjector,
+                           String hasSoundSystem) {
         if(roomName.length() < 1)  //ensure that the room name is not empty
             op.emptyFieldError();
-        else if (rm.createRoom(roomName, capacity))
+        else if (!isInputCorrect(hasChairs) | !isInputCorrect(hasTables) | !isInputCorrect(hasProjector)
+                | !isInputCorrect(hasSoundSystem)){
+            op.incorrectInputError();
+        }
+        else if (rm.createRoom(roomName, capacity, convertToBoolean(hasChairs), convertToBoolean(hasTables),
+                convertToBoolean(hasProjector), convertToBoolean(hasSoundSystem)))
             op.roomCreationResult();
         else
             op.invalidRoomNameError();

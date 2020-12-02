@@ -16,18 +16,27 @@ import java.util.TreeMap;
 
 public class Room implements Serializable {
     private final String name;
-    private TreeMap<LocalDateTime[], String> schedule;
     private final int capacity;
+    private final boolean hasChairs;
+    private final boolean hasTables;
+    private final boolean hasProjector;
+    private final boolean hasSoundSystem;
+    private TreeMap<LocalDateTime[], String> schedule;
 
     /**
      * Constructor for a Room object
      *
      * @param name  the name of the room
      */
-    public Room(String name, int capacity){
+    public Room(String name, int capacity, boolean hasChairs, boolean hasTables, boolean hasProjector,
+                boolean hasSoundSystem){
         this.name = name;
         this.capacity = capacity;
-        this.schedule = new TreeMap<>(new SerializableComparator<LocalDateTime[]>() {
+        this.hasChairs = hasChairs;
+        this.hasTables = hasTables;
+        this.hasProjector = hasProjector;
+        this.hasSoundSystem = hasSoundSystem;
+        this.schedule = new TreeMap<>(new SerializableComparator<>() {
             @Override
             public int compare(LocalDateTime[] o1, LocalDateTime[] o2) {
                 if (o1[0].isAfter(o2[0])){
@@ -58,8 +67,7 @@ public class Room implements Serializable {
                 return false;
             }
         }
-        return endTime.getHour() <= 17          // event ends at/before 5pm
-                && startTime.getHour() >= 9;    // event starts before/at 9am
+        return true;
     }
 
     /**
@@ -97,6 +105,51 @@ public class Room implements Serializable {
     public void removeEvent(LocalDateTime startTime, LocalDateTime endTime){
         LocalDateTime[] times = new LocalDateTime[]{startTime, endTime};
         this.schedule.remove(times);
+    }
+
+    /**
+     * Gets the total number of people the room can hold.
+     *
+     * @return the capacity of this Room
+     */
+    public int getCapacity() {
+        return this.capacity;
+    }
+
+    /**
+     * Finds out whether the room has chairs.
+     *
+     * @return true if the room has chairs, false otherwise
+     */
+    public boolean hasChairs(){
+        return this.hasChairs;
+    }
+
+    /**
+     * Finds out whether the room has tables.
+     *
+     * @return true if the room has chairs, false otherwise
+     */
+    public boolean hasTables(){
+        return this.hasTables;
+    }
+
+    /**
+     * Finds out whether the room has a projector.
+     *
+     * @return true if the room has a projector, false otherwise
+     */
+    public boolean hasProjector(){
+        return this.hasProjector;
+    }
+
+    /**
+     * Finds out whether the room has a sound system.
+     *
+     * @return true if the room has a sound system, false otherwise
+     */
+    public boolean hasSoundSystem(){
+        return this.hasSoundSystem;
     }
 
     /**
