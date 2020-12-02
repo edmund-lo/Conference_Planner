@@ -12,6 +12,7 @@ import static java.lang.Integer.parseInt;
  *
  */
 public class AdminController extends UserController{
+    private final AdminPresenter ap;
 
     /**
      * Constructor for AdminController object. Uses constructor from UserController.
@@ -24,7 +25,7 @@ public class AdminController extends UserController{
      */
     public AdminController(EventManager em, UserManager um, RoomManager rm, MessageManager mm, String username) {
         super(em, um, rm, mm, username);
-        AdminPresenter ap = new AdminPresenter();
+        this.ap = new AdminPresenter();
 
         boolean inSession = true;
         // Enters a while loop that allows the user to continuously use Organizer and Attendee functions
@@ -63,7 +64,7 @@ public class AdminController extends UserController{
      */
     public void createNewAccountMenu() {
         while (true) { //loop until valid input
-            ap.createNewPrompt();
+            ap.createNewAccountPrompt();
             try {
                 int option = parseInt(input.nextLine());
                 if (option == 0)

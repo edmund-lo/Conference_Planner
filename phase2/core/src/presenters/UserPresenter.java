@@ -155,4 +155,10 @@ public class UserPresenter {
     public void logoutMessage() {
         System.out.println("Logging out...");
     }
+
+    public void listAllUsersLabel() {
+    }
+
+    public void exitlistAllUsersLabel() {
+    }
 }
