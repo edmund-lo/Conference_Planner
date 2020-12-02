@@ -432,4 +432,14 @@ public class UserManager implements Serializable {
 
         return usernames;
     }
+
+    /**
+     * Sets the new password of the user
+     *
+     * @param username the username
+     * @param password the new password
+     */
+    public void setPassword(String username, String password) {
+        allUsers.get(username).setPassword(password);
+    }
 }

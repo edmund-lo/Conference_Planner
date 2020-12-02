@@ -13,7 +13,7 @@ import java.util.HashMap;
  */
 public abstract class User implements Serializable {
     private final String username;
-    private final String password;
+    private String password;
     private HashMap<String, LocalDateTime[]> schedule;
     private ArrayList<String> sentMessages;
     private ArrayList<String> receivedMessages;
@@ -169,4 +169,12 @@ public abstract class User implements Serializable {
         return "Username: " + this.username + "\n" +  "Role: " + this.getClass().getSimpleName() + "\n";
     }
 
+    /**
+     * Sets the new password of the user
+     *
+     * @param password the new password
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
