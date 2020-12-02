@@ -103,4 +103,8 @@ public class LoginPresenter {
     public void IncorrectAnswers() {
         System.out.println("The answers to the security questions were incorrect.");
     }
+
+    public void EmptyPassword() {
+        System.out.println("Password should have at least 6 characters");
+    }
 }

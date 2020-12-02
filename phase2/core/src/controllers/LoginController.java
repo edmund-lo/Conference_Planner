@@ -97,8 +97,16 @@ public class LoginController {
             //Repeat Do loop until a username is set which isn't taken.
         }while(!UsernameSet);
 
+        boolean PasswordSet = false;
+
+        do{
         lp.EnterPassword();
         Password = sc.nextLine();
+        if(Password.length() < 6)
+            lp.EmptyPassword();
+        else
+            PasswordSet = true;
+        }while(!PasswordSet);
 
         boolean AccountTypeSet = false;
 
