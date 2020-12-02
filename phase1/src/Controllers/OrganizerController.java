@@ -118,9 +118,7 @@ public class OrganizerController extends UserController {
         }
     }
 
-    /**
-     * Called when user chooses to create a new speaker user account.
-     */
+
     public void createSpeakerAccountCmd() {
         op.speakerUsernamePrompt();
         String username = input.nextLine();

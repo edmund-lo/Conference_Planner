@@ -2,7 +2,11 @@ package controllers;
 
 import presenters.LoginPresenter;
 import usecases.*;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Scanner;
 
 /**
@@ -22,6 +26,11 @@ public class LoginController {
     protected EventManager em;
     protected UserController controller;
     private final LoginPresenter lp;
+
+    //Stores logs for login. ArrayList of arrays of strings. First element is type (Login, Created Account, Logout)
+    //Second element is username, third element is time.
+    protected static ArrayList<String[]> loginLogs;
+    protected static ArrayList<String[]> securityAns;
 
     /**
      * Constructor for LoginController object.
@@ -121,8 +130,23 @@ public class LoginController {
                     lp.ValidNumber();
             }
         }while(!AccountTypeSet);
-    }
 
+        UpdateLogs(Username, "Account Created");
+
+        //Security Questions if forget password or want to reset
+        lp.SecurityQuestion1();
+        String a1 = sc.nextLine();
+
+        lp.SecurityQuestion2();
+        String a2 = sc.nextLine();
+
+        lp.SecurityQuestion3();
+        String a3 = sc.nextLine();
+
+        securityAns.add(new String[]{a1, a2, a3});
+
+        
+    }
 
     /**
      * Called to let user login to an existing account in the database.
@@ -188,11 +212,54 @@ public class LoginController {
                 lp.ValidNumber();
         }
 
+        UpdateLogs(Username, "Login");
+
         //Update the values of the login controller.
         this.em = controller.em;
         this.um = controller.um;
         this.rm = controller.rm;
         this.mm = controller.mm;
+
+    }
+
+    public boolean resetPassword(String User){
+        int index = -1;
+        for (int i = 0; i < Accounts.toArray().length; i++) {
+            if (User.equals(Accounts.get(i)[0]))
+                index = i;
+        }
+        if(index == -1){
+            lp.NoAccount();
+            return false;
+        }
+
+        lp.SecurityQuestion1();
+        String a1 = sc.nextLine();
+
+        lp.SecurityQuestion2();
+        String a2 = sc.nextLine();
+
+        lp.SecurityQuestion3();
+        String a3 = sc.nextLine();
+
+        //Check if answers provided are right.
+        if (securityAns.get(index)[0].equals(a1) && securityAns.get(index)[1].equals(a2) && securityAns.get(index)[2].equals(a3)){
+            lp.EnterPassword();
+            String pass = sc.nextLine();
+            um.changePassword(User, pass);
+            return true;
+        }
+
+        lp.IncorrectAnswers();
+        return false;
+    }
+
+    public void UpdateLogs(String Username, String type){
+        String pattern = "MM/dd/yyyy HH:mm:ss";
+        DateFormat dateForm = new SimpleDateFormat(pattern);
+        String dateString = dateForm.format(Calendar.getInstance().getTime());
+
+        loginLogs.add(new String[]{type , Username, dateString});
 
     }
 

@@ -391,4 +391,7 @@ public class UserManager implements Serializable {
         Attendee attendee = (Attendee) allUsers.get(username);
         return attendee.isVip();
     }
+
+    public void changePassword(String user, String pass) {
+    }
 }

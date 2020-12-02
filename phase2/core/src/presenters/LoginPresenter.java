@@ -83,4 +83,24 @@ public class LoginPresenter {
     public void EmptyName() {
         System.out.println("Username cannot be empty!");
     }
+
+    public void SecurityQuestion1() {
+        System.out.println("Question 1: What is your date of birth?");
+    }
+
+    public void SecurityQuestion2() {
+        System.out.println("Question 2: ");
+    }
+
+    public void SecurityQuestion3() {
+        System.out.println("Question 3: ");
+    }
+
+    public void NoAccount() {
+        System.out.println("No account found");
+    }
+
+    public void IncorrectAnswers() {
+        System.out.println("The answers to the security questions were incorrect.");
+    }
 }
