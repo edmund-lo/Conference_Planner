@@ -184,11 +184,13 @@ public abstract class UserController {
     public void signUpEventAttendance(String eventId) {
         LocalDateTime start = em.getEventStartTime(eventId);
         LocalDateTime end = em.getEventEndTime(eventId);
+        //Check if user can sign up
         if (!um.canSignUp(username, eventId, start, end)) {
             up.alreadySignedUpError();
-        } else if (!em.canAddUserToEvent(eventId,username)){
+        } else if (!em.canAddUserToEvent(eventId,username)){ // Check if event is full or not
             up.eventFullCapacityError();
         } else {
+            //Sign user up
             em.addUserToEvent(eventId,username);
             um.signUp(username, eventId, start, end);
             up.signUpResult(em.getEventName(eventId));
@@ -219,6 +221,7 @@ public abstract class UserController {
     public List<String> getAttendingEventsString() {
         HashMap<String, LocalDateTime[]> schedule = um.getSchedule(username);
         ArrayList<String> eventDesc = new ArrayList<>();
+        //Cycle through all events and add their description to the Arraylist
         for (String eventId : schedule.keySet())
             eventDesc.add(em.getEventDescription(eventId));
 
@@ -244,7 +247,9 @@ public abstract class UserController {
     public List<String> getAllEventsCanSignUp(){
         ArrayList<String> eventDesc = new ArrayList<>();
         for (String id : em.getAllEventIds()){
+            //Check if username can sign up
             if(um.canSignUp(username, id, em.getEventStartTime(id), em.getEventEndTime(id))) {
+                //If they can sign up, add it to the list.
                 eventDesc.add(em.getEventDescription(id));
             }
         }
@@ -289,6 +294,7 @@ public abstract class UserController {
         if (userMessages.size() == 0) {
             mp.noMessagesLabel();
         } else {
+            //If User has sent messages, loop through them and store them in an arraylist
             mp.showNumMessages(userMessages.size(), "sent");
             for (String id : userMessages) {
                 messageStrings.add(mm.getSentMessageToString(id));

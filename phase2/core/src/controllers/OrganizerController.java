@@ -6,6 +6,7 @@ import usecases.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -85,6 +86,9 @@ public class OrganizerController extends UserController {
                 else if (option == 1)
                     createRoomCmd();
                 else if (option == 2)
+                    createSpeakerAccountCmd();
+                else if (option == 3)
+
                     createEventCmd();
                 else
                     op.invalidOptionError();
@@ -114,6 +118,32 @@ public class OrganizerController extends UserController {
                 op.invalidOptionError();
             }
         }
+    }
+
+    /**
+     * Called when user chooses to create a new speaker user account.
+     */
+    public void createSpeakerAccountCmd() {
+        op.speakerUsernamePrompt();
+        String username = input.nextLine();
+        op.speakerPasswordPrompt();
+        String password = input.nextLine();
+        createSpeakerAccount(username, password);
+    }
+
+    /**
+     * Creates a new speaker account after performing necessary checks.
+     *
+     * @param username String representing new speaker's username.
+     * @param password String representing new speaker's password.
+     */
+    public void createSpeakerAccount(String username, String password) {
+        if (um.checkUniqueUsername(username)) { //ensures the username is unique
+            um.createNewSpeaker(username, password); //create new speaker
+            op.speakerCreationResult();
+            return; //exit method
+        }
+        op.invalidSpeakerNameError();
     }
 
     /**
@@ -180,22 +210,42 @@ public class OrganizerController extends UserController {
     public void createRoomCmd() {
         op.roomNamePrompt();
         String name = input.nextLine();
-        /*op.roomCapacityPrompt(); capacity for phase 2
-        int capacity = parseInt(input.nextLine());*/
-        int capacity = 2;
-        createRoom(name, capacity);
+        op.roomCapacityPrompt();
+        int capacity = parseInt(input.nextLine());
+        op.haveChairsPrompt();
+        String hasChairs = input.nextLine();
+        op.haveTablesPrompt();
+        String hasTables = input.nextLine();
+        op.haveProjectorPrompt();
+        String hasProjector = input.nextLine();
+        op.haveSoundSystemPrompt();
+        String hasSoundSystem = input.nextLine();
+        createRoom(name, capacity, hasChairs, hasTables, hasProjector, hasSoundSystem);
+    }
+
+    private boolean isInputCorrect(String userInput){
+        return userInput.equalsIgnoreCase("Y") | userInput.equalsIgnoreCase("N");
+    }
+    private boolean convertToBoolean(String userInput){
+        return userInput.equals("Y");
     }
 
     /**
-     * Creates a mew room.
+     * Creates a new room.
      *
      * @param roomName String representing the new room's name.
      * @param capacity Integer representing the new room's capacity.
      */
-    public void createRoom(String roomName, int capacity) { //capacity for phase 2
+    public void createRoom(String roomName, int capacity, String hasChairs, String hasTables, String hasProjector,
+                           String hasSoundSystem) {
         if(roomName.length() < 1)  //ensure that the room name is not empty
             op.emptyFieldError();
-        else if (rm.createRoom(roomName, capacity))
+        else if (!isInputCorrect(hasChairs) | !isInputCorrect(hasTables) | !isInputCorrect(hasProjector)
+                | !isInputCorrect(hasSoundSystem)){
+            op.incorrectInputError();
+        }
+        else if (rm.createRoom(roomName, capacity, convertToBoolean(hasChairs), convertToBoolean(hasTables),
+                convertToBoolean(hasProjector), convertToBoolean(hasSoundSystem)))
             op.roomCreationResult();
         else
             op.invalidRoomNameError();
@@ -281,14 +331,44 @@ public class OrganizerController extends UserController {
     }
 
     /**
+     * Takes input from the user about constraints for an event.
+     *
+     * @return a list of constraints for an event
+     */
+
+    public ArrayList<Boolean> getConstraints(){
+        ArrayList<String> stringConstraints = new ArrayList<>();
+        ArrayList<Boolean> boolConstraints = new ArrayList<>();
+        op.needItemPrompt("chair");
+        stringConstraints.add(input.next());
+        op.needItemPrompt("table");
+        stringConstraints.add(input.next());
+        op.needItemPrompt("projector");
+        stringConstraints.add(input.next());
+        op.needItemPrompt("speaker/sound system");
+        stringConstraints.add(input.next());
+        for (String constraint : stringConstraints){ // check to see that user input is correct
+            if (!isInputCorrect(constraint)){
+                op.incorrectInputError();
+                break;
+            } else {
+                boolConstraints.add(convertToBoolean(constraint));
+            }
+        }
+        return boolConstraints;
+    }
+
+    /**
      * Called when user chooses to create a new event
      */
     public void createEventCmd() {
         if (rm.getAllRooms().size() == 0) //if there's no rooms
             op.noRoomError();
         else{
-            op.roomIntroduceListLabel();
-            op.listRooms(rm.getAllRooms());
+            ArrayList<Boolean> constraints = getConstraints(); // user enters the room constraints
+            ArrayList<String> possibleRooms = rm.getAllRoomsWith(constraints); // all possible rooms that can host
+            op.roomIntroduceListLabel(possibleRooms);
+            op.listRooms(possibleRooms);
             String roomName;
             while (true) { //user inputs the room name they wish to create an event in
                 op.roomNamePrompt();
@@ -299,7 +379,7 @@ public class OrganizerController extends UserController {
                     }
                     op.listRoomSchedule(rm.getRoomSchedule(roomName)); //list the schedule of the selected room
                     break; //break the loop as the user has entered a valid input
-                }catch(NullPointerException e){
+                } catch(NullPointerException e){
                     op.roomDoesNotExistLabel();
                 }
             }
