@@ -6,6 +6,7 @@ import usecases.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -87,6 +88,7 @@ public class OrganizerController extends UserController {
                 else if (option == 2)
                     createSpeakerAccountCmd();
                 else if (option == 3)
+
                     createEventCmd();
                 else
                     op.invalidOptionError();
@@ -222,7 +224,7 @@ public class OrganizerController extends UserController {
     }
 
     private boolean isInputCorrect(String userInput){
-        return userInput.equals("Y") | userInput.equals("N");
+        return userInput.equalsIgnoreCase("Y") | userInput.equalsIgnoreCase("N");
     }
     private boolean convertToBoolean(String userInput){
         return userInput.equals("Y");
@@ -329,14 +331,44 @@ public class OrganizerController extends UserController {
     }
 
     /**
+     * Takes input from the user about constraints for an event.
+     *
+     * @return a list of constraints for an event
+     */
+
+    public ArrayList<Boolean> getConstraints(){
+        ArrayList<String> stringConstraints = new ArrayList<>();
+        ArrayList<Boolean> boolConstraints = new ArrayList<>();
+        op.needItemPrompt("chair");
+        stringConstraints.add(input.next());
+        op.needItemPrompt("table");
+        stringConstraints.add(input.next());
+        op.needItemPrompt("projector");
+        stringConstraints.add(input.next());
+        op.needItemPrompt("speaker/sound system");
+        stringConstraints.add(input.next());
+        for (String constraint : stringConstraints){ // check to see that user input is correct
+            if (!isInputCorrect(constraint)){
+                op.incorrectInputError();
+                break;
+            } else {
+                boolConstraints.add(convertToBoolean(constraint));
+            }
+        }
+        return boolConstraints;
+    }
+
+    /**
      * Called when user chooses to create a new event
      */
     public void createEventCmd() {
         if (rm.getAllRooms().size() == 0) //if there's no rooms
             op.noRoomError();
         else{
-            op.roomIntroduceListLabel();
-            op.listRooms(rm.getAllRooms());
+            ArrayList<Boolean> constraints = getConstraints(); // user enters the room constraints
+            ArrayList<String> possibleRooms = rm.getAllRoomsWith(constraints); // all possible rooms that can host
+            op.roomIntroduceListLabel(possibleRooms);
+            op.listRooms(possibleRooms);
             String roomName;
             while (true) { //user inputs the room name they wish to create an event in
                 op.roomNamePrompt();
@@ -347,7 +379,7 @@ public class OrganizerController extends UserController {
                     }
                     op.listRoomSchedule(rm.getRoomSchedule(roomName)); //list the schedule of the selected room
                     break; //break the loop as the user has entered a valid input
-                }catch(NullPointerException e){
+                } catch(NullPointerException e){
                     op.roomDoesNotExistLabel();
                 }
             }

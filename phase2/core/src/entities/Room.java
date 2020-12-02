@@ -10,7 +10,7 @@ import java.util.TreeMap;
  * An Entity class representing a conference room at the conference.
  *
  * @author Keegan McGonigal
- * @version 1.0
+ * @version 2.0
  *
  */
 

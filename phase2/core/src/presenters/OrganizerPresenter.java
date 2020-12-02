@@ -1,5 +1,6 @@
 package presenters;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -164,7 +165,7 @@ public class OrganizerPresenter extends UserPresenter {
      *
      * @param allRooms A set of strings of all rooms
      */
-    public void listRooms(Set<String> allRooms) {
+    public void listRooms(ArrayList<String> allRooms) {
         for (String room : allRooms) {
             System.out.println(room);
         }
@@ -210,8 +211,12 @@ public class OrganizerPresenter extends UserPresenter {
     /**
      * Outputs a label introducing the list of rooms
      */
-    public void roomIntroduceListLabel(){
-        System.out.println("List of all the rooms: ");
+    public void roomIntroduceListLabel(ArrayList<String> rooms){
+        if (rooms.size() == 0) {
+            System.out.println("There are no rooms that fit your event requirements.");
+        } else {
+            System.out.println("Here are the rooms that fit your event requirements: ");
+        }
     }
 
     /**
@@ -288,7 +293,7 @@ public class OrganizerPresenter extends UserPresenter {
      * Outputs a label prompting the user to input whether the room has a projector or not.
      */
     public void haveSoundSystemPrompt() {
-        System.out.println("Does this room have a sound system or speakers installed? Type \"Y\" if yes, " +
+        System.out.println("Does this room have a sound system/speakers installed? Type \"Y\" if yes, " +
                 "or \"N\" if No");
     }
 
@@ -296,7 +301,24 @@ public class OrganizerPresenter extends UserPresenter {
      * Outputs an error message telling the user that their input was incorrect
      */
     public void incorrectInputError() {
-        System.out.println("Unable to create room: An input you have entered for chairs, tables, projectors or " +
+        System.out.println("Input error: An input you have entered for chairs, tables, projectors or " +
                 "sound system was invalid");
+    }
+
+    public void needItemPrompt(String item){
+        System.out.println("Enter the room requirements for your event to find matching rooms. If you do not need an " +
+                "item for an event but can still run the event with the item in the room, type \"Y\" when prompted. " +
+                "This will give you more room options.");
+        switch (item) {
+            case "chair":
+                System.out.println("Does your event require chairs? Type \"Y\" for yes or \"N\" for no.");
+            case "table":
+                System.out.println("Does your event require tables? Type \"Y\" for yes or \"N\" for no.");
+            case "projector":
+                System.out.println("Does your event require a projector? Type \"Y\" for yes or \"N\" for no.");
+            default:
+                System.out.println("Does your event require a sound system/speakers? " +
+                        "Type \"Y\" for yes or \"N\" for no.");
+        }
     }
 }

@@ -4,7 +4,9 @@ import entities.Room;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -12,7 +14,7 @@ import java.util.Set;
  * to reflect their current state.
  *
  * @author Keegan McGonigal
- * @version 1.0
+ * @version 2.0
  *
  */
 
@@ -100,6 +102,26 @@ public class RoomManager implements Serializable {
      */
     public Set<String> getAllRooms(){
         return this.allRooms.keySet();
+    }
+
+    /**
+     * Gets a list of all the room names in the system that meet specific requirements.
+     *
+     * @return  a set containing all of the room names
+     */
+
+    public ArrayList<String> getAllRoomsWith(ArrayList<Boolean> constraints){
+        ArrayList<String> possibleRooms = new ArrayList<>();
+        for (Map.Entry<String, Room> room : this.allRooms.entrySet()){
+            Room thisRoom = room.getValue();
+            if (thisRoom.hasChairs() == constraints.get(0)
+                    && thisRoom.hasTables() == constraints.get(1)
+                    && thisRoom.hasProjector() == constraints.get(2)
+                    && thisRoom.hasSoundSystem() == constraints.get(3)){
+                possibleRooms.add(room.getKey());
+            }
+        }
+        return possibleRooms;
     }
 
 //      ***** Saving method for phase 2
