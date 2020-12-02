@@ -246,7 +246,7 @@ public class LoginController {
         if (securityAns.get(index)[0].equals(a1) && securityAns.get(index)[1].equals(a2) && securityAns.get(index)[2].equals(a3)){
             lp.EnterPassword();
             String pass = sc.nextLine();
-            um.changePassword(User, pass);
+            um.setPassword(User, pass);
             return true;
         }
 
