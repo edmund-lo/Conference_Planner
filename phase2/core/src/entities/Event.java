@@ -16,6 +16,10 @@ public class Event implements Serializable {
     private LocalDateTime endTime;
     private ArrayList<String> attendingUsers;
     private String roomName;
+    private boolean needsChairs;
+    private boolean needsTables;
+    private boolean needsProjector;
+    private boolean needsSoundSystem;
 
     /**
      * Constructor for Entities.Event
@@ -26,15 +30,19 @@ public class Event implements Serializable {
      * @param endTime End time of the event
      * @param roomName Name of the room the event is in
      */
-    public Event(String eventID, String eventName, LocalDateTime startTime,
-                 LocalDateTime endTime, String roomName){
+    public Event(String eventID, String eventName, LocalDateTime startTime, LocalDateTime endTime, String roomName,
+                 boolean needsChairs, boolean needsTables, boolean needsProjector, boolean needsSoundSystem){
         this.eventID = eventID;
         this.eventName = eventName;
         this.startTime = startTime;
         this.endTime = endTime;
         this.roomName = roomName;
         this.speakerName = "Currently Unassigned";
-        attendingUsers = new ArrayList<>();
+        this.attendingUsers = new ArrayList<>();
+        this.needsChairs = needsChairs;
+        this.needsTables = needsTables;
+        this.needsProjector = needsProjector;
+        this.needsSoundSystem = needsSoundSystem;
     }
 
     /**
@@ -164,4 +172,19 @@ public class Event implements Serializable {
         this.speakerName = speakerName;
     }
 
+    public boolean needsChairs() {
+        return this.needsChairs;
+    }
+
+    public boolean needsTables() {
+        return this.needsTables;
+    }
+
+    public boolean needsProjector() {
+        return this.needsProjector;
+    }
+
+    public boolean needsSoundSystem() {
+        return this.needsSoundSystem;
+    }
 }

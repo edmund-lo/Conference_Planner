@@ -41,8 +41,10 @@ public class EventManager implements Serializable {
      * @param endTime the end time of the event
      * @param roomName the name of the room the event is in
      */
-    public void createNewEvent(String eventName, LocalDateTime startTime, LocalDateTime endTime, String roomName) {
-        Event newEvent = new Event(UUID.randomUUID().toString(), eventName, startTime, endTime, roomName);
+    public void createNewEvent(String eventName, LocalDateTime startTime, LocalDateTime endTime, String roomName,
+                               boolean chairs, boolean tables, boolean projector, boolean speakers) {
+        Event newEvent = new Event(UUID.randomUUID().toString(), eventName, startTime, endTime, roomName, chairs,
+                tables, projector, speakers);
         allEvents.put(newEvent.getEventID(), newEvent);
     }
 

@@ -371,10 +371,12 @@ public class OrganizerController extends UserController {
             try { //try to ensure that user enters valid format for the dtf
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 LocalDateTime startTime = LocalDateTime.parse(startString, formatter);
-                if (createEvent(eventName, startTime, roomName))
+                if (createEvent(eventName, startTime, endTime, roomName, constraints.get(0), constraints.get(1),
+                        constraints.get(2), constraints.get(3))) {
                     op.eventCreationResult();
-                else
+                } else {
                     op.eventFailedCreationError();
+                }
             } catch (DateTimeParseException e) {
                 op.invalidDateError();
             }
@@ -388,10 +390,10 @@ public class OrganizerController extends UserController {
      * @param roomName String representing the room
      * @return Boolean value signifying whether creation was successful
      */
-    public boolean createEvent(String eventName, LocalDateTime start, String roomName) {
-        LocalDateTime end = start.plusHours(1);
+    public boolean createEvent(String eventName, LocalDateTime start, LocalDateTime end, String roomName, boolean chairs,
+                               boolean tables, boolean projector, boolean soundSystem) {
         if (rm.addToRoomSchedule(start, end, roomName, eventName)) {
-            em.createNewEvent(eventName, start, end, roomName);
+            em.createNewEvent(eventName, start, end, roomName, chairs, tables, projector, soundSystem);
             return true;
         }
         return false;
