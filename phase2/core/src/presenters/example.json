@@ -1,0 +1,5 @@
+{
+  "status": "[ one of (success), (warning) or (error)]",
+  "result": "Successfully created account",
+  "data": [{"list of events": "", "eventAttribute1":  ""}]
+}
