@@ -1,4 +1,4 @@
-package organizer.impl;
+package login.impl;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -8,9 +8,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import organizer.ICreateAccountView;
+import login.IRegisterView;
 
-public class CreateAccountView implements ICreateAccountView {
+public class SetupView implements IRegisterView {
     @FXML
     private ChoiceBox<String> userType;
     @FXML
@@ -24,21 +24,33 @@ public class CreateAccountView implements ICreateAccountView {
     @FXML
     private PasswordField confirmPassword;
     @FXML
-    private Text createResultMsg;
+    private TextField securityQuestion1;
+    @FXML
+    private TextField securityAnswer1;
+    @FXML
+    private TextField securityQuestion2;
+    @FXML
+    private TextField securityAnswer2;
+    @FXML
+    private Text resultText;
 
     @FXML
-    public void executeAddCreateAccount(ActionEvent event) {
-        if (createAccountButtonAction != null) createAccountButtonAction.handle(event);
+    public void executeAddGoBack(ActionEvent event) {
+        if (backButtonAction != null) backButtonAction.handle(event);
+    }
+    @FXML
+    public void executeAddRegister(ActionEvent event) {
+        if (registerButtonAction != null) registerButtonAction.handle(event);
     }
     @FXML
     public void initialize() {
-        this.presenter = new CreateAccountPresenter(this);
+        this.presenter = new SetupPresenter(this);
     }
 
-    private CreateAccountPresenter presenter;
-    private EventHandler<ActionEvent> createAccountButtonAction;
+    private SetupPresenter presenter;
+    private EventHandler<ActionEvent> registerButtonAction;
+    private EventHandler<ActionEvent> backButtonAction;
     private Stage stage;
-    private String sessionUsername;
 
     @Override
     public String getUserType() {
@@ -66,18 +78,8 @@ public class CreateAccountView implements ICreateAccountView {
     }
 
     @Override
-    public void setFirstName(String firstName) {
-        this.firstName.setText(firstName);
-    }
-
-    @Override
     public String getLastName() {
         return this.lastName.getText();
-    }
-
-    @Override
-    public void setLastName(String lastName) {
-        this.lastName.setText(lastName);
     }
 
     @Override
@@ -101,8 +103,18 @@ public class CreateAccountView implements ICreateAccountView {
     }
 
     @Override
-    public void setResultMsg(String result) {
-        this.createResultMsg.setText(result);
+    public String getSecurityQuestion(int index) {
+        return getSecurityQuestionField(index).getText();
+    }
+
+    @Override
+    public String getSecurityAnswer(int index) {
+        return getSecurityAnswerField(index).getText();
+    }
+
+    @Override
+    public void setErrorMsg(String error) {
+        this.resultText.setText(error);
     }
 
     @Override
@@ -131,13 +143,39 @@ public class CreateAccountView implements ICreateAccountView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getCreateAccountButtonAction() {
-        return this.createAccountButtonAction;
+    public TextField getSecurityQuestionField(int index) {
+        TextField questionField = new TextField();
+        if (index == 1) questionField = this.securityQuestion1;
+        if (index == 2) questionField = this.securityQuestion2;
+        return questionField;
     }
 
     @Override
-    public void setCreateAccountButtonAction(EventHandler<ActionEvent> eventHandler) {
-        this.createAccountButtonAction = eventHandler;
+    public TextField getSecurityAnswerField(int index) {
+        TextField answerField = new TextField();
+        if (index == 1) answerField = this.securityAnswer1;
+        if (index == 2) answerField = this.securityAnswer2;
+        return answerField;
+    }
+
+    @Override
+    public EventHandler<ActionEvent> getBackButtonAction() {
+        return this.backButtonAction;
+    }
+
+    @Override
+    public void setBackButtonAction(EventHandler<ActionEvent> eventHandler) {
+        this.backButtonAction = eventHandler;
+    }
+
+    @Override
+    public EventHandler<ActionEvent> getRegisterButtonAction() {
+        return this.registerButtonAction;
+    }
+
+    @Override
+    public void setRegisterButtonAction(EventHandler<ActionEvent> eventHandler) {
+        this.registerButtonAction = eventHandler;
     }
 
     @Override
@@ -148,15 +186,5 @@ public class CreateAccountView implements ICreateAccountView {
     @Override
     public void setStage(Stage stage) {
         this.stage = stage;
-    }
-
-    @Override
-    public String getSessionUsername() {
-        return this.sessionUsername;
-    }
-
-    @Override
-    public void setSessionUsername(String username) {
-        this.sessionUsername = username;
     }
 }

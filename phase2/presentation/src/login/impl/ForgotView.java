@@ -17,7 +17,7 @@ public class ForgotView implements IForgotView {
     @FXML
     private PasswordField promptInput;
     @FXML
-    private Text result;
+    private Text resultText;
 
     @FXML
     public void executeAddGoBack(ActionEvent event) {
@@ -69,7 +69,7 @@ public class ForgotView implements IForgotView {
 
     @Override
     public void setResultMsg(String result) {
-        this.result.setText(result);
+        this.resultText.setText(result);
     }
 
     @Override

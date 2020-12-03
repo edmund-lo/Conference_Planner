@@ -47,7 +47,7 @@ public class ScheduleSpeakerView implements IScheduleSpeakerView {
     @FXML
     private ChoiceBox<String> availableSpeakers;
     @FXML
-    private Text result;
+    private Text resultText;
 
     @FXML
     public void executeAddScheduleSpeaker(ActionEvent event) {
@@ -141,7 +141,7 @@ public class ScheduleSpeakerView implements IScheduleSpeakerView {
 
     @Override
     public void setResultMsg(String resultMsg) {
-        this.result.setText(resultMsg);
+        this.resultText.setText(resultMsg);
     }
 
     @Override

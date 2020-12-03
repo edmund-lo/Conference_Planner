@@ -9,7 +9,7 @@ import model.ScheduleEntry;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-public interface ICancelEventView extends ILoggedInView {
+public interface IRescheduleCancelEventView extends ILoggedInView {
     TableView<ScheduleEntry> getEventsTable();
     TableColumn<ScheduleEntry, String> getEventNameColumn();
     TableColumn<ScheduleEntry, String> getRoomNameColumn();

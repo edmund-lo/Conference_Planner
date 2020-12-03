@@ -48,7 +48,7 @@ public class ViewAllEventsView implements IViewEventsView {
     @FXML
     private Text summaryAttendees;
     @FXML
-    private Text result;
+    private Text resultText;
 
     @FXML
     public void executeAddSignUp(ActionEvent event) {
@@ -147,7 +147,7 @@ public class ViewAllEventsView implements IViewEventsView {
 
     @Override
     public void setResultMsg(String resultMsg) {
-        this.result.setText(resultMsg);
+        this.resultText.setText(resultMsg);
     }
 
     @Override

@@ -15,7 +15,7 @@ public class LoginView implements ILoginView {
     @FXML
     private PasswordField password;
     @FXML
-    private Text loginErrorMsg;
+    private Text resultText;
 
     @FXML
     public void executeAddLogin(ActionEvent event) {
@@ -82,7 +82,7 @@ public class LoginView implements ILoginView {
 
     @Override
     public void setErrorMsg(String error) {
-        this.loginErrorMsg.setText(error);
+        this.resultText.setText(error);
     }
 
     @Override

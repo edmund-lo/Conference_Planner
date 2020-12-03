@@ -8,13 +8,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.ScheduleEntry;
-import organizer.ICancelEventView;
+import organizer.IRescheduleCancelEventView;
 import util.DateTimeUtil;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-public class CancelEventView implements ICancelEventView {
+public class RescheduleCancelEventView implements IRescheduleCancelEventView {
     @FXML
     private TableView<ScheduleEntry> eventTable;
     @FXML
@@ -48,7 +48,7 @@ public class CancelEventView implements ICancelEventView {
     @FXML
     private Text summaryAttendees;
     @FXML
-    private Text result;
+    private Text resultText;
 
     @FXML
     public void executeAddSignUp(ActionEvent event) {
@@ -56,10 +56,10 @@ public class CancelEventView implements ICancelEventView {
     }
     @FXML
     public void initialize() {
-        this.presenter = new CancelEventPresenter(this);
+        this.presenter = new RescheduleCancelEventPresenter(this);
     }
 
-    private CancelEventPresenter presenter;
+    private RescheduleCancelEventPresenter presenter;
     private EventHandler<ActionEvent> cancelButtonAction;
     private Stage stage;
     private String sessionUsername;
@@ -147,7 +147,7 @@ public class CancelEventView implements ICancelEventView {
 
     @Override
     public void setResultMsg(String resultMsg) {
-        this.result.setText(resultMsg);
+        this.resultText.setText(resultMsg);
     }
 
     @Override

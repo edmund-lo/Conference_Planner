@@ -25,7 +25,7 @@
     <CheckBox fx:id="amenity1" text="Amenity 1" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
     <CheckBox fx:id="amenity2" text="Amenity 2" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
     <CheckBox fx:id="amenity3" text="Amenity 3" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
-    <Text fx:id="createResultMsg" GridPane.columnIndex="0" GridPane.rowIndex="7" GridPane.columnSpan="2"/>
+    <Text fx:id="resultText" GridPane.columnIndex="0" GridPane.rowIndex="7" GridPane.columnSpan="2"/>
 
     <HBox spacing="10" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="10" GridPane.columnSpan="2">
         <Button text="Create Room" fx:id="createButton" onAction="#executeAddCreateRoom"/>

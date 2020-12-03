@@ -1,4 +1,4 @@
-package organizer;
+package admin;
 
 import common.ILoggedInView;
 import javafx.event.ActionEvent;
@@ -11,10 +11,6 @@ public interface ICreateAccountView extends ILoggedInView {
     void setUserType(String userType);
     String getUsername();
     void setUsername(String username);
-    String getFirstName();
-    void setFirstName(String firstName);
-    String getLastName();
-    void setLastName(String lastName);
     String getPassword();
     void setPassword(String password);
     String getConfirmPassword();
@@ -22,8 +18,6 @@ public interface ICreateAccountView extends ILoggedInView {
     void setResultMsg(String result);
 
     TextField getUsernameField();
-    TextField getFirstNameField();
-    TextField getLastNameField();
     PasswordField getPasswordField();
     PasswordField getConfirmPasswordField();
 

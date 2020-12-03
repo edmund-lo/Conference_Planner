@@ -18,7 +18,7 @@
     <TextField fx:id="username" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
     <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
     <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-    <Text fx:id="loginErrorMsg" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="2"/>
+    <Text fx:id="resultText" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="2"/>
 
     <HBox spacing="10" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="6" GridPane.columnSpan="2">
         <Button text="Register" fx:id="registerButton" onAction="#executeAddRegister"/>

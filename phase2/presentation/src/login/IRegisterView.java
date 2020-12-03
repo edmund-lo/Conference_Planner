@@ -12,13 +12,13 @@ public interface IRegisterView extends IView {
     String getUsername();
     void setUsername(String username);
     String getFirstName();
-    void setFirstName(String firstName);
     String getLastName();
-    void setLastName(String lastName);
     String getPassword();
     void setPassword(String password);
     String getConfirmPassword();
     void setConfirmPassword(String password);
+    String getSecurityQuestion(int index);
+    String getSecurityAnswer(int index);
     void setErrorMsg(String error);
 
     TextField getUsernameField();
@@ -26,6 +26,8 @@ public interface IRegisterView extends IView {
     TextField getLastNameField();
     PasswordField getPasswordField();
     PasswordField getConfirmPasswordField();
+    TextField getSecurityQuestionField(int index);
+    TextField getSecurityAnswerField(int index);
 
     EventHandler<ActionEvent> getBackButtonAction();
     void setBackButtonAction(EventHandler<ActionEvent> eventHandler);

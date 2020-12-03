@@ -1,4 +1,4 @@
-package organizer;
+package admin;
 
 import common.IPresenter;
 import javafx.event.ActionEvent;

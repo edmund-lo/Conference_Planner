@@ -50,7 +50,7 @@ public class CreateEventView implements ICreateEventView {
     @FXML
     private Text summaryAmenities;
     @FXML
-    private Text createResultMsg;
+    private Text resultText;
     @FXML
     private TitledPane step1;
     @FXML
@@ -198,7 +198,7 @@ public class CreateEventView implements ICreateEventView {
 
     @Override
     public void setResultMsg(String result) {
-        this.createResultMsg.setText(result);
+        this.resultText.setText(result);
     }
 
     @Override

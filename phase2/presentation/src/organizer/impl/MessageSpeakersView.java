@@ -29,7 +29,7 @@ public class MessageSpeakersView implements IMessageUsersView {
     @FXML
     private TextArea content;
     @FXML
-    private Text result;
+    private Text resultText;
 
     @FXML
     public void executeAddSend(ActionEvent event) {
@@ -112,7 +112,7 @@ public class MessageSpeakersView implements IMessageUsersView {
 
     @Override
     public void setResultMsg(String resultMsg) {
-        this.result.setText(resultMsg);
+        this.resultText.setText(resultMsg);
     }
 
     @Override

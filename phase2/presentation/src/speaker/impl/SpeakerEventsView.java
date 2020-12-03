@@ -44,7 +44,7 @@ public class SpeakerEventsView implements ISpeakerEventsView {
     @FXML
     private Text summaryAttendees;
     @FXML
-    private Text result;
+    private Text resultText;
     @FXML
     private TextField sender;
     @FXML
@@ -165,7 +165,7 @@ public class SpeakerEventsView implements ISpeakerEventsView {
 
     @Override
     public void setResultMsg(String resultMsg) {
-        this.result.setText(resultMsg);
+        this.resultText.setText(resultMsg);
     }
 
     @Override

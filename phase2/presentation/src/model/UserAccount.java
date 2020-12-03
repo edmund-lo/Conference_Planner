@@ -9,17 +9,20 @@ public class UserAccount {
     private final StringProperty password;
     private final BooleanProperty locked;
     private final IntegerProperty accountType;
+    private final BooleanProperty setSecurity;
     private final ObjectProperty<LocalDateTime> lastLoginTime;
 
     public UserAccount() {
-        this(null, null, false, 0, null);
+        this(null, null, 0, false, false, null);
     }
 
-    public UserAccount(String username, String password, boolean locked, int accountType, LocalDateTime lastLoginTime) {
+    public UserAccount(String username, String password, int accountType, boolean locked, boolean setSecurity,
+                       LocalDateTime lastLoginTime) {
         this.username = new SimpleStringProperty(username);
         this.password = new SimpleStringProperty(password);
-        this.locked = new SimpleBooleanProperty(locked);
         this.accountType = new SimpleIntegerProperty(accountType);
+        this.locked = new SimpleBooleanProperty(locked);
+        this.setSecurity = new SimpleBooleanProperty(setSecurity);
         this.lastLoginTime = new SimpleObjectProperty<>(lastLoginTime);
     }
 
@@ -47,6 +50,18 @@ public class UserAccount {
         this.password.set(password);
     }
 
+    public int getAccountType() {
+        return accountType.get();
+    }
+
+    public IntegerProperty accountTypeProperty() {
+        return accountType;
+    }
+
+    public void setAccountType(int accountType) {
+        this.accountType.set(accountType);
+    }
+
     public boolean isLocked() {
         return locked.get();
     }
@@ -59,16 +74,16 @@ public class UserAccount {
         this.locked.set(locked);
     }
 
-    public int getAccountType() {
-        return accountType.get();
+    public boolean isSetSecurity() {
+        return setSecurity.get();
     }
 
-    public IntegerProperty accountTypeProperty() {
-        return accountType;
+    public BooleanProperty setSecurityProperty() {
+        return setSecurity;
     }
 
-    public void setAccountType(int accountType) {
-        this.accountType.set(accountType);
+    public void setSetSecurity(boolean setSecurity) {
+        this.setSecurity.set(setSecurity);
     }
 
     public LocalDateTime getLastLoginTime() {

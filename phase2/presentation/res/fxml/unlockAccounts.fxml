@@ -1,14 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="admin.impl.UnlockAccountsView"
-            prefHeight="400.0" prefWidth="600.0">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="admin.impl.UnlockAccountsView">
+    <top>
+        <Text text="Unlock User Accounts" fx:id="title" />
+    </top>
+    <center>
+        <SplitPane>
+            <padding>
+                <Insets top="25" right="25" bottom="25" left="25"/>
+            </padding>
+            <TableView fx:id="userTable">
+                <columns>
+                    <TableColumn fx:id="usernameColumn" text="Username"/>
+                    <TableColumn fx:id="userTypeColumn" text="User Type"/>
+                    <TableColumn fx:id="lockedColumn" text="Locked"/>
+                    <TableColumn fx:id="lockedTimeColumn" text="Locked Time"/>
+                </columns>
+            </TableView>
+            <SplitPane>
+                <VBox>
+                    <Text text="User Login Logs"/>
+                    <TableView>
+                        <columns>
+                            <TableColumn fx:id="loginTimeColumn" text="Login Time"/>
+                            <TableColumn fx:id="successColumn" text="Success"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+                <GridPane alignment="CENTER" hgap="10" vgap="10">
+                    <Label text="From:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <TextField fx:id="sender" GridPane.columnIndex="1" GridPane.rowIndex="0" editable="false"/>
+                    <Label text="To:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <TextField fx:id="recipients" GridPane.columnIndex="1" GridPane.rowIndex="1" editable="false"/>
+                    <Label text="Message:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                    <TextArea fx:id="content" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                    <Text fx:id="resultText" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2"/>
 
-</AnchorPane>
+                    <HBox spacing="10" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="5"
+                          GridPane.columnSpan="2">
+                        <Button text="Unlock Account" fx:id="unlockButton" onAction="#executeAddUnlock"/>
+                    </HBox>
+                </GridPane>
+            </SplitPane>
+        </SplitPane>
+    </center>
+
+    <stylesheets>
+        <URL value="@../css/project.css"/>
+        <URL value="@../css/messaging.css"/>
+    </stylesheets>
+</BorderPane>

@@ -24,7 +24,7 @@ public class CreateRoomView implements ICreateRoomView {
     @FXML
     private CheckBox amenity3;
     @FXML
-    private Text createResultMsg;
+    private Text resultText;
 
     @FXML
     public void executeAddCreateRoom(ActionEvent event) {
@@ -74,7 +74,7 @@ public class CreateRoomView implements ICreateRoomView {
 
     @Override
     public void setResultMsg(String result) {
-        this.createResultMsg.setText(result);
+        this.resultText.setText(result);
     }
 
     @Override

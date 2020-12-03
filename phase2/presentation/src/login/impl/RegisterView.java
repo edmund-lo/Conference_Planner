@@ -24,7 +24,15 @@ public class RegisterView implements IRegisterView {
     @FXML
     private PasswordField confirmPassword;
     @FXML
-    private Text registerErrorMsg;
+    private TextField securityQuestion1;
+    @FXML
+    private TextField securityAnswer1;
+    @FXML
+    private TextField securityQuestion2;
+    @FXML
+    private TextField securityAnswer2;
+    @FXML
+    private Text resultText;
 
     @FXML
     public void executeAddGoBack(ActionEvent event) {
@@ -70,18 +78,8 @@ public class RegisterView implements IRegisterView {
     }
 
     @Override
-    public void setFirstName(String firstName) {
-        this.firstName.setText(firstName);
-    }
-
-    @Override
     public String getLastName() {
         return this.lastName.getText();
-    }
-
-    @Override
-    public void setLastName(String lastName) {
-        this.lastName.setText(lastName);
     }
 
     @Override
@@ -105,8 +103,18 @@ public class RegisterView implements IRegisterView {
     }
 
     @Override
+    public String getSecurityQuestion(int index) {
+        return getSecurityQuestionField(index).getText();
+    }
+
+    @Override
+    public String getSecurityAnswer(int index) {
+        return getSecurityAnswerField(index).getText();
+    }
+
+    @Override
     public void setErrorMsg(String error) {
-        this.registerErrorMsg.setText(error);
+        this.resultText.setText(error);
     }
 
     @Override
@@ -132,6 +140,22 @@ public class RegisterView implements IRegisterView {
     @Override
     public PasswordField getConfirmPasswordField() {
         return this.confirmPassword;
+    }
+
+    @Override
+    public TextField getSecurityQuestionField(int index) {
+        TextField questionField = new TextField();
+        if (index == 1) questionField = this.securityQuestion1;
+        if (index == 2) questionField = this.securityQuestion2;
+        return questionField;
+    }
+
+    @Override
+    public TextField getSecurityAnswerField(int index) {
+        TextField answerField = new TextField();
+        if (index == 1) answerField = this.securityAnswer1;
+        if (index == 2) answerField = this.securityAnswer2;
+        return answerField;
     }
 
     @Override

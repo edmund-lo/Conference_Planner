@@ -5,7 +5,7 @@ import javafx.event.ActionEvent;
 import model.ScheduleEntry;
 import java.util.List;
 
-public interface ICancelEventPresenter extends IPresenter {
+public interface IRescheduleCancelEventPresenter extends IPresenter {
     void cancelButtonAction(ActionEvent actionEvent);
     void setResult(String result);
     List<ScheduleEntry> getEvents();

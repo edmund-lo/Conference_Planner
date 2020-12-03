@@ -8,11 +8,11 @@ import login.IRegisterPresenter;
 import login.IRegisterView;
 import util.ComponentFactory;
 
-public class RegisterPresenter implements IRegisterPresenter {
+public class SetupPresenter implements IRegisterPresenter {
     private IRegisterView view;
     private final PseudoClass errorClass = PseudoClass.getPseudoClass("error");
 
-    public RegisterPresenter(IRegisterView view) {
+    public SetupPresenter(IRegisterView view) {
         this.view = view;
         init();
     }

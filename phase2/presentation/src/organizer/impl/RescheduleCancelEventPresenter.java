@@ -5,18 +5,18 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.ScheduleEntry;
-import organizer.ICancelEventPresenter;
-import organizer.ICancelEventView;
+import organizer.IRescheduleCancelEventPresenter;
+import organizer.IRescheduleCancelEventView;
 import util.DateTimeUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CancelEventPresenter implements ICancelEventPresenter {
-    private ICancelEventView view;
+public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPresenter {
+    private IRescheduleCancelEventView view;
     //private final PseudoClass errorClass = PseudoClass.getPseudoClass("error");
 
-    public CancelEventPresenter(ICancelEventView view) {
+    public RescheduleCancelEventPresenter(IRescheduleCancelEventView view) {
         this.view = view;
         init();
     }
