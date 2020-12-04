@@ -6,17 +6,17 @@ public class UserAccount {
     private final StringProperty username;
     private final StringProperty password;
     private final BooleanProperty locked;
-    private final IntegerProperty accountType;
+    private final IntegerProperty userType;
     private final BooleanProperty setSecurity;
 
     public UserAccount() {
         this(null, null, 0, false, false);
     }
 
-    public UserAccount(String username, String password, int accountType, boolean locked, boolean setSecurity) {
+    public UserAccount(String username, String password, int userType, boolean locked, boolean setSecurity) {
         this.username = new SimpleStringProperty(username);
         this.password = new SimpleStringProperty(password);
-        this.accountType = new SimpleIntegerProperty(accountType);
+        this.userType = new SimpleIntegerProperty(userType);
         this.locked = new SimpleBooleanProperty(locked);
         this.setSecurity = new SimpleBooleanProperty(setSecurity);
     }
@@ -45,16 +45,16 @@ public class UserAccount {
         this.password.set(password);
     }
 
-    public int getAccountType() {
-        return accountType.get();
+    public int getUserType() {
+        return userType.get();
     }
 
-    public IntegerProperty accountTypeProperty() {
-        return accountType;
+    public IntegerProperty userTypeProperty() {
+        return userType;
     }
 
-    public void setAccountType(int accountType) {
-        this.accountType.set(accountType);
+    public void setUserType(int userType) {
+        this.userType.set(userType);
     }
 
     public boolean isLocked() {

@@ -14,7 +14,6 @@ import java.util.List;
 
 public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPresenter {
     private IRescheduleCancelEventView view;
-    //private final PseudoClass errorClass = PseudoClass.getPseudoClass("error");
 
     public RescheduleCancelEventPresenter(IRescheduleCancelEventView view) {
         this.view = view;

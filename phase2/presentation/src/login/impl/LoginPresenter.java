@@ -11,8 +11,6 @@ import org.json.simple.JSONObject;
 import util.ComponentFactory;
 import util.TextResultUtil;
 
-import java.util.List;
-
 public class LoginPresenter implements ILoginPresenter {
     private ILoginView view;
     private LoginController lc;
@@ -32,7 +30,7 @@ public class LoginPresenter implements ILoginPresenter {
         if (json.get("status").equals("success")) {
             UserAccount userAccount = UserAccountAdapter.getInstance().adaptData((JSONArray) json.get("data")).get(0);
             ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "home.fxml",
-                    userAccount.getUsername(), userAccount.getAccountType());
+                    userAccount.getUsername(), userAccount.getUserType());
         } else
             setResultText(String.valueOf(json.get("result")), String.valueOf(json.get("status")));
     }

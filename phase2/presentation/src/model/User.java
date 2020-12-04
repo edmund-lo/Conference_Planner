@@ -1,10 +1,7 @@
 package model;
 
 import common.Selectable;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.scene.control.CheckBox;
 
 public class User extends Selectable {
@@ -12,17 +9,19 @@ public class User extends Selectable {
     private final StringProperty firstName;
     private final StringProperty lastName;
     private final IntegerProperty userType;
+    private final BooleanProperty vip;
 
     public User() {
-        this(null, null, null, 0);
+        this(null, null, null, 0, false);
     }
 
-    public User(String username, String firstName, String lastName, int userType) {
+    public User(String username, String firstName, String lastName, int userType, boolean vip) {
         setChecked(false);
         this.username = new SimpleStringProperty(username);
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
         this.userType = new SimpleIntegerProperty(userType);
+        this.vip = new SimpleBooleanProperty(vip);
     }
 
     public String getUsername() {

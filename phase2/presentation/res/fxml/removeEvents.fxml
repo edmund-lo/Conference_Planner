@@ -25,7 +25,6 @@
                         <TableColumn fx:id="roomNameColumn" text="Room Name"/>
                         <TableColumn fx:id="eventStartColumn" text="Start"/>
                         <TableColumn fx:id="eventEndColumn" text="End"/>
-                        <TableColumn fx:id="remainingSpotsColumn" text="Remaining Spots"/>
                     </columns>
                 </TableView>
             </VBox>
@@ -55,7 +54,7 @@
 
                 <HBox spacing="10" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="13"
                       GridPane.columnSpan="2">
-                    <Button text="Sign Up" fx:id="signUpButton" onAction="#executeAddCancel"/>
+                    <Button text="Sign Up" fx:id="signUpButton" onAction="#executeAddRemove"/>
                 </HBox>
             </GridPane>
         </SplitPane>

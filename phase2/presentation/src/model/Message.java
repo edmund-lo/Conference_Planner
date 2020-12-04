@@ -1,12 +1,13 @@
 package model;
 
 import javafx.beans.property.*;
-
+import javafx.collections.ObservableList;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Message {
     private final StringProperty senderName;
-    private final StringProperty recipientName;
+    private final ListProperty<StringProperty> recipientNames;
     private final StringProperty content;
     private final BooleanProperty read;
     private final ObjectProperty<LocalDateTime> messageTime;
@@ -15,9 +16,9 @@ public class Message {
         this(null, null, null, false, null);
     }
 
-    public Message(String senderName, String recipientName, String content, boolean read, LocalDateTime messageTime) {
+    public Message(String senderName, List<String> recipientNames, String content, boolean read, LocalDateTime messageTime) {
         this.senderName = new SimpleStringProperty(senderName);
-        this.recipientName = new SimpleStringProperty(recipientName);
+        this.recipientNames = new SimpleListProperty<>();
         this.content = new SimpleStringProperty(content);
         this.read = new SimpleBooleanProperty(read);
         this.messageTime = new SimpleObjectProperty<>(messageTime);
@@ -35,16 +36,16 @@ public class Message {
         this.senderName.set(senderName);
     }
 
-    public String getRecipientName() {
-        return recipientName.get();
+    public ObservableList<StringProperty> getRecipientNames() {
+        return recipientNames.get();
     }
 
-    public StringProperty recipientNameProperty() {
-        return recipientName;
+    public ListProperty<StringProperty> recipientNamesProperty() {
+        return recipientNames;
     }
 
-    public void setRecipientName(String recipientName) {
-        this.recipientName.set(recipientName);
+    public void setRecipientNames(ObservableList<StringProperty> recipientNames) {
+        this.recipientNames.set(recipientNames);
     }
 
     public String getContent() {

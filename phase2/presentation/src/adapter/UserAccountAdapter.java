@@ -3,7 +3,6 @@ package adapter;
 import model.UserAccount;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,8 +17,8 @@ public class UserAccountAdapter {
 
     public List<UserAccount> adaptData(JSONArray data) {
         List<UserAccount> userAccounts = new ArrayList<>();
-        for (int i = 0; i < data.size(); i++) {
-            JSONObject jsonObject = (JSONObject) data.get(i);
+        for (Object datum : data) {
+            JSONObject jsonObject = (JSONObject) datum;
             userAccounts.add(mapUserAccount(jsonObject));
         }
         return userAccounts;
@@ -27,10 +26,10 @@ public class UserAccountAdapter {
 
     private UserAccount mapUserAccount(JSONObject jsonObject) {
         String username = String.valueOf(jsonObject.get("username"));
-        String password = String.valueOf(jsonObject.get("username"));
+        String password = String.valueOf(jsonObject.get("password"));
         boolean locked = jsonObject.get("locked").equals("true");
-        int accountType = parseInt(String.valueOf(jsonObject.get("accountType")));
-        boolean setSecurity = jsonObject.get("username").equals("true");
+        int accountType = parseInt(String.valueOf(jsonObject.get("userType")));
+        boolean setSecurity = jsonObject.get("setSecurity").equals("true");
 
         return new UserAccount(username, password, accountType, locked, setSecurity);
     }

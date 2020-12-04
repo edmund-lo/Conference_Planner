@@ -51,7 +51,7 @@ public class RescheduleCancelEventView implements IRescheduleCancelEventView {
     private Text resultText;
 
     @FXML
-    public void executeAddSignUp(ActionEvent event) {
+    public void executeAddCancel(ActionEvent event) {
         if (cancelButtonAction != null) cancelButtonAction.handle(event);
     }
     @FXML
@@ -89,7 +89,6 @@ public class RescheduleCancelEventView implements IRescheduleCancelEventView {
     public TableColumn<ScheduleEntry, LocalDateTime> getEventEndColumn() {
         return this.eventEndColumn;
     }
-
 
     @Override
     public TableColumn<ScheduleEntry, Integer> getRemainingSpotsColumn() {

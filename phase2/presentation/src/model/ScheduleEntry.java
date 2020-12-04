@@ -1,7 +1,6 @@
 package model;
 
 import javafx.beans.property.*;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 
@@ -16,15 +15,16 @@ public class ScheduleEntry {
     private final ObjectProperty<Duration> duration;
     private final IntegerProperty remainingSpots;
     private final IntegerProperty capacity;
-    //private final BooleanProperty liked;
+    private final BooleanProperty liked;
+    private final BooleanProperty vip;
 
     public ScheduleEntry() {
-        this(null, null, null, null, null, null, null, null, 0, 0/*, false*/);
+        this(null, null, null, null, null, null, null, null, 0, 0, false, false);
     }
 
     public ScheduleEntry(LocalDateTime start, LocalDateTime end, String eventName, String roomName, String amenities,
-                         String attendees, String speakers, Duration duration, int remainingSpots, int capacity
-            /*, boolean liked*/) {
+                         String attendees, String speakers, Duration duration, int remainingSpots, int capacity,
+                         boolean liked, boolean vip) {
         this.start = new SimpleObjectProperty<>(start);
         this.end = new SimpleObjectProperty<>(end);
         this.eventName = new SimpleStringProperty(eventName);
@@ -32,10 +32,11 @@ public class ScheduleEntry {
         this.amenities = new SimpleStringProperty(amenities);
         this.attendees = new SimpleStringProperty(attendees);
         this.speakers = new SimpleStringProperty(speakers);
-        this.duration = new SimpleObjectProperty(duration);
+        this.duration = new SimpleObjectProperty<>(duration);
         this.remainingSpots = new SimpleIntegerProperty(remainingSpots);
         this.capacity = new SimpleIntegerProperty(capacity);
-        //this.liked = new SimpleBooleanProperty(liked);
+        this.liked = new SimpleBooleanProperty(liked);
+        this.vip = new SimpleBooleanProperty(vip);
     }
 
     public LocalDateTime getStart() {
@@ -158,7 +159,7 @@ public class ScheduleEntry {
         this.capacity.set(capacity);
     }
 
-    /*public boolean isLiked() {
+    public boolean isLiked() {
         return liked.get();
     }
 
@@ -168,5 +169,17 @@ public class ScheduleEntry {
 
     public void setLiked(boolean liked) {
         this.liked.set(liked);
-    }*/
+    }
+
+    public boolean isVip() {
+        return vip.get();
+    }
+
+    public BooleanProperty vipProperty() {
+        return vip;
+    }
+
+    public void setVip(boolean vip) {
+        this.vip.set(vip);
+    }
 }
