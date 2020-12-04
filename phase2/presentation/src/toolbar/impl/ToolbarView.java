@@ -3,6 +3,7 @@ package toolbar.impl;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import toolbar.IToolbarView;
 
@@ -275,6 +276,11 @@ public class ToolbarView implements IToolbarView {
     @Override
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    @Override
+    public Text getResultTextControl() {
+        return null;
     }
 
     @Override

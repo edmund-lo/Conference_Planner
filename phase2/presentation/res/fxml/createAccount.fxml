@@ -31,7 +31,7 @@
     <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
     <Label text="Confirm Password:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
     <PasswordField fx:id="confirmPassword" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-    <Text fx:id="createResultMsg" GridPane.columnIndex="0" GridPane.rowIndex="6" GridPane.columnSpan="2"/>
+    <Text fx:id="resultText" GridPane.columnIndex="0" GridPane.rowIndex="6" GridPane.columnSpan="2"/>
 
     <HBox spacing="10" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="8" GridPane.columnSpan="2">
         <Button text="Create Account" fx:id="createButton" onAction="#executeAddCreateAccount"/>

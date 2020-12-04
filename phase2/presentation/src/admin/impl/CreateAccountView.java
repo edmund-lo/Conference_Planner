@@ -20,7 +20,7 @@ public class CreateAccountView implements ICreateAccountView {
     @FXML
     private PasswordField confirmPassword;
     @FXML
-    private Text createResultMsg;
+    private Text resultText;
 
     @FXML
     public void executeAddCreateAccount(ActionEvent event) {
@@ -35,6 +35,7 @@ public class CreateAccountView implements ICreateAccountView {
     private EventHandler<ActionEvent> createAccountButtonAction;
     private Stage stage;
     private String sessionUsername;
+    private int sessionUserType;
 
     @Override
     public String getUserType() {
@@ -78,7 +79,7 @@ public class CreateAccountView implements ICreateAccountView {
 
     @Override
     public void setResultMsg(String result) {
-        this.createResultMsg.setText(result);
+        this.resultText.setText(result);
     }
 
     @Override
@@ -117,6 +118,11 @@ public class CreateAccountView implements ICreateAccountView {
     }
 
     @Override
+    public Text getResultTextControl() {
+        return this.resultText;
+    }
+
+    @Override
     public String getSessionUsername() {
         return this.sessionUsername;
     }
@@ -124,5 +130,15 @@ public class CreateAccountView implements ICreateAccountView {
     @Override
     public void setSessionUsername(String username) {
         this.sessionUsername = username;
+    }
+
+    @Override
+    public int getSessionUserType() {
+        return this.sessionUserType;
+    }
+
+    @Override
+    public void setSessionUserType(int userType) {
+        this.sessionUserType = userType;
     }
 }

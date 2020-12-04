@@ -39,6 +39,7 @@ public class CreateRoomView implements ICreateRoomView {
     private EventHandler<ActionEvent> createRoomButtonAction;
     private Stage stage;
     private String sessionUsername;
+    private int sessionUserType;
 
     @Override
     public String getRoomName() {
@@ -120,6 +121,11 @@ public class CreateRoomView implements ICreateRoomView {
     }
 
     @Override
+    public Text getResultTextControl() {
+        return this.resultText;
+    }
+
+    @Override
     public String getSessionUsername() {
         return this.sessionUsername;
     }
@@ -127,5 +133,15 @@ public class CreateRoomView implements ICreateRoomView {
     @Override
     public void setSessionUsername(String username) {
         this.sessionUsername = username;
+    }
+
+    @Override
+    public int getSessionUserType() {
+        return this.sessionUserType;
+    }
+
+    @Override
+    public void setSessionUserType(int userType) {
+        this.sessionUserType = userType;
     }
 }

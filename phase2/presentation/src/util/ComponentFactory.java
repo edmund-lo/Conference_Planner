@@ -30,7 +30,7 @@ public class ComponentFactory {
             if (!username.equals("")) {
                 ILoggedInView loggedInView = (ILoggedInView) view;
                 loggedInView.setSessionUsername(username);
-
+                loggedInView.setSessionUserType(accountType);
             }
             return root;
         }  catch (IOException e) {

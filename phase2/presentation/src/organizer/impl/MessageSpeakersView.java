@@ -49,6 +49,7 @@ public class MessageSpeakersView implements IMessageUsersView {
     private EventHandler<ActionEvent> selectAllAction;
     private Stage stage;
     private String sessionUsername;
+    private int sessionUserType;
 
     @Override
     public TableView<User> getUserTable() {
@@ -151,6 +152,11 @@ public class MessageSpeakersView implements IMessageUsersView {
     }
 
     @Override
+    public Text getResultTextControl() {
+        return this.resultText;
+    }
+
+    @Override
     public String getSessionUsername() {
         return this.sessionUsername;
     }
@@ -158,5 +164,15 @@ public class MessageSpeakersView implements IMessageUsersView {
     @Override
     public void setSessionUsername(String username) {
         this.sessionUsername = username;
+    }
+
+    @Override
+    public int getSessionUserType() {
+        return this.sessionUserType;
+    }
+
+    @Override
+    public void setSessionUserType(int userType) {
+        this.sessionUserType = userType;
     }
 }

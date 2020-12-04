@@ -65,6 +65,7 @@ public class SpeakerEventsView implements ISpeakerEventsView {
     private EventHandler<ActionEvent> sendButtonAction;
     private Stage stage;
     private String sessionUsername;
+    private int sessionUserType;
 
     @Override
     public TableView<ScheduleEntry> getEventsTable() {
@@ -189,6 +190,16 @@ public class SpeakerEventsView implements ISpeakerEventsView {
     }
 
     @Override
+    public int getSessionUserType() {
+        return this.sessionUserType;
+    }
+
+    @Override
+    public void setSessionUserType(int userType) {
+        this.sessionUserType = userType;
+    }
+
+    @Override
     public Stage getStage() {
         return this.stage;
     }
@@ -196,5 +207,10 @@ public class SpeakerEventsView implements ISpeakerEventsView {
     @Override
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    @Override
+    public Text getResultTextControl() {
+        return this.resultText;
     }
 }

@@ -34,6 +34,7 @@ public class HomeView implements IHomeView {
     private EventHandler<ActionEvent> viewScheduleButtonAction;
     private Stage stage;
     private String sessionUsername;
+    private int sessionUserType;
 
     @Override
     public void setTitle(String title) {
@@ -81,6 +82,11 @@ public class HomeView implements IHomeView {
     }
 
     @Override
+    public Text getResultTextControl() {
+        return null;
+    }
+
+    @Override
     public String getSessionUsername() {
         return this.sessionUsername;
     }
@@ -88,5 +94,15 @@ public class HomeView implements IHomeView {
     @Override
     public void setSessionUsername(String username) {
         this.sessionUsername = username;
+    }
+
+    @Override
+    public int getSessionUserType() {
+        return this.sessionUserType;
+    }
+
+    @Override
+    public void setSessionUserType(int userType) {
+        this.sessionUserType = userType;
     }
 }
