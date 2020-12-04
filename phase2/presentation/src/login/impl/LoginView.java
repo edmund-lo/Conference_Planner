@@ -81,8 +81,13 @@ public class LoginView implements ILoginView {
     }
 
     @Override
-    public void setErrorMsg(String error) {
-        this.resultText.setText(error);
+    public Text getResultTextControl() {
+        return this.resultText;
+    }
+
+    @Override
+    public void setResultText(String resultText) {
+        this.resultText.setText(resultText);
     }
 
     @Override

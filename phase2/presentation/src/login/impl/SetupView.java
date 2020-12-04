@@ -187,4 +187,9 @@ public class SetupView implements IRegisterView {
     public void setStage(Stage stage) {
         this.stage = stage;
     }
+
+    @Override
+    public Text getResultTextControl() {
+        return this.resultText;
+    }
 }

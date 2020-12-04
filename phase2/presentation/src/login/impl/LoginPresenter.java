@@ -1,32 +1,40 @@
 package login.impl;
 
-//import Controllers.ILoginController;
-import javafx.css.PseudoClass;
+import adapter.UserAccountAdapter;
+import controllers.LoginController;
 import javafx.event.ActionEvent;
 import login.ILoginPresenter;
 import login.ILoginView;
+import model.UserAccount;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import util.ComponentFactory;
+import util.TextResultUtil;
+
+import java.util.List;
 
 public class LoginPresenter implements ILoginPresenter {
     private ILoginView view;
-    private final PseudoClass errorClass = PseudoClass.getPseudoClass("error");
+    private LoginController lc;
 
     public LoginPresenter(ILoginView view) {
         this.view = view;
+        //this.lc = new LoginController();
         init();
     }
 
     @Override
     public void loginButtonAction(ActionEvent actionEvent) {
-        clearError();
+        clearResultText();
 
-        if (this.view.getUsername().equals("") || this.view.getPassword().equals(""))
-            setError("Fields cannot be empty!");
-        else {
-            //call lc.login method
+        //JSONObject json = lc.login(this.view.getUsername(), this.view.getPassword());
+        JSONObject json = new JSONObject();
+        if (json.get("status").equals("success")) {
+            UserAccount userAccount = UserAccountAdapter.getInstance().adaptData((JSONArray) json.get("data")).get(0);
             ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "home.fxml",
-                    this.view.getUsername());
-        }
+                    userAccount.getUsername(), userAccount.getAccountType());
+        } else
+            setResultText(String.valueOf(json.get("result")), String.valueOf(json.get("status")));
     }
 
     @Override
@@ -40,12 +48,13 @@ public class LoginPresenter implements ILoginPresenter {
     }
 
     @Override
-    public void setError(String error) {
-        this.view.getUsernameField().pseudoClassStateChanged(this.errorClass, true);
-        this.view.getPasswordField().pseudoClassStateChanged(this.errorClass, true);
+    public void setResultText(String resultText, String status) {
         this.view.setUsername("");
         this.view.setPassword("");
-        this.view.setErrorMsg(error);
+        this.view.setResultText(resultText);
+        TextResultUtil.getInstance().addPseudoClass(status, this.view.getUsernameField());
+        TextResultUtil.getInstance().addPseudoClass(status, this.view.getPasswordField());
+        TextResultUtil.getInstance().addPseudoClass(status, this.view.getResultTextControl());
     }
 
     @Override
@@ -55,9 +64,10 @@ public class LoginPresenter implements ILoginPresenter {
         this.view.setForgotPasswordButtonAction(this::forgotPasswordButtonAction);
     }
 
-    private void clearError() {
-        this.view.setErrorMsg("");
-        this.view.getUsernameField().pseudoClassStateChanged(this.errorClass, false);
-        this.view.getPasswordField().pseudoClassStateChanged(this.errorClass, false);
+    private void clearResultText() {
+        this.view.setResultText("");
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl());
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getUsernameField());
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getPasswordField());
     }
 }

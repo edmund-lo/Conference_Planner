@@ -3,8 +3,8 @@ package login.impl;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import login.IForgotView;
@@ -13,11 +13,13 @@ public class ForgotView implements IForgotView {
     @FXML
     private TextField username;
     @FXML
-    private Text promptText;
+    private Text securityQuestion;
     @FXML
-    private PasswordField promptInput;
+    private TextField securityAnswer;
     @FXML
     private Text resultText;
+    @FXML
+    private VBox passwordRegion;
 
     @FXML
     public void executeAddGoBack(ActionEvent event) {
@@ -48,38 +50,33 @@ public class ForgotView implements IForgotView {
     }
 
     @Override
-    public String getPromptText() {
-        return this.promptText.getText();
+    public String getSecurityQuestion() {
+        return this.securityQuestion.getText();
     }
 
     @Override
-    public void setPromptText(String promptText) {
-        this.promptText.setText(promptText);
+    public void setSecurityQuestion(String securityQuestion) {
+        this.securityQuestion.setText(securityQuestion);
     }
 
     @Override
-    public String getPromptInput() {
-        return this.promptInput.getText();
+    public String getSecurityAnswer() {
+        return this.securityAnswer.getText();
     }
 
     @Override
-    public void setPromptInput(String promptInput) {
-        this.promptInput.setText(promptInput);
+    public void setSecurityAnswer(String securityAnswer) {
+        this.securityAnswer.setText(securityAnswer);
     }
 
     @Override
-    public void setResultMsg(String result) {
-        this.resultText.setText(result);
+    public void setResultText(String resultText) {
+        this.resultText.setText(resultText);
     }
 
     @Override
-    public TextField getUsernameField() {
-        return this.username;
-    }
-
-    @Override
-    public PasswordField getPromptInputField() {
-        return this.promptInput;
+    public VBox getPasswordRegion() {
+        return this.passwordRegion;
     }
 
     @Override
@@ -110,5 +107,10 @@ public class ForgotView implements IForgotView {
     @Override
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    @Override
+    public Text getResultTextControl() {
+        return this.resultText;
     }
 }

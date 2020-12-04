@@ -30,11 +30,11 @@ public class ForgotPresenter implements IForgotPresenter {
 
         if (this.view.getUsername().equals(""))
             setResult("Username cannot be empty!", 0);
-        else if (!this.view.getPromptText().equals(this.view.getPromptInput()))
+        else if (!this.view.getSecurityQuestion().equals(this.view.getSecurityAnswer()))
             setResult("Prompts do not match!", 1);
         else {
             // call lc.forgot method
-            setResult("Your password has been reset to " + view.getPromptText(), 2);
+            setResult("Your password has been reset to " + view.getSecurityQuestion(), 2);
         }
     }
 
@@ -61,18 +61,18 @@ public class ForgotPresenter implements IForgotPresenter {
         } else if (resultId == 1) {
             this.view.getPromptInputField().pseudoClassStateChanged(errorClass, true);
         }
-        this.view.setResultMsg(result);
+        this.view.setResultText(result);
     }
 
     @Override
     public void init() {
         this.view.setBackButtonAction(this::backButtonAction);
         this.view.setRecoverButtonAction(this::recoverButtonAction);
-        this.view.setPromptText(generatePrompt());
+        this.view.setSecurityQuestion(generatePrompt());
     }
 
     private void clearError() {
-        this.view.setResultMsg("");
+        this.view.setResultText("");
         this.view.getUsernameField().pseudoClassStateChanged(errorClass, false);
         this.view.getPromptInputField().pseudoClassStateChanged(errorClass, false);
     }

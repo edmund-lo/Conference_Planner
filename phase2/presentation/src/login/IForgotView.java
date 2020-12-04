@@ -5,18 +5,18 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 
 public interface IForgotView extends IView {
     String getUsername();
     void setUsername(String username);
-    String getPromptText();
-    void setPromptText(String promptText);
-    String getPromptInput();
-    void setPromptInput(String promptInput);
-    void setResultMsg(String result);
+    String getSecurityQuestion();
+    void setSecurityQuestion(String securityQuestion);
+    String getSecurityAnswer();
+    void setSecurityAnswer(String securityAnswer);
+    void setResultText(String resultText);
 
-    TextField getUsernameField();
-    PasswordField getPromptInputField();
+    VBox getPasswordRegion();
 
     EventHandler<ActionEvent> getBackButtonAction();
     void setBackButtonAction(EventHandler<ActionEvent> eventHandler);

@@ -6,29 +6,35 @@
 <?import javafx.scene.text.Text?>
 <?import java.net.URL?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
           xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="login.impl.ForgotView" alignment="CENTER" hgap="10" vgap="10">
+          fx:controller="login.impl.ForgotView" >
     <padding>
         <Insets top="25" right="25" bottom="25" left="25"/>
     </padding>
 
-    <Text text="Forgot Password?" fx:id="title" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
-    <Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-    <TextField fx:id="username" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-    <Label text="Prompt:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-    <Text fx:id="promptText" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-    <Label text="Repeat Prompt:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-    <PasswordField fx:id="promptInput" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-    <Text fx:id="resultText" GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.columnSpan="2"/>
-
-    <HBox spacing="10" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="7" GridPane.columnSpan="2">
-        <Button text="Recover Password" fx:id="recoverButton" onAction="#executeAddRecover"/>
-        <Button text="Go Back" fx:id="backButton" onAction="#executeAddGoBack"/>
-    </HBox>
+    <center>
+        <GridPane alignment="CENTER" hgap="10" vgap="10">
+            <Text text="Forgot Password?" fx:id="title" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
+            <Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <TextField fx:id="username" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+            <Label text="Security Question:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+            <Text fx:id="securityQuestion" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+            <Label text="Security Answer:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+            <TextField fx:id="securityAnswer" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+            <Text fx:id="resultText" GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.columnSpan="2"/>
+        </GridPane>
+        <VBox fx:id="passwordRegion" />
+        <VBox>
+            <HBox spacing="10" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="7" GridPane.columnSpan="2">
+                <Button text="Recover Password" fx:id="recoverButton" onAction="#executeAddRecover"/>
+                <Button text="Go Back" fx:id="backButton" onAction="#executeAddGoBack"/>
+            </HBox>
+        </VBox>
+    </center>
 
     <stylesheets>
         <URL value="@../css/project.css"/>
         <URL value="@../css/login.css"/>
     </stylesheets>
-</GridPane>
+</BorderPane>

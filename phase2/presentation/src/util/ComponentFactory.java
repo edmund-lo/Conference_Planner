@@ -21,7 +21,7 @@ public class ComponentFactory {
 
     private ComponentFactory() {}
 
-    private Node createRoot(Stage stage, String fxml, String username) {
+    private Node createRoot(Stage stage, String fxml, String username, int accountType) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(ClassLoader.getSystemResource("fxml/" + fxml));
             Node root = fxmlLoader.load();
@@ -30,6 +30,7 @@ public class ComponentFactory {
             if (!username.equals("")) {
                 ILoggedInView loggedInView = (ILoggedInView) view;
                 loggedInView.setSessionUsername(username);
+
             }
             return root;
         }  catch (IOException e) {
@@ -39,16 +40,16 @@ public class ComponentFactory {
 
     public void createLoggedOutComponent(Stage stage, String fxml) {
         Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
-        Scene scene = new Scene((Parent) createRoot(stage, fxml, ""), screenSize.getWidth(),
+        Scene scene = new Scene((Parent) createRoot(stage, fxml, "", -1), screenSize.getWidth(),
                 screenSize.getHeight());
         stage.setScene(scene);
     }
 
-    public void createLoggedInComponent(Stage stage, String fxml, String username) {
+    public void createLoggedInComponent(Stage stage, String fxml, String username, int accountType) {
         BorderPane root = new BorderPane();
-        root.setTop(createRoot(stage, "toolbar.fxml", username));
+        root.setTop(createRoot(stage, "toolbar.fxml", username, accountType));
         Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
-        root.setCenter(createRoot(stage, fxml, username));
+        root.setCenter(createRoot(stage, fxml, username, accountType));
         Scene scene = new Scene(root, screenSize.getWidth(), screenSize.getHeight());
         stage.setScene(scene);
     }
