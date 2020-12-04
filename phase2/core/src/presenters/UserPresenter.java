@@ -1,5 +1,6 @@
 package presenters;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,6 +15,9 @@ public class UserPresenter {
     // go back, sign up for an event with a number
     // cancel an event with a known number
     // message a user, view list of messages
+    public UserPresenter(){
+        PresenterUtil pu = new PresenterUtil();
+    }
 
     /**
      * Displays menu options for a logged-in user based on their capabilities.
@@ -81,21 +85,15 @@ public class UserPresenter {
      * @param events passes in list of events to iterate through and print
      */
     public void listEvents(List<String> events) {
-        int count = 1;
-        for (String x: events) {
-            System.out.println("("+count + "): " + x+"\n");
-            count++;
-        }
+        return pu.createJSON("success", "Events have been listed", "List of Events", events)
     }
 
     /**
      * list of users iterated and printed
      * @param users list of users iterated through and printed for the user.
      */
-    public void listUsers(List<String> users) {
-        for (String x : users) {
-            System.out.println(x);
-        }
+    public JSONObject listUsers(List<String> users) {
+        return pu.createJSON("success", "Users have been listed", "List of Users", users)
     }
 
     /**
@@ -103,7 +101,9 @@ public class UserPresenter {
      * @param event prints event name/identifier
      */
     public void signUpResult(String event) {
-        System.out.println("You have signed up for event " + event);
+        ArrayList<String>() e = new ArrayList<String>();
+        e.add(event);
+        return pu.createJSON("success", "You have signed up for " + event, "Event", e);
     }
 
     /**
@@ -111,7 +111,9 @@ public class UserPresenter {
      * @param event is a string identifier for the event in interest
      */
     public void cancelResult(String event) {
-        System.out.println("You have cancelled your attendance for event " + event);
+        ArrayList<String>() e = new ArrayList<String>();
+        e.add(event);
+        return pu.createJSON("success", "You have cancelled " + event, "Event", e);
     }
 
     /**
