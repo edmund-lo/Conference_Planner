@@ -5,3 +5,5 @@ Get JavaFX 11 SDK for your respective OS from [JavaFX Download](https://gluonhq.
 
 For more detailed instructions, go to the [JavaFX Setup](https://openjfx.io/openjfx-docs/#install-javafx "JavaFX Getting Started") and clicking the `JavaFX and IntelliJ -> Non-modular from IDE` link.
 
+### JSON setup
+Get JSON simple (1.1.1.jar) from [json-simple Download](https://code.google.com/archive/p/json-simple/downloads) and save it to a desired location. Then go to `File -> Project Structure -> Libraries` and add the library to **both the core and presentation modules**. Make sure it points to the .jar file itself. Click `Apply` and close the window. Now when importing `org.json.simple.*`, there should not be any import errors.
