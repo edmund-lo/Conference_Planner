@@ -1,9 +1,11 @@
 package controllers;
 
+import org.json.simple.JSONObject;
 import presenters.AdminPresenter;
-import usecases.*;
-
-import static java.lang.Integer.parseInt;
+import usecases.EventManager;
+import usecases.MessageManager;
+import usecases.RoomManager;
+import usecases.UserManager;
 
 /**
  * A Controller class representing an AdminController which inherits from UserController.
@@ -23,210 +25,81 @@ public class AdminController extends UserController{
      * @param mm  current session's MessageManager class.
      * @param username current logged in user's username.
      */
-    public AdminController(EventManager em, UserManager um, RoomManager rm, MessageManager mm, String username) {
-        super(em, um, rm, mm, username);
+    public AdminController(username) {
+        super(username);
         this.ap = new AdminPresenter();
-
-        boolean inSession = true;
-        // Enters a while loop that allows the user to continuously use Organizer and Attendee functions
-        while(inSession) { //loop until user logs out
-            ap.displayMenu("Admin", username);
-            String option = input.nextLine();
-            switch(option) {
-                case "0":
-                    logout();
-                    inSession = false;
-                    break;
-                case "1":
-                    signUpMenu();
-                    break;
-                case "2":
-                    cancelMenu();
-                    break;
-                case "3":
-                    messageMenu();
-                    break;
-                case "4":
-                    viewEventsMenu();
-                    break;
-                case "5":
-                    createNewAccountMenu();
-                    break;
-                default:
-                    ap.invalidOptionError();
-                    break;
-            }
-        }
-    }
-
-    /**
-     * Called when user chooses to display new create account options
-     */
-    public void createNewAccountMenu() {
-        while (true) { //loop until valid input
-            ap.createNewAccountPrompt();
-            try {
-                int option = parseInt(input.nextLine());
-                if (option == 0)
-                    break;
-                else if (option == 1)
-                    createAttendeeAccountCmd();
-                else if (option == 2)
-                    createOrganizerAccountCmd();
-                else if (option == 3)
-                    createSpeakerAccountCmd();
-                else
-                    ap.invalidOptionError();
-            } catch (NumberFormatException e) {
-                ap.invalidOptionError();
-            }
-        }
-    }
-
-    /**
-     * Called when user chooses to create a new attendee user account.
-     */
-    public void createAttendeeAccountCmd() {
-        ap.attendeeUsernamePrompt();
-        String username = input.nextLine();
-        ap.attendeePasswordPrompt();
-        String password = input.nextLine();
-        createAttendeeAccount(username, password);
     }
 
     /**
      * Creates a new attendee account after performing necessary checks.
      *
-     * @param username String representing new attendee's username.
-     * @param password String representing new attendee's password.
+     * @param register JSONObject containing user info.
      */
-    public void createAttendeeAccount(String username, String password) {
+    public JSONObject createAttendeeAccount(JSONObject register) {
+        String username = String.valueOf(register.get("username"));
+        String password = String.valueOf(register.get("password"));
+
         if (um.checkUniqueUsername(username)) { //ensures the username is unique
             um.createNewAttendee(username, password); //create new attendee
-            ap.attendeeCreationResult();
-            return; //exit method
+            return ap.attendeeCreationResult();
         }
-        ap.invalidAttendeeNameError();
-    }
-
-    /**
-     * Called when user chooses to create a new organizer user account.
-     */
-    public void createOrganizerAccountCmd() {
-        ap.organizerUsernamePrompt();
-        String username = input.nextLine();
-        ap.organizerPasswordPrompt();
-        String password = input.nextLine();
-        createOrganizerAccount(username, password);
+        return ap.usedNameError();
     }
 
     /**
      * Creates a new organizer account after performing necessary checks.
      *
-     * @param username String representing new organizer's username.
-     * @param password String representing new organizer's password.
+     * @param register JSONObject containing user info.
      */
-    public void createOrganizerAccount(String username, String password) {
+    public JSONObject createOrganizerAccount(JSONObject register) {
+        String username = String.valueOf(register.get("username"));
+        String password = String.valueOf(register.get("password"));
+
         if (um.checkUniqueUsername(username)) { //ensures the username is unique
             um.createNewOrganizer(username, password); //create new organizer
-            ap.organizerCreationResult();
-            return; //exit method
+            return ap.organizerCreationResult();
         }
-        ap.invalidOrganizerNameError();
-    }
-
-    /**
-     * Called when user chooses to create a new speaker user account.
-     */
-    public void createSpeakerAccountCmd() {
-        ap.speakerUsernamePrompt();
-        String username = input.nextLine();
-        ap.speakerPasswordPrompt();
-        String password = input.nextLine();
-        createSpeakerAccount(username, password);
+        return ap.usedNameError();
     }
 
     /**
      * Creates a new speaker account after performing necessary checks.
      *
-     * @param username String representing new speaker's username.
-     * @param password String representing new speaker's password.
+     * @param register JSONObject containing user info.
      */
-    public void createSpeakerAccount(String username, String password) {
+    public JSONObject createSpeakerAccount(JSONObject register) {
+        String username = String.valueOf(register.get("username"));
+        String password = String.valueOf(register.get("password"));
+
         if (um.checkUniqueUsername(username)) { //ensures the username is unique
             um.createNewSpeaker(username, password); //create new speaker
-            ap.speakerCreationResult();
-            return; //exit method
+            return ap.speakerCreationResult();
         }
-        ap.invalidSpeakerNameError();
+        return ap.usedNameError();
     }
 
-    public void viewAllUsers() {
-        while(true){//presenter displays all users
-            ap.listAllUsersLabel();
-            ap.listUsers(um.userToString());
-            ap.exitlistAllUsersLabel();
-            try{
-                int option = parseInt(input.nextLine());
-                if(option == 0){ //enter 0 to go back
-                    break;
-                }else{
-                    ap.invalidOptionError();
-                }
-            }catch(NumberFormatException e){
-                ap.invalidOptionError();
-            }
-        }
+    public JSONObject viewAllVips() {
+        return ap.listVips(um.getAllVipNames());
     }
 
-    public void viewAllVips() {
-        while(true){//presenter displays all vips
-            ap.listAllVipsLabel();
-            ap.listVips(um.getAllVipNames());
-            ap.exitlistAllVipsLabel();
-            try{
-                int option = parseInt(input.nextLine());
-                if(option == 0){ //enter 0 to go back
-                    break;
-                }else{
-                    ap.invalidOptionError();
-                }
-            }catch(NumberFormatException e){
-                ap.invalidOptionError();
-            }
-        }
-    }
-
-    public void setAttendeeAsVipCmd() {
-
-    }
-
-    public void setAttendeeAsVip(String username) {
+    public JSONObject setAttendeeAsVip(String username) {
         if (!um.isVip(username)) {
             um.setAttendeeAsVip(username);
-            ap.setVipResult();
-            return;
+            return ap.setVipResult();
         } else if (um.isVip(username)) {
-            ap.alreadyVipLabel();
-            return;
+            return ap.alreadyVipError();
         }
-        ap.invalidAttendeeNameError();
+        return ap.invalidAttendeeNameError();
     }
 
-    public void setAttendeeAsNotVipCmd() {
-
-    }
-
-    public void setAttendeeAsNotVip() {
+    public JSONObject setAttendeeAsNotVip() {
         if (um.isVip(username)) {
             um.setAttendeeAsNotVip(username);
-            ap.setNotVipResult();
-            return;
+            return ap.setNotVipResult();
         } else if (!um.isVip(username)) {
-            ap.alreadyNotVipLabel();
-            return;
+            return ap.alreadyNotVipError();
         }
-        ap.invalidAttendeeNameError();
+        return ap.invalidAttendeeNameError();
     }
 
 }

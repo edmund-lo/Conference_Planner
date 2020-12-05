@@ -63,4 +63,13 @@ public class LoginPresenter {
     public JSONObject EmptyPassword() {
         return pu.createJSON("warning", "Password should have at least 6 characters");
     }
+
+    public JSONObject AccountLocked() {
+        return pu.createJSON("warning", "Your account has been locked due to suspicious activity. " +
+                "\nPlease contact an Admin to get help.");
+    }
+
+    public JSONArray SuccessfulLogin(JSONArray data) {
+        return pu.createJSON("success", "Login Successful!", data);
+    }
 }

@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -163,7 +164,7 @@ public class EventManager implements Serializable {
      *
      * @return An arraylist with all of the IDs of the events in allEvents
      */
-    public ArrayList<String> getAllEventIds() {
+    public List<String> getAllEventIds() {
         return new ArrayList<>(allEvents.keySet());
     }
 
@@ -249,7 +250,7 @@ public class EventManager implements Serializable {
      * @param eventID ID of the event
      * @return the list of attending users for event with ID eventID
      */
-    public ArrayList<String> getAttendingUsers(String eventID){
+    public List<String> getAttendingUsers(String eventID){
         return allEvents.get(eventID).getAttendingUsers();
     }
 
@@ -258,7 +259,7 @@ public class EventManager implements Serializable {
      * @param eventID the ID of the event
      * @return an arraylist of the names of the speakers
      */
-    public ArrayList<String> getSpeakers(String eventID){
+    public List<String> getSpeakers(String eventID){
         return allEvents.get(eventID).getSpeakerNames();
     }
 

@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * An abstract Entity class representing a user.
@@ -17,9 +18,9 @@ public abstract class User implements Serializable {
     private final String username;
     private String password;
     private HashMap<String, LocalDateTime[]> schedule;
-    private ArrayList<String> sentMessages;
-    private ArrayList<String> receivedMessages;
-    private ArrayList<String> Inbox;
+    private List<String> sentMessages;
+    private List<String> receivedMessages;
+    private List<String> inbox;
 
     /**
      * Constructor for User object. Initializes an empty hashmap for a user's schedule and
@@ -69,7 +70,7 @@ public abstract class User implements Serializable {
      *
      * @return An arraylist containing message IDs of all sent messages
      */
-    public ArrayList<String> getSentMessages() {
+    public List<String> getSentMessages() {
         return sentMessages;
     }
 
@@ -78,7 +79,7 @@ public abstract class User implements Serializable {
      *
      * @return An arraylist containing message IDs of all received messages
      */
-    public ArrayList<String> getReceivedMessages() {
+    public List<String> getReceivedMessages() {
         return receivedMessages;
     }
 
@@ -87,7 +88,7 @@ public abstract class User implements Serializable {
      *
      * @return An arraylist containing message IDs of all saved messages
      */
-    public ArrayList<String> getIndex() {
+    public List<String> getIndex() {
         return inbox;
     }
 

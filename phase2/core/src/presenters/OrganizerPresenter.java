@@ -17,12 +17,6 @@ public class OrganizerPresenter extends UserPresenter {
     public OrganizerPresenter(){
         pu = new PresenterUtil<>();
     }
-    /**
-     * Outputs the label that indicates of a successful creation of a speaker account
-     */
-    public JSONObject speakerCreationResult() {
-        return pu.createJSON("Success", "Successfully created new speaker account.");
-    }
 
     /**
      * Outputs the label that indicates of a successful creation of a room

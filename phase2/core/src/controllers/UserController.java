@@ -1,7 +1,9 @@
 package controllers;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import gateways.EventGateway;
+import gateways.MessageGateway;
+import gateways.RoomGateway;
+import gateways.UserGateway;
 import presenters.MessagePresenter;
 import presenters.UserPresenter;
 import usecases.*;
@@ -38,13 +40,18 @@ public abstract class UserController {
      * @param mm  current session's MessageManager class.
      * @param username current logged in user's username.
      */
-    public UserController(EventManager em, UserManager um, RoomManager rm, MessageManager mm, String username) {
-        this.em = em;
-        this.um = um;
-        this.rm = rm;
-        this.mm = mm;
+    public UserController(String username) {
+        EventGateway eg = new EventGateway();
+        UserGateway ug = new UserGateway();
+        RoomGateway rg = new RoomGateway();
+        MessageGateway mg = new MessageGateway();
+
+        this.em = eg.deserializeData();
+        this.um = ug.deserializeData();
+        this.rm = rg.deserializeData();
+        this.mm = mg.deserializeData();
+
         this.username = username;
-        this.input = new Scanner(System.in);
         this.up = new UserPresenter();
         this.mp = new MessagePresenter();
     }
@@ -188,21 +195,13 @@ public abstract class UserController {
         LocalDateTime end = em.getEventEndTime(eventId);
         if (!um.canSignUp(username, eventId, start, end)) {
             up.alreadySignedUpError();
-            return;
-        }else if(em.isEventVip(eventId)){
-            if(!um.isVip(username)){
-                up.alreadySignedUpError(); //placeholder error
-                return;
-            }
-        }
-        else if (!em.canAddUserToEvent(eventId,username)){
+        } else if (!em.canAddUserToEvent(eventId,username)){
             up.eventFullCapacityError();
-            return;
+        } else {
+            em.addUserToEvent(eventId,username);
+            um.signUp(username, eventId, start, end);
+            up.signUpResult(em.getEventName(eventId));
         }
-        em.addUserToEvent(eventId,username);
-        um.signUp(username, eventId, start, end);
-        up.signUpResult(em.getEventName(eventId));
-
     }
 
     /**
@@ -293,52 +292,35 @@ public abstract class UserController {
      *
      * @return List of Strings representing all of the user's sent messages.
      */
-    public JSONArray getAllSentMessages(){
-        JSONArray messages = new JSONArray();
+    public List<String> getAllSentMessages(){
+        List<String> messageStrings = new ArrayList<>();
         List<String> userMessages = um.getSentMessages(username);
         if (userMessages.size() == 0) {
-            mp.noMessagesReceived();
+            mp.noMessagesLabel();
         } else {
+            mp.showNumMessages(userMessages.size(), "sent");
             for (String id : userMessages) {
-                messages.add(mm.getSentMessageToString(id));
+                messageStrings.add(mm.getSentMessageToString(id));
             }
         }
 
-        return messages;
+        return messageStrings;
     }
 
     /**
      * Gets all of current user's received messages.
      *
-     * @return JSONArray of Strings representing all of the user's received messages.
+     * @return List of Strings representing all of the user's received messages.
      */
-    public JSONArray getAllReceivedMessages(){
-        JSONArray messages = new JSONArray();
-        List<String> userMessages = um.getReceivedMessages(username);
-        if (userMessages.size() == 0) {
-            mp.noMessagesReceived();
-        } else {
-            for (String id : userMessages) {
-                messages.add(mm.getReceivedMessageToString(id));
-            }
-        }
-        return messages;
-    }
-
-    /**
-     * Gets all of current user's inbox messages.
-     *
-     * @return List of Strings representing all of the user's inbox messages.
-     */
-    public List<String> getAllInboxMessages(){
+    public List<String> getAllReceivedMessages(){
         List<String> messageStrings = new ArrayList<>();
         List<String> userMessages = um.getReceivedMessages(username);
         if (userMessages.size() == 0) {
             mp.noMessagesLabel();
         } else {
-            mp.showNumMessages(userMessages.size(), "inbox");
+            mp.showNumMessages(userMessages.size(), "received");
             for (String id : userMessages) {
-                messageStrings.add(mm.getInboxMessageToString(id));
+                messageStrings.add(mm.getReceivedMessageToString(id));
             }
         }
 
@@ -358,15 +340,16 @@ public abstract class UserController {
 
     /**
      *Sends a message to an attendee.
-     * @param jsonObject A JSONObject containing the recipient name and content
+     *
+     *
+     * @param  recipientName username of the Entities.Attendee the message is for.
+     * @param  content the contents of the message being sent.
      */
-    public void sendMessage(JSONObject jsonObject) {
-        String recipientName = jsonObject.get("recipientName").toString();
-        String content = jsonObject.get("content").toString();
+    public void sendMessage(String recipientName, String content) {
         if (mm.messageCheck(recipientName, username, content)) {
             String messageId = mm.createMessage(recipientName, username, content);
+            mp.messageResult(recipientName);
             addMessagesToUser(recipientName, messageId);
-            mp.JSONObjectmessageResult(recipientName);
         } else {
             mp.invalidMessageError();
         }

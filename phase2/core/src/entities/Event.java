@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Implementation of an event with all details pertaining to it stored inside.
@@ -13,10 +14,10 @@ import java.util.ArrayList;
 public class Event implements Serializable {
     private String eventName;
     private String eventID;
-    private ArrayList<String> speakerNames;
+    private List<String> speakerNames;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private ArrayList<String> attendingUsers;
+    private List<String> attendingUsers;
     private String roomName;
     private boolean vipEvent;
     private int capacity;
@@ -57,7 +58,7 @@ public class Event implements Serializable {
      *
      * @return The ID of the speaker speaking at this event
      */
-    public ArrayList<String> getSpeakerNames() {
+    public List<String> getSpeakerNames() {
         return speakerNames;
     }
 
@@ -75,7 +76,7 @@ public class Event implements Serializable {
      *
      * @return An arraylist with IDs of all users attending this event
      */
-    public ArrayList<String> getAttendingUsers() {
+    public List<String> getAttendingUsers() {
         return attendingUsers;
     }
 
