@@ -1,9 +1,9 @@
 package organizer.impl;
 
+import adapter.ScheduleAdapter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
-import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
@@ -11,33 +11,22 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import model.ScheduleEntry;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import organizer.ICreateEventPresenter;
 import organizer.ICreateEventView;
 import util.DateTimeUtil;
-
+import util.TextResultUtil;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CreateEventPresenter implements ICreateEventPresenter {
     private ICreateEventView view;
     private final ObservableSet<CheckBox> selectedAmenities = FXCollections.observableSet();
-    private final PseudoClass errorClass = PseudoClass.getPseudoClass("error");
 
     public CreateEventPresenter(ICreateEventView view) {
         this.view = view;
         init();
-    }
-
-    @Override
-    public void createEventButtonAction(ActionEvent actionEvent) {
-        clearResult();
-
-        //call oc.createEvent method
-        this.view.getTitledPane(3).setDisable(true);
-        this.view.getTitledPane(1).setDisable(false);
-        this.view.getTitledPane(1).setExpanded(true);
     }
 
     @Override
@@ -56,21 +45,28 @@ public class CreateEventPresenter implements ICreateEventPresenter {
 
     @Override
     public void findRoomsButtonAction(ActionEvent actionEvent) {
+        clearResultText(1);
         this.view.getRoomComboBox().getItems().clear();
         this.view.setStart(LocalDateTime.now());
         this.view.setEnd(LocalDateTime.now());
-
         this.view.getTableContainer().getChildren().clear();
-        this.view.getTitledPane(2).setDisable(false);
-        this.view.getTitledPane(1).setDisable(true);
-        this.view.getTitledPane(2).setExpanded(true);
+
+        JSONObject queryJson = constructRoomRequestJson();
+        //JSONObject responseJson = oc.findRooms(queryJson);
+        JSONObject responseJson = new JSONObject();
+        setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 1);
+        if (responseJson.get("status").equals("success")) {
+            this.view.getTitledPane(2).setDisable(false);
+            this.view.getTitledPane(1).setDisable(true);
+            this.view.getTitledPane(2).setExpanded(true);
+        }
     }
 
     @Override
     public void previewRoomButtonAction(ActionEvent actionEvent) {
-        clearError();
-
+        clearResultText(2);
         this.view.getTableContainer().getChildren().clear();
+
         List<ScheduleEntry> roomSchedule = getRoomSchedule();
         displayRoomSchedule(roomSchedule);
     }
@@ -90,19 +86,24 @@ public class CreateEventPresenter implements ICreateEventPresenter {
     }
 
     @Override
-    public void setError(String error, int errorId) {
-        if (errorId == 0)
-            this.view.getRoomComboBox().pseudoClassStateChanged(errorClass, true);
-        else if (errorId == 1) {
-            this.view.getStartPicker().pseudoClassStateChanged(errorClass, true);
-            this.view.getEndPicker().pseudoClassStateChanged(errorClass, true);
+    public void createEventButtonAction(ActionEvent actionEvent) {
+        clearResultText(3);
+
+        JSONObject queryJson = constructEventJson();
+        //JSONObject responseJson = oc.createEvent(queryJson);
+        JSONObject responseJson = new JSONObject();
+        setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 1);
+        if (responseJson.get("status").equals("Success")) {
+            this.view.getTitledPane(3).setDisable(true);
+            this.view.getTitledPane(1).setDisable(false);
+            this.view.getTitledPane(1).setExpanded(true);
         }
-        this.view.setErrorMsg(error);
     }
 
     @Override
-    public void setResult(String result) {
-        this.view.setResultMsg(result);
+    public void setResultText(String resultText, String status, int index) {
+        this.view.setResultText(resultText, index);
+        TextResultUtil.getInstance().addPseudoClass(status, this.view.getResultTextControl(index));
     }
 
     @Override
@@ -117,10 +118,10 @@ public class CreateEventPresenter implements ICreateEventPresenter {
     public List<ScheduleEntry> getRoomSchedule() {
         String roomName = this.view.getRoomName();
         LocalDateTime start = this.view.getStart();
-        //JSONObject resultJson = sc.getRoomSchedule(roomName, start)
-        //List<ScheduleEntry> schedule = ScheduleAdapter.adapt(resultJson);
-        List<ScheduleEntry> schedule = new ArrayList<>();
-        return schedule;
+        //JSONObject responseJson = sc.getRoomSchedule(roomName, start);
+        JSONObject responseJson = new JSONObject();
+        setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 2);
+        return ScheduleAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
     @Override
@@ -164,10 +165,8 @@ public class CreateEventPresenter implements ICreateEventPresenter {
             selectedAmenities.add(checkBox);
 
         checkBox.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
-            if (isNowSelected)
-                selectedAmenities.add(checkBox);
-            else
-                selectedAmenities.remove(checkBox);
+            if (isNowSelected) selectedAmenities.add(checkBox);
+            else selectedAmenities.remove(checkBox);
         });
     }
 
@@ -189,6 +188,7 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         JSONObject queryJson = new JSONObject();
         queryJson.put("eventName", this.view.getEventName());
         queryJson.put("capacity", this.view.getCapacity());
+        queryJson.put("vip", Boolean.FALSE); //implement VIP checkbox
         queryJson.put("roomName", this.view.getRoomName());
         queryJson.put("start", this.view.getStart());
         queryJson.put("end", this.view.getEnd());
@@ -199,14 +199,19 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         return queryJson;
     }
 
-    private void clearError() {
-        this.view.setErrorMsg("");
-        this.view.getRoomComboBox().pseudoClassStateChanged(errorClass, false);
-        this.view.getStartPicker().pseudoClassStateChanged(errorClass, false);
-        this.view.getEndPicker().pseudoClassStateChanged(errorClass, false);
+    @SuppressWarnings("unchecked")
+    private JSONObject constructRoomRequestJson() {
+        JSONObject queryJson = new JSONObject();
+        queryJson.put("capacity", this.view.getCapacity());
+        queryJson.put("chairs", this.view.getAmenityBox(1).isSelected());
+        queryJson.put("tables", this.view.getAmenityBox(2).isSelected());
+        queryJson.put("projector", this.view.getAmenityBox(3).isSelected());
+        queryJson.put("sound", this.view.getAmenityBox(4).isSelected());
+        return queryJson;
     }
 
-    private void clearResult() {
-        this.view.setResultMsg("");
+    private void clearResultText(int index) {
+        this.view.setResultText("", index);
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl(index));
     }
 }

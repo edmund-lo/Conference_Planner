@@ -7,6 +7,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import util.DateTimePicker;
 import java.time.LocalDateTime;
 
@@ -23,14 +24,13 @@ public interface ICreateEventView extends ILoggedInView {
     void setStart(LocalDateTime start);
     LocalDateTime getEnd();
     void setEnd(LocalDateTime end);
-    void setErrorMsg(String error);
     void setSummaryEventName(String eventName);
     void setSummaryCapacity(int capacity);
     void setSummaryRoomName(String roomName);
     void setSummaryStart(LocalDateTime start);
     void setSummaryEnd(LocalDateTime end);
     void setSummaryAmenities(String amenities);
-    void setResultMsg(String result);
+    void setResultText(String resultText, int index);
 
     ComboBox<String> getRoomComboBox();
     DateTimePicker getStartPicker();
@@ -38,6 +38,7 @@ public interface ICreateEventView extends ILoggedInView {
     CheckBox getAmenityBox(int index);
     TitledPane getTitledPane(int index);
     VBox getTableContainer();
+    Text getResultTextControl(int index);
 
     EventHandler<ActionEvent> getFindRoomsButtonAction();
     void setFindRoomsButtonAction(EventHandler<ActionEvent> eventHandler);
