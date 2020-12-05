@@ -22,13 +22,12 @@
                     <TableColumn fx:id="usernameColumn" text="Username"/>
                     <TableColumn fx:id="userTypeColumn" text="User Type"/>
                     <TableColumn fx:id="lockedColumn" text="Locked"/>
-                    <TableColumn fx:id="lockedTimeColumn" text="Locked Time"/>
                 </columns>
             </TableView>
             <SplitPane>
                 <VBox>
                     <Text text="User Login Logs"/>
-                    <TableView>
+                    <TableView fx:id="logsTable">
                         <columns>
                             <TableColumn fx:id="loginTimeColumn" text="Login Time"/>
                             <TableColumn fx:id="successColumn" text="Success"/>
@@ -36,15 +35,13 @@
                     </TableView>
                 </VBox>
                 <GridPane alignment="CENTER" hgap="10" vgap="10">
-                    <Label text="From:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-                    <TextField fx:id="sender" GridPane.columnIndex="1" GridPane.rowIndex="0" editable="false"/>
+                    <Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <TextField fx:id="username" GridPane.columnIndex="1" GridPane.rowIndex="0" editable="false"/>
                     <Label text="To:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-                    <TextField fx:id="recipients" GridPane.columnIndex="1" GridPane.rowIndex="1" editable="false"/>
-                    <Label text="Message:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-                    <TextArea fx:id="content" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                    <Text fx:id="resultText" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2"/>
+                    <TextField fx:id="userType" GridPane.columnIndex="1" GridPane.rowIndex="1" editable="false"/>
+                    <Text fx:id="resultText" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2"/>
 
-                    <HBox spacing="10" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="5"
+                    <HBox spacing="10" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="4"
                           GridPane.columnSpan="2">
                         <Button text="Unlock Account" fx:id="unlockButton" onAction="#executeAddUnlock"/>
                     </HBox>
@@ -55,6 +52,6 @@
 
     <stylesheets>
         <URL value="@../css/project.css"/>
-        <URL value="@../css/messaging.css"/>
+        <URL value="@../css/unlock.css"/>
     </stylesheets>
 </BorderPane>

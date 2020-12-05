@@ -59,7 +59,7 @@ public class RemoveEventsView implements IRemoveEventsView {
     private EventHandler<ActionEvent> removeButtonAction;
     private Stage stage;
     private String sessionUsername;
-    private int sessionUserType;
+    private String sessionUserType;
 
     @Override
     public TableView<ScheduleEntry> getEventsTable() {
@@ -133,8 +133,8 @@ public class RemoveEventsView implements IRemoveEventsView {
     }
 
     @Override
-    public void setResultMsg(String resultMsg) {
-        this.resultText.setText(resultMsg);
+    public void setResultText(String resultText) {
+        this.resultText.setText(resultText);
     }
 
     @Override
@@ -158,12 +158,12 @@ public class RemoveEventsView implements IRemoveEventsView {
     }
 
     @Override
-    public int getSessionUserType() {
+    public String getSessionUserType() {
         return this.sessionUserType;
     }
 
     @Override
-    public void setSessionUserType(int userType) {
+    public void setSessionUserType(String userType) {
         this.sessionUserType = userType;
     }
 

@@ -2,6 +2,7 @@ package util;
 
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import model.LoginLog;
 import model.ScheduleEntry;
 
 import java.time.Duration;
@@ -62,6 +63,19 @@ public class DateTimeUtil {
     }
 
     public void setScheduleDateTimeCellFactory(TableColumn<ScheduleEntry, LocalDateTime> column) {
+        column.setCellFactory(c -> new TableCell<>() {
+            @Override
+            protected void updateItem(LocalDateTime dateTime, boolean empty) {
+                super.updateItem(dateTime, empty);
+                if (empty)
+                    setText(null);
+                else
+                    this.setText(format(dateTime));
+            }
+        });
+    }
+
+    public void setLoginDateTimeCellFactory(TableColumn<LoginLog, LocalDateTime> column) {
         column.setCellFactory(c -> new TableCell<>() {
             @Override
             protected void updateItem(LocalDateTime dateTime, boolean empty) {

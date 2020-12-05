@@ -28,7 +28,7 @@ public class UserAccountAdapter {
         String username = String.valueOf(jsonObject.get("username"));
         String password = String.valueOf(jsonObject.get("password"));
         boolean locked = jsonObject.get("locked").equals("true");
-        int accountType = parseInt(String.valueOf(jsonObject.get("userType")));
+        String accountType = String.valueOf(jsonObject.get("userType"));
         boolean setSecurity = jsonObject.get("setSecurity").equals("true");
 
         return new UserAccount(username, password, accountType, locked, setSecurity);

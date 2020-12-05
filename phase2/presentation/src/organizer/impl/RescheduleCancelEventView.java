@@ -63,7 +63,7 @@ public class RescheduleCancelEventView implements IRescheduleCancelEventView {
     private EventHandler<ActionEvent> cancelButtonAction;
     private Stage stage;
     private String sessionUsername;
-    private int sessionUserType;
+    private String sessionUserType;
 
     @Override
     public TableView<ScheduleEntry> getEventsTable() {
@@ -171,12 +171,12 @@ public class RescheduleCancelEventView implements IRescheduleCancelEventView {
     }
 
     @Override
-    public int getSessionUserType() {
+    public String getSessionUserType() {
         return this.sessionUserType;
     }
 
     @Override
-    public void setSessionUserType(int userType) {
+    public void setSessionUserType(String userType) {
         this.sessionUserType = userType;
     }
 

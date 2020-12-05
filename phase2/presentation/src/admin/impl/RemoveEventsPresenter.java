@@ -28,8 +28,8 @@ public class RemoveEventsPresenter implements IRemoveEventsPresenter {
     }
 
     @Override
-    public void setResult(String result) {
-        this.view.setResultMsg(result);
+    public void setResultText(String resultText) {
+        this.view.setResultText(resultText);
     }
 
     @Override
@@ -76,6 +76,6 @@ public class RemoveEventsPresenter implements IRemoveEventsPresenter {
     }
 
     private void clearResult() {
-        this.view.setResultMsg("");
+        this.view.setResultText("");
     }
 }

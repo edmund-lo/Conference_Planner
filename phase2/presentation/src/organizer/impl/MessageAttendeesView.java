@@ -49,7 +49,7 @@ public class MessageAttendeesView implements IMessageUsersView {
     private EventHandler<ActionEvent> selectAllAction;
     private Stage stage;
     private String sessionUsername;
-    private int sessionUserType;
+    private String sessionUserType;
 
     @Override
     public TableView<User> getUserTable() {
@@ -167,12 +167,12 @@ public class MessageAttendeesView implements IMessageUsersView {
     }
 
     @Override
-    public int getSessionUserType() {
+    public String getSessionUserType() {
         return this.sessionUserType;
     }
 
     @Override
-    public void setSessionUserType(int userType) {
+    public void setSessionUserType(String userType) {
         this.sessionUserType = userType;
     }
 }

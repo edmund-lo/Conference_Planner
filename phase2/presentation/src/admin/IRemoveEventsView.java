@@ -25,7 +25,7 @@ public interface IRemoveEventsView extends ILoggedInView {
     void setSummaryAmenities(String amenities);
     void setSummaryAttendees(String attendees);
     void setSummarySpeakers(String speakers);
-    void setResultMsg(String resultMsg);
+    void setResultText(String resultText);
 
     EventHandler<ActionEvent> getRemoveButtonAction();
     void setRemoveButtonAction(EventHandler<ActionEvent> eventHandler);

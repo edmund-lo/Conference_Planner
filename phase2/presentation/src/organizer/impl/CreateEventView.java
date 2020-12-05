@@ -98,7 +98,7 @@ public class CreateEventView implements ICreateEventView {
     private EventHandler<ActionEvent> createEventButtonAction;
     private Stage stage;
     private String sessionUsername;
-    private int sessionUserType;
+    private String sessionUserType;
 
     @Override
     public String getEventName() {
@@ -332,12 +332,12 @@ public class CreateEventView implements ICreateEventView {
     }
 
     @Override
-    public int getSessionUserType() {
+    public String getSessionUserType() {
         return this.sessionUserType;
     }
 
     @Override
-    public void setSessionUserType(int userType) {
+    public void setSessionUserType(String userType) {
         this.sessionUserType = userType;
     }
 }
