@@ -326,6 +326,26 @@ public abstract class UserController {
     }
 
     /**
+     * Gets all of current user's inbox messages.
+     *
+     * @return List of Strings representing all of the user's inbox messages.
+     */
+    public List<String> getAllInboxMessages(){
+        List<String> messageStrings = new ArrayList<>();
+        List<String> userMessages = um.getReceivedMessages(username);
+        if (userMessages.size() == 0) {
+            mp.noMessagesLabel();
+        } else {
+            mp.showNumMessages(userMessages.size(), "inbox");
+            for (String id : userMessages) {
+                messageStrings.add(mm.getInboxMessageToString(id));
+            }
+        }
+
+        return messageStrings;
+    }
+
+    /**
      *Calls the user manager to add a messageId to a user's list
      *
      *@param  messageId id of the message user is adding.

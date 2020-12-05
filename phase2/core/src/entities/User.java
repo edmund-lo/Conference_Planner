@@ -19,6 +19,7 @@ public abstract class User implements Serializable {
     private HashMap<String, LocalDateTime[]> schedule;
     private ArrayList<String> sentMessages;
     private ArrayList<String> receivedMessages;
+    private ArrayList<String> Inbox;
 
     /**
      * Constructor for User object. Initializes an empty hashmap for a user's schedule and
@@ -33,6 +34,7 @@ public abstract class User implements Serializable {
         this.schedule = new HashMap<>();
         this.sentMessages = new ArrayList<>();
         this.receivedMessages = new ArrayList<>();
+        this.inbox = new ArrayList<>();
     }
 
     /**
@@ -78,6 +80,15 @@ public abstract class User implements Serializable {
      */
     public ArrayList<String> getReceivedMessages() {
         return receivedMessages;
+    }
+
+    /**
+     * Getter for a user's inbox.
+     *
+     * @return An arraylist containing message IDs of all saved messages
+     */
+    public ArrayList<String> getIndex() {
+        return inbox;
     }
 
     /**
@@ -145,6 +156,13 @@ public abstract class User implements Serializable {
     }
 
     /**
+     * Adds message ID of the received message to user's inbox.
+     *
+     * @param messageID the message ID to be add
+     */
+    public void archiveToInbox(String messageID) { inbox.add(messageID); }
+
+    /**
      * Deletes message ID of the sent message from user's list of sent messages.
      *
      * @param messageID the message ID of the sent message they want to delete
@@ -160,6 +178,15 @@ public abstract class User implements Serializable {
      */
     public void deleteReceivedMessage(String messageID) {
         receivedMessages.remove(messageID);
+    }
+
+    /**
+     * Deletes message ID of the received message from user's inbox.
+     *
+     * @param messageID the message ID in the inbox that they want to delete
+     */
+    public void deleteFromInbox(String messageID) {
+        inbox.remove(messageID);
     }
 
     /**
