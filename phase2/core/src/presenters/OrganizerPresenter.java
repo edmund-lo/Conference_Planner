@@ -12,11 +12,10 @@ import org.json.simple.*;
  */
 public class OrganizerPresenter extends UserPresenter {
 
-    private PresenterUtil pu;
+    private PresenterUtil<String> pu;
 
     public OrganizerPresenter(){
-        PresenterUtil pu = new PresenterUtil();
-        this.pu = pu;
+        pu = new PresenterUtil<String>();
     }
     /**
      * Outputs the label that indicates of a successful creation of a speaker account
@@ -78,7 +77,7 @@ public class OrganizerPresenter extends UserPresenter {
      * Outputs the label that indicates the a speaker is already speaking at another event
      */
     public JSONObject speakerUnavailableError() {
-        return pu.createJSON("success","This speaker is already speaking at another event.");
+        System.out.println("This speaker is already speaking at another event.");
     }
 
     /**
