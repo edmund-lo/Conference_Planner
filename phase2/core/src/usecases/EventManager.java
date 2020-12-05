@@ -43,9 +43,10 @@ public class EventManager implements Serializable {
      * @param roomName the name of the room the event is in
      */
     public void createNewEvent(String eventName, LocalDateTime startTime, LocalDateTime endTime, String roomName,
-                               boolean chairs, boolean tables, boolean projector, boolean speakers, int capacity) {
+                               boolean chairs, boolean tables, boolean projector, boolean speakers, int capacity,
+                               boolean vipEvent) {
         Event newEvent = new Event(UUID.randomUUID().toString(), eventName, startTime, endTime, roomName, chairs,
-                tables, projector, speakers, capacity);
+                tables, projector, speakers, capacity, vipEvent);
         allEvents.put(newEvent.getEventID(), newEvent);
     }
 
@@ -183,6 +184,15 @@ public class EventManager implements Serializable {
      */
     public String getEventRoom(String eventID){
         return allEvents.get(eventID).getRoomName();
+    }
+
+    /**
+     * check for if event with ID eventID is a vip event
+     * @param eventID ID of the event
+     * @return True iff event with ID eventID is a vip event
+     */
+    public boolean isEventVip(String eventID){
+        return allEvents.get(eventID).isVipEvent();
     }
 
     /**

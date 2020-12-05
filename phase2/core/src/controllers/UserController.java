@@ -186,13 +186,21 @@ public abstract class UserController {
         LocalDateTime end = em.getEventEndTime(eventId);
         if (!um.canSignUp(username, eventId, start, end)) {
             up.alreadySignedUpError();
-        } else if (!em.canAddUserToEvent(eventId,username)){
-            up.eventFullCapacityError();
-        } else {
-            em.addUserToEvent(eventId,username);
-            um.signUp(username, eventId, start, end);
-            up.signUpResult(em.getEventName(eventId));
+            return;
+        }else if(em.isEventVip(eventId)){
+            if(!um.isVip(username)){
+                up.alreadySignedUpError(); //placeholder error
+                return;
+            }
         }
+        else if (!em.canAddUserToEvent(eventId,username)){
+            up.eventFullCapacityError();
+            return;
+        }
+        em.addUserToEvent(eventId,username);
+        um.signUp(username, eventId, start, end);
+        up.signUpResult(em.getEventName(eventId));
+
     }
 
     /**
