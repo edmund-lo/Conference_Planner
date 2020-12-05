@@ -8,28 +8,12 @@ package presenters;
  * confirms and rejects success of sending messages to event attendees based on invalid credentials
  */
 public class SpeakerPresenter extends UserPresenter {
-    /**
-     * Outputs the main menu display. Note that it is the same as the user menu with 2 extra options
-     */
 
-    public void displayMenu(String speaker, String username){
-        super.displayMenu(speaker, username);
-        System.out.println(" 5. Message your event attendees" +
-                "\n 6. Show Events you are speaking at");
-    }
+    private PresenterUtil pu;
 
-    /**
-     * Outputs label for introducing list of events speaker is speaking at
-     */
-    public void speakerEventsLabel() {
-        System.out.println("Here are a list of events you are speaking at:");
-    }
-
-    /**
-     * Outputs label for instructions on how to input event numbers for messaging Event attendees
-     */
-    public void messageEventAttendeesPrompt() {
-        System.out.println("Enter 0 to go back.\nIf not, enter the event numbers separated by a comma:");
+    public SpeakerPresenter(){
+        PresenterUtil pu = new PresenterUtil();
+        this.pu = pu;
     }
 
     /**
@@ -37,22 +21,22 @@ public class SpeakerPresenter extends UserPresenter {
      *
      * @param event name of the event
      */
-    public void messageEventAttendeesResult(String event) {
-        System.out.println("Successfully sent message to attendees of " + event + ".");
+    public JSONObject messageEventAttendeesResult(String event) {
+        return pu.createJSON("success", "Successfully sent message to attendees of " + event + ".");
     }
 
     /**
      * Outputs label that indicates error for an invalid event number
      */
-    public void invalidEventNumberError() {
-        System.out.println("Event number is formatted incorrectly!");
+    public JSONObject invalidEventNumberError() {
+        return pu.createJSON("warning", "Event number is formatted incorrectly!");
     }
 
     /**
      * Outputs error that the speaker has no events that he/she is speaking at.
      */
-    public void noSpeakerEventsError() {
-        System.out.println("You are not speaking at any events!");
+    public JSONObject noSpeakerEventsError() {
+        return pu.createJSON("error", "You are not speaking at any events!");
     }
 
     /**
@@ -60,7 +44,7 @@ public class SpeakerPresenter extends UserPresenter {
      *
      * @param event name of event
      */
-    public void messageEventAttendeesError(String event) {
-        System.out.println("Unable to message attendees of " + event + "!");
+    public JSONObject messageEventAttendeesError(String event) {
+        System.out.println(return pu.createJSON("error", "Unable to message attendees of " + event + "!");
     }
 }

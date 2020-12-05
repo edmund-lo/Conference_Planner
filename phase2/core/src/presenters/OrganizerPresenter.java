@@ -9,66 +9,72 @@ import java.util.Set;
  */
 public class OrganizerPresenter extends UserPresenter {
 
+    private PresenterUtil pu;
+
+    public OrganizerPresenter(){
+        PresenterUtil pu = new PresenterUtil();
+        this.pu = pu;
+    }
     /**
      * Outputs the label that indicates of a successful creation of a speaker account
      */
-    public void speakerCreationResult() {
+    public JSONObject speakerCreationResult() {
         return pu.createJSON("Success", "Successfully created new speaker account.");
     }
 
     /**
      * Outputs the label that indicates of a successful creation of a room
      */
-    public void roomCreationResult() {
+    public JSONObject roomCreationResult() {
         return pu.createJSON("Success", "Successfully created new room.");
     }
 
     /**
      * Outputs the label that indicates the success of messaging all speakers
      */
-    public void messagedAllSpeakersResult() {
-        return pu.createJSON("Success", "Successfully sent message to all speakers.");
+    public JSONObject messagedAllSpeakersResult() {
+        return pu.createJSON("success", "Successfully sent message to all speakers.");
     }
 
     /**
      * Outputs the label that indicates the success of messaging all attendees
      */
-    public void messagedAllAttendeesResult() {
-        return pu.createJSON("Success", "Successfully sent message to all attendees.");
+    public JSONObject messagedAllAttendeesResult() {
+        return pu.createJSON("success", "Successfully sent message to all attendees.");
     }
 
     /**
      * Outputs the label that indicates the success of adding a speaker to the selected event
      */
-    public void scheduleSpeakerResult() {
-        return pu.createJSON("Success", "This speaker was successfully added to selected event!");
+    public JSONObject scheduleSpeakerResult() {
+        return pu.createJSON("success", "This speaker was successfully added to selected event!");
     }
 
     /**
      * Outputs the label that indicates the failure of creating a new room
      */
-    public void invalidRoomNameError() {
-        return pu.createJSON("Error", "Unable to create new room: room's name was not unique.");
+    public JSONObject invalidRoomNameError() {
+        return pu.createJSON("error", "Unable to create new room: room's name was not unique.");
     }
 
     /**
      * Outputs the label that indicates the failure of creating a new speaker account due to username not being unique
      */
-    public void invalidSpeakerNameError() {
-        return pu.createJSON("Error", "Unable to create new speaker account: speaker's username was not unique.");
+    public JSONObject invalidSpeakerNameError() {
+        return pu.createJSON("error", "Unable to create new speaker account: speaker's username was not unique.");
     }
 
     /**
      * Outputs the label that indicates that a speaker is already speaking at this event
      */
-    public void existingSpeakerAtEventError() {
-        return pu.createJSON("Error", "Another speaker is already speaking at this event.");
+    public JSONObject existingSpeakerAtEventError() {
+        return pu.createJSON("error", "Another speaker is already speaking at this event.");
     }
 
     /**
      * Outputs the label that indicates the a speaker is already speaking at another event
      */
-    public void speakerUnavailableError() {
+    public JSONObject speakerUnavailableError() {
         System.out.println("This speaker is already speaking at another event.");
     }
 
@@ -77,13 +83,8 @@ public class OrganizerPresenter extends UserPresenter {
      *
      * @param speakerNames the list of all speaker names
      */
-    public void listSpeakers(List<String> speakerNames){
-        int count = 1;
-        System.out.println("Here's a list of speakers that you can assign to this event:");
-        for (String x: speakerNames) {
-            System.out.println("(" + count + "): " + x+"\n");
-            count++;
-        }
+    public JSONObject listSpeakers(List<String> speakerNames){
+        return pu.createJSON("success", "Speakers have been listed", "List of Speakers", speakerNames)
     }
 
     /**
@@ -91,107 +92,75 @@ public class OrganizerPresenter extends UserPresenter {
      *
      * @param allRooms A set of strings of all rooms
      */
-    public void listRooms(ArrayList<String> allRooms) {
-        for (String room : allRooms) {
-            System.out.println(room);
-        }
+    public JSONObject listRooms(ArrayList<String> allRooms) {
+        return pu.createJSON("success", "Rooms have been listed", "List of Rooms", allRooms)
     }
 
     /**
      * Outputs the label that indicates there are no rooms created
      */
-    public void noRoomError() {
-        System.out.println("There are no rooms in the system. You cannot create an event.");
-    }
-
-    /**
-     * Outputs a room's schedule
-     *
-     * @param roomSchedule a string representing the room's schedule
-     */
-    public void listRoomSchedule(String roomSchedule) {
-        System.out.println(roomSchedule);
-    }
-
-    /**
-     * Outputs a label to prompt the user to enter an event name
-     */
-    public void eventNamePrompt() {
-        System.out.println("Enter the event name:");
+    public JSONObject noRoomError() {
+        return pu.createJSON("error", "There are no rooms in the system. You cannot create an event.");
     }
 
     /**
      * Outputs a label indicating a field is empty
      */
-    public void emptyFieldError() {
-        System.out.println("Try again: cannot leave field empty!");
-    }
-
-    /**
-     * Outputs a label to prompt the user to enter an event time
-     */
-    public void eventTimePrompt() {
-        System.out.println("Enter the event start time (formatted 'yyyy-MM-dd HH:mm'):");
+    public JSONObject emptyFieldError() {
+        return pu.createJSON("warning", "Try again: cannot leave field empty!");
     }
 
     /**
      * Outputs a label introducing the list of rooms
      */
-    public void roomIntroduceListLabel(ArrayList<String> rooms){
+    public JSONObject roomIntroduceListLabel(ArrayList<String> rooms){
         if (rooms.size() == 0) {
-            System.out.println("There are no rooms that fit your event requirements.");
+            return pu.createJSON("error", "There are no rooms that fit your event requirements.");
         } else {
-            System.out.println("Here are the rooms that fit your event requirements: ");
+            return pu.createJSON("success", "Here are the rooms that fit your event requirements: ");
         }
     }
 
     /**
      * Outputs a label indicating that the room doesn't exist
      */
-    public void roomDoesNotExistLabel(){
-        System.out.println("That room doesn't exist!");
+    public JSONObject roomDoesNotExistLabel(){
+        return pu.createJSON("error", "That room doesn't exist!");
     }
 
     /**
      * Outputs a label indicating event is created successfully
      */
-    public void eventCreationResult() {
-        System.out.println("Successfully created new event.");
+    public JSONObject eventCreationResult() {
+        return pu.createJSON("success", "Successfully created new event.");
     }
 
     /**
      * Outputs a label indicating event cannot be created
      */
-    public void eventFailedCreationError() {
-        System.out.println("Unable to create new event: scheduling conflict occurred.");
+    public JSONObject eventFailedCreationError() {
+        return pu.createJSON("error", "Unable to create new event: scheduling conflict occurred.");
     }
 
     /**
      * Outputs a label indicating speaker cannot be created
      */
-    public void noEvents() {
-        System.out.println("Unable to schedule speaker: There are no events in the system.");
+    public JSONObject noEvents() {
+        return pu.createJSON("error", "Unable to schedule speaker: There are no events in the system.");
     }
 
     /**
      * Outputs a label indicating speaker cannot be created
      */
-    public void noSpeakers() {
-        System.out.println("Unable to schedule speaker: There are no speakers in the system.");
+    public JSONObject noSpeakers() {
+        return pu.createJSON("error", "Unable to schedule speaker: There are no speakers in the system.");
     }
 
     /**
      * Outputs a label indicating an invalid date input
      */
-    public void invalidDateError() {
-        System.out.println("Unable to parse date input!");
-    }
-
-    /**
-     * Outputs a label prompting the user to input the room capacity
-     */
-    public void roomCapacityPrompt() {
-        System.out.println("Enter the capacity of the room:");
+    public JSONObject invalidDateError() {
+        return pu.createJSON("warning", "Unable to parse date input!");
     }
 
     /**
@@ -226,8 +195,8 @@ public class OrganizerPresenter extends UserPresenter {
     /**
      * Outputs an error message telling the user that their input was incorrect
      */
-    public void incorrectInputError() {
-        System.out.println("Input error: An input you have entered for chairs, tables, projectors or " +
+    public JSONObject incorrectInputError() {
+        return pu.createJSON("warning", "Input error: An input you have entered for chairs, tables, projectors or " +
                 "sound system was invalid");
     }
 
