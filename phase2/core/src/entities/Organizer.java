@@ -18,10 +18,11 @@ public class Organizer extends User implements Serializable {
      * Constructor for an Organizer that inherits from User.
      *
      * @param username the username of the User
-     * @param password the password of the User
+     * @param firstName the user's firstName
+     * @param lastName the user's lastName
      */
-    public Organizer(String username, String password) {
-        super(username, password);
+    public Organizer(String username, String firstName, String lastName) {
+        super(username, firstName, lastName);
     }
 
     public JSONObject convertToJSON() {
@@ -32,7 +33,8 @@ public class Organizer extends User implements Serializable {
         json.put("type", "Organizer");
 
         item.put("username", getUsername());
-        item.put("password", getPassword());
+        item.put("firstName", getFirstName());
+        item.put("lastName", getLastName());
         item.put("schedule", getSchedule());
         item.put("sentMessages", getSentMessages());
         item.put("received Messages", getReceivedMessages());
