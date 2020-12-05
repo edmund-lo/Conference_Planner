@@ -1,16 +1,15 @@
 package presenters;
 import java.util.List;
-
+import org.json.simple.*;
 /**
  * A Presenter class that prints Message related functionality to the user's screen
  */
 public class MessagePresenter {
 
-    private PresenterUtil pu;
+    private PresenterUtil<String> pu;
 
     public MessagePresenter(){
-        PresenterUtil pu = new PresenterUtil();
-        this.pu = pu;
+        pu = new PresenterUtil<>();
     }
 
     /**
@@ -23,7 +22,7 @@ public class MessagePresenter {
     /**
      * Informs the user that their message was sent to the specified recipient.
      */
-    public JSONObjectmessageResult(String recipient) {
+    public JSONObject JSONObjectmessageResult(String recipient) {
         return pu.createJSON("success", "Message sent to " + recipient);
     }
 
@@ -46,5 +45,13 @@ public class MessagePresenter {
      * formatted.
      */
     public JSONObject invalidMessageError() {return pu.createJSON("warning", "Invalid user or message format!");
+    }
+
+    /**
+     * informs the user that they have no messages
+     * @return this message in JSONObject format
+     */
+    public JSONObject noMessagesReceived(){
+        return pu.createJSON("warning", "You currently have no messages");
     }
 }

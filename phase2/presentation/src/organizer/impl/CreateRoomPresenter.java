@@ -6,6 +6,7 @@ import javafx.collections.ObservableSet;
 import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.scene.control.CheckBox;
+import org.json.simple.JSONObject;
 import organizer.ICreateRoomPresenter;
 import organizer.ICreateRoomView;
 
@@ -23,13 +24,7 @@ public class CreateRoomPresenter implements ICreateRoomPresenter {
     public void createRoomButtonAction(ActionEvent actionEvent) {
         clearError();
 
-        if (this.view.getRoomName().equals(""))
-            setError("Room Name cannot be empty!", 0);
-        else if (this.view.getCapacity() <= 0)
-            setError("Capacity must be greater than 0", 1);
-        else {
-            //call oc.createRoom method
-        }
+        //call oc.createRoom
     }
 
     @Override
@@ -64,6 +59,18 @@ public class CreateRoomPresenter implements ICreateRoomPresenter {
             else
                 selectedAmenities.remove(checkBox);
         });
+    }
+
+    @SuppressWarnings("unchecked")
+    private JSONObject constructEventJson() {
+        JSONObject queryJson = new JSONObject();
+        queryJson.put("roomName", this.view.getRoomName());
+        queryJson.put("capacity", this.view.getCapacity());
+        queryJson.put("chairs", this.view.getAmenityBox(1).isSelected());
+        queryJson.put("tables", this.view.getAmenityBox(2).isSelected());
+        queryJson.put("projector", this.view.getAmenityBox(3).isSelected());
+        queryJson.put("sound", this.view.getAmenityBox(4).isSelected());
+        return queryJson;
     }
 
     private void clearError() {

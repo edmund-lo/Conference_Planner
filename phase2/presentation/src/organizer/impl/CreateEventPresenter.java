@@ -11,6 +11,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import model.ScheduleEntry;
+import org.json.simple.JSONObject;
 import organizer.ICreateEventPresenter;
 import organizer.ICreateEventView;
 import util.DateTimeUtil;
@@ -109,13 +110,14 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         configureCheckBox(this.view.getAmenityBox(1));
         configureCheckBox(this.view.getAmenityBox(2));
         configureCheckBox(this.view.getAmenityBox(3));
+        configureCheckBox(this.view.getAmenityBox(4));
     }
 
     @Override
     public List<ScheduleEntry> getRoomSchedule() {
-        //String roomName = this.view.getRoomName();
-        //LocalDateTime start = this.view.getStart();
-        //List<String[]> resultJson = sc.getRoomSchedule(roomName, start)
+        String roomName = this.view.getRoomName();
+        LocalDateTime start = this.view.getStart();
+        //JSONObject resultJson = sc.getRoomSchedule(roomName, start)
         //List<ScheduleEntry> schedule = ScheduleAdapter.adapt(resultJson);
         List<ScheduleEntry> schedule = new ArrayList<>();
         return schedule;
@@ -180,6 +182,21 @@ public class CreateEventPresenter implements ICreateEventPresenter {
             }
         }
         return sb.toString();
+    }
+
+    @SuppressWarnings("unchecked")
+    private JSONObject constructEventJson() {
+        JSONObject queryJson = new JSONObject();
+        queryJson.put("eventName", this.view.getEventName());
+        queryJson.put("capacity", this.view.getCapacity());
+        queryJson.put("roomName", this.view.getRoomName());
+        queryJson.put("start", this.view.getStart());
+        queryJson.put("end", this.view.getEnd());
+        queryJson.put("chairs", this.view.getAmenityBox(1).isSelected());
+        queryJson.put("tables", this.view.getAmenityBox(2).isSelected());
+        queryJson.put("projector", this.view.getAmenityBox(3).isSelected());
+        queryJson.put("sound", this.view.getAmenityBox(4).isSelected());
+        return queryJson;
     }
 
     private void clearError() {

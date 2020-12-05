@@ -1,15 +1,15 @@
 package presenters;
+import org.json.simple.*;
 
 /**
  * A Presenter class that provides output to the user at time of login.
  */
 
 public class LoginPresenter {
-    private PresenterUtil pu;
+    private PresenterUtil<String> pu;
 
     public LoginPresenter(){
-        PresenterUtil pu = new PresenterUtil();
-        this.pu = pu;
+        pu = new PresenterUtil<>();
     }
 
     /**
@@ -52,7 +52,7 @@ public class LoginPresenter {
         System.out.println("Question 3: ");
     }
 
-    public void NoAccount() {
+    public JSONObject NoAccount() {
         return pu.createJSON("error", "No account found");
     }
 
@@ -62,5 +62,14 @@ public class LoginPresenter {
 
     public JSONObject EmptyPassword() {
         return pu.createJSON("warning", "Password should have at least 6 characters");
+    }
+
+    public JSONObject AccountLocked() {
+        return pu.createJSON("warning", "Your account has been locked due to suspicious activity. " +
+                "\nPlease contact an Admin to get help.");
+    }
+
+    public JSONArray SuccessfulLogin(JSONArray data) {
+        return pu.createJSON("success", "Login Successful!", data);
     }
 }

@@ -1,19 +1,21 @@
 package presenters;
 
+import org.json.simple.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import org.json.simple.*;
 
 /**
  * Presenter prints attributes that user of program (if organizer) can do/see.
  */
 public class OrganizerPresenter extends UserPresenter {
 
-    private PresenterUtil pu;
+    private PresenterUtil<String> pu;
 
     public OrganizerPresenter(){
-        PresenterUtil pu = new PresenterUtil();
-        this.pu = pu;
+        pu = new PresenterUtil<>();
     }
 
     /**
@@ -69,7 +71,7 @@ public class OrganizerPresenter extends UserPresenter {
      * Outputs the label that indicates the a speaker is already speaking at another event
      */
     public JSONObject speakerUnavailableError() {
-        System.out.println("This speaker is already speaking at another event.");
+        return pu.createJSON("error", "This speaker is already speaking at another event.");
     }
 
     /**
@@ -78,7 +80,7 @@ public class OrganizerPresenter extends UserPresenter {
      * @param speakerNames the list of all speaker names
      */
     public JSONObject listSpeakers(List<String> speakerNames){
-        return pu.createJSON("success", "Speakers have been listed", "List of Speakers", speakerNames)
+        return pu.createJSON("success", "Speakers have been listed", "List of Speakers", speakerNames);
     }
 
     /**
@@ -87,7 +89,7 @@ public class OrganizerPresenter extends UserPresenter {
      * @param allRooms A set of strings of all rooms
      */
     public JSONObject listRooms(ArrayList<String> allRooms) {
-        return pu.createJSON("success", "Rooms have been listed", "List of Rooms", allRooms)
+        return pu.createJSON("success", "Rooms have been listed", "List of Rooms", allRooms);
     }
 
     /**
@@ -194,20 +196,4 @@ public class OrganizerPresenter extends UserPresenter {
                 "sound system was invalid");
     }
 
-    public void needItemPrompt(String item){
-        System.out.println("Enter the room requirements for your event to find matching rooms. If you do not need an " +
-                "item for an event but can still run the event with the item in the room, type \"Y\" when prompted. " +
-                "This will give you more room options.");
-        switch (item) {
-            case "chair":
-                System.out.println("Does your event require chairs? Type \"Y\" for yes or \"N\" for no.");
-            case "table":
-                System.out.println("Does your event require tables? Type \"Y\" for yes or \"N\" for no.");
-            case "projector":
-                System.out.println("Does your event require a projector? Type \"Y\" for yes or \"N\" for no.");
-            default:
-                System.out.println("Does your event require a sound system/speakers? " +
-                        "Type \"Y\" for yes or \"N\" for no.");
-        }
-    }
 }
