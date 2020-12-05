@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Implementation of an event with all details pertaining to it stored inside.
@@ -13,11 +14,12 @@ import java.util.ArrayList;
 public class Event implements Serializable {
     private String eventName;
     private String eventID;
-    private ArrayList<String> speakerNames;
+    private List<String> speakerNames;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private ArrayList<String> attendingUsers;
+    private List<String> attendingUsers;
     private String roomName;
+    private boolean vipEvent;
     private int capacity;
     private boolean needsChairs;
     private boolean needsTables;
@@ -35,7 +37,7 @@ public class Event implements Serializable {
      */
     public Event(String eventID, String eventName, LocalDateTime startTime, LocalDateTime endTime, String roomName,
                  boolean needsChairs, boolean needsTables, boolean needsProjector, boolean needsSoundSystem,
-                 int capacity){
+                 int capacity, boolean vipEvent){
         this.eventID = eventID;
         this.eventName = eventName;
         this.startTime = startTime;
@@ -48,7 +50,7 @@ public class Event implements Serializable {
         this.needsTables = needsTables;
         this.needsProjector = needsProjector;
         this.needsSoundSystem = needsSoundSystem;
-
+        this.vipEvent = vipEvent;
     }
 
     /**
@@ -56,7 +58,7 @@ public class Event implements Serializable {
      *
      * @return The ID of the speaker speaking at this event
      */
-    public ArrayList<String> getSpeakerNames() {
+    public List<String> getSpeakerNames() {
         return speakerNames;
     }
 
@@ -74,7 +76,7 @@ public class Event implements Serializable {
      *
      * @return An arraylist with IDs of all users attending this event
      */
-    public ArrayList<String> getAttendingUsers() {
+    public List<String> getAttendingUsers() {
         return attendingUsers;
     }
 
@@ -94,6 +96,14 @@ public class Event implements Serializable {
      */
     public LocalDateTime getStartTime() {
         return startTime;
+    }
+
+    /**
+     * check for if this event is a vip event
+     * @return True iff this event is a vip event
+     */
+    public boolean isVipEvent(){
+        return this.vipEvent;
     }
 
     /**
@@ -255,13 +265,13 @@ public class Event implements Serializable {
         json.put("type", "Event");
 
         item.put("event name", eventName);
-        item.put("id", eventId);
-        item.put("speaker name", speakerName);
+        item.put("id", eventID);
+        item.put("speaker name", speakerNames);
         item.put("start", startTime);
         item.put("end", endTime);
         item.put("users", attendingUsers);
         item.put("room name", roomName);
-        item.put("capacity", capacity)
+        item.put("capacity", capacity);
         item.put("Chairs", needsChairs);
         item.put("Tables", needsTables);
         item.put("Projector", needsProjector);

@@ -1,4 +1,5 @@
 package presenters;
+import org.json.simple.*;
 
 /**
  * Presenter class that outputs speaker attributes that client-users can view
@@ -9,11 +10,10 @@ package presenters;
  */
 public class SpeakerPresenter extends UserPresenter {
 
-    private PresenterUtil pu;
+    private PresenterUtil<String> pu;
 
     public SpeakerPresenter(){
-        PresenterUtil pu = new PresenterUtil();
-        this.pu = pu;
+        pu = new PresenterUtil<>();
     }
 
     /**
@@ -45,6 +45,6 @@ public class SpeakerPresenter extends UserPresenter {
      * @param event name of event
      */
     public JSONObject messageEventAttendeesError(String event) {
-        System.out.println(return pu.createJSON("error", "Unable to message attendees of " + event + "!");
+        return pu.createJSON("error", "Unable to message attendees of " + event + "!");
     }
 }

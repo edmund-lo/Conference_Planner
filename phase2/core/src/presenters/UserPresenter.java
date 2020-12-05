@@ -2,6 +2,7 @@ package presenters;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.json.simple.*;
 
 /**
  * Presenter outputs for client type User
@@ -15,18 +16,17 @@ public class UserPresenter {
     // go back, sign up for an event with a number
     // cancel an event with a known number
     // message a user, view list of messages
-    private PresenterUtil pu;
+    private PresenterUtil<String> pu;
 
     public UserPresenter(){
-        PresenterUtil pu = new PresenterUtil();
-        this.pu = pu;
+        pu = new PresenterUtil<>();
     }
     /**
      * list of events iterated and printed
      * @param events passes in list of events to iterate through and print
      */
     public JSONObject listEvents(List<String> events) {
-        return pu.createJSON("success", "Events have been listed", "List of Events", events)
+        return pu.createJSON("success", "Events have been listed", "List of Events", events);
     }
 
     /**
@@ -34,7 +34,7 @@ public class UserPresenter {
      * @param users list of users iterated through and printed for the user.
      */
     public JSONObject listUsers(List<String> users) {
-        return pu.createJSON("success", "Users have been listed", "List of Users", users)
+        return pu.createJSON("success", "Users have been listed", "List of Users", users);
     }
 
     /**

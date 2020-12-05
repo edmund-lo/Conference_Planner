@@ -183,6 +183,14 @@ public class UserManager implements Serializable {
     }
 
     /**
+     * Adds message ID of the received message to user's inbox.
+     *
+     * @param username the username of the receiver
+     * @param messageID the message ID
+     */
+    public void archiveMessage(String username, String messageID) { allUsers.get(username).archiveToInbox(messageID); }
+
+    /**
      * Deletes message ID of the sent message from user's list of sent messages.
      *
      * @param username the username of the sender
@@ -200,6 +208,16 @@ public class UserManager implements Serializable {
      */
     public void deleteReceivedMessage(String username, String messageID) {
         allUsers.get(username).deleteReceivedMessage(messageID);
+    }
+
+    /**
+     * Deletes messageID of the received message from user's inbox.
+     *
+     * @param username the username of the receiver
+     * @param messageID the messageID
+     */
+    public void deleteMessage(String username, String messageID) {
+        allUsers.get(username).deleteFromInbox(messageID);
     }
 
     /**
@@ -236,6 +254,16 @@ public class UserManager implements Serializable {
      */
     public ArrayList<String> getReceivedMessages(String username) {
         return allUsers.get(username).getReceivedMessages();
+    }
+
+    /**
+     * Gets the user's inbox messages.
+     *
+     * @param username the username of the receiver
+     * @return An arraylist of the user's received messages
+     */
+    public ArrayList<String> getInboxMessages(String username) {
+        return allUsers.get(username).getInboxMessages();
     }
 
     /**
@@ -449,7 +477,7 @@ public class UserManager implements Serializable {
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
 
-        for(String ID: allUsers.keys())
+        for(String ID: allUsers.keySet())
             item.put(ID, allUsers.get(ID).convertToJSON());
 
         array.add(item);

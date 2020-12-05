@@ -1,5 +1,7 @@
 package controllers;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import presenters.MessagePresenter;
 import presenters.UserPresenter;
 import usecases.*;
@@ -186,13 +188,21 @@ public abstract class UserController {
         LocalDateTime end = em.getEventEndTime(eventId);
         if (!um.canSignUp(username, eventId, start, end)) {
             up.alreadySignedUpError();
-        } else if (!em.canAddUserToEvent(eventId,username)){
-            up.eventFullCapacityError();
-        } else {
-            em.addUserToEvent(eventId,username);
-            um.signUp(username, eventId, start, end);
-            up.signUpResult(em.getEventName(eventId));
+            return;
+        }else if(em.isEventVip(eventId)){
+            if(!um.isVip(username)){
+                up.alreadySignedUpError(); //placeholder error
+                return;
+            }
         }
+        else if (!em.canAddUserToEvent(eventId,username)){
+            up.eventFullCapacityError();
+            return;
+        }
+        em.addUserToEvent(eventId,username);
+        um.signUp(username, eventId, start, end);
+        up.signUpResult(em.getEventName(eventId));
+
     }
 
     /**
@@ -283,35 +293,52 @@ public abstract class UserController {
      *
      * @return List of Strings representing all of the user's sent messages.
      */
-    public List<String> getAllSentMessages(){
-        List<String> messageStrings = new ArrayList<>();
+    public JSONArray getAllSentMessages(){
+        JSONArray messages = new JSONArray();
         List<String> userMessages = um.getSentMessages(username);
         if (userMessages.size() == 0) {
-            mp.noMessagesLabel();
+            mp.noMessagesReceived();
         } else {
-            mp.showNumMessages(userMessages.size(), "sent");
             for (String id : userMessages) {
-                messageStrings.add(mm.getSentMessageToString(id));
+                messages.add(mm.getSentMessageToString(id));
             }
         }
 
-        return messageStrings;
+        return messages;
     }
 
     /**
      * Gets all of current user's received messages.
      *
-     * @return List of Strings representing all of the user's received messages.
+     * @return JSONArray of Strings representing all of the user's received messages.
      */
-    public List<String> getAllReceivedMessages(){
+    public JSONArray getAllReceivedMessages(){
+        JSONArray messages = new JSONArray();
+        List<String> userMessages = um.getReceivedMessages(username);
+        if (userMessages.size() == 0) {
+            mp.noMessagesReceived();
+        } else {
+            for (String id : userMessages) {
+                messages.add(mm.getReceivedMessageToString(id));
+            }
+        }
+        return messages;
+    }
+
+    /**
+     * Gets all of current user's inbox messages.
+     *
+     * @return List of Strings representing all of the user's inbox messages.
+     */
+    public List<String> getAllInboxMessages(){
         List<String> messageStrings = new ArrayList<>();
         List<String> userMessages = um.getReceivedMessages(username);
         if (userMessages.size() == 0) {
             mp.noMessagesLabel();
         } else {
-            mp.showNumMessages(userMessages.size(), "received");
+            mp.showNumMessages(userMessages.size(), "inbox");
             for (String id : userMessages) {
-                messageStrings.add(mm.getReceivedMessageToString(id));
+                messageStrings.add(mm.getInboxMessageToString(id));
             }
         }
 
@@ -331,16 +358,15 @@ public abstract class UserController {
 
     /**
      *Sends a message to an attendee.
-     *
-     *
-     * @param  recipientName username of the Entities.Attendee the message is for.
-     * @param  content the contents of the message being sent.
+     * @param jsonObject A JSONObject containing the recipient name and content
      */
-    public void sendMessage(String recipientName, String content) {
+    public void sendMessage(JSONObject jsonObject) {
+        String recipientName = jsonObject.get("recipientName").toString();
+        String content = jsonObject.get("content").toString();
         if (mm.messageCheck(recipientName, username, content)) {
             String messageId = mm.createMessage(recipientName, username, content);
-            mp.messageResult(recipientName);
             addMessagesToUser(recipientName, messageId);
+            mp.JSONObjectmessageResult(recipientName);
         } else {
             mp.invalidMessageError();
         }

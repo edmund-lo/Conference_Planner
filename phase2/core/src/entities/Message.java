@@ -14,6 +14,7 @@ public class Message implements Serializable {
     private final String content;
     private final LocalDateTime messageTime;
     private final String receiverId;
+    private final boolean read;
 
     /**
      * Constructor for Entities.Message
@@ -32,6 +33,7 @@ public class Message implements Serializable {
         this.messageId = messageId;
         this.receiverId = receiverId;
         this.messageTime = messageTime;
+        this.read = false;
     }
 
     /**
@@ -41,6 +43,15 @@ public class Message implements Serializable {
      */
     public String getMessageID() {
         return this.messageId;
+    }
+
+    /**
+     * getter for the message is read or not, return true if read, false otherwise
+     *
+     * @return The read bool variable
+     */
+    public boolean getRead() {
+        return this.read;
     }
 
     /**
@@ -59,10 +70,13 @@ public class Message implements Serializable {
      * message and the time when it is sent and received
      */
     public String toStringSent(){
+        if this.read{String x = "Read." }
+        else{String x = "Unread." }
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         return "To: " + this.receiverId + "\n" +
-                "Time: "+(dtf.format(this.messageTime)) +
-                "\n" + "Message: " + this.content + "\n";
+                "Time: "+(dtf.format(this.messageTime)) + "\n"
+                + "Message: " + this.content + "\n" +
+                x + "\n";
     }
 
     /**
@@ -73,10 +87,30 @@ public class Message implements Serializable {
      */
 
     public String toStringReceived(){
+        if this.read{ String x = "Read." }
+        else{ String x = "Unread." }
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         return "From: " + this.senderId + "\n" +
-                "Time: " + (dtf.format(this.messageTime)) +
-                "\n" + "Message: " + this.content + "\n";
+                "Time: " + (dtf.format(this.messageTime)) + "\n" +
+                "Message: " + this.content + "\n" +
+                x + "\n";
+    }
+
+    /**
+     * the toString method for inbox message
+     *
+     * @return a String representation of Entities.Message that contains the senderId, receiverIds, the content in this
+     * message and the time when it is sent and received
+     */
+
+    public String toStringInbox(){
+        if this.read{ String x = "Read." }
+        else{ String x = "Unread." }
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        return "From: " + this.senderId + "\n" +
+                "Time: " + (dtf.format(this.messageTime)) + "\n" +
+                "Message: " + this.content + "\n" +
+                x + "\n";
     }
 
     public JSONObject convertToJSON() {
@@ -91,6 +125,7 @@ public class Message implements Serializable {
         item.put("content", content);
         item.put("time", messageTime);
         item.put("receiverId", receiverId);
+        item.put("read", read);
 
         array.add(item);
 
