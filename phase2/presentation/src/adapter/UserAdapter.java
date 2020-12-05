@@ -19,12 +19,12 @@ public class UserAdapter {
         List<User> users = new ArrayList<>();
         for (Object datum : data) {
             JSONObject jsonObject = (JSONObject) datum;
-            users.add(mapUserAccount(jsonObject));
+            users.add(mapUser(jsonObject));
         }
         return users;
     }
 
-    private User mapUserAccount(JSONObject jsonObject) {
+    private User mapUser(JSONObject jsonObject) {
         String username = String.valueOf(jsonObject.get("username"));
         String firstName = String.valueOf(jsonObject.get("firstName"));
         String lastName = String.valueOf(jsonObject.get("lastName"));

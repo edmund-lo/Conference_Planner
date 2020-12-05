@@ -29,7 +29,8 @@ public class MessageAdapter {
 
     private Message mapMessage(JSONObject jsonObject) {
         String senderName = String.valueOf(jsonObject.get("senderName"));
-        List<String> recipientNames = List<String>.valueOf(jsonObject.get("recipientNames"));
+        List<String> recipientNames = new ArrayList<>();
+        //String.valueOf(jsonObject.get("recipientNames"));
         String content = String.valueOf(jsonObject.get("content"));
         boolean read = jsonObject.get("read").equals("true");
         LocalDateTime messageTime = DateTimeUtil.getInstance().parse(String.valueOf(jsonObject.get("messageTime")));
