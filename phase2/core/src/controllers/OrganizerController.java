@@ -2,7 +2,6 @@ package controllers;
 
 import org.json.simple.JSONObject;
 import presenters.OrganizerPresenter;
-import usecases.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,7 +12,8 @@ import java.util.Set;
  * A Controller class representing a OrganizerController which inherits from UserController.
  *
  * @author Echo Li
- * @version 1.0
+ * @author Keegan McGonigal
+ * @version 2.0
  *
  */
 public class OrganizerController extends UserController {
@@ -22,14 +22,10 @@ public class OrganizerController extends UserController {
     /**
      * Constructor for OrganizerController object. Uses constructor from UserController.
      *
-     * @param em  current session's EventManager class.
-     * @param um  current session's UserManager class.
-     * @param rm  current session's RoomManager class.
-     * @param mm  current session's MessageManager class.
      * @param username current logged in user's username.
      */
-    public OrganizerController(EventManager em, UserManager um, RoomManager rm, MessageManager mm, String username) {
-        super(em, um, rm, mm, username);
+    public OrganizerController(String username) {
+        super(username);
         this.op = new OrganizerPresenter();
     }
 
