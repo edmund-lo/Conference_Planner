@@ -146,6 +146,20 @@ public class RoomManager implements Serializable {
         return getRoom(roomName).roomScheduleToString();
     }
 
+    public JSONObject getAllRoomsJson(){
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+
+        for(String ID: allRooms.keys())
+            item.put(ID, allRooms.get(ID).convertToJSON());
+
+        array.add(item);
+
+        json.put("Rooms", array);
+
+        return json;
+    }
 //      ***** Saving method for phase 2
 //    /**
 //     * Reschedules an event that is happening inside a Room in this RoomManager.

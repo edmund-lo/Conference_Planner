@@ -442,4 +442,19 @@ public class UserManager implements Serializable {
     public void setPassword(String username, String password) {
         allUsers.get(username).setPassword(password);
     }
+
+    public JSONObject getAllUsersJson(){
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+
+        for(String ID: allUsers.keys())
+            item.put(ID, allUsers.get(ID).convertToJSON());
+
+        array.add(item);
+
+        json.put("Users", array);
+
+        return json;
+    }
 }

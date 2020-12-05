@@ -116,4 +116,19 @@ public class MessageManager implements Serializable {
     public String getReceivedMessageToString(String messageID) {
         return this.allMessages.get(messageID).toStringReceived();
     }
+
+    public JSONObject getAllMessagesJson(){
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+
+        for(String ID: allMessages.keys())
+            item.put(ID, allMessages.get(ID).convertToJSON());
+
+        array.add(item);
+
+        json.put("Messages", array);
+
+        return json;
+    }
 }
