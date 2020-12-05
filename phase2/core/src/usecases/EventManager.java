@@ -42,9 +42,9 @@ public class EventManager implements Serializable {
      * @param roomName the name of the room the event is in
      */
     public void createNewEvent(String eventName, LocalDateTime startTime, LocalDateTime endTime, String roomName,
-                               boolean chairs, boolean tables, boolean projector, boolean speakers) {
+                               boolean chairs, boolean tables, boolean projector, boolean speakers, int capacity) {
         Event newEvent = new Event(UUID.randomUUID().toString(), eventName, startTime, endTime, roomName, chairs,
-                tables, projector, speakers);
+                tables, projector, speakers, capacity);
         allEvents.put(newEvent.getEventID(), newEvent);
     }
 
@@ -202,6 +202,10 @@ public class EventManager implements Serializable {
      */
     public ArrayList<String> getAttendingUsers(String eventID){
         return allEvents.get(eventID).getAttendingUsers();
+    }
+
+    public void changeEventCap(String eventID, int capacity){
+        this.allEvents.get(eventID).setCapacity(capacity);
     }
 
 }

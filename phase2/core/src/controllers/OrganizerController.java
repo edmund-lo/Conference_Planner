@@ -332,12 +332,11 @@ public class OrganizerController extends UserController {
     /**
      * Called when user chooses to create a new event
      */
-    public void createEventCmd() {
+    public void createEventCmd(ArrayList<Boolean> constraints, int eventCap, LocalDateTime endTime) {
         if (rm.getAllRooms().size() == 0) //if there's no rooms
             op.noRoomError();
-        else{
-            ArrayList<Boolean> constraints = getConstraints(); // user enters the room constraints
-            ArrayList<String> possibleRooms = rm.getAllRoomsWith(constraints); // all possible rooms that can host
+        else {
+            ArrayList<String> possibleRooms = rm.getAllRoomsWith(constraints, eventCap); // all possible rooms that can host
             op.roomIntroduceListLabel(possibleRooms);
             op.listRooms(possibleRooms);
             String roomName;
@@ -372,7 +371,7 @@ public class OrganizerController extends UserController {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 LocalDateTime startTime = LocalDateTime.parse(startString, formatter);
                 if (createEvent(eventName, startTime, endTime, roomName, constraints.get(0), constraints.get(1),
-                        constraints.get(2), constraints.get(3))) {
+                        constraints.get(2), constraints.get(3), eventCap)) {
                     op.eventCreationResult();
                 } else {
                     op.eventFailedCreationError();
@@ -391,9 +390,9 @@ public class OrganizerController extends UserController {
      * @return Boolean value signifying whether creation was successful
      */
     public boolean createEvent(String eventName, LocalDateTime start, LocalDateTime end, String roomName, boolean chairs,
-                               boolean tables, boolean projector, boolean soundSystem) {
+                               boolean tables, boolean projector, boolean soundSystem, int capacity) {
         if (rm.addToRoomSchedule(start, end, roomName, eventName)) {
-            em.createNewEvent(eventName, start, end, roomName, chairs, tables, projector, soundSystem);
+            em.createNewEvent(eventName, start, end, roomName, chairs, tables, projector, soundSystem, capacity);
             return true;
         }
         return false;

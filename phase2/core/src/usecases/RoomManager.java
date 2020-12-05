@@ -110,14 +110,15 @@ public class RoomManager implements Serializable {
      * @return  a set containing all of the room names
      */
 
-    public ArrayList<String> getAllRoomsWith(ArrayList<Boolean> constraints){
+    public ArrayList<String> getAllRoomsWith(ArrayList<Boolean> constraints, int eventCap){
         ArrayList<String> possibleRooms = new ArrayList<>();
         for (Map.Entry<String, Room> room : this.allRooms.entrySet()){
             Room thisRoom = room.getValue();
             if (thisRoom.hasChairs() == constraints.get(0)
                     && thisRoom.hasTables() == constraints.get(1)
                     && thisRoom.hasProjector() == constraints.get(2)
-                    && thisRoom.hasSoundSystem() == constraints.get(3)){
+                    && thisRoom.hasSoundSystem() == constraints.get(3)
+                    && thisRoom.getCapacity() <= eventCap){
                 possibleRooms.add(room.getKey());
             }
         }
