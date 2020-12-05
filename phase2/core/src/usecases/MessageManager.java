@@ -118,6 +118,18 @@ public class MessageManager implements Serializable {
         return this.allMessages.get(messageID).toStringReceived();
     }
 
+    /**
+     * Make the inbox message to String
+     *
+     * @param messageID The id of message want to construct to string
+     *
+     * Return the String of that message
+     */
+
+    public String getInboxMessageToString(String messageID) {
+        return this.allMessages.get(messageID).toStringInbox();
+    }
+
     public JSONObject getAllMessagesJson(){
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();

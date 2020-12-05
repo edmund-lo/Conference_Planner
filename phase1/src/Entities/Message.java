@@ -31,6 +31,7 @@ public class Message implements Serializable {
         this.messageId = messageId;
         this.receiverId = receiverId;
         this.messageTime = messageTime;
+        this.read = false;
     }
 
     /**
@@ -52,6 +53,15 @@ public class Message implements Serializable {
     }
 
     /**
+     * getter for the message has been read or not
+     *
+     * @return the read bool of this message
+     */
+    public String getRead() {
+        return this.read;
+    }
+
+    /**
      * the toString method for sent message
      *
      * @return a String representation of Entities.Message that contains the senderId, receiverIds, the content in this
@@ -61,7 +71,8 @@ public class Message implements Serializable {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         return "To: " + this.receiverId + "\n" +
                 "Time: "+(dtf.format(this.messageTime)) +
-                "\n" + "Message: " + this.content + "\n";
+                "\n" + "Message: " + this.content + "\n"
+                "read: " + this.read + "\n";
     }
 
     /**
@@ -75,6 +86,7 @@ public class Message implements Serializable {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         return "From: " + this.senderId + "\n" +
                 "Time: " + (dtf.format(this.messageTime)) +
-                "\n" + "Message: " + this.content + "\n";
+                "\n" + "Message: " + this.content + "\n"
+                "read: " + this.read + "\n";
     }
 }
