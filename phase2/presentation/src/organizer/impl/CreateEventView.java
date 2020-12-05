@@ -38,8 +38,6 @@ public class CreateEventView implements ICreateEventView {
     @FXML
     private DateTimePicker eventEnd;
     @FXML
-    private Text errorMsg;
-    @FXML
     private Text summaryEventName;
     @FXML
     private Text summaryCapacity;
@@ -52,7 +50,11 @@ public class CreateEventView implements ICreateEventView {
     @FXML
     private Text summaryAmenities;
     @FXML
-    private Text resultText;
+    private Text resultText1;
+    @FXML
+    private Text resultText2;
+    @FXML
+    private Text resultText3;
     @FXML
     private TitledPane step1;
     @FXML
@@ -165,11 +167,6 @@ public class CreateEventView implements ICreateEventView {
     }
 
     @Override
-    public void setErrorMsg(String error) {
-        this.errorMsg.setText(error);
-    }
-
-    @Override
     public void setSummaryEventName(String eventName) {
         this.summaryEventName.setText(eventName);
     }
@@ -200,8 +197,8 @@ public class CreateEventView implements ICreateEventView {
     }
 
     @Override
-    public void setResultMsg(String result) {
-        this.resultText.setText(result);
+    public void setResultText(String resultText, int index) {
+        getResultTextControl(index).setText(resultText);
     }
 
     @Override
@@ -232,18 +229,24 @@ public class CreateEventView implements ICreateEventView {
     @Override
     public TitledPane getTitledPane(int index) {
         TitledPane pane = null;
-        if (index == 1)
-            pane = this.step1;
-        else if (index == 2)
-            pane =  this.step2;
-        else if (index == 3)
-            pane =  this.step3;
+        if (index == 1) pane = this.step1;
+        else if (index == 2) pane =  this.step2;
+        else if (index == 3) pane =  this.step3;
         return pane;
     }
 
     @Override
     public VBox getTableContainer() {
         return this.tableContainer;
+    }
+
+    @Override
+    public Text getResultTextControl(int index) {
+        Text resultText = new Text();
+        if (index == 1) resultText = this.resultText1;
+        if (index == 2) resultText = this.resultText2;
+        if (index == 3) resultText = this.resultText3;
+        return resultText;
     }
 
     @Override
@@ -318,7 +321,7 @@ public class CreateEventView implements ICreateEventView {
 
     @Override
     public Text getResultTextControl() {
-        return this.resultText;
+        return null;
     }
 
     @Override
