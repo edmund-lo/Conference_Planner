@@ -2,6 +2,7 @@ package usecases;
 
 import entities.Event;
 
+import org.json.simple.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
