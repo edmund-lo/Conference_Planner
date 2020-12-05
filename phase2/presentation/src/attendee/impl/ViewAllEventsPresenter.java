@@ -1,45 +1,52 @@
 package attendee.impl;
 
+import adapter.ScheduleAdapter;
 import attendee.IViewEventsPresenter;
 import attendee.IViewEventsView;
-//import javafx.css.PseudoClass;
+import controllers.AttendeeController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.ScheduleEntry;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import util.DateTimeUtil;
+import util.TextResultUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ViewAllEventsPresenter implements IViewEventsPresenter {
     private IViewEventsView view;
-    //private final PseudoClass errorClass = PseudoClass.getPseudoClass("error");
+    private AttendeeController ac;
 
     public ViewAllEventsPresenter(IViewEventsView view) {
         this.view = view;
+        //this.ac = new AttendeeController();
         init();
     }
 
     @Override
     public void pressButtonAction(ActionEvent actionEvent) {
-        clearResult();
+        clearResultText();
 
-        //call ac.signUp method
+        //JSONObject responseJson = ac.signUp(this.view.getEventName());
+        JSONObject responseJson = new JSONObject();
+        setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
+        if (responseJson.get("status").equals("success")) init();
     }
 
     @Override
-    public void setResult(String result) {
-        this.view.setResultMsg(result);
+    public void setResultText(String resultText, String status) {
+        this.view.setResultText(resultText);
+        TextResultUtil.getInstance().addPseudoClass(status, this.view.getResultTextControl());
     }
 
     @Override
     public List<ScheduleEntry> getEvents() {
-        //List<String[]> resultJson = ac.getAlEvents method
-        //List<ScheduleEntry> allEvents = ScheduleAdapter.adapt(resultJson);
-        List<ScheduleEntry> allEvents = new ArrayList<>();
-        return allEvents;
+        //JSONObject responseJson = ac.getAllEvents();
+        JSONObject responseJson = new JSONObject();
+        return ScheduleAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
     @Override
@@ -79,7 +86,8 @@ public class ViewAllEventsPresenter implements IViewEventsPresenter {
         displayEvents(allEvents);
     }
 
-    private void clearResult() {
-        this.view.setResultMsg("");
+    private void clearResultText() {
+        this.view.setResultText("");
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl());
     }
 }

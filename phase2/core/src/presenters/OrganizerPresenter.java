@@ -15,7 +15,7 @@ public class OrganizerPresenter extends UserPresenter {
     private PresenterUtil<String> pu;
 
     public OrganizerPresenter(){
-        pu = new PresenterUtil<String>();
+        pu = new PresenterUtil<>();
     }
     /**
      * Outputs the label that indicates of a successful creation of a speaker account

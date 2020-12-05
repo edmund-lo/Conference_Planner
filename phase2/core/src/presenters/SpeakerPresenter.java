@@ -10,11 +10,10 @@ import org.json.simple.*;
  */
 public class SpeakerPresenter extends UserPresenter {
 
-    private PresenterUtil pu;
+    private PresenterUtil<String> pu;
 
     public SpeakerPresenter(){
-        PresenterUtil pu = new PresenterUtil();
-        this.pu = pu;
+        pu = new PresenterUtil<>();
     }
 
     /**

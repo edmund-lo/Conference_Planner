@@ -6,11 +6,10 @@ import org.json.simple.*;
  */
 public class MessagePresenter {
 
-    private PresenterUtil pu;
+    private PresenterUtil<String> pu;
 
     public MessagePresenter(){
-        PresenterUtil pu = new PresenterUtil();
-        this.pu = pu;
+        pu = new PresenterUtil<>();
     }
 
     /**
@@ -46,5 +45,13 @@ public class MessagePresenter {
      * formatted.
      */
     public JSONObject invalidMessageError() {return pu.createJSON("warning", "Invalid user or message format!");
+    }
+
+    /**
+     * informs the user that they have no messages
+     * @return this message in JSONObject format
+     */
+    public JSONObject noMessagesReceived(){
+        return pu.createJSON("warning", "You currently have no messages");
     }
 }
