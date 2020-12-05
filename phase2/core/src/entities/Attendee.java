@@ -1,6 +1,9 @@
 package entities;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * An Entity class for an Attendee that inherits from User.
@@ -38,5 +41,26 @@ public class Attendee extends User implements Serializable {
      */
     public boolean isVip() {
         return vip;
+    }
+
+    public JSONObject convertToJSON() {
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+
+        json.put("type", "Attendee");
+
+        item.put("username", username);
+        item.put("password", password);
+        item.put("schedule", schedule);
+        item.put("sent Messages", sentMessages);
+        item.put("received Messages", receivedMessages);
+        item.put("vip", vip);
+
+        array.add(item);
+
+        json.put("data", array);
+
+        return json;
     }
 }

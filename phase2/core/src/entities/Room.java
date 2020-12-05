@@ -3,6 +3,8 @@ package entities;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -182,5 +184,26 @@ public class Room implements Serializable {
             ret.append("\n");
         }
         return ret.toString();
+    }
+    public JSONObject convertToJSON() {
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+
+        json.put("type", "Room");
+
+        item.put("name", name);
+        item.put("capacity", capacity);
+        item.put("Chairs", hasChairs);
+        item.put("Tables", hasTables);
+        item.put("Projector", hasProjector);
+        item.put("SoundSystem", hasSoundSystem);
+        item.put("schedule", schedule);
+
+        array.add(item);
+
+        json.put("data", array);
+
+        return json;
     }
 }

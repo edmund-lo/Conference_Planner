@@ -77,4 +77,24 @@ public class Message implements Serializable {
                 "Time: " + (dtf.format(this.messageTime)) +
                 "\n" + "Message: " + this.content + "\n";
     }
+
+    public JSONObject convertToJSON() {
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+
+        json.put("type", "Message");
+
+        item.put("message Id", messageId);
+        item.put("sender Id", senderId);
+        item.put("content", content);
+        item.put("time", messageTime);
+        item.put("receiverId", receiverId);
+
+        array.add(item);
+
+        json.put("data", array);
+
+        return json;
+    }
 }

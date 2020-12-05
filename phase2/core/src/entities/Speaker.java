@@ -2,6 +2,7 @@ package entities;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -76,5 +77,25 @@ public class Speaker extends User implements Serializable {
             }
             return true;
         }
+    }
+
+    public JSONObject convertToJSON() {
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+
+        json.put("type", "Speaker");
+
+        item.put("password", password);
+        item.put("username", username);
+        item.put("schedule", schedule);
+        item.put("sent Messages", sentMessages);
+        item.put("received Messages", receivedMessages);
+        item.put("speaker schedule", speakerSchedule);
+        array.add(item);
+
+        json.put("data", array);
+
+        return json;
     }
 }

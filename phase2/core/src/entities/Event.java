@@ -198,4 +198,31 @@ public class Event implements Serializable {
     public boolean needsSoundSystem() {
         return this.needsSoundSystem;
     }
+
+    public JSONObject convertToJSON() {
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+
+        json.put("type", "Event");
+
+        item.put("event name", eventName);
+        item.put("id", eventId);
+        item.put("speaker name", speakerName);
+        item.put("start", startTime);
+        item.put("end", endTime);
+        item.put("users", attendingUsers);
+        item.put("room name", roomName);
+        item.put("capacity", capacity)
+        item.put("Chairs", needsChairs);
+        item.put("Tables", needsTables);
+        item.put("Projector", needsProjector);
+        item.put("SoundSystem", needsSoundSystem);
+
+        array.add(item);
+
+        json.put("data", array);
+
+        return json;
+    }
 }
