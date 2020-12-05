@@ -1,6 +1,7 @@
-package adapter;
+package presenters;
 
 import java.util.List;
+import org.json.simple.*;
 
 public class PresenterUtil {
     public JSONObject createJSON(String status, String result, String dtype, List<T> data) {

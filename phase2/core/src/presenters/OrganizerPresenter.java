@@ -3,6 +3,7 @@ package presenters;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import org.json.simple.*;
 
 /**
  * Presenter prints attributes that user of program (if organizer) can do/see.
