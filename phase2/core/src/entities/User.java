@@ -16,7 +16,8 @@ import java.util.List;
  */
 public abstract class User implements Serializable {
     private final String username;
-    private String password;
+    private String firstName;
+    private String lastName;
     private HashMap<String, LocalDateTime[]> schedule;
     private List<String> sentMessages;
     private List<String> receivedMessages;
@@ -27,11 +28,13 @@ public abstract class User implements Serializable {
      * an empty arraylist for a user's sent message IDs and an empty arraylist for a user's received message IDs.
      *
      * @param username the user's username
-     * @param password the user's password
+     * @param firstName the user's firstName
+     * @param lastName the user's lastName
      */
-    public User(String username, String password) {
+    public User(String username, String firstName, String lastName) {
         this.username = username;
-        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.schedule = new HashMap<>();
         this.sentMessages = new ArrayList<>();
         this.receivedMessages = new ArrayList<>();
@@ -47,13 +50,12 @@ public abstract class User implements Serializable {
         return username;
     }
 
-    /**
-     * Getter for user's password.
-     *
-     * @return user's password
-     */
-    public String getPassword() {
-        return password;
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     /**
@@ -81,6 +83,10 @@ public abstract class User implements Serializable {
      */
     public List<String> getReceivedMessages() {
         return receivedMessages;
+    }
+
+    public List<String> getInboxMessages() {
+        return inbox;
     }
 
     /**
@@ -199,14 +205,6 @@ public abstract class User implements Serializable {
         return "Username: " + this.username + "\n" +  "Role: " + this.getClass().getSimpleName() + "\n";
     }
 
-    /**
-     * Sets the new password of the user
-     *
-     * @param password the new password
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public abstract JSONObject convertToJSON();
+
 }

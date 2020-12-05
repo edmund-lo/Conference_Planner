@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -31,10 +32,11 @@ public class UserManager implements Serializable {
      * Creates new attendee with username and password.
      *
      * @param username the username
-     * @param password the password
+     * @param firstName the first name
+     * @param lastName the last name
      */
-    public void createNewAttendee(String username, String password) {
-        Attendee attendee = new Attendee(username, password);
+    public void createNewAttendee(String username, String firstName, String lastName) {
+        Attendee attendee = new Attendee(username, firstName, lastName);
         allUsers.put(username, attendee);
     }
 
@@ -42,10 +44,11 @@ public class UserManager implements Serializable {
      * Creates new organizer with username and password.
      *
      * @param username the username
-     * @param password the password
+     * @param firstName the first name
+     * @param lastName the last name
      */
-    public void createNewOrganizer(String username, String password) {
-        Organizer organizer = new Organizer(username, password);
+    public void createNewOrganizer(String username, String firstName, String lastName) {
+        Organizer organizer = new Organizer(username, firstName, lastName);
         allUsers.put(username, organizer);
     }
 
@@ -53,10 +56,11 @@ public class UserManager implements Serializable {
      * Creates new speaker with username and password.
      *
      * @param username the username
-     * @param password the password
+     * @param firstName the first name
+     * @param lastName the last name
      */
-    public void createNewSpeaker(String username, String password) {
-        Speaker speaker = new Speaker(username, password);
+    public void createNewSpeaker(String username, String firstName, String lastName) {
+        Speaker speaker = new Speaker(username, firstName, lastName);
         allUsers.put(username, speaker);
     }
 
@@ -64,10 +68,11 @@ public class UserManager implements Serializable {
      * Creates new admin with username and password.
      *
      * @param username the username
-     * @param password the password
+     * @param firstName the first name
+     * @param lastName the last name
      */
-    public void createNewAdmin(String username, String password) {
-        Admin admin = new Admin(username, password);
+    public void createNewAdmin(String username, String firstName, String lastName) {
+        Admin admin = new Admin(username, firstName, lastName);
         allUsers.put(username, admin);
     }
 
@@ -242,7 +247,7 @@ public class UserManager implements Serializable {
      * @param username the username of the sender
      * @return An arraylist of the user's sent messages
      */
-    public ArrayList<String> getSentMessages(String username) {
+    public List<String> getSentMessages(String username) {
         return allUsers.get(username).getSentMessages();
     }
 
@@ -252,7 +257,7 @@ public class UserManager implements Serializable {
      * @param username the username of the receiver
      * @return An arraylist of the user's received messages
      */
-    public ArrayList<String> getReceivedMessages(String username) {
+    public List<String> getReceivedMessages(String username) {
         return allUsers.get(username).getReceivedMessages();
     }
 
@@ -262,7 +267,7 @@ public class UserManager implements Serializable {
      * @param username the username of the receiver
      * @return An arraylist of the user's received messages
      */
-    public ArrayList<String> getInboxMessages(String username) {
+    public List<String> getInboxMessages(String username) {
         return allUsers.get(username).getInboxMessages();
     }
 
@@ -319,7 +324,7 @@ public class UserManager implements Serializable {
     public ArrayList<String[]> getAccountInfo() {
         ArrayList<String[]> accountInfo = new ArrayList<>();
         for (User user : allUsers.values()) {
-            String[] info = {user.getUsername(), user.getPassword(), user.getClass().getSimpleName()};
+            String[] info = {user.getUsername(), user.getFirstName(), user.getLastName(), user.getClass().getSimpleName()};
             accountInfo.add(info);
         }
         return accountInfo;
@@ -460,16 +465,6 @@ public class UserManager implements Serializable {
         }
 
         return usernames;
-    }
-
-    /**
-     * Sets the new password of the user
-     *
-     * @param username the username
-     * @param password the new password
-     */
-    public void setPassword(String username, String password) {
-        allUsers.get(username).setPassword(password);
     }
 
     public JSONObject getAllUsersJson(){

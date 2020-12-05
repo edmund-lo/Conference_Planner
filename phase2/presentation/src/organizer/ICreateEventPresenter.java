@@ -13,8 +13,7 @@ public interface ICreateEventPresenter extends IPresenter {
     void findRoomsButtonAction(ActionEvent actionEvent);
     void previewRoomButtonAction(ActionEvent actionEvent);
     void summaryButtonAction(ActionEvent actionEvent);
-    void setError(String error, int errorId);
-    void setResult(String result);
+    void setResultText(String resultText, String status, int index);
     void observeAmenities();
     List<ScheduleEntry> getRoomSchedule();
     void displayRoomSchedule(List<ScheduleEntry> schedule);

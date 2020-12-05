@@ -3,7 +3,6 @@ package attendee;
 import common.IPresenter;
 import javafx.event.ActionEvent;
 import model.Message;
-import model.ScheduleEntry;
 
 import java.util.List;
 
