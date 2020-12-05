@@ -1,6 +1,7 @@
 package presenters;
 
-import java.util.ArrayList;
+import org.json.simple.JSONObject;
+
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ public class UserPresenter {
     // go back, sign up for an event with a number
     // cancel an event with a known number
     // message a user, view list of messages
-    private PresenterUtil pu;
+    protected PresenterUtil pu;
 
     public UserPresenter(){
         PresenterUtil pu = new PresenterUtil();

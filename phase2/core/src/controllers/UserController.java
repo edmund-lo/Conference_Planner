@@ -1,5 +1,9 @@
 package controllers;
 
+import gateways.EventGateway;
+import gateways.MessageGateway;
+import gateways.RoomGateway;
+import gateways.UserGateway;
 import presenters.MessagePresenter;
 import presenters.UserPresenter;
 import usecases.*;
@@ -36,13 +40,18 @@ public abstract class UserController {
      * @param mm  current session's MessageManager class.
      * @param username current logged in user's username.
      */
-    public UserController(EventManager em, UserManager um, RoomManager rm, MessageManager mm, String username) {
-        this.em = em;
-        this.um = um;
-        this.rm = rm;
-        this.mm = mm;
+    public UserController(String username) {
+        EventGateway eg = new EventGateway();
+        UserGateway ug = new UserGateway();
+        RoomGateway rg = new RoomGateway();
+        MessageGateway mg = new MessageGateway();
+
+        this.em = eg.deserializeData();
+        this.um = ug.deserializeData();
+        this.rm = rg.deserializeData();
+        this.mm = mg.deserializeData();
+
         this.username = username;
-        this.input = new Scanner(System.in);
         this.up = new UserPresenter();
         this.mp = new MessagePresenter();
     }
