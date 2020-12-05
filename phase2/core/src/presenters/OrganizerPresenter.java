@@ -77,7 +77,7 @@ public class OrganizerPresenter extends UserPresenter {
      * Outputs the label that indicates the a speaker is already speaking at another event
      */
     public JSONObject speakerUnavailableError() {
-        System.out.println("This speaker is already speaking at another event.");
+        return pu.createJSON("error", "This speaker is already speaking at another event.");
     }
 
     /**
