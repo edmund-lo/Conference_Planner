@@ -69,7 +69,7 @@ public class LoginPresenter {
                 "\nPlease contact an Admin to get help.");
     }
 
-    public JSONArray SuccessfulLogin(JSONArray data) {
+    public JSONObject SuccessfulLogin(JSONArray data) {
         return pu.createJSON("success", "Login Successful!", data);
     }
 }
