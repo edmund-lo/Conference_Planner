@@ -16,6 +16,7 @@ public class Event implements Serializable {
     private LocalDateTime endTime;
     private ArrayList<String> attendingUsers;
     private String roomName;
+    private int capacity;
     private boolean needsChairs;
     private boolean needsTables;
     private boolean needsProjector;
@@ -31,18 +32,21 @@ public class Event implements Serializable {
      * @param roomName Name of the room the event is in
      */
     public Event(String eventID, String eventName, LocalDateTime startTime, LocalDateTime endTime, String roomName,
-                 boolean needsChairs, boolean needsTables, boolean needsProjector, boolean needsSoundSystem){
+                 boolean needsChairs, boolean needsTables, boolean needsProjector, boolean needsSoundSystem,
+                 int capacity){
         this.eventID = eventID;
         this.eventName = eventName;
         this.startTime = startTime;
         this.endTime = endTime;
         this.roomName = roomName;
+        this.capacity = capacity;
         this.speakerName = "Currently Unassigned";
         this.attendingUsers = new ArrayList<>();
         this.needsChairs = needsChairs;
         this.needsTables = needsTables;
         this.needsProjector = needsProjector;
         this.needsSoundSystem = needsSoundSystem;
+
     }
 
     /**
@@ -149,7 +153,6 @@ public class Event implements Serializable {
         else{
             return false;
         }
-
     }
 
     /**
@@ -170,6 +173,14 @@ public class Event implements Serializable {
      */
     public void setSpeaker(String speakerName){
         this.speakerName = speakerName;
+    }
+
+    public void setCapacity(int capacity){
+        this.capacity = capacity;
+    }
+
+    public int getCapacity() {
+        return capacity;
     }
 
     public boolean needsChairs() {
