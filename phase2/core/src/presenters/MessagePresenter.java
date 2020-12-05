@@ -6,11 +6,10 @@ import org.json.simple.*;
  */
 public class MessagePresenter {
 
-    private PresenterUtil pu;
+    private PresenterUtil<String> pu;
 
     public MessagePresenter(){
-        PresenterUtil pu = new PresenterUtil();
-        this.pu = pu;
+        pu = new PresenterUtil<>();
     }
 
     /**
