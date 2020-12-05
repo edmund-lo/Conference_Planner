@@ -449,7 +449,7 @@ public class UserManager implements Serializable {
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
 
-        for(String ID: allUsers.keys())
+        for(String ID: allUsers.keySet())
             item.put(ID, allUsers.get(ID).convertToJSON());
 
         array.add(item);

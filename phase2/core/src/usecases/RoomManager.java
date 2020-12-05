@@ -152,7 +152,7 @@ public class RoomManager implements Serializable {
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
 
-        for(String ID: allRooms.keys())
+        for(String ID: allRooms.keySet())
             item.put(ID, allRooms.get(ID).convertToJSON());
 
         array.add(item);
