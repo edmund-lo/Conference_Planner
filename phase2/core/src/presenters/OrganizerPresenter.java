@@ -1,5 +1,7 @@
 package presenters;
 
+import org.json.simple.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -215,5 +217,9 @@ public class OrganizerPresenter extends UserPresenter {
                 System.out.println("Does your event require a sound system/speakers? " +
                         "Type \"Y\" for yes or \"N\" for no.");
         }
+    }
+
+    public JSONObject listRoomSchedule(){
+
     }
 }

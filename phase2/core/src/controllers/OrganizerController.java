@@ -34,95 +34,12 @@ public class OrganizerController extends UserController {
     public OrganizerController(EventManager em, UserManager um, RoomManager rm, MessageManager mm, String username) {
         super(em, um, rm, mm, username);
         this.op = new OrganizerPresenter();
-
-        boolean inSession = true;
-        // Enters a while loop that allows the user to continuously use Organizer and Attendee functions
-        while(inSession) { //loop until user logs out
-            op.displayMenu("Organizer", username);
-            String option = input.nextLine();
-            switch(option) {
-                case "0":
-                    logout();
-                    inSession = false;
-                    break;
-                case "1":
-                    signUpMenu();
-                    break;
-                case "2":
-                    cancelMenu();
-                    break;
-                case "3":
-                    messageMenu();
-                    break;
-                case "4":
-                    viewEventsMenu();
-                    break;
-                case "5":
-                    createNewMenu();
-                    break;
-                case "6":
-                    organizerMessageMenu();
-                    break;
-                case "7":
-                    scheduleSpeakerCmd();
-                    break;
-                default:
-                    op.invalidOptionError();
-                    break;
-            }
-        }
-    }
-
-    /**
-     * Called when user chooses to display new creation options
-     */
-    public void createNewMenu() {
-        while (true) { //loop until valid input
-            op.createNewPrompt();
-            try {
-                int option = parseInt(input.nextLine());
-                if (option == 0)
-                    break;
-                else if (option == 1)
-                    createRoomCmd();
-                else if (option == 2)
-                    createEventCmd();
-                else
-                    op.invalidOptionError();
-            } catch (NumberFormatException e) {
-                op.invalidOptionError();
-            }
-        }
-    }
-
-    /**
-     * Called when user chooses to display organizer messaging options
-     */
-    public void organizerMessageMenu() {
-        while (true) { //loop until valid input
-            op.organizerMessagePrompt();
-            try {
-                int option = parseInt(input.nextLine());
-                if (option == 0)
-                    break;
-                else if (option == 1)
-                    messageAllSpeakersCmd();
-                else if (option == 2)
-                    messageAllAttendeesCmd();
-                else
-                    op.invalidOptionError();
-            } catch (NumberFormatException e) {
-                op.invalidOptionError();
-            }
-        }
     }
 
     /**
      * Called when user chooses to message all speakers.
      */
     public void messageAllSpeakersCmd() {
-        mp.enterMessagePrompt();
-        String message = input.nextLine();
         messageAllSpeakers(message);
     }
 
@@ -149,8 +66,6 @@ public class OrganizerController extends UserController {
      * Called when user chooses to message all attendees.
      */
     public void messageAllAttendeesCmd() {
-        mp.enterMessagePrompt();
-        String message = input.nextLine();
         messageAllAttendees(message);
     }
 
@@ -179,18 +94,6 @@ public class OrganizerController extends UserController {
      * Called when user chooses to create a new room.
      */
     public void createRoomCmd() {
-        op.roomNamePrompt();
-        String name = input.nextLine();
-        op.roomCapacityPrompt();
-        int capacity = parseInt(input.nextLine());
-        op.haveChairsPrompt();
-        String hasChairs = input.nextLine();
-        op.haveTablesPrompt();
-        String hasTables = input.nextLine();
-        op.haveProjectorPrompt();
-        String hasProjector = input.nextLine();
-        op.haveSoundSystemPrompt();
-        String hasSoundSystem = input.nextLine();
         createRoom(name, capacity, hasChairs, hasTables, hasProjector, hasSoundSystem);
     }
 
@@ -243,10 +146,8 @@ public class OrganizerController extends UserController {
             return;
         }
         //user picks an event to assign a speaker to
-        op.speakerListAllEventsPrompt();
         op.listEvents(allEvents);
         while(true){
-            op.eventNumberPrompt();
             try{
                 index = parseInt(input.nextLine());
                 if(index == 0){ //index of 0 is the back number hence break the loop
@@ -264,7 +165,6 @@ public class OrganizerController extends UserController {
             }
         }
         op.listSpeakers(allSpeakers);
-        op.speakerNamePrompt();
         while(true){
             try{
                 speakerIndex = input.nextLine();
@@ -341,7 +241,6 @@ public class OrganizerController extends UserController {
             op.listRooms(possibleRooms);
             String roomName;
             while (true) { //user inputs the room name they wish to create an event in
-                op.roomNamePrompt();
                 roomName = input.nextLine();
                 try{
                     if(roomName.equals("")){
@@ -354,14 +253,12 @@ public class OrganizerController extends UserController {
                 }
             }
             //user enters the desired event name
-            op.eventNamePrompt();
             String eventName = input.nextLine();
             while (eventName.equals("")) { //ensures that the event name is not empty
                 op.emptyFieldError();
                 eventName = input.nextLine();
             }
             //user enters the desired starting time
-            op.eventTimePrompt();
             String startString = input.nextLine();
             while (startString.equals("")) { //ensures that the starting time is not empty for custom error message
                 op.emptyFieldError();
