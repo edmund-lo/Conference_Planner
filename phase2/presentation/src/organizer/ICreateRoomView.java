@@ -14,7 +14,7 @@ public interface ICreateRoomView extends ILoggedInView {
     void setCapacity(int capacity);
     boolean getAmenity(int index);
     void setAmenity(int index, boolean checked);
-    void setResultMsg(String result);
+    void setResultText(String resultText);
 
     TextField getRoomNameField();
     NumberTextField getCapacityField();

@@ -9,6 +9,7 @@ import javafx.scene.control.CheckBox;
 import org.json.simple.JSONObject;
 import organizer.ICreateRoomPresenter;
 import organizer.ICreateRoomView;
+import util.TextResultUtil;
 
 public class CreateRoomPresenter implements ICreateRoomPresenter {
     private ICreateRoomView view;
@@ -22,18 +23,22 @@ public class CreateRoomPresenter implements ICreateRoomPresenter {
 
     @Override
     public void createRoomButtonAction(ActionEvent actionEvent) {
-        clearError();
+        clearResultText();
 
-        //call oc.createRoom
+        JSONObject queryJson = constructRoomJson();
+        //JSONObject responseJson = oc.createRoom(queryJson);
+        JSONObject responseJson = new JSONObject();
+        setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
     }
 
     @Override
-    public void setError(String error, int errorId) {
-        if (errorId == 0)
-            this.view.getRoomNameField().pseudoClassStateChanged(errorClass, true);
-        else if (errorId == 1)
-            this.view.getCapacityField().pseudoClassStateChanged(errorClass, true);
-        this.view.setResultMsg(error);
+    public void setResultText(String resultText, String status) {
+        this.view.setResultText(resultText);
+        TextResultUtil.getInstance().addPseudoClass(status, this.view.getResultTextControl());
+        if (status.equals("warning") || status.equals("error")) {
+            TextResultUtil.getInstance().addPseudoClass(status, this.view.getRoomNameField());
+            TextResultUtil.getInstance().addPseudoClass(status, this.view.getCapacityField());
+        }
     }
 
     @Override
@@ -41,6 +46,7 @@ public class CreateRoomPresenter implements ICreateRoomPresenter {
         configureCheckBox(this.view.getAmenityBox(1));
         configureCheckBox(this.view.getAmenityBox(2));
         configureCheckBox(this.view.getAmenityBox(3));
+        configureCheckBox(this.view.getAmenityBox(4));
     }
 
     @Override
@@ -62,7 +68,7 @@ public class CreateRoomPresenter implements ICreateRoomPresenter {
     }
 
     @SuppressWarnings("unchecked")
-    private JSONObject constructEventJson() {
+    private JSONObject constructRoomJson() {
         JSONObject queryJson = new JSONObject();
         queryJson.put("roomName", this.view.getRoomName());
         queryJson.put("capacity", this.view.getCapacity());
@@ -73,9 +79,10 @@ public class CreateRoomPresenter implements ICreateRoomPresenter {
         return queryJson;
     }
 
-    private void clearError() {
-        this.view.getRoomNameField().pseudoClassStateChanged(errorClass, false);
-        this.view.getCapacityField().pseudoClassStateChanged(errorClass, false);
-        this.view.setResultMsg("");
+    private void clearResultText() {
+        this.view.setResultText("");
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl());
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getRoomNameField());
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getCapacityField());
     }
 }

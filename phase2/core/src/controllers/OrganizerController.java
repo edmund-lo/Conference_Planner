@@ -2,22 +2,18 @@ package controllers;
 
 import org.json.simple.JSONObject;
 import presenters.OrganizerPresenter;
-import usecases.*;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
-import static java.lang.Integer.parseInt;
 
 /**
  * A Controller class representing a OrganizerController which inherits from UserController.
  *
  * @author Echo Li
- * @version 1.0
+ * @author Keegan McGonigal
+ * @version 2.0
  *
  */
 public class OrganizerController extends UserController {
@@ -26,22 +22,19 @@ public class OrganizerController extends UserController {
     /**
      * Constructor for OrganizerController object. Uses constructor from UserController.
      *
-     * @param em  current session's EventManager class.
-     * @param um  current session's UserManager class.
-     * @param rm  current session's RoomManager class.
-     * @param mm  current session's MessageManager class.
      * @param username current logged in user's username.
      */
-    public OrganizerController(EventManager em, UserManager um, RoomManager rm, MessageManager mm, String username) {
-        super(em, um, rm, mm, username);
+    public OrganizerController(String username) {
+        super(username);
         this.op = new OrganizerPresenter();
     }
 
     /**
      * Called when user chooses to message all speakers.
      */
-    public void messageAllSpeakersCmd() {
-        messageAllSpeakers(message);
+    public JSONObject messageAllSpeakersCmd(JSONObject messageContent) {
+        String message = ;
+        return messageAllSpeakers(message);
     }
 
     /**
@@ -49,25 +42,26 @@ public class OrganizerController extends UserController {
      *
      * @param message String representing the user's message.
      */
-    public void messageAllSpeakers(String message) {
+    public JSONObject messageAllSpeakers(String message) {
         List<String> speakerNames = um.getAllSpeakerNames();
         for (String recipientName : speakerNames) { //loop through every speaker
             if (mm.messageCheck(recipientName, username, message)) { //ensure that message is valid
                 String messageId = mm.createMessage(recipientName, username, message);
-                mp.messageResult(recipientName);
+                return mp.messageResult(recipientName);
                 addMessagesToUser(recipientName, messageId);
             } else {
                 mp.invalidMessageError();
             }
         }
-        op.messagedAllSpeakersResult();
+        return op.messagedAllSpeakersResult();
     }
 
     /**
      * Called when user chooses to message all attendees.
      */
-    public void messageAllAttendeesCmd() {
-        messageAllAttendees(message);
+    public JSONObject messageAllAttendeesCmd(JSONObject messageContent) {
+        String message = ;
+        return messageAllAttendees(message);
     }
 
     /**
@@ -75,20 +69,20 @@ public class OrganizerController extends UserController {
      *
      * @param message String representing the user's message.
      */
-    public void messageAllAttendees(String message) {
+    public JSONObject messageAllAttendees(String message) {
         Set<String> attendeeNames = um.getAllUsernames();
         for (String recipientName : attendeeNames) { //loop through all attendee names
             if (!recipientName.equals(username)) { //ensure the organizer doesn't message self
                 if (mm.messageCheck(recipientName, username, message)) { //ensure the message is valid
                     String messageId = mm.createMessage(recipientName, username, message);
-                    mp.messageResult(recipientName); //message user
+                    return mp.messageResult(recipientName); //message user
                     addMessagesToUser(recipientName, messageId);
                 } else {
-                    mp.invalidMessageError();
+                    return mp.invalidMessageError();
                 }
             }
         }
-        op.messagedAllAttendeesResult();
+        return op.messagedAllAttendeesResult();
     }
 
     /**
@@ -133,57 +127,36 @@ public class OrganizerController extends UserController {
             return op.invalidRoomNameError();
     }
 
+    public JSONObject listEvents(JSONObject speakerInfo) {
+        List<String> allSpeakers = um.getAllSpeakerNames();
+        List<String> allEvents = getAllEvents();
+        //custom error messages
+        if (allEvents.size() == 0) {
+            return op.noEvents();
+        }
+        if (allSpeakers.size() == 0) {
+            return op.noSpeakers();
+        }
+        //user picks an event to assign a speaker to
+        return op.listEvents(allEvents);
+    }
+
+    public JSONObject listSpeakers() {
+        List<String> allSpeakers = um.getAllSpeakerNames();
+        return op.listSpeakers(allSpeakers);
+    }
 
     /**
      * Called when user chooses to schedule a speaker to an event.
      */
-    public JSONObject scheduleSpeakerCmd() {
-        int index;
-        String speakerIndex;
-        String eventId;
+    public JSONObject scheduleSpeakerCmd(JSONObject speakerInfo) {
+        String speakerName = ;
+        String eventId = ;
 
         List<String> allSpeakers = um.getAllSpeakerNames();
         List<String> allEvents = getAllEvents();
-        //custom error messages
-        if(allEvents.size()==0){
-            return op.noEvents();
-        }
 
-        if(allSpeakers.size()==0){
-            return op.noSpeakers();
-        }
-        //user picks an event to assign a speaker to
-        op.listEvents(allEvents);
-        while(true){
-            try{
-                index = parseInt(input.nextLine());
-                if(index == 0){ //index of 0 is the back number hence break the loop
-                    return; //leave method
-                }
-                else if (em.getAllEventIds().size() < index){ //inputted index is not one of the numbered events
-                    op.invalidOptionError();
-                }
-                else{
-                    eventId = em.getAllEventIds().get(index-1); //get selected event
-                    break;
-                }
-            }catch(NumberFormatException | ArrayIndexOutOfBoundsException e){
-                op.invalidOptionError();
-            }
-        }
-        op.listSpeakers(allSpeakers);
-        while(true){
-            try{
-                speakerIndex = input.nextLine();
-                if(speakerIndex.equals("0")){ //if user wanted to go back to main menu in this stage
-                    break;
-                }
-                scheduleSpeaker(allSpeakers.get(parseInt(speakerIndex)-1), eventId); //schedule the selected speaker
-                break;
-            }catch(NumberFormatException | IndexOutOfBoundsException e){
-                op.invalidOptionError();
-            }
-        }
+        return scheduleSpeaker(allSpeakers.get(speakerName), eventId); //schedule the selected speaker
     }
 
     /**
