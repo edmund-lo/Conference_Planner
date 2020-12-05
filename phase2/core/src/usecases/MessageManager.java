@@ -123,7 +123,7 @@ public class MessageManager implements Serializable {
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
 
-        for(String ID: allMessages.keys())
+        for(String ID: allMessages.keySet())
             item.put(ID, allMessages.get(ID).convertToJSON());
 
         array.add(item);

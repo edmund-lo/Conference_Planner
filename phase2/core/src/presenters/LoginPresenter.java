@@ -53,7 +53,7 @@ public class LoginPresenter {
         System.out.println("Question 3: ");
     }
 
-    public void NoAccount() {
+    public JSONObject NoAccount() {
         return pu.createJSON("error", "No account found");
     }
 

@@ -78,7 +78,7 @@ public class OrganizerPresenter extends UserPresenter {
      * Outputs the label that indicates the a speaker is already speaking at another event
      */
     public JSONObject speakerUnavailableError() {
-        System.out.println("This speaker is already speaking at another event.");
+        return pu.createJSON("success","This speaker is already speaking at another event.");
     }
 
     /**
@@ -87,7 +87,7 @@ public class OrganizerPresenter extends UserPresenter {
      * @param speakerNames the list of all speaker names
      */
     public JSONObject listSpeakers(List<String> speakerNames){
-        return pu.createJSON("success", "Speakers have been listed", "List of Speakers", speakerNames)
+        return pu.createJSON("success", "Speakers have been listed", "List of Speakers", speakerNames);
     }
 
     /**
@@ -96,7 +96,7 @@ public class OrganizerPresenter extends UserPresenter {
      * @param allRooms A set of strings of all rooms
      */
     public JSONObject listRooms(ArrayList<String> allRooms) {
-        return pu.createJSON("success", "Rooms have been listed", "List of Rooms", allRooms)
+        return pu.createJSON("success", "Rooms have been listed", "List of Rooms", allRooms);
     }
 
     /**
@@ -220,7 +220,7 @@ public class OrganizerPresenter extends UserPresenter {
         }
     }
 
-    public JSONObject listRoomSchedule(){
+    //public JSONObject listRoomSchedule(){
 
-    }
+   // }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 import org.json.simple.*;
 
 public class PresenterUtil {
-    public JSONObject createJSON(String status, String result, String dtype, List<T> data) {
+    public JSONObject createJSON(String status, String result, String dtype, List<String> data) {
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
