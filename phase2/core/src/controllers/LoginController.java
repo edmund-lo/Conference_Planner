@@ -1,4 +1,5 @@
 package controllers;
+import org.json.simple.*;
 
 import entities.User;
 import gateways.EventGateway;
