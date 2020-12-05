@@ -1,5 +1,7 @@
 package presenters;
 
+import org.json.simple.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -10,11 +12,10 @@ import org.json.simple.*;
  */
 public class OrganizerPresenter extends UserPresenter {
 
-    private PresenterUtil pu;
+    private PresenterUtil<String> pu;
 
     public OrganizerPresenter(){
-        PresenterUtil pu = new PresenterUtil();
-        this.pu = pu;
+        pu = new PresenterUtil<String>();
     }
     /**
      * Outputs the label that indicates of a successful creation of a speaker account
@@ -76,7 +77,7 @@ public class OrganizerPresenter extends UserPresenter {
      * Outputs the label that indicates the a speaker is already speaking at another event
      */
     public JSONObject speakerUnavailableError() {
-        System.out.println("This speaker is already speaking at another event.");
+        return pu.createJSON("error", "This speaker is already speaking at another event.");
     }
 
     /**
@@ -85,7 +86,7 @@ public class OrganizerPresenter extends UserPresenter {
      * @param speakerNames the list of all speaker names
      */
     public JSONObject listSpeakers(List<String> speakerNames){
-        return pu.createJSON("success", "Speakers have been listed", "List of Speakers", speakerNames)
+        return pu.createJSON("success", "Speakers have been listed", "List of Speakers", speakerNames);
     }
 
     /**
@@ -94,7 +95,7 @@ public class OrganizerPresenter extends UserPresenter {
      * @param allRooms A set of strings of all rooms
      */
     public JSONObject listRooms(ArrayList<String> allRooms) {
-        return pu.createJSON("success", "Rooms have been listed", "List of Rooms", allRooms)
+        return pu.createJSON("success", "Rooms have been listed", "List of Rooms", allRooms);
     }
 
     /**
@@ -217,4 +218,8 @@ public class OrganizerPresenter extends UserPresenter {
                         "Type \"Y\" for yes or \"N\" for no.");
         }
     }
+
+    //public JSONObject listRoomSchedule(){
+
+   // }
 }

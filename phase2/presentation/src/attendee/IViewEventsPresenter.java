@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IViewEventsPresenter extends IPresenter {
     void pressButtonAction(ActionEvent actionEvent);
-    void setResult(String result);
+    void setResultText(String resultText, String status);
     List<ScheduleEntry> getEvents();
     void displayEvents(List<ScheduleEntry> schedule);
     void displayEventDetails(ScheduleEntry event);

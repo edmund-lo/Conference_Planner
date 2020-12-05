@@ -24,12 +24,12 @@ public class ScheduleAdapter {
         List<ScheduleEntry> schedule = new ArrayList<>();
         for (Object datum : data) {
             JSONObject jsonObject = (JSONObject) datum;
-            schedule.add(mapUserAccount(jsonObject));
+            schedule.add(mapScheduleEntry(jsonObject));
         }
         return schedule;
     }
 
-    private ScheduleEntry mapUserAccount(JSONObject jsonObject) {
+    private ScheduleEntry mapScheduleEntry(JSONObject jsonObject) {
         LocalDateTime start = DateTimeUtil.getInstance().parse(String.valueOf(jsonObject.get("start")));
         LocalDateTime end = DateTimeUtil.getInstance().parse(String.valueOf(jsonObject.get("end")));
         Duration duration = Duration.ofMinutes(parseLong(String.valueOf(jsonObject.get("duration"))));

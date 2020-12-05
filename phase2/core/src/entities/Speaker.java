@@ -87,11 +87,11 @@ public class Speaker extends User implements Serializable {
 
         json.put("type", "Speaker");
 
-        item.put("password", password);
-        item.put("username", username);
-        item.put("schedule", schedule);
-        item.put("sent Messages", sentMessages);
-        item.put("received Messages", receivedMessages);
+        item.put("password", getPassword());
+        item.put("username", getUsername());
+        item.put("schedule", getSchedule());
+        item.put("sent Messages", getSentMessages());
+        item.put("received Messages", getReceivedMessages());
         item.put("speaker schedule", speakerSchedule);
         array.add(item);
 

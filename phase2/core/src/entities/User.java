@@ -1,5 +1,7 @@
 package entities;
 
+import org.json.simple.JSONObject;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -177,4 +179,6 @@ public abstract class User implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public abstract JSONObject convertToJSON();
 }
