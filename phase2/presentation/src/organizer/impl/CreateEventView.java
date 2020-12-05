@@ -32,6 +32,8 @@ public class CreateEventView implements ICreateEventView {
     @FXML
     private CheckBox amenity3;
     @FXML
+    private CheckBox amenity4;
+    @FXML
     private DateTimePicker eventStart;
     @FXML
     private DateTimePicker eventEnd;
@@ -220,12 +222,10 @@ public class CreateEventView implements ICreateEventView {
     @Override
     public CheckBox getAmenityBox(int index) {
         CheckBox amenity = null;
-        if (index == 1)
-            amenity = this.amenity1;
-        else if (index == 2)
-            amenity =  this.amenity2;
-        else if (index == 3)
-            amenity =  this.amenity3;
+        if (index == 1) amenity = this.amenity1;
+        else if (index == 2) amenity =  this.amenity2;
+        else if (index == 3) amenity =  this.amenity3;
+        else if (index == 4) amenity =  this.amenity4;
         return amenity;
     }
 
