@@ -18,6 +18,7 @@ public class Event implements Serializable {
     private LocalDateTime endTime;
     private ArrayList<String> attendingUsers;
     private String roomName;
+    private boolean vipEvent;
     private int capacity;
     private boolean needsChairs;
     private boolean needsTables;
@@ -35,7 +36,7 @@ public class Event implements Serializable {
      */
     public Event(String eventID, String eventName, LocalDateTime startTime, LocalDateTime endTime, String roomName,
                  boolean needsChairs, boolean needsTables, boolean needsProjector, boolean needsSoundSystem,
-                 int capacity){
+                 int capacity, boolean vipEvent){
         this.eventID = eventID;
         this.eventName = eventName;
         this.startTime = startTime;
@@ -48,7 +49,7 @@ public class Event implements Serializable {
         this.needsTables = needsTables;
         this.needsProjector = needsProjector;
         this.needsSoundSystem = needsSoundSystem;
-
+        this.vipEvent = vipEvent;
     }
 
     /**
@@ -94,6 +95,14 @@ public class Event implements Serializable {
      */
     public LocalDateTime getStartTime() {
         return startTime;
+    }
+
+    /**
+     * check for if this event is a vip event
+     * @return True iff this event is a vip event
+     */
+    public boolean isVipEvent(){
+        return this.vipEvent;
     }
 
     /**

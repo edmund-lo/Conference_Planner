@@ -232,7 +232,7 @@ public class OrganizerController extends UserController {
     /**
      * Called when user chooses to create a new event
      */
-    public void createEventCmd(ArrayList<Boolean> constraints, int eventCap, LocalDateTime endTime) {
+    public void createEventCmd(ArrayList<Boolean> constraints, int eventCap, LocalDateTime endTime, boolean vipEvent) {
         if (rm.getAllRooms().size() == 0) //if there's no rooms
             op.noRoomError();
         else {
@@ -268,7 +268,7 @@ public class OrganizerController extends UserController {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 LocalDateTime startTime = LocalDateTime.parse(startString, formatter);
                 if (createEvent(eventName, startTime, endTime, roomName, constraints.get(0), constraints.get(1),
-                        constraints.get(2), constraints.get(3), eventCap)) {
+                        constraints.get(2), constraints.get(3), eventCap, vipEvent)) {
                     op.eventCreationResult();
                 } else {
                     op.eventFailedCreationError();
@@ -287,9 +287,9 @@ public class OrganizerController extends UserController {
      * @return Boolean value signifying whether creation was successful
      */
     public boolean createEvent(String eventName, LocalDateTime start, LocalDateTime end, String roomName, boolean chairs,
-                               boolean tables, boolean projector, boolean soundSystem, int capacity) {
+                               boolean tables, boolean projector, boolean soundSystem, int capacity, boolean vipEvent) {
         if (rm.addToRoomSchedule(start, end, roomName, eventName)) {
-            em.createNewEvent(eventName, start, end, roomName, chairs, tables, projector, soundSystem, capacity);
+            em.createNewEvent(eventName, start, end, roomName, chairs, tables, projector, soundSystem, capacity, vipEvent);
             return true;
         }
         return false;
