@@ -51,11 +51,11 @@ public class Attendee extends User implements Serializable {
 
         json.put("type", "Attendee");
 
-        item.put("username", username);
-        item.put("password", password);
-        item.put("schedule", schedule);
-        item.put("sent Messages", sentMessages);
-        item.put("received Messages", receivedMessages);
+        item.put("username", getUsername());
+        item.put("password", getPassword());
+        item.put("schedule", getSchedule());
+        item.put("sent Messages", getSentMessages());
+        item.put("received Messages", getReceivedMessages());
         item.put("vip", vip);
 
         array.add(item);
