@@ -80,4 +80,7 @@ public class UserAccount {
     public void setSetSecurity(boolean setSecurity) {
         this.setSecurity.set(setSecurity);
     }
+
+    public JSONArray getJSON() {
+    }
 }
