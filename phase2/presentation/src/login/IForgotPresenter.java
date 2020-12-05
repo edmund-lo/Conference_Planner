@@ -5,7 +5,9 @@ import javafx.event.ActionEvent;
 
 public interface IForgotPresenter extends IPresenter {
     void backButtonAction(ActionEvent actionEvent);
-    void recoverButtonAction(ActionEvent actionEvent);
-    String generatePrompt();
-    void setResult(String result, int resultId);
+    void previousButtonAction(ActionEvent actionEvent);
+    void resetButtonAction(ActionEvent actionEvent);
+    void confirmButtonAction(ActionEvent actionEvent);
+    void displaySecurityButtonAction(ActionEvent actionEvent);
+    void setResultText(String resultText, String status, int index);
 }

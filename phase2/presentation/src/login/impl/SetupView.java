@@ -51,6 +51,8 @@ public class SetupView implements IRegisterView {
     private EventHandler<ActionEvent> registerButtonAction;
     private EventHandler<ActionEvent> backButtonAction;
     private Stage stage;
+    private String sessionUsername;
+    private String sessionUserType;
 
     @Override
     public String getUserType() {
@@ -113,8 +115,8 @@ public class SetupView implements IRegisterView {
     }
 
     @Override
-    public void setErrorMsg(String error) {
-        this.resultText.setText(error);
+    public void setResultText(String resultText) {
+        this.resultText.setText(resultText);
     }
 
     @Override
@@ -191,5 +193,25 @@ public class SetupView implements IRegisterView {
     @Override
     public Text getResultTextControl() {
         return this.resultText;
+    }
+
+    @Override
+    public String getSessionUsername() {
+        return this.sessionUsername;
+    }
+
+    @Override
+    public void setSessionUsername(String username) {
+        this.sessionUsername = username;
+    }
+
+    @Override
+    public String getSessionUserType() {
+        return this.sessionUserType;
+    }
+
+    @Override
+    public void setSessionUserType(String userType) {
+        this.sessionUserType = userType;
     }
 }

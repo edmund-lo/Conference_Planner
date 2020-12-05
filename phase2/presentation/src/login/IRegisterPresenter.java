@@ -6,5 +6,5 @@ import javafx.event.ActionEvent;
 public interface IRegisterPresenter extends IPresenter {
     void backButtonAction(ActionEvent actionEvent);
     void registerButtonAction(ActionEvent actionEvent);
-    void setError(String error, int errorId);
+    void setResultText(String resultText, String status);
 }

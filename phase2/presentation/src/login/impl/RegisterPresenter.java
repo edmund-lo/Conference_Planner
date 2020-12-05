@@ -1,16 +1,17 @@
 package login.impl;
 
-//import Controllers.ILoginController
-import javafx.css.PseudoClass;
+import controllers.LoginController;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import login.IRegisterPresenter;
 import login.IRegisterView;
+import org.json.simple.JSONObject;
 import util.ComponentFactory;
+import util.TextResultUtil;
 
 public class RegisterPresenter implements IRegisterPresenter {
     private IRegisterView view;
-    private final PseudoClass errorClass = PseudoClass.getPseudoClass("error");
+    private LoginController lc;
 
     public RegisterPresenter(IRegisterView view) {
         this.view = view;
@@ -25,26 +26,31 @@ public class RegisterPresenter implements IRegisterPresenter {
 
     @Override
     public void registerButtonAction(ActionEvent actionEvent) {
-        clearError();
+        clearResultText();
 
-        //call lc.register method
+        JSONObject queryJson = constructRegisterJson();
+        //JSONObject responseJson = lc.register(queryJson) method
+        JSONObject responseJson = new JSONObject();
+        setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
     }
 
     @Override
-    public void setError(String error, int errorId) {
-        if (errorId == 0) {
-            this.view.getPasswordField().pseudoClassStateChanged(errorClass, true);
-            this.view.getConfirmPasswordField().pseudoClassStateChanged(errorClass, true);
-        } else if (errorId == 1) {
-            this.view.getPasswordField().pseudoClassStateChanged(errorClass, true);
-            this.view.getConfirmPasswordField().pseudoClassStateChanged(errorClass, true);
-            this.view.getUsernameField().pseudoClassStateChanged(errorClass, true);
-            this.view.getFirstNameField().pseudoClassStateChanged(errorClass, true);
-            this.view.getLastNameField().pseudoClassStateChanged(errorClass, true);
-        } else if (errorId == 2) {
-            this.view.getUsernameField().pseudoClassStateChanged(errorClass, true);
+    public void setResultText(String resultText, String status) {
+        if (status.equals("error") || status.equals("warning")) {
+            TextResultUtil.getInstance().addPseudoClass(status, this.view.getUsernameField());
+            TextResultUtil.getInstance().addPseudoClass(status, this.view.getPasswordField());
+            TextResultUtil.getInstance().addPseudoClass(status, this.view.getConfirmPasswordField());
+            if (status.equals("warning")) {
+                TextResultUtil.getInstance().addPseudoClass(status, this.view.getFirstNameField());
+                TextResultUtil.getInstance().addPseudoClass(status, this.view.getLastNameField());
+                TextResultUtil.getInstance().addPseudoClass(status, this.view.getSecurityQuestionField(1));
+                TextResultUtil.getInstance().addPseudoClass(status, this.view.getSecurityAnswerField(1));
+                TextResultUtil.getInstance().addPseudoClass(status, this.view.getSecurityQuestionField(2));
+                TextResultUtil.getInstance().addPseudoClass(status, this.view.getSecurityAnswerField(2));
+            }
         }
-        this.view.setErrorMsg(error);
+        this.view.setResultText(resultText);
+        TextResultUtil.getInstance().addPseudoClass(status, this.view.getResultTextControl());
     }
 
     @Override
@@ -53,12 +59,33 @@ public class RegisterPresenter implements IRegisterPresenter {
         this.view.setRegisterButtonAction(this::registerButtonAction);
     }
 
-    private void clearError() {
-        this.view.setErrorMsg("");
-        this.view.getPasswordField().pseudoClassStateChanged(errorClass, false);
-        this.view.getConfirmPasswordField().pseudoClassStateChanged(errorClass, false);
-        this.view.getUsernameField().pseudoClassStateChanged(errorClass, false);
-        this.view.getFirstNameField().pseudoClassStateChanged(errorClass, false);
-        this.view.getLastNameField().pseudoClassStateChanged(errorClass, false);
+    @SuppressWarnings("unchecked")
+    private JSONObject constructRegisterJson() {
+        JSONObject queryJson = new JSONObject();
+        queryJson.put("username", this.view.getUsername());
+        queryJson.put("firstName", this.view.getFirstName());
+        queryJson.put("lastName", this.view.getLastName());
+        queryJson.put("password", this.view.getPassword());
+        queryJson.put("confirmPassword", this.view.getConfirmPassword());
+        queryJson.put("securityQuestion1", this.view.getSecurityQuestion(1));
+        queryJson.put("securityAnswer1", this.view.getSecurityAnswer(1));
+        queryJson.put("securityQuestion2", this.view.getSecurityQuestion(2));
+        queryJson.put("securityAnswer2", this.view.getSecurityAnswer(2));
+        queryJson.put("setup", Boolean.FALSE);
+        return queryJson;
+    }
+
+    private void clearResultText() {
+        this.view.setResultText("");
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl());
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getUsernameField());
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getPasswordField());
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getConfirmPasswordField());
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getFirstNameField());
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getLastNameField());
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getSecurityQuestionField(1));
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getSecurityAnswerField(1));
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getSecurityQuestionField(2));
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getSecurityAnswerField(2));
     }
 }

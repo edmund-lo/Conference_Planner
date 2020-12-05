@@ -1,12 +1,12 @@
 package login;
 
-import common.IView;
+import common.ILoggedInView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public interface IRegisterView extends IView {
+public interface IRegisterView extends ILoggedInView {
     String getUserType();
     void setUserType(String userType);
     String getUsername();
@@ -19,7 +19,7 @@ public interface IRegisterView extends IView {
     void setConfirmPassword(String password);
     String getSecurityQuestion(int index);
     String getSecurityAnswer(int index);
-    void setErrorMsg(String error);
+    void setResultText(String resultText);
 
     TextField getUsernameField();
     TextField getFirstNameField();

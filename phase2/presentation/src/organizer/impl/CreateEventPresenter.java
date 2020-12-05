@@ -154,7 +154,6 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         this.view.setPreviousFirstButtonAction(this::previousSecondButtonAction);
         this.view.setPreviousSecondButtonAction(this::previousSecondButtonAction);
         this.view.setSummaryButtonAction(this::summaryButtonAction);
-        this.view.getTitledPane(1).setDisable(false);
         this.view.getTitledPane(1).setExpanded(true);
     }
 

@@ -113,8 +113,8 @@ public class RegisterView implements IRegisterView {
     }
 
     @Override
-    public void setErrorMsg(String error) {
-        this.resultText.setText(error);
+    public void setResultText(String resultText) {
+        this.resultText.setText(resultText);
     }
 
     @Override
@@ -192,4 +192,15 @@ public class RegisterView implements IRegisterView {
     public Text getResultTextControl() {
         return this.resultText;
     }
+
+    @Override
+    public String getSessionUsername() { return null; }
+
+    @Override
+    public void setSessionUsername(String username) { }
+    @Override
+    public String getSessionUserType() { return null; }
+
+    @Override
+    public void setSessionUserType(String userType) { }
 }

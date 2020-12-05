@@ -25,14 +25,19 @@ public class LoginPresenter implements ILoginPresenter {
     public void loginButtonAction(ActionEvent actionEvent) {
         clearResultText();
 
-        //JSONObject json = lc.login(this.view.getUsername(), this.view.getPassword());
-        JSONObject json = new JSONObject();
-        if (json.get("status").equals("success")) {
-            UserAccount userAccount = UserAccountAdapter.getInstance().adaptData((JSONArray) json.get("data")).get(0);
-            ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "home.fxml",
+        //JSONObject responseJson = lc.login(this.view.getUsername(), this.view.getPassword());
+        JSONObject responseJson = new JSONObject();
+        if (responseJson.get("status").equals("success")) {
+            UserAccount userAccount = UserAccountAdapter.getInstance()
+                    .adaptData((JSONArray) responseJson.get("data")).get(0);
+            if (userAccount.isSetSecurity())
+                ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "setup.fxml",
+                        userAccount.getUsername(), userAccount.getUserType());
+            else
+                ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "home.fxml",
                     userAccount.getUsername(), userAccount.getUserType());
         } else
-            setResultText(String.valueOf(json.get("result")), String.valueOf(json.get("status")));
+            setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
     }
 
     @Override
