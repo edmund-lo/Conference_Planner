@@ -288,7 +288,7 @@ public class OrganizerController extends UserController {
     public void scheduleSpeaker(String speakerName, String eventId) {
         LocalDateTime start = em.getEventStartTime(eventId);
         LocalDateTime end = em.getEventEndTime(eventId);
-        if (!em.canAddSpeakerToEvent(eventId)) { //if event already has a speaker
+        if (!em.canAddSpeakerToEvent(eventId, speakerName)) {
             op.existingSpeakerAtEventError();
             return; //exit method
         }
@@ -397,12 +397,28 @@ public class OrganizerController extends UserController {
         }
         return false;
     }
-    //phase 2 methods
-    /*public boolean cancelEvent(String eventId) {
-        return true;
+
+    public void cancelEvent(String eventId) {
+        rm.removeFromRoomSchedule(em.getEventStartTime(eventId),
+                em.getEventEndTime(eventId), em.getEventRoom(eventId), eventId);
+        um.cancelAll(em.getAttendingUsers(eventId), eventId);
+        for(String speakerName: em.getSpeakers(eventId)){
+            um.cancelSpeakerEvent(speakerName, eventId);
+        }
+        em.cancelEvent(eventId);
     }
 
-    public boolean rescheduleEvent(String eventId, LocalDateTime newStart, LocalDateTime newEnd) {
-        return true;
-    }*/
+    public void removeEvent(String eventID){
+        cancelEvent(eventID);
+        em.removeEvent(eventID);
+    }
+
+    public boolean rescheduleEvent(String eventId, String roomName, LocalDateTime newStart, LocalDateTime newEnd) {
+        if(rm.addToRoomSchedule(newStart, newEnd, roomName, eventId)){
+            em.changeEventTime(eventId, newStart, newEnd);
+            em.changeEventRoom(eventId, roomName);
+            return true;
+        }
+        return false;
+    }
 }

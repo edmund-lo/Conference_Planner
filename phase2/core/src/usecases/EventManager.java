@@ -48,21 +48,20 @@ public class EventManager implements Serializable {
         allEvents.put(newEvent.getEventID(), newEvent);
     }
 
-//      Saved for phase 2
-//    /**
-//     * remove event with ID eventID from allEvents
-//     *
-//     * @param eventID the ID of the event that wishes to be removed
-//     * @return True iff the event was removed successfully
-//     */
-//    public boolean removeEvent(String eventID){
-//        if(eventExists(eventID)){
-//            allEvents.remove(eventID);
-//            return true;
-//        }else{
-//            return false;
-//        }
-//    }
+    /**
+     * remove event with ID eventID from allEvents
+     *
+     * @param eventID the ID of the event that wishes to be removed
+     * @return True iff the event was removed successfully
+     */
+    public boolean removeEvent(String eventID){
+        if(eventExists(eventID)){
+            allEvents.remove(eventID);
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 //      Saved for phase 2
 //    /**
@@ -125,14 +124,26 @@ public class EventManager implements Serializable {
         }
     }
 
+    public void cancelEvent(String eventID){
+        Event event = allEvents.get(eventID);
+        for(String user: event.getAttendingUsers()){
+           removeUserFromEvent(eventID, user);
+        }
+        for(String speaker: event.getSpeakerNames()){
+            event.removeSpeaker(speaker);
+        }
+        event.changeTime(null, null);
+        changeEventRoom(eventID, null);
+    }
+
     /**
      * checks to see if speaker with ID speakerID can be added to event with ID eventID
      *
      * @param eventID the ID of the event
      * @return True iff the speaker was successfully added to the event with ID eventID
      */
-    public boolean canAddSpeakerToEvent(String eventID){
-        return eventExists(eventID) && allEvents.get(eventID).getSpeakerName().equals("Currently Unassigned");
+    public boolean canAddSpeakerToEvent(String eventID, String speakerID){
+        return eventExists(eventID) && !allEvents.get(eventID).getSpeakerNames().contains(speakerID);
     }
 
     /**
@@ -142,7 +153,15 @@ public class EventManager implements Serializable {
      * @param eventID ID of the event
      */
     public void addSpeakerToEvent(String speakerID, String eventID){
-        allEvents.get(eventID).setSpeaker(speakerID);
+        allEvents.get(eventID).addSpeaker(speakerID);
+    }
+
+    public boolean removeSpeakerFromEvent(String speakerID, String eventID){
+        if(eventExists(eventID) && allEvents.get(eventID).getSpeakerNames().contains(speakerID)){
+            allEvents.get(eventID).removeSpeaker(speakerID);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -164,6 +183,17 @@ public class EventManager implements Serializable {
         return allEvents.get(eventID).toString();
     }
 
+    public String getEventRoom(String eventID){
+        return allEvents.get(eventID).getRoomName();
+    }
+
+    public void changeEventTime(String eventID, LocalDateTime startTime, LocalDateTime endTime){
+        allEvents.get(eventID).changeTime(startTime, endTime);
+    }
+
+    public void changeEventRoom(String eventID, String roomName){
+        allEvents.get(eventID).changeRoomName(roomName);
+    }
     /**
      * getter for the start time for event with ID eventID
      *
@@ -203,7 +233,9 @@ public class EventManager implements Serializable {
     public ArrayList<String> getAttendingUsers(String eventID){
         return allEvents.get(eventID).getAttendingUsers();
     }
-
+    public ArrayList<String> getSpeakers(String eventID){
+        return allEvents.get(eventID).getSpeakerNames();
+    }
     public void changeEventCap(String eventID, int capacity){
         this.allEvents.get(eventID).setCapacity(capacity);
     }
