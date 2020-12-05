@@ -33,6 +33,7 @@ public class Message implements Serializable {
         this.messageId = messageId;
         this.receiverId = receiverId;
         this.messageTime = messageTime;
+        this.read = false;
     }
 
     /**
@@ -49,7 +50,7 @@ public class Message implements Serializable {
      *
      * @return The read bool variable
      */
-    public String getRead() {
+    public boolean getRead() {
         return this.read;
     }
 
