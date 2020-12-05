@@ -1,5 +1,6 @@
 package controllers;
 
+import entities.User;
 import presenters.LoginPresenter;
 import usecases.*;
 
@@ -194,6 +195,9 @@ public class LoginController {
             if (!(UsernameExists && PasswordExists)){
                 lp.IncorrectCredentials();
                 lp.New();
+                UpdateLogs(Username, "Failed Login");
+                if (checkLogs(Username))
+                    lockOut(Username);
                 //Give user an option to return to account creation menu if they don't have an account.
                 if (sc.nextLine().equals("New")){
                     CreateAccount();
@@ -220,7 +224,7 @@ public class LoginController {
                 lp.ValidNumber();
         }
 
-        UpdateLogs(Username, "Login");
+        UpdateLogs(Username, "Successful Login");
 
         //Update the values of the login controller.
         this.em = controller.em;
@@ -228,6 +232,29 @@ public class LoginController {
         this.rm = controller.rm;
         this.mm = controller.mm;
 
+    }
+
+    //Locks user from logging in due to suspicious behaviour.
+    public void lockOut(String Username){
+        //TODO
+    }
+
+    //Returns true if past 3 logins were failed logins, false otherwise.
+    public boolean checkLogs(String Username){
+        ArrayList<String> RecentLogs = new ArrayList<String>();
+        for (int i = Accounts.size() - 1 ; i >= 0 ; i--) {
+            if (Accounts.get(i)[0].equals(Username)) 
+                RecentLogs.add(Accounts.get(i)[1]);
+            if (RecentLogs.size() == 3)
+                break;
+        }
+
+        for (String recentLog : RecentLogs) {
+            if (!recentLog.equals("Failed Login"))
+                return false;
+        }
+
+        return true;
     }
 
     public boolean resetPassword(String User){
