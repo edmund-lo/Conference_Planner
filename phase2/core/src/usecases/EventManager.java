@@ -266,7 +266,7 @@ public class EventManager implements Serializable {
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
 
-        for(String eventID: allEvents.keys())
+        for(String eventID: allEvents.keySet())
             item.put(eventID, allEvents.get(eventID).convertToJSON());
 
         array.add(item);

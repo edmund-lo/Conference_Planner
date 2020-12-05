@@ -255,13 +255,13 @@ public class Event implements Serializable {
         json.put("type", "Event");
 
         item.put("event name", eventName);
-        item.put("id", eventId);
-        item.put("speaker name", speakerName);
+        item.put("id", eventID);
+        item.put("speaker name", speakerNames);
         item.put("start", startTime);
         item.put("end", endTime);
         item.put("users", attendingUsers);
         item.put("room name", roomName);
-        item.put("capacity", capacity)
+        item.put("capacity", capacity);
         item.put("Chairs", needsChairs);
         item.put("Tables", needsTables);
         item.put("Projector", needsProjector);
