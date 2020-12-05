@@ -63,25 +63,6 @@ public class EventManager implements Serializable {
         }
     }
 
-//      Saved for phase 2
-//    /**
-//     * changes the time at which the event is held. That is, changes the start and end time of the event
-//     *
-//     * @param eventID the ID of the event that wishes to have its time changed
-//     * @param startTime the new start time of the event
-//     * @param endTime the new end time of the event
-//     * @return True iff the time was changed successfully
-//     */
-//    public boolean changeEventTime(String eventID, LocalDateTime startTime, LocalDateTime endTime){
-//        if(eventExists(eventID)){
-//            allEvents.get(eventID).changeTime(startTime, endTime);
-//            return true;
-//        }
-//        else{
-//            return false;
-//        }
-//    }
-
     /**
      * adds user with ID userID to event with ID eventID
      *
@@ -124,6 +105,11 @@ public class EventManager implements Serializable {
         }
     }
 
+    /**
+     * cancels event with ID eventID. This removes all users and speakers from attenting in the event and changes
+     * the time and room to null.
+     * @param eventID the ID of the event you wish to cancel.
+     */
     public void cancelEvent(String eventID){
         Event event = allEvents.get(eventID);
         for(String user: event.getAttendingUsers()){
@@ -156,6 +142,12 @@ public class EventManager implements Serializable {
         allEvents.get(eventID).addSpeaker(speakerID);
     }
 
+    /**
+     * removes speaker with ID speakerID from speaking at event with ID eventID
+     * @param speakerID the ID of the speaker you wish to remove
+     * @param eventID the ID of the event you wish to remove the speaker from
+     * @return True iff the speaker was successfully removed
+     */
     public boolean removeSpeakerFromEvent(String speakerID, String eventID){
         if(eventExists(eventID) && allEvents.get(eventID).getSpeakerNames().contains(speakerID)){
             allEvents.get(eventID).removeSpeaker(speakerID);
@@ -183,14 +175,30 @@ public class EventManager implements Serializable {
         return allEvents.get(eventID).toString();
     }
 
+    /**
+     * getter for the room name at which the event with ID eventID is held in
+     * @param eventID the ID of the event
+     * @return the room name the event is in
+     */
     public String getEventRoom(String eventID){
         return allEvents.get(eventID).getRoomName();
     }
 
+    /**
+     * changes the time of event with ID eventID to start at startTime and to end at endTime
+     * @param eventID the ID of the event
+     * @param startTime the new start time
+     * @param endTime the new end time
+     */
     public void changeEventTime(String eventID, LocalDateTime startTime, LocalDateTime endTime){
         allEvents.get(eventID).changeTime(startTime, endTime);
     }
 
+    /**
+     * changes the room of event iwth ID eventID to roomName
+     * @param eventID the ID of the event
+     * @param roomName the new room name
+     */
     public void changeEventRoom(String eventID, String roomName){
         allEvents.get(eventID).changeRoomName(roomName);
     }
@@ -233,9 +241,21 @@ public class EventManager implements Serializable {
     public ArrayList<String> getAttendingUsers(String eventID){
         return allEvents.get(eventID).getAttendingUsers();
     }
+
+    /**
+     * getter for the list of names of the speakers speaking at event with ID eventID
+     * @param eventID the ID of the event
+     * @return an arraylist of the names of the speakers
+     */
     public ArrayList<String> getSpeakers(String eventID){
         return allEvents.get(eventID).getSpeakerNames();
     }
+
+    /**
+     * changes the event capacity to capacity of event with ID eventID
+     * @param eventID the ID of the event
+     * @param capacity the new capacity of the event
+     */
     public void changeEventCap(String eventID, int capacity){
         this.allEvents.get(eventID).setCapacity(capacity);
     }

@@ -140,8 +140,6 @@ public class Event implements Serializable {
                 "Time: "+dtf.format(this.startTime)+" - "+hourMin.format(this.endTime)+"\n" +
                 "Number of Attending Users: "+this.attendingUsers.size() + "\n" +
                 "Room Name: " + this.roomName;
-
-
     }
 
     /**
@@ -190,30 +188,59 @@ public class Event implements Serializable {
         this.speakerNames.add(speakerName);
     }
 
+    /**
+     * removes speaker with name speakerName from this event. Note that this method assumes you have already checked if
+     * the speaker exists in this event.
+     * @param speakerName the name of the speaker
+     */
     public void removeSpeaker(String speakerName){
         this.speakerNames.remove(speakerName);
     }
 
+    /**
+     * changes the capacity of this event to capacity
+     * @param capacity the new capacity of the event
+     */
     public void setCapacity(int capacity){
         this.capacity = capacity;
     }
 
+    /**
+     * getter for the capacity of this event
+     * @return the capacity of this event
+     */
     public int getCapacity() {
         return capacity;
     }
 
+    /**
+     * A check if this event needs chairs
+     * @return True iff this event needs chairs
+     */
     public boolean needsChairs() {
         return this.needsChairs;
     }
 
+    /**
+     * A check if this event needs tables
+     * @return True iff this event needs tables
+     */
     public boolean needsTables() {
         return this.needsTables;
     }
 
+    /**
+     * A check if this event needs a projector
+     * @return True iff this event needs a projector
+     */
     public boolean needsProjector() {
         return this.needsProjector;
     }
 
+    /**
+     * A check if this event needs a sound system
+     * @return True iff this event needs a sound system
+     */
     public boolean needsSoundSystem() {
         return this.needsSoundSystem;
     }

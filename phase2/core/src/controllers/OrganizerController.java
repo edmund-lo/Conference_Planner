@@ -398,6 +398,11 @@ public class OrganizerController extends UserController {
         return false;
     }
 
+    /**
+     * Cancels event with ID eventID. Cancelling an event results in removing all attendess and speakers from attending
+     * and removes its room. Note that the event is NOT deleted.
+     * @param eventId the ID of the event you wish to cancel
+     */
     public void cancelEvent(String eventId) {
         rm.removeFromRoomSchedule(em.getEventStartTime(eventId),
                 em.getEventEndTime(eventId), em.getEventRoom(eventId), eventId);
@@ -408,11 +413,25 @@ public class OrganizerController extends UserController {
         em.cancelEvent(eventId);
     }
 
+    /**
+     * removes event with ID eventID. Removing an event results in cancelling it and then removing it completely from
+     * the system.
+     * @param eventID the ID of the event you wish to cancel
+     */
     public void removeEvent(String eventID){
         cancelEvent(eventID);
         em.removeEvent(eventID);
     }
 
+    /**
+     * Reschedules event with ID eventID at newStart to newEnd in roomName. Note that this should be called ONLY after
+     * cancelEvent has been called
+     * @param eventId the ID of the event you wish to reschedule
+     * @param roomName the room you wish to move the event to
+     * @param newStart the time at which the event will start
+     * @param newEnd the time at which the event will end
+     * @return True iff the event was successfully rescheduled
+     */
     public boolean rescheduleEvent(String eventId, String roomName, LocalDateTime newStart, LocalDateTime newEnd) {
         if(rm.addToRoomSchedule(newStart, newEnd, roomName, eventId)){
             em.changeEventTime(eventId, newStart, newEnd);
