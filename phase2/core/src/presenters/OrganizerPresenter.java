@@ -202,24 +202,4 @@ public class OrganizerPresenter extends UserPresenter {
                 "sound system was invalid");
     }
 
-    public void needItemPrompt(String item){
-        System.out.println("Enter the room requirements for your event to find matching rooms. If you do not need an " +
-                "item for an event but can still run the event with the item in the room, type \"Y\" when prompted. " +
-                "This will give you more room options.");
-        switch (item) {
-            case "chair":
-                System.out.println("Does your event require chairs? Type \"Y\" for yes or \"N\" for no.");
-            case "table":
-                System.out.println("Does your event require tables? Type \"Y\" for yes or \"N\" for no.");
-            case "projector":
-                System.out.println("Does your event require a projector? Type \"Y\" for yes or \"N\" for no.");
-            default:
-                System.out.println("Does your event require a sound system/speakers? " +
-                        "Type \"Y\" for yes or \"N\" for no.");
-        }
-    }
-
-    //public JSONObject listRoomSchedule(){
-
-   // }
 }

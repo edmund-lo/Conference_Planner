@@ -1,5 +1,6 @@
 package controllers;
 
+import org.json.simple.JSONObject;
 import presenters.OrganizerPresenter;
 import usecases.*;
 
@@ -93,8 +94,15 @@ public class OrganizerController extends UserController {
     /**
      * Called when user chooses to create a new room.
      */
-    public void createRoomCmd() {
-        createRoom(name, capacity, hasChairs, hasTables, hasProjector, hasSoundSystem);
+    public JSONObject createRoomCmd(JSONObject roomInfo) {
+        String roomName = ;
+        int capacity = ;
+        String hasChairs = ;
+        String hasTables = ;
+        String hasProjector = ;
+        String hasSoundSystem = ;
+
+        return createRoom(roomName, capacity, hasChairs, hasTables, hasProjector, hasSoundSystem);
     }
 
     private boolean isInputCorrect(String userInput){
@@ -110,25 +118,26 @@ public class OrganizerController extends UserController {
      * @param roomName String representing the new room's name.
      * @param capacity Integer representing the new room's capacity.
      */
-    public void createRoom(String roomName, int capacity, String hasChairs, String hasTables, String hasProjector,
+    public JSONObject createRoom(String roomName, int capacity, String hasChairs, String hasTables, String hasProjector,
                            String hasSoundSystem) {
         if(roomName.length() < 1)  //ensure that the room name is not empty
-            op.emptyFieldError();
+            return op.emptyFieldError();
         else if (!isInputCorrect(hasChairs) | !isInputCorrect(hasTables) | !isInputCorrect(hasProjector)
                 | !isInputCorrect(hasSoundSystem)){
-            op.incorrectInputError();
+            return op.incorrectInputError();
         }
         else if (rm.createRoom(roomName, capacity, convertToBoolean(hasChairs), convertToBoolean(hasTables),
                 convertToBoolean(hasProjector), convertToBoolean(hasSoundSystem)))
-            op.roomCreationResult();
+            return op.roomCreationResult();
         else
-            op.invalidRoomNameError();
+            return op.invalidRoomNameError();
     }
+
 
     /**
      * Called when user chooses to schedule a speaker to an event.
      */
-    public void scheduleSpeakerCmd() {
+    public JSONObject scheduleSpeakerCmd() {
         int index;
         String speakerIndex;
         String eventId;
@@ -137,13 +146,11 @@ public class OrganizerController extends UserController {
         List<String> allEvents = getAllEvents();
         //custom error messages
         if(allEvents.size()==0){
-            op.noEvents();
-            return;
+            return op.noEvents();
         }
 
         if(allSpeakers.size()==0){
-            op.noSpeakers();
-            return;
+            return op.noSpeakers();
         }
         //user picks an event to assign a speaker to
         op.listEvents(allEvents);
@@ -183,22 +190,23 @@ public class OrganizerController extends UserController {
      * Messages the attendees of the given list of events.
      *
      * @param speakerName String representing the speaker's username.
-     * @param eventId String representing the event's unique ID.
+     *
      */
-    public void scheduleSpeaker(String speakerName, String eventId) {
+    public JSONObject scheduleSpeaker(JSONObject speakerSchedulingInfo) {
+        String speakerName = ;
+        String eventId = ;
+
         LocalDateTime start = em.getEventStartTime(eventId);
         LocalDateTime end = em.getEventEndTime(eventId);
         if (!em.canAddSpeakerToEvent(eventId, speakerName)) {
-            op.existingSpeakerAtEventError();
-            return; //exit method
+            return op.existingSpeakerAtEventError();
         }
         if (!um.canAddSpeakerEvent(speakerName, eventId, start, end)) { //if speaker is speaking at another event
-            op.speakerUnavailableError();
-            return; //exit method
+            return op.speakerUnavailableError();
         }
         em.addSpeakerToEvent(speakerName, eventId); //add speaker to event
         um.addSpeakerEvent(speakerName, eventId, start, end); //add event to speaker
-        op.scheduleSpeakerResult();
+        return op.scheduleSpeakerResult();
     }
 
     /**
@@ -207,17 +215,15 @@ public class OrganizerController extends UserController {
      * @return a list of constraints for an event
      */
 
-    public ArrayList<Boolean> getConstraints(){
+    public ArrayList<Boolean> getConstraints(JSONObject constraints){
         ArrayList<String> stringConstraints = new ArrayList<>();
         ArrayList<Boolean> boolConstraints = new ArrayList<>();
-        op.needItemPrompt("chair");
-        stringConstraints.add(input.next());
-        op.needItemPrompt("table");
-        stringConstraints.add(input.next());
-        op.needItemPrompt("projector");
-        stringConstraints.add(input.next());
-        op.needItemPrompt("speaker/sound system");
-        stringConstraints.add(input.next());
+
+        String hasChairs = ;
+        String hasTables = ;
+        String hasProjector = ;
+        String hasSoundSystem = ;
+
         for (String constraint : stringConstraints){ // check to see that user input is correct
             if (!isInputCorrect(constraint)){
                 op.incorrectInputError();
@@ -232,52 +238,68 @@ public class OrganizerController extends UserController {
     /**
      * Called when user chooses to create a new event
      */
-    public void createEventCmd(ArrayList<Boolean> constraints, int eventCap, LocalDateTime endTime, boolean vipEvent) {
+    public JSONObject listPossibleRooms(JSONObject eventInfo){
+        ArrayList<Boolean> constraints = getConstraints(eventInfo);
+        int eventCap = ;
+
+        ArrayList<String> possibleRooms = rm.getAllRoomsWith(constraints, eventCap); // all possible rooms that can host
+        return op.listRooms(possibleRooms);
+    }
+
+    public JSONObject introduceRooms(JSONObject eventInfo){
+        ArrayList<Boolean> constraints = getConstraints(eventInfo);
+        int eventCap = ;
+
+        ArrayList<String> possibleRooms = rm.getAllRoomsWith(constraints, eventCap); // all possible rooms that can host
+        return op.roomIntroduceListLabel(possibleRooms);
+    }
+
+    public JSONObject roomSelection(JSONObject eventInfo) {
+        ArrayList<Boolean> constraints = getConstraints(eventInfo);
+        int eventCap = ;
+        String roomName = ;
+
+        ArrayList<String> possibleRooms = rm.getAllRoomsWith(constraints, eventCap); // all possible rooms that can host
+        if(roomName.equals("")){
+            return op.emptyFieldError();
+        } else if (!possibleRooms.contains(roomName)){
+            return op.selectionNotValid();
+        }
+        if (rm.getRoomSchedule(roomName) == null){
+            return op.roomDoesNotExistLabel();
+        }
+        return op.listRoomSchedule(rm.getRoomSchedule(roomName)); //list the schedule of the selected room
+    }
+
+    public JSONObject createEventCmd(JSONObject eventInfo) {
         if (rm.getAllRooms().size() == 0) //if there's no rooms
             op.noRoomError();
         else {
-            ArrayList<String> possibleRooms = rm.getAllRoomsWith(constraints, eventCap); // all possible rooms that can host
-            op.roomIntroduceListLabel(possibleRooms);
-            op.listRooms(possibleRooms);
-            String roomName;
-            while (true) { //user inputs the room name they wish to create an event in
-                roomName = input.nextLine();
-                try{
-                    if(roomName.equals("")){
-                        op.emptyFieldError();
-                    }
-                    op.listRoomSchedule(rm.getRoomSchedule(roomName)); //list the schedule of the selected room
-                    break; //break the loop as the user has entered a valid input
-                } catch(NullPointerException e){
-                    op.roomDoesNotExistLabel();
-                }
-            }
-            //user enters the desired event name
-            String eventName = input.nextLine();
-            while (eventName.equals("")) { //ensures that the event name is not empty
-                op.emptyFieldError();
-                eventName = input.nextLine();
-            }
-            //user enters the desired starting time
-            String startString = input.nextLine();
-            while (startString.equals("")) { //ensures that the starting time is not empty for custom error message
-                op.emptyFieldError();
-                startString = input.nextLine();
-            }
-            try { //try to ensure that user enters valid format for the dtf
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                LocalDateTime startTime = LocalDateTime.parse(startString, formatter);
-                if (createEvent(eventName, startTime, endTime, roomName, constraints.get(0), constraints.get(1),
-                        constraints.get(2), constraints.get(3), eventCap, vipEvent)) {
-                    op.eventCreationResult();
-                } else {
-                    op.eventFailedCreationError();
-                }
-            } catch (DateTimeParseException e) {
-                op.invalidDateError();
-            }
+            ArrayList<Boolean> constraints = getConstraints(eventInfo); // get information about room constraints
+            int eventCap = ;
+            LocalDateTime startTime = ;
+            LocalDateTime endTime = ;
+            boolean vipEvent = ;
+            String roomName = ;
+            String eventName = ;
+            LocalDateTime startTime = ;
+            LocalDateTime endTime = ;
+
+            ArrayList<String> possibleRooms = rm.getAllRoomsWith(constraints, eventCap);
         }
+            if (eventName.equals("")) { //ensures that the event name is not empty
+               return op.emptyFieldError();
+            } else if (startTime == null | endTime == null) { //ensures that the times are not empty for custom error message
+                return op.emptyFieldError();
+            }
+            if (createEvent(eventName, startTime, endTime, roomName, constraints.get(0), constraints.get(1),
+                    constraints.get(2), constraints.get(3), eventCap, vipEvent)) {
+                return op.eventCreationResult();
+            } else {
+                return op.eventFailedCreationError();
+            }
     }
+
 
     /**
      * Attempts to create a new event with given parameters
