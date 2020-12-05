@@ -6,11 +6,10 @@ import org.json.simple.*;
  */
 
 public class LoginPresenter {
-    private PresenterUtil pu;
+    private PresenterUtil<String> pu;
 
     public LoginPresenter(){
-        PresenterUtil pu = new PresenterUtil();
-        this.pu = pu;
+        pu = new PresenterUtil<>();
     }
 
     /**
@@ -63,5 +62,14 @@ public class LoginPresenter {
 
     public JSONObject EmptyPassword() {
         return pu.createJSON("warning", "Password should have at least 6 characters");
+    }
+
+    public JSONObject AccountLocked() {
+        return pu.createJSON("warning", "Your account has been locked due to suspicious activity. " +
+                "\nPlease contact an Admin to get help.");
+    }
+
+    public JSONObject SuccessfulLogin(JSONArray data) {
+        return pu.createJSON("success", "Login Successful!", data);
     }
 }

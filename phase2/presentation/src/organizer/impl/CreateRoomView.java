@@ -24,6 +24,8 @@ public class CreateRoomView implements ICreateRoomView {
     @FXML
     private CheckBox amenity3;
     @FXML
+    private CheckBox amenity4;
+    @FXML
     private Text resultText;
 
     @FXML
@@ -74,8 +76,8 @@ public class CreateRoomView implements ICreateRoomView {
     }
 
     @Override
-    public void setResultMsg(String result) {
-        this.resultText.setText(result);
+    public void setResultText(String resultText) {
+        this.resultText.setText(resultText);
     }
 
     @Override
@@ -91,12 +93,10 @@ public class CreateRoomView implements ICreateRoomView {
     @Override
     public CheckBox getAmenityBox(int index) {
         CheckBox amenity = null;
-        if (index == 1)
-            amenity = this.amenity1;
-        else if (index == 2)
-            amenity =  this.amenity2;
-        else if (index == 3)
-            amenity =  this.amenity3;
+        if (index == 1) amenity = this.amenity1;
+        else if (index == 2) amenity =  this.amenity2;
+        else if (index == 3) amenity =  this.amenity3;
+        else if (index == 4) amenity =  this.amenity4;
         return amenity;
     }
 

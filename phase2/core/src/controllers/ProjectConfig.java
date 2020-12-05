@@ -54,7 +54,7 @@ public class ProjectConfig {
         Scanner sc = new Scanner(System.in);
 
         // instantiate a new LoginController with saved Use Case classes as parameters
-        LoginController lc = new LoginController(um, rm, mm, em);
+        LoginController lc = new LoginController();
         System.out.println("Choose:" +
                 "\n1. Login" +
                 "\n2. Create Account" +
@@ -65,7 +65,7 @@ public class ProjectConfig {
                 lc.login();
                 break;
             case "2": // Create a new account
-                lc.CreateAccount();
+                //lc.CreateAccount();
                 break;
             case "3": // Exit program
                 break;

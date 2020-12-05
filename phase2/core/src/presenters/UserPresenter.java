@@ -16,11 +16,10 @@ public class UserPresenter {
     // go back, sign up for an event with a number
     // cancel an event with a known number
     // message a user, view list of messages
-    private PresenterUtil pu;
+    private PresenterUtil<String> pu;
 
     public UserPresenter(){
-        PresenterUtil pu = new PresenterUtil();
-        this.pu = pu;
+        pu = new PresenterUtil<>();
     }
     /**
      * list of events iterated and printed

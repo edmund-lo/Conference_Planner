@@ -1,65 +1,52 @@
 package presenters;
 
+import org.json.simple.JSONObject;
+
 import java.util.ArrayList;
 
 public class AdminPresenter extends UserPresenter {
-    public void createNewAccountPrompt() {
+
+    public AdminPresenter() {
+        super();
     }
 
-    public void attendeeUsernamePrompt() {
+    public JSONObject attendeeCreationResult() {
+        return pu.createJSON("success", "Attendee has been created");
     }
 
-    public void attendeePasswordPrompt() {
+    public JSONObject organizerCreationResult() {
+        return pu.createJSON("success", "Organizer has been created");
     }
 
-    public void attendeeCreationResult() {
+    public JSONObject speakerCreationResult() {
+        return pu.createJSON("success", "Speaker has been created");
     }
 
-    public void invalidAttendeeNameError() {
+    public JSONObject usedNameError() {
+        return pu.createJSON("failure", "Username already being used");
     }
 
-    public void organizerUsernamePrompt() {
+    public JSONObject listVips(ArrayList<String> allVipNames) {
+        return pu.createJSON("success", "VIPS have been listed", "List of VIPS", allVipNames);
     }
 
-    public void organizerPasswordPrompt() {
+    public JSONObject setVipResult() {
+        return pu.createJSON("success", "Attendee is now a VIP");
     }
 
-    public void organizerCreationResult() {
+    public JSONObject alreadyVipError() {
+        return pu.createJSON("failure", "Attendee is already a VIP");
     }
 
-    public void invalidOrganizerNameError() {
+    public JSONObject setNotVipResult() {
+        return pu.createJSON("success", "Attendee is now not a VIP");
     }
 
-    public void speakerUsernamePrompt() {
+    public JSONObject alreadyNotVipError() {
+        return pu.createJSON("failure", "Attendee is already not a VIP");
     }
 
-    public void speakerPasswordPrompt() {
-    }
-
-    public void speakerCreationResult() {
-    }
-
-    public void invalidSpeakerNameError() {
-    }
-
-    public void listAllVipsLabel() {
-    }
-
-    public void listVips(ArrayList<String> allVipNames) {
-    }
-
-    public void exitlistAllVipsLabel() {
-    }
-
-    public void setVipResult() {
-    }
-
-    public void alreadyVipLabel() {
-    }
-
-    public void setNotVipResult() {
-    }
-
-    public void alreadyNotVipLabel() {
+    public JSONObject invalidAttendeeNameError() {
+        return pu.createJSON("failure", "Attendee does not exist");
     }
 }
