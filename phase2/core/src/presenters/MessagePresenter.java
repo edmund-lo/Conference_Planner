@@ -23,7 +23,7 @@ public class MessagePresenter {
     /**
      * Informs the user that their message was sent to the specified recipient.
      */
-    public JSONObjectmessageResult(String recipient) {
+    public JSONObject messageResult(String recipient) {
         return pu.createJSON("success", "Message sent to " + recipient);
     }
 
