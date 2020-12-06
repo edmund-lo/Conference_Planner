@@ -48,7 +48,7 @@ public class LoginLogManager implements Serializable {
         return false;
     }
 
-    private LoginLog getLoginLog(String username){
+    public LoginLog getLoginLog(String username){
         return this.all_Logs.get(username);
     }
 
