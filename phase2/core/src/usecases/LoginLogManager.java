@@ -23,7 +23,7 @@ import java.util.Set;
  */
 public class LoginLogManager implements Serializable {
     ArrayList logArray = new ArrayList();
-    private HashMap<String, ArrayList> all_Logs;
+    private HashMap<String, ArrayList<LoginLog>> all_Logs;
     /**
      * Constructs a new empty LoginLogManager object containing no rooms.
      */
@@ -61,8 +61,11 @@ public class LoginLogManager implements Serializable {
         return true;
     }
 
-    public ArrayList getLoginLog(String username){
-        return this.all_Logs.get(username);
+    public boolean getLoginLog(String username){
+        if (this.all_Logs.containsKey(username)) {
+            return true;
+        }
+        return false;
     }
 
 //    /**
