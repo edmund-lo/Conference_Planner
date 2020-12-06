@@ -4,6 +4,12 @@ import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 
+/**
+ * A Presenter class representing an AdminPresenter which inherits from UserPresenter
+ *
+ * @author Edmund Lo
+ *
+ */
 public class AdminPresenter extends UserPresenter {
 
     public AdminPresenter() {
