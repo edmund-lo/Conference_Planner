@@ -3,11 +3,19 @@ package toolbar.impl;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import toolbar.IToolbarView;
 
 public class ToolbarView implements IToolbarView {
+    @FXML
+    private HBox organizerGroup;
+    @FXML
+    private HBox speakerGroup;
+    @FXML
+    private HBox adminGroup;
+
     @FXML
     public void executeAddHome(ActionEvent event) {
         if (homeButtonAction != null) homeButtonAction.handle(event);
@@ -23,10 +31,6 @@ public class ToolbarView implements IToolbarView {
     @FXML
     public void executeAddMessaging(ActionEvent event) {
         if (messagingButtonAction != null) messagingButtonAction.handle(event);
-    }
-    @FXML
-    public void executeAddCreateAccount(ActionEvent event) {
-        if (createAccountButtonAction != null) createAccountButtonAction.handle(event);
     }
     @FXML
     public void executeAddCreateRoom(ActionEvent event) {
@@ -61,6 +65,14 @@ public class ToolbarView implements IToolbarView {
         if (unlockAccountsButtonAction != null) unlockAccountsButtonAction.handle(event);
     }
     @FXML
+    public void executeAddCreateAccount(ActionEvent event) {
+        if (createAccountButtonAction != null) createAccountButtonAction.handle(event);
+    }
+    @FXML
+    public void executeAddSetVip(ActionEvent event) {
+        if (setVipButtonAction != null) setVipButtonAction.handle(event);
+    }
+    @FXML
     public void executeAddDeleteMessages(ActionEvent event) {
         if (deleteMessagesButtonAction != null) deleteMessagesButtonAction.handle(event);
     }
@@ -82,7 +94,6 @@ public class ToolbarView implements IToolbarView {
     private EventHandler<ActionEvent> viewScheduleButtonAction;
     private EventHandler<ActionEvent> viewEventsButtonAction;
     private EventHandler<ActionEvent> messagingButtonAction;
-    private EventHandler<ActionEvent> createAccountButtonAction;
     private EventHandler<ActionEvent> createRoomButtonAction;
     private EventHandler<ActionEvent> createEventButtonAction;
     private EventHandler<ActionEvent> scheduleSpeakerButtonAction;
@@ -90,22 +101,29 @@ public class ToolbarView implements IToolbarView {
     private EventHandler<ActionEvent> messageSpeakersButtonAction;
     private EventHandler<ActionEvent> messageAttendeesButtonAction;
     private EventHandler<ActionEvent> speakerEventsButtonAction;
+    private EventHandler<ActionEvent> createAccountButtonAction;
     private EventHandler<ActionEvent> unlockAccountsButtonAction;
+    private EventHandler<ActionEvent> setVipButtonAction;
     private EventHandler<ActionEvent> deleteMessagesButtonAction;
     private EventHandler<ActionEvent> removeEventsButtonAction;
     private EventHandler<ActionEvent> logoutButtonAction;
     private Stage stage;
     private String sessionUsername;
-    private int sessionUserType;
+    private String sessionUserType;
 
     @Override
-    public int getSessionUserType() {
-        return this.sessionUserType;
+    public HBox getOrganizerGroup() {
+        return this.organizerGroup;
     }
 
     @Override
-    public void setSessionUserType(int userType) {
-        this.sessionUserType = userType;
+    public HBox getSpeakerGroup() {
+        return this.speakerGroup;
+    }
+
+    @Override
+    public HBox getAdminGroup() {
+        return this.adminGroup;
     }
 
     @Override
@@ -239,6 +257,16 @@ public class ToolbarView implements IToolbarView {
     }
 
     @Override
+    public EventHandler<ActionEvent> getSetVipButtonAction() {
+        return this.setVipButtonAction;
+    }
+
+    @Override
+    public void setSetVipButtonAction(EventHandler<ActionEvent> eventHandler) {
+        this.setVipButtonAction = eventHandler;
+    }
+
+    @Override
     public EventHandler<ActionEvent> getDeleteMessagesButtonAction() {
         return deleteMessagesButtonAction;
     }
@@ -291,5 +319,15 @@ public class ToolbarView implements IToolbarView {
     @Override
     public void setSessionUsername(String username) {
         this.sessionUsername = username;
+    }
+
+    @Override
+    public String getSessionUserType() {
+        return this.sessionUserType;
+    }
+
+    @Override
+    public void setSessionUserType(String userType) {
+        this.sessionUserType = userType;
     }
 }

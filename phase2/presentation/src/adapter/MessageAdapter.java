@@ -28,12 +28,13 @@ public class MessageAdapter {
     }
 
     private Message mapMessage(JSONObject jsonObject) {
+        String messageId = String.valueOf(jsonObject.get("messageId"));
         String senderName = String.valueOf(jsonObject.get("senderName"));
         List<String> recipientNames = new ArrayList<>();
         String content = String.valueOf(jsonObject.get("content"));
         boolean read = jsonObject.get("read").equals("true");
         LocalDateTime messageTime = DateTimeUtil.getInstance().parse(String.valueOf(jsonObject.get("messageTime")));
 
-        return new Message(senderName, recipientNames, content, read, messageTime);
+        return new Message(messageId, senderName, recipientNames, content, read, messageTime);
     }
 }

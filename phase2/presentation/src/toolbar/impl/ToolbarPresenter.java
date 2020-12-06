@@ -96,6 +96,12 @@ public class ToolbarPresenter implements IToolbarPresenter {
     }
 
     @Override
+    public void setVipButtonAction(ActionEvent actionEvent) {
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "setVip.fxml",
+                this.view.getSessionUsername(), this.view.getSessionUserType());
+    }
+
+    @Override
     public void deleteMessagesButtonAction(ActionEvent actionEvent) {
         ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "deleteMessages.fxml",
                 this.view.getSessionUsername(), this.view.getSessionUserType());
@@ -117,13 +123,31 @@ public class ToolbarPresenter implements IToolbarPresenter {
     }
 
     @Override
+    public void filterAccess() {
+        if (this.view.getSessionUserType().equals("Organizer")) {
+            this.view.getAdminGroup().getChildren().clear();
+            this.view.getSpeakerGroup().getChildren().clear();
+        } else if (this.view.getSessionUserType().equals("Speaker")) {
+            this.view.getAdminGroup().getChildren().clear();
+            this.view.getOrganizerGroup().getChildren().clear();
+        } else if (this.view.getSessionUserType().equals("Admin")) {
+            this.view.getOrganizerGroup().getChildren().clear();
+            this.view.getSpeakerGroup().getChildren().clear();
+        } else {
+            this.view.getAdminGroup().getChildren().clear();
+            this.view.getSpeakerGroup().getChildren().clear();
+            this.view.getOrganizerGroup().getChildren().clear();
+        }
+    }
+
+    @Override
     public void init() {
-        //call lc.getAccountType method to restrict function access
+        filterAccess();
+
         this.view.setHomeButtonAction(this::homeButtonAction);
         this.view.setViewScheduleButtonAction(this::viewScheduleButtonAction);
         this.view.setViewEventsButtonAction(this::viewEventsButtonAction);
         this.view.setMessagingButtonAction(this::messagingButtonAction);
-        this.view.setCreateAccountButtonAction(this::createAccountButtonAction);
         this.view.setCreateRoomButtonAction(this::createRoomButtonAction);
         this.view.setCreateEventButtonAction(this::createEventButtonAction);
         this.view.setScheduleSpeakerButtonAction(this::scheduleSpeakerButtonAction);
@@ -131,7 +155,9 @@ public class ToolbarPresenter implements IToolbarPresenter {
         this.view.setMessageSpeakersButtonAction(this::messageSpeakersButtonAction);
         this.view.setMessageAttendeesButtonAction(this::messageAttendeesButtonAction);
         this.view.setSpeakerEventsButtonAction(this::speakerEventsButtonAction);
+        this.view.setCreateAccountButtonAction(this::createAccountButtonAction);
         this.view.setUnlockAccountsButtonAction(this::unlockAccountsButtonAction);
+        this.view.setSetVipButtonAction(this::setVipButtonAction);
         this.view.setDeleteMessagesButtonAction(this::deleteMessagesButtonAction);
         this.view.setRemoveEventsButtonAction(this::removeEventsButtonAction);
         this.view.setLogoutButtonAction(this::logoutButtonAction);

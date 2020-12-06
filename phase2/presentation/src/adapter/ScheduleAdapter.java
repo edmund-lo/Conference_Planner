@@ -33,6 +33,7 @@ public class ScheduleAdapter {
         LocalDateTime start = DateTimeUtil.getInstance().parse(String.valueOf(jsonObject.get("start")));
         LocalDateTime end = DateTimeUtil.getInstance().parse(String.valueOf(jsonObject.get("end")));
         Duration duration = Duration.ofMinutes(parseLong(String.valueOf(jsonObject.get("duration"))));
+        String eventId = String.valueOf(jsonObject.get("eventId"));
         String eventName = String.valueOf(jsonObject.get("eventName"));
         String roomName = String.valueOf(jsonObject.get("roomName"));
         String amenities = String.valueOf(jsonObject.get("amenities"));
@@ -43,7 +44,7 @@ public class ScheduleAdapter {
         boolean liked = jsonObject.get("liked").equals("true");
         boolean vip = jsonObject.get("vip").equals("true");
 
-        return new ScheduleEntry(start, end, eventName, roomName, amenities, attendees, speakers, duration,
+        return new ScheduleEntry(start, end, eventId, eventName, roomName, amenities, attendees, speakers, duration,
                 remainingSpots, capacity, liked, vip);
     }
 }

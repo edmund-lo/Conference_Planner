@@ -3,8 +3,13 @@ package toolbar;
 import common.ILoggedInView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.layout.HBox;
 
 public interface IToolbarView extends ILoggedInView {
+    HBox getOrganizerGroup();
+    HBox getSpeakerGroup();
+    HBox getAdminGroup();
+
     EventHandler<ActionEvent> getHomeButtonAction();
     void setHomeButtonAction(EventHandler<ActionEvent> eventHandler);
     EventHandler<ActionEvent> getViewScheduleButtonAction();
@@ -13,8 +18,6 @@ public interface IToolbarView extends ILoggedInView {
     void setViewEventsButtonAction(EventHandler<ActionEvent> eventHandler);
     EventHandler<ActionEvent> getMessagingButtonAction();
     void setMessagingButtonAction(EventHandler<ActionEvent> eventHandler);
-    EventHandler<ActionEvent> getCreateAccountButtonAction();
-    void setCreateAccountButtonAction(EventHandler<ActionEvent> eventHandler);
     EventHandler<ActionEvent> getCreateRoomButtonAction();
     void setCreateRoomButtonAction(EventHandler<ActionEvent> eventHandler);
     EventHandler<ActionEvent> getCreateEventButtonAction();
@@ -29,8 +32,12 @@ public interface IToolbarView extends ILoggedInView {
     void setMessageAttendeesButtonAction(EventHandler<ActionEvent> eventHandler);
     EventHandler<ActionEvent> getSpeakerEventsButtonAction();
     void setSpeakerEventsButtonAction(EventHandler<ActionEvent> eventHandler);
+    EventHandler<ActionEvent> getCreateAccountButtonAction();
+    void setCreateAccountButtonAction(EventHandler<ActionEvent> eventHandler);
     EventHandler<ActionEvent> getUnlockAccountsButtonAction();
     void setUnlockAccountsButtonAction(EventHandler<ActionEvent> eventHandler);
+    EventHandler<ActionEvent> getSetVipButtonAction();
+    void setSetVipButtonAction(EventHandler<ActionEvent> eventHandler);
     EventHandler<ActionEvent> getDeleteMessagesButtonAction();
     void setDeleteMessagesButtonAction(EventHandler<ActionEvent> eventHandler);
     EventHandler<ActionEvent> getRemoveEventsButtonAction();

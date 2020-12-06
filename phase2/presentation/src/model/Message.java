@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class Message {
+    private final StringProperty messageId;
     private final StringProperty senderName;
     private final ListProperty<StringProperty> recipientNames;
     private final StringProperty content;
@@ -13,15 +14,29 @@ public class Message {
     private final ObjectProperty<LocalDateTime> messageTime;
 
     public Message() {
-        this(null, null, null, false, null);
+        this(null, null, null, null, false, null);
     }
 
-    public Message(String senderName, List<String> recipientNames, String content, boolean read, LocalDateTime messageTime) {
+    public Message(String messageId, String senderName, List<String> recipientNames, String content, boolean read,
+                   LocalDateTime messageTime) {
+        this.messageId = new SimpleStringProperty(messageId);
         this.senderName = new SimpleStringProperty(senderName);
         this.recipientNames = new SimpleListProperty<>();
         this.content = new SimpleStringProperty(content);
         this.read = new SimpleBooleanProperty(read);
         this.messageTime = new SimpleObjectProperty<>(messageTime);
+    }
+
+    public String getMessageId() {
+        return messageId.get();
+    }
+
+    public StringProperty messageIdProperty() {
+        return messageId;
+    }
+
+    public void setMessageId(String messageId) {
+        this.messageId.set(messageId);
     }
 
     public String getSenderName() {

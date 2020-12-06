@@ -28,7 +28,7 @@ public class CreateEventPresenter implements ICreateEventPresenter {
 
     public CreateEventPresenter(ICreateEventView view) {
         this.view = view;
-        //this.oc = new OrganizerController();
+        this.oc = new OrganizerController(this.view.getSessionUsername());
         init();
     }
 

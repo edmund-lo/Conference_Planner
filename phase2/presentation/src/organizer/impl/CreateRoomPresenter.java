@@ -1,9 +1,8 @@
 package organizer.impl;
 
-//import Controllers.IOrganizerController
+import controllers.OrganizerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
-import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.scene.control.CheckBox;
 import org.json.simple.JSONObject;
@@ -14,10 +13,11 @@ import util.TextResultUtil;
 public class CreateRoomPresenter implements ICreateRoomPresenter {
     private ICreateRoomView view;
     private final ObservableSet<CheckBox> selectedAmenities = FXCollections.observableSet();
-    private final PseudoClass errorClass = PseudoClass.getPseudoClass("error");
+    private OrganizerController oc;
 
     public CreateRoomPresenter(ICreateRoomView view) {
         this.view = view;
+        this.oc = new OrganizerController(this.view.getSessionUsername());
         init();
     }
 

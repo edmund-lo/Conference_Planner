@@ -21,7 +21,7 @@ public class ViewOwnEventsPresenter implements IViewEventsPresenter {
 
     public ViewOwnEventsPresenter(IViewEventsView view) {
         this.view = view;
-        //this.ac = new AttendeeController();
+        //this.ac = new AttendeeController(this.view.getSessionUsername());
         init();
     }
 

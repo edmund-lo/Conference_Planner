@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 public class ScheduleEntry {
     private final ObjectProperty<LocalDateTime> start;
     private final ObjectProperty<LocalDateTime> end;
+    private final StringProperty eventId;
     private final StringProperty eventName;
     private final StringProperty roomName;
     private final StringProperty amenities;
@@ -19,14 +20,16 @@ public class ScheduleEntry {
     private final BooleanProperty vip;
 
     public ScheduleEntry() {
-        this(null, null, null, null, null, null, null, null, 0, 0, false, false);
+        this(null, null, null,null, null, null,
+                null, null, null, 0, 0, false, false);
     }
 
-    public ScheduleEntry(LocalDateTime start, LocalDateTime end, String eventName, String roomName, String amenities,
-                         String attendees, String speakers, Duration duration, int remainingSpots, int capacity,
-                         boolean liked, boolean vip) {
+    public ScheduleEntry(LocalDateTime start, LocalDateTime end, String eventId, String eventName, String roomName,
+                         String amenities, String attendees, String speakers, Duration duration, int remainingSpots,
+                         int capacity, boolean liked, boolean vip) {
         this.start = new SimpleObjectProperty<>(start);
         this.end = new SimpleObjectProperty<>(end);
+        this.eventId = new SimpleStringProperty(eventId);
         this.eventName = new SimpleStringProperty(eventName);
         this.roomName = new SimpleStringProperty(roomName);
         this.amenities = new SimpleStringProperty(amenities);
@@ -61,6 +64,18 @@ public class ScheduleEntry {
 
     public void setEnd(LocalDateTime end) {
         this.end.set(end);
+    }
+
+    public String getEventId() {
+        return eventId.get();
+    }
+
+    public StringProperty eventIdProperty() {
+        return eventId;
+    }
+
+    public void setEventId(String eventId) {
+        this.eventId.set(eventId);
     }
 
     public String getEventName() {

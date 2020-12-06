@@ -8,7 +8,6 @@ public interface IToolbarPresenter extends IPresenter {
     void viewScheduleButtonAction(ActionEvent actionEvent);
     void viewEventsButtonAction(ActionEvent actionEvent);
     void messagingButtonAction(ActionEvent actionEvent);
-    void createAccountButtonAction(ActionEvent actionEvent);
     void createRoomButtonAction(ActionEvent actionEvent);
     void createEventButtonAction(ActionEvent actionEvent);
     void scheduleSpeakerButtonAction(ActionEvent actionEvent);
@@ -16,8 +15,12 @@ public interface IToolbarPresenter extends IPresenter {
     void messageSpeakersButtonAction(ActionEvent actionEvent);
     void messageAttendeesButtonAction(ActionEvent actionEvent);
     void speakerEventsButtonAction(ActionEvent actionEvent);
+    void createAccountButtonAction(ActionEvent actionEvent);
     void unlockAccountsButtonAction(ActionEvent actionEvent);
+    void setVipButtonAction(ActionEvent actionEvent);
     void deleteMessagesButtonAction(ActionEvent actionEvent);
     void removeEventsButtonAction(ActionEvent actionEvent);
     void logoutButtonAction(ActionEvent actionEvent);
+
+    void filterAccess();
 }

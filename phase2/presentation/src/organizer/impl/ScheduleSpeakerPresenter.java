@@ -1,47 +1,56 @@
 package organizer.impl;
 
+import adapter.ScheduleAdapter;
+import adapter.UserAdapter;
+import controllers.OrganizerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.ScheduleEntry;
 import model.User;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import organizer.IScheduleSpeakerPresenter;
 import organizer.IScheduleSpeakerView;
 import util.DateTimeUtil;
-
-import java.util.ArrayList;
+import util.TextResultUtil;
 import java.util.List;
 
 public class ScheduleSpeakerPresenter implements IScheduleSpeakerPresenter {
+    private OrganizerController oc;
     private IScheduleSpeakerView view;
-    //private final PseudoClass errorClass = PseudoClass.getPseudoClass("error");
+    private ScheduleEntry selectedEvent;
 
     public ScheduleSpeakerPresenter(IScheduleSpeakerView view) {
         this.view = view;
+        this.oc = new OrganizerController(this.view.getSessionUsername());
         init();
     }
 
     @Override
     public void scheduleSpeakerButtonAction(ActionEvent actionEvent) {
-        clearResult();
+        clearResultText();
 
         String speaker = this.view.getAvailableSpeakerChoiceBox().getValue();
-        //call oc.scheduleSpeaker method
-        setResult("Successfully scheduled " + speaker + " to " + this.view.getSummaryEventName());
+        //JSONObject responseJson = oc.scheduleSpeaker(selectedEvent.getEventId(), speaker);
+        JSONObject responseJson = new JSONObject();
+        setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
+        if (responseJson.get("status").equals("success"))
+            handleSelect(this.selectedEvent);
     }
 
     @Override
-    public void setResult(String result) {
-        this.view.setResultMsg(result);
+    public void setResultText(String resultText, String status) {
+        this.view.setResultText(resultText);
+        TextResultUtil.getInstance().addPseudoClass(status, this.view.getResultTextControl());
     }
 
     @Override
     public List<ScheduleEntry> getAllEvents() {
-        //List<String[]> resultJson = oc.getAllEvents method
-        //List<ScheduleEntry> allEvents = ScheduleAdapter.adapt(resultJson);
-        List<ScheduleEntry> allEvents = new ArrayList<>();
-        return allEvents;
+        //JSONObject responseJson = ac.getAllEvents();
+        JSONObject responseJson = new JSONObject();
+        return ScheduleAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
     @Override
@@ -73,8 +82,11 @@ public class ScheduleSpeakerPresenter implements IScheduleSpeakerPresenter {
 
     @Override
     public void displayAvailableSpeakers(ScheduleEntry event) {
-        //call oc.getAvailableSpeakers method
-        List<User> speakerList = new ArrayList<>();
+        clearResultText();
+        //JSONObject responseJson = oc.getAvailableSpeakers(event.getStart(), event.getEnd());
+        JSONObject responseJson = new JSONObject();
+        List<User> speakerList = UserAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
+        setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
         this.view.getAvailableSpeakerChoiceBox().getItems().clear();
         for (User speaker : speakerList)
             this.view.getAvailableSpeakerChoiceBox().getItems().add(speaker.getUsername());
@@ -88,11 +100,13 @@ public class ScheduleSpeakerPresenter implements IScheduleSpeakerPresenter {
     }
 
     private void handleSelect(ScheduleEntry event) {
+        this.selectedEvent = event;
         displayEventDetails(event);
         displayAvailableSpeakers(event);
     }
 
-    private void clearResult() {
-        this.view.setResultMsg("");
+    private void clearResultText() {
+        this.view.setResultText("");
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl());
     }
 }

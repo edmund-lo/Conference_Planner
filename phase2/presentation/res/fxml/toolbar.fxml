@@ -18,7 +18,6 @@
         <HBox fx:id="organizerGroup">
             <MenuButton text="Create">
                 <items>
-                    <MenuItem text="New Account" onAction="#executeAddCreateAccount"/>
                     <MenuItem text="New Room" onAction="#executeAddCreateRoom"/>
                     <MenuItem text="New Event" onAction="#executeAddCreateEvent"/>
                 </items>
@@ -42,9 +41,15 @@
         <HBox fx:id="adminGroup">
             <MenuButton text="Admin Tools">
                 <items>
-                    <MenuItem text="Unlock Accounts" onAction="#executeAddUnlockAccounts"/>
                     <MenuItem text="Delete Messages" onAction="#executeAddDeleteMessages"/>
                     <MenuItem text="Remove Events" onAction="#executeAddRemoveEvents"/>
+                </items>
+            </MenuButton>
+            <MenuButton text="User Accounts">
+                <items>
+                    <MenuItem text="Create New" onAction="#executeAddCreateAccount"/>
+                    <MenuItem text="Unlock" onAction="#executeAddUnlockAccounts"/>
+                    <MenuItem text="Set VIP" onAction="#executeAddSetVip"/>
                 </items>
             </MenuButton>
         </HBox>
