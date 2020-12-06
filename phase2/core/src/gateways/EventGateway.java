@@ -4,6 +4,7 @@ import usecases.EventManager;
 
 import java.io.*;
 import java.io.Serializable;
+import org.json.simple.*;
 
 /**
  * A Gateway class that serializes and deserializes the Event Manager class
