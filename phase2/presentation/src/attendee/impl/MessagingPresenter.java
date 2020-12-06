@@ -3,7 +3,7 @@ package attendee.impl;
 import adapter.MessageAdapter;
 import attendee.IMessagingPresenter;
 import attendee.IMessagingView;
-import controllers.AttendeeController;
+//import controllers.AttendeeController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -19,7 +19,7 @@ import java.util.List;
 
 public class MessagingPresenter implements IMessagingPresenter {
     private IMessagingView view;
-    private AttendeeController ac;
+//    private AttendeeController ac;
     private Message selectedPrimaryMessage;
     private Message selectedArchivedMessage;
     private Message selectedTrashMessage;

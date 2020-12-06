@@ -2,7 +2,7 @@ package speaker.impl;
 
 import adapter.ScheduleAdapter;
 import adapter.UserAdapter;
-import controllers.SpeakerController;
+//import controllers.SpeakerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
@@ -21,7 +21,7 @@ import java.util.List;
 
 public class SpeakerEventsPresenter implements ISpeakerEventsPresenter {
     private ISpeakerEventsView view;
-    private SpeakerController sc;
+//    private SpeakerController sc;
     private final ObservableSet<CheckBox> selectedRecipients = FXCollections.observableSet();
 
     public SpeakerEventsPresenter(ISpeakerEventsView view) {

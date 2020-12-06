@@ -1,6 +1,6 @@
 package organizer.impl;
 
-import controllers.OrganizerController;
+//import controllers.OrganizerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
@@ -13,11 +13,11 @@ import util.TextResultUtil;
 public class CreateRoomPresenter implements ICreateRoomPresenter {
     private ICreateRoomView view;
     private final ObservableSet<CheckBox> selectedAmenities = FXCollections.observableSet();
-    private OrganizerController oc;
+//    private OrganizerController oc;
 
     public CreateRoomPresenter(ICreateRoomView view) {
         this.view = view;
-        this.oc = new OrganizerController(this.view.getSessionUsername());
+//        this.oc = new OrganizerController(this.view.getSessionUsername());
         init();
     }
 

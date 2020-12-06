@@ -2,7 +2,7 @@ package organizer.impl;
 
 import adapter.ScheduleAdapter;
 import adapter.UserAdapter;
-import controllers.OrganizerController;
+//import controllers.OrganizerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,13 +18,13 @@ import util.TextResultUtil;
 import java.util.List;
 
 public class ScheduleSpeakerPresenter implements IScheduleSpeakerPresenter {
-    private OrganizerController oc;
+//    private OrganizerController oc;
     private IScheduleSpeakerView view;
     private ScheduleEntry selectedEvent;
 
     public ScheduleSpeakerPresenter(IScheduleSpeakerView view) {
         this.view = view;
-        this.oc = new OrganizerController(this.view.getSessionUsername());
+//        this.oc = new OrganizerController(this.view.getSessionUsername());
         init();
     }
 

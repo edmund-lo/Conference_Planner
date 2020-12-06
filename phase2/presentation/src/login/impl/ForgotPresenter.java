@@ -1,6 +1,6 @@
 package login.impl;
 
-import controllers.LoginController;
+//import controllers.LoginController;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 import login.IForgotPresenter;
@@ -11,7 +11,7 @@ import util.TextResultUtil;
 
 public class ForgotPresenter implements IForgotPresenter {
     private IForgotView view;
-    private LoginController lc;
+//    private LoginController lc;
 
     public ForgotPresenter(IForgotView view) {
         this.view = view;
