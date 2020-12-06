@@ -48,6 +48,6 @@
 
     <stylesheets>
         <URL value="@../css/project.css"/>
-        <URL value="@../css/messaging.css"/>
+        <URL value="@../css/organizerMessaging.css"/>
     </stylesheets>
 </BorderPane>

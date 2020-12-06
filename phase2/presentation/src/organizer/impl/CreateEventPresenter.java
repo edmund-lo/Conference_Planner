@@ -34,16 +34,18 @@ public class CreateEventPresenter implements ICreateEventPresenter {
 
     @Override
     public void previousFirstButtonAction(ActionEvent actionEvent) {
-        this.view.getTitledPane(2).setDisable(true);
         this.view.getTitledPane(1).setDisable(false);
+        this.view.getTitledPane(2).setDisable(true);
         this.view.getTitledPane(1).setExpanded(true);
+        this.view.getTitledPane(2).setExpanded(false);
     }
 
     @Override
     public void previousSecondButtonAction(ActionEvent actionEvent) {
-        this.view.getTitledPane(3).setDisable(true);
         this.view.getTitledPane(2).setDisable(false);
+        this.view.getTitledPane(3).setDisable(true);
         this.view.getTitledPane(2).setExpanded(true);
+        this.view.getTitledPane(3).setExpanded(false);
     }
 
     @Override
@@ -59,8 +61,9 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         JSONObject responseJson = new JSONObject();
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 1);
         if (responseJson.get("status").equals("success")) {
-            this.view.getTitledPane(2).setDisable(false);
             this.view.getTitledPane(1).setDisable(true);
+            this.view.getTitledPane(2).setDisable(false);
+            this.view.getTitledPane(1).setExpanded(false);
             this.view.getTitledPane(2).setExpanded(true);
         }
     }
@@ -85,6 +88,7 @@ public class CreateEventPresenter implements ICreateEventPresenter {
 
         this.view.getTitledPane(2).setDisable(true);
         this.view.getTitledPane(3).setDisable(false);
+        this.view.getTitledPane(2).setExpanded(false);
         this.view.getTitledPane(3).setExpanded(true);
     }
 
@@ -97,9 +101,10 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         JSONObject responseJson = new JSONObject();
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 1);
         if (responseJson.get("status").equals("Success")) {
-            this.view.getTitledPane(3).setDisable(true);
             this.view.getTitledPane(1).setDisable(false);
+            this.view.getTitledPane(3).setDisable(true);
             this.view.getTitledPane(1).setExpanded(true);
+            this.view.getTitledPane(3).setExpanded(false);
         }
     }
 
