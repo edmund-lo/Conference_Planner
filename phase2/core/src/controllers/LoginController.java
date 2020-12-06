@@ -1,6 +1,8 @@
 package controllers;
+import entities.LoginLog;
 import entities.UserAccountEntity;
 import gateways.*;
+import model.UserAccount;
 import org.json.simple.*;
 
 import presenters.LoginPresenter;
@@ -28,9 +30,11 @@ public class LoginController {
     protected LoginLogManager llm;
     private final LoginPresenter lp;
 
+    LoginLogGateway llg;
+    UserAccountGateway uag;
+
     //Stores logs for login. ArrayList of arrays of strings. First element is type (Login, Created Account, Logout)
     //Second element is username, third element is time.
-    protected static ArrayList<String[]> securityAns;
 
     /**
      * Constructor for LoginController object.
@@ -38,8 +42,8 @@ public class LoginController {
     public LoginController(){
         UserGateway ug = new UserGateway();
         RoomGateway rg = new RoomGateway();
-        LoginLogGateway llg = new LoginLogGateway();
-        UserAccountGateway uag = new UserAccountGateway();
+        this.llg = new LoginLogGateway();
+        this.uag = new UserAccountGateway();
 
         this.um = ug.deserializeData();
         this.rm = rg.deserializeData();
@@ -47,14 +51,15 @@ public class LoginController {
         this.uam = uag.deserializeData();
 
         //Get list of all existing accounts from the user manager
-        this.Accounts = um.getAccountInfo();
+        this.Accounts = uam.getAccountInfo();
         this.lp = new LoginPresenter();
     }
 
     /**
      * Called to create a new account for a user.
      */
-    public JSONObject CreateAccount(String Username, String Password, String type, String ans1, String ans2, String ans3){
+    public JSONObject CreateAccount(String Username, String Password, String type, String q1, String ans1,
+                                    String q2, String ans2, String q3, String ans3, boolean security){
 
         int UsernameCheck = 0;
 
@@ -81,31 +86,14 @@ public class LoginController {
         lp.SecurityQuestion1();
         lp.SecurityQuestion2();
         lp.SecurityQuestion3();
-        securityAns.add(new String[]{ans1, ans2, ans3});
+
+        UserAccountEntity Account = new UserAccountEntity(Username, Password, type, false, security,
+        q1, q2, q3, ans1, ans2, ans3);
+
+        return lp.AccountMade();
 
         //Depending on which account type the user selected, make a different type of user.
-        switch (type) {
-            case "1":
-                um.createNewOrganizer(Username, Password);
-                Accounts = um.getAccountInfo();
-                UpdateLogs(Username, "Account Created");
-                return lp.AccountMade();
-                break;
-            case "2":
-                um.createNewAttendee(Username, Password);
-                Accounts = um.getAccountInfo();
-                UpdateLogs(Username, "Account Created");
-                return lp.AccountMade();
-                break;
-            case "3":
-                um.createNewSpeaker(Username, Password);
-                Accounts = um.getAccountInfo();
-                UpdateLogs(Username, "Account Created");
-                return lp.AccountMade();
-                break;
-            default:
-                return lp.IncorrectCredentials();
-        }
+
     }
 
     /**
@@ -123,7 +111,6 @@ public class LoginController {
                 //If it does exist, check if the password matches.
                 if (users[1].equals(Password)){
                     PasswordExists = true;
-                    AccountType = users[2];
                 }
             }
         }
@@ -145,56 +132,32 @@ public class LoginController {
 
     //Locks user from logging in due to suspicious behaviour.
     public void lockOut(String Username){
-        //TODO
+        UserAccountEntity Account = uam.GetUserAccount(Username);
+        Account.Lock();
     }
 
     //Returns true if past 3 logins were failed logins, false otherwise.
     public boolean suspiciousLogs(String Username){
-        ArrayList<String> RecentLogs = new ArrayList<String>();
-        for () {
-            if (llm.getLoginLog(Username))
-                RecentLogs.add(Accounts.get(i)[1]);
-            if (RecentLogs.size() == 3)
-                break;
+        ArrayList<LoginLog> RecentLogs = llm.getLoginLog(Username);
+        int strike = 0;
+
+        for (LoginLog log : RecentLogs) {
+            if (log.getCondition().equals("Failed Login"))
+                strike++;
         }
 
-        for (String recentLog : RecentLogs) {
-            if (!recentLog.equals("Failed Login"))
-                return false;
-        }
-
-        return true;
+        return strike == 3;
     }
 
-    public boolean resetPassword(String User){
-        int index = -1;
-        for (int i = 0; i < Accounts.toArray().length; i++) {
-            if (User.equals(Accounts.get(i)[0]))
-                index = i;
-        }
-        if(index == -1){
-            lp.NoAccount();
-            return false;
-        }
+    public boolean resetPassword(String User, String a1, String a2, String a3){
+        UserAccountEntity Account = uam.GetUserAccount(User);
 
         lp.SecurityQuestion1();
-        String a1 = sc.nextLine();
-
         lp.SecurityQuestion2();
-        String a2 = sc.nextLine();
-
         lp.SecurityQuestion3();
-        String a3 = sc.nextLine();
 
-        //Check if answers provided are right.
-        if (securityAns.get(index)[0].equals(a1) && securityAns.get(index)[1].equals(a2) && securityAns.get(index)[2].equals(a3)){
-            String pass = sc.nextLine();
-            um.setPassword(User, pass);
-            return true;
-        }
-
-        lp.IncorrectAnswers();
-        return false;
+        return a1.equals(Account.getSecurityAns(1)) && a2.equals(Account.getSecurityAns(2))
+                && a3.equals(Account.getSecurityAns(3));
     }
 
     public void UpdateLogs(String Username, String type){
@@ -203,6 +166,7 @@ public class LoginController {
         String dateString = dateForm.format(Calendar.getInstance().getTime());
 
         llm.addToLoginLogSet(type, Username, dateString);
+        llg.serializeData(llm);
 
     }
 
