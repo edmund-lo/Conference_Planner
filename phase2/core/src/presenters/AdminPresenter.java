@@ -45,6 +45,13 @@ public class AdminPresenter extends UserPresenter {
     }
 
     /**
+     * Prints message that user type is invalid
+     */
+    public JSONObject invalidUserTypeError() {
+        return pu.createJSON("warning", "User type does not exist");
+    }
+
+    /**
      * Lists all vips
      *
      * @param allVipNames all the names of vips
@@ -101,4 +108,5 @@ public class AdminPresenter extends UserPresenter {
     public JSONObject eventNotEmptyError() {
         return pu.createJSON("error", "Event is not empty");
     }
+
 }
