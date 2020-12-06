@@ -1,6 +1,7 @@
 package organizer.impl;
 
 import adapter.ScheduleAdapter;
+import controllers.OrganizerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
@@ -22,10 +23,12 @@ import java.util.List;
 
 public class CreateEventPresenter implements ICreateEventPresenter {
     private ICreateEventView view;
+    private OrganizerController oc;
     private final ObservableSet<CheckBox> selectedAmenities = FXCollections.observableSet();
 
     public CreateEventPresenter(ICreateEventView view) {
         this.view = view;
+        //this.oc = new OrganizerController();
         init();
     }
 
@@ -118,7 +121,7 @@ public class CreateEventPresenter implements ICreateEventPresenter {
     public List<ScheduleEntry> getRoomSchedule() {
         String roomName = this.view.getRoomName();
         LocalDateTime start = this.view.getStart();
-        //JSONObject responseJson = sc.getRoomSchedule(roomName, start);
+        //JSONObject responseJson = oc.getRoomSchedule(roomName, start);
         JSONObject responseJson = new JSONObject();
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 2);
         return ScheduleAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));

@@ -3,10 +3,7 @@ package organizer;
 import common.ILoggedInView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import model.User;
 
 public interface IMessageUsersView extends ILoggedInView {
@@ -17,6 +14,7 @@ public interface IMessageUsersView extends ILoggedInView {
     TableColumn<User, String> getUsernameColumn();
     CheckBox getSelectAll();
     TextField getRecipientsField();
+    TextArea getContentArea();
 
     String getSender();
     void setSender(String sender);
@@ -24,7 +22,7 @@ public interface IMessageUsersView extends ILoggedInView {
     void setRecipients(String recipients);
     String getContent();
     void setContent(String content);
-    void setResultMsg(String resultMsg);
+    void setResultText(String resultText);
 
     EventHandler<ActionEvent> getSendButtonAction();
     void setSendButtonAction(EventHandler<ActionEvent> eventHandler);
