@@ -3,8 +3,6 @@ import entities.UserAccountEntity;
 import gateways.*;
 import org.json.simple.*;
 
-import entities.User;
-import netscape.javascript.JSObject;
 import presenters.LoginPresenter;
 import usecases.*;
 
@@ -12,7 +10,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Scanner;
 
 /**
  * A Controller class which deals with users logging in and creating new accounts.
@@ -25,6 +22,7 @@ import java.util.Scanner;
 public class LoginController {
     private ArrayList<String[]> Accounts;
     protected UserManager um;
+    protected UserAccountManager uam;
     protected RoomManager rm;
     protected UserController controller;
     protected LoginLogManager llm;
@@ -41,10 +39,12 @@ public class LoginController {
         UserGateway ug = new UserGateway();
         RoomGateway rg = new RoomGateway();
         LoginLogGateway llg = new LoginLogGateway();
+        UserAccountGateway uag = new UserAccountGateway();
 
         this.um = ug.deserializeData();
         this.rm = rg.deserializeData();
         this.llm = llg.deserializeData();
+        this.uam = uag.deserializeData();
 
         //Get list of all existing accounts from the user manager
         this.Accounts = um.getAccountInfo();
