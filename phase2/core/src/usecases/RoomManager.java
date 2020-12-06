@@ -5,10 +5,7 @@ import entities.Room;
 import org.json.simple.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * A Use Case class that stores the rooms of the conference and updates the appropriate attributes of the rooms
@@ -58,6 +55,10 @@ public class RoomManager implements Serializable {
 
     private Room getRoom(String roomName){
         return this.allRooms.get(roomName);
+    }
+
+    public int getRoomCapacity(String name){
+        return this.getRoom(name).getCapacity();
     }
 
     /**
@@ -111,8 +112,8 @@ public class RoomManager implements Serializable {
      * @return  a set containing all of the room names
      */
 
-    public ArrayList<String> getAllRoomsWith(ArrayList<Boolean> constraints, int eventCap){
-        ArrayList<String> possibleRooms = new ArrayList<>();
+    public List<String> getAllRoomsWith(List<Boolean> constraints, int eventCap){
+        List<String> possibleRooms = new ArrayList<>();
         for (Map.Entry<String, Room> room : this.allRooms.entrySet()){
             Room thisRoom = room.getValue();
             if (thisRoom.hasChairs() == constraints.get(0)
