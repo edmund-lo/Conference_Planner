@@ -138,7 +138,10 @@ public class LoginController {
 
     //Returns true if past 3 logins were failed logins, false otherwise.
     public boolean suspiciousLogs(String Username){
-        ArrayList<LoginLog> RecentLogs = llm.getLoginLog(Username);
+        if (!llm.checkLogExists(Username))
+            return false;
+
+        ArrayList<LoginLog> RecentLogs = llm.getUserLogs(Username);
         int strike = 0;
 
         for (LoginLog log : RecentLogs) {
