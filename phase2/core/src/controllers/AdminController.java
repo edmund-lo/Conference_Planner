@@ -117,4 +117,18 @@ public class AdminController extends UserController{
         return ap.invalidAttendeeNameError();
     }
 
+    /**
+     * Removes an event with no attendees
+     *
+     * @param eventID the event
+     * @return a JSON object containing the status and description of the action
+     */
+    public JSONObject removeEvent(String eventID) {
+        if(em.eventIsEmpty(eventID)) {
+            return ap.removeEventResult();
+        } else {
+            return ap.eventNotEmptyError();
+        }
+    }
+
 }
