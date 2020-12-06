@@ -75,5 +75,18 @@ public class LoginLogManager implements Serializable {
         return this.all_Logs.keySet();
     }
 
+    public JSONObject getAllLogsJson(){
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
 
+        for(String ID: all_Logs.keySet())
+            item.put(ID, all_Logs.get(ID).convertToJSON());
+
+        array.add(item);
+
+        json.put("LoginLogs", array);
+
+        return json;
+    }
 }

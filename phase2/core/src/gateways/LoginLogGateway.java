@@ -78,7 +78,7 @@ public class LoginLogGateway implements GatewayInterface<LoginLogManager>, Seria
         }
         //Return LoginLogManager
         return llm;
-
     }
+
 }
 
