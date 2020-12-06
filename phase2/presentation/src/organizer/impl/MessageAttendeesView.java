@@ -112,13 +112,18 @@ public class MessageAttendeesView implements IMessageUsersView {
     }
 
     @Override
-    public void setResultMsg(String resultMsg) {
-        this.resultText.setText(resultMsg);
+    public void setResultText(String resultText) {
+        this.resultText.setText(resultText);
     }
 
     @Override
     public TextField getRecipientsField() {
         return this.recipients;
+    }
+
+    @Override
+    public TextArea getContentArea() {
+        return this.content;
     }
 
     @Override

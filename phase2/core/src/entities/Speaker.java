@@ -19,10 +19,11 @@ public class Speaker extends User implements Serializable {
      * Constructor for a Speaker that inherits from User. Initializes an empty hashmap for a speaker's schedule.
      *
      * @param username the username of the User
-     * @param password the password of the User
+     * @param firstName the user's firstName
+     * @param lastName the user's lastName
      */
-    public Speaker(String username, String password) {
-        super(username, password);
+    public Speaker(String username, String firstName, String lastName) {
+        super(username, firstName, lastName);
         this.speakerSchedule = new HashMap<>();
     }
 
@@ -87,8 +88,9 @@ public class Speaker extends User implements Serializable {
 
         json.put("type", "Speaker");
 
-        item.put("password", getPassword());
         item.put("username", getUsername());
+        item.put("firstName", getFirstName());
+        item.put("lastName", getLastName());
         item.put("schedule", getSchedule());
         item.put("sent Messages", getSentMessages());
         item.put("received Messages", getReceivedMessages());

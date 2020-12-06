@@ -80,17 +80,4 @@ public class UserAccount {
     public void setSetSecurity(boolean setSecurity) {
         this.setSecurity.set(setSecurity);
     }
-
-    public JSONArray getJSON() {
-        JSONObject json = new JSONObject();
-        JSONArray array = new JSONArray();
-
-        json.put("Username", username);
-        json.put("Account Type", userType);
-
-        array.add(json);
-
-        return array;
-
-    }
 }
