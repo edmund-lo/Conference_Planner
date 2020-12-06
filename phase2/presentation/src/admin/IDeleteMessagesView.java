@@ -6,17 +6,17 @@ import javafx.event.EventHandler;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import model.Message;
+import model.MessageThread;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 public interface IDeleteMessagesView extends ILoggedInView {
-    TableView<Message> getMessageTable();
-    TableColumn<Message, String> getSenderNameColumn();
-    TableColumn<Message, String> getContentColumn();
-    TableColumn<Message, Boolean> getCheckedColumn();
-    TableColumn<Message, LocalDateTime> getMessageTimeColumn();
+    TableView<MessageThread> getMessageTable();
+    TableColumn<MessageThread, String> getSenderNameColumn();
+    TableColumn<MessageThread, String> getContentColumn();
+    TableColumn<MessageThread, Boolean> getCheckedColumn();
+    TableColumn<MessageThread, LocalDateTime> getMessageTimeColumn();
     TextField getRecipientsField();
 
     void setSummarySenderName(String senderName);
