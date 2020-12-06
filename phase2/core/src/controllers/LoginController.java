@@ -102,7 +102,6 @@ public class LoginController {
     public JSONObject login(String Username, String Password){
         boolean UsernameExists = false;
         boolean PasswordExists = false;
-        String AccountType = "";
 
         //Go through all existing account to see if username entered exists in the database.
         for (String[] users : Accounts){
@@ -148,7 +147,6 @@ public class LoginController {
             if (log.getCondition().equals("Failed Login"))
                 strike++;
         }
-
         return strike == 3;
     }
 

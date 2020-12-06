@@ -1,5 +1,6 @@
 package presenters;
 import org.json.simple.*;
+import presenters.PresenterUtil;
 
 /**
  * A Presenter class that provides output to the user at time of login.
@@ -70,6 +71,6 @@ public class LoginPresenter {
     }
 
     public JSONObject SuccessfulLogin(JSONArray data) {
-        return pu.createJSON("success", "Login Successful!", data);
+        return pu.createJSON("success", "Login Successful!", "JSONArray", data);
     }
 }
