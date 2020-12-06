@@ -1,39 +1,53 @@
 package admin.impl;
 
+import adapter.UserAccountAdapter;
 import admin.IUnlockAccountsPresenter;
 import admin.IUnlockAccountsView;
+import controllers.AdminController;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.LoginLog;
 import model.UserAccount;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import util.DateTimeUtil;
-
+import util.TextResultUtil;
 import java.util.List;
 
 public class UnlockAccountsPresenter implements IUnlockAccountsPresenter {
     private IUnlockAccountsView view;
+    private AdminController ac;
+    private UserAccount selectedAccount;
 
     public UnlockAccountsPresenter(IUnlockAccountsView view) {
         this.view = view;
+        this.ac = new AdminController(this.view.getSessionUsername());
         init();
     }
 
     @Override
     public void unlockButtonAction(ActionEvent actionEvent) {
-        clearResult();
+        clearResultText();
 
-        //call ac.unlockAccount method
+        //JSONObject responseJson = ac.unlockAccount(selectedAccount.getUsername());
+        JSONObject responseJson = new JSONObject();
+        setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
+        if (responseJson.get("status").equals("success")) init();
     }
 
     @Override
-    public void setResultText(String resultText) {
+    public void setResultText(String resultText, String status) {
         this.view.setResultText(resultText);
+        TextResultUtil.getInstance().addPseudoClass(status, this.view.getResultTextControl());
     }
 
     @Override
     public List<UserAccount> getUserAccounts() {
-        return null;
+        //JSONObject responseJson = ac.getAllAccounts();
+        JSONObject responseJson = new JSONObject();
+        return UserAccountAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
+
     }
 
     @Override
@@ -72,8 +86,9 @@ public class UnlockAccountsPresenter implements IUnlockAccountsPresenter {
         displayUserAccounts(accounts);
     }
 
-    private void clearResult() {
+    private void clearResultText() {
         this.view.setResultText("");
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl());
     }
 
     private void handleSelect(UserAccount account) {

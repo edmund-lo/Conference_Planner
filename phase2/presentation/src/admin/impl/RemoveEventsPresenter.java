@@ -13,7 +13,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import util.DateTimeUtil;
 import util.TextResultUtil;
-
 import java.util.List;
 
 public class RemoveEventsPresenter implements IRemoveEventsPresenter {
