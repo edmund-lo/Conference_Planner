@@ -25,7 +25,7 @@ public class MessageSpeakersPresenter implements IMessageUsersPresenter {
 
     @Override
     public void sendButtonAction(ActionEvent actionEvent) {
-        clearResult();
+        clearResultText();
 
         JSONObject queryJson = constructMessageJson();
         //JSONObject responseJson = oc.sendAllSpeakers(queryJson);
@@ -106,7 +106,7 @@ public class MessageSpeakersPresenter implements IMessageUsersPresenter {
         return queryJson;
     }
 
-    private void clearResult() {
+    private void clearResultText() {
         this.view.setResultText("");
         TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl());
         TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getContentArea());

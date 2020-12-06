@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ISpeakerEventsPresenter extends IPresenter {
     void sendButtonAction(ActionEvent actionEvent);
-    void setResult(String result);
+    void setResultText(String resultText, String status);
     List<ScheduleEntry> getAllSpeakerEvents();
     void displaySpeakerEvents(List<ScheduleEntry> speakerSchedule);
     void displayEventDetails(ScheduleEntry event);

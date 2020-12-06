@@ -98,6 +98,11 @@ public class SpeakerEventsView implements ISpeakerEventsView {
     }
 
     @Override
+    public TextArea getContentArea() {
+        return this.content;
+    }
+
+    @Override
     public void setSummaryEventName(String eventName) {
         this.summaryEventName.setText(eventName);
     }
@@ -165,8 +170,8 @@ public class SpeakerEventsView implements ISpeakerEventsView {
     }
 
     @Override
-    public void setResultMsg(String resultMsg) {
-        this.resultText.setText(resultMsg);
+    public void setResultText(String resultText) {
+        this.resultText.setText(resultText);
     }
 
     @Override

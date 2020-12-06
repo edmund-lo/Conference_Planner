@@ -3,7 +3,6 @@ package organizer.impl;
 import adapter.UserAdapter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.User;
@@ -13,7 +12,6 @@ import organizer.IMessageUsersPresenter;
 import organizer.IMessageUsersView;
 import util.TextResultUtil;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,7 +26,7 @@ public class MessageAttendeesPresenter implements IMessageUsersPresenter {
 
     @Override
     public void sendButtonAction(ActionEvent actionEvent) {
-        clearResult();
+        clearResultText();
 
         JSONObject queryJson = constructMessageJson();
         //JSONObject responseJson = oc.sendAllSpeakers(queryJson);
@@ -108,7 +106,7 @@ public class MessageAttendeesPresenter implements IMessageUsersPresenter {
         return queryJson;
     }
 
-    private void clearResult() {
+    private void clearResultText() {
         this.view.setResultText("");
         TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl());
         TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getContentArea());
