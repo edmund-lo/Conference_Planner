@@ -17,32 +17,34 @@ public class SpeakerPresenter extends UserPresenter {
     }
 
     /**
-     * Outputs confirmation success of sending message to attendees of event name event
-     *
+     * Notifies user of their success of sending message to attendees of event name event
      * @param event name of the event
+     * @return method description in JSONObject format
      */
     public JSONObject messageEventAttendeesResult(String event) {
         return pu.createJSON("success", "Successfully sent message to attendees of " + event + ".");
     }
 
     /**
-     * Outputs label that indicates error for an invalid event number
+     * Notifies user that their input for the event number is formatted incorrectly
+     * @return method description in JSONObject format
      */
     public JSONObject invalidEventNumberError() {
         return pu.createJSON("warning", "Event number is formatted incorrectly!");
     }
 
     /**
-     * Outputs error that the speaker has no events that he/she is speaking at.
+     * Notifies user that they are not speaking at any events
+     * @return method description in JSONObject format
      */
     public JSONObject noSpeakerEventsError() {
         return pu.createJSON("error", "You are not speaking at any events!");
     }
 
     /**
-     * Outputs error label for failing to message all attendees of event name event
-     *
+     * Notifies user that they were unable to message attendees of event
      * @param event name of event
+     * @return method description in JSONObject format
      */
     public JSONObject messageEventAttendeesError(String event) {
         return pu.createJSON("error", "Unable to message attendees of " + event + "!");
