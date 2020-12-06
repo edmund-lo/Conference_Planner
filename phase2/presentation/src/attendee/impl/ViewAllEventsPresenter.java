@@ -3,6 +3,7 @@ package attendee.impl;
 import adapter.ScheduleAdapter;
 import attendee.IViewEventsPresenter;
 import attendee.IViewEventsView;
+import controllers.AttendeeController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,6 +18,7 @@ import java.util.List;
 
 public class ViewAllEventsPresenter implements IViewEventsPresenter {
     private IViewEventsView view;
+    private AttendeeController ac;
 
     public ViewAllEventsPresenter(IViewEventsView view) {
         this.view = view;

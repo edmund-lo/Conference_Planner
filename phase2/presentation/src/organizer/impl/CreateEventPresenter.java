@@ -1,7 +1,7 @@
 package organizer.impl;
 
 import adapter.ScheduleAdapter;
-//import controllers.OrganizerController;
+import controllers.OrganizerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
@@ -23,12 +23,12 @@ import java.util.List;
 
 public class CreateEventPresenter implements ICreateEventPresenter {
     private ICreateEventView view;
-//    private OrganizerController oc;
+    private OrganizerController oc;
     private final ObservableSet<CheckBox> selectedAmenities = FXCollections.observableSet();
 
     public CreateEventPresenter(ICreateEventView view) {
         this.view = view;
-//        this.oc = new OrganizerController(this.view.getSessionUsername());
+        this.oc = new OrganizerController(this.view.getSessionUsername());
         init();
     }
 
@@ -85,6 +85,7 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         this.view.setSummaryStart(this.view.getStart());
         this.view.setSummaryEnd(this.view.getEnd());
         this.view.setSummaryAmenities(amenitiesToString());
+        this.view.setSummaryVipEvent(this.view.getVipEvent());
 
         this.view.getTitledPane(2).setDisable(true);
         this.view.getTitledPane(3).setDisable(false);
@@ -196,7 +197,7 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         JSONObject queryJson = new JSONObject();
         queryJson.put("eventName", this.view.getEventName());
         queryJson.put("capacity", this.view.getCapacity());
-        queryJson.put("vip", Boolean.FALSE); //implement VIP checkbox
+        queryJson.put("vip", this.view.getVipEvent().equals("Yes"));
         queryJson.put("roomName", this.view.getRoomName());
         queryJson.put("start", this.view.getStart());
         queryJson.put("end", this.view.getEnd());

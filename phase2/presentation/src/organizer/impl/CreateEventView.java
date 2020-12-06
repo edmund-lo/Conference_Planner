@@ -3,10 +3,7 @@ package organizer.impl;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -34,6 +31,8 @@ public class CreateEventView implements ICreateEventView {
     @FXML
     private CheckBox amenity4;
     @FXML
+    private ChoiceBox<String> vipEvent;
+    @FXML
     private DateTimePicker eventStart;
     @FXML
     private DateTimePicker eventEnd;
@@ -49,6 +48,8 @@ public class CreateEventView implements ICreateEventView {
     private Text summaryEnd;
     @FXML
     private Text summaryAmenities;
+    @FXML
+    private Text summaryVipEvent;
     @FXML
     private Text resultText1;
     @FXML
@@ -137,6 +138,16 @@ public class CreateEventView implements ICreateEventView {
     }
 
     @Override
+    public String getVipEvent() {
+        return this.vipEvent.getValue();
+    }
+
+    @Override
+    public void setVipEvent(String vipEvent) {
+        this.vipEvent.setValue(vipEvent);
+    }
+
+    @Override
     public String getRoomName() {
         return this.roomName.getValue();
     }
@@ -194,6 +205,11 @@ public class CreateEventView implements ICreateEventView {
     @Override
     public void setSummaryAmenities(String amenities) {
         this.summaryAmenities.setText(amenities);
+    }
+
+    @Override
+    public void setSummaryVipEvent(String vipEvent) {
+        this.summaryVipEvent.setText(vipEvent);
     }
 
     @Override

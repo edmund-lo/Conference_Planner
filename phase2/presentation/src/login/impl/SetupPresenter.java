@@ -1,6 +1,6 @@
 package login.impl;
 
-//import controllers.LoginController;
+import controllers.LoginController;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import login.IRegisterPresenter;
@@ -11,10 +11,11 @@ import util.TextResultUtil;
 
 public class SetupPresenter implements IRegisterPresenter {
     private IRegisterView view;
-//    private LoginController lc;
+    private LoginController lc;
 
     public SetupPresenter(IRegisterView view) {
         this.view = view;
+        this.lc = new LoginController();
         init();
     }
 
