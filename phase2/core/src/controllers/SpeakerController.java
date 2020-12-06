@@ -23,49 +23,11 @@ public class SpeakerController extends UserController {
     /**
      * Constructor for SpeakerController object. Uses constructor from UserController.
      *
-     * @param em  current session's EventManager class.
-     * @param um  current session's UserManager class.
-     * @param rm  current session's RoomManager class.
-     * @param mm  current session's MessageManager class.
      * @param username current logged in user's username.
      */
-    public SpeakerController(EventManager em, UserManager um, RoomManager rm, MessageManager mm, String username) {
-        super(em, um, rm, mm, username);
+    public SpeakerController(String username) {
+        super(username);
         sp = new SpeakerPresenter();
-
-        boolean inSession = true;
-        // Enters a while loop that allows the user to continuously use Speaker and Attendee functions
-        while(inSession) {
-            sp.displayMenu("Speaker", username);
-            String option = input.nextLine();
-            switch(option) {
-                case "0":
-                    logout();
-                    inSession = false;
-                    break;
-                case "1":
-                    signUpMenu();
-                    break;
-                case "2":
-                    cancelMenu();
-                    break;
-                case "3":
-                    messageMenu();
-                    break;
-                case "4":
-                    viewEventsMenu();
-                    break;
-                case "5":
-                    messageEventsAttendeesCmd();
-                    break;
-                case "6":
-                    getDisplaySpeakerEvents();
-                    break;
-                default:
-                    sp.invalidOptionError();
-                    break;
-            }
-        }
     }
 
     /**
