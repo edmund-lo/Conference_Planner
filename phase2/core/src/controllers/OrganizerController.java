@@ -127,19 +127,28 @@ public class OrganizerController extends UserController {
         return op.listEvents(allEvents);
     }
 
-    public JSONObject listSpeakers() {
+    public JSONObject listSpeakers(String eventID) {
         List<String> allSpeakers = um.getAllSpeakerNames();
         return op.listSpeakers(allSpeakers);
+    }
+
+    public JSONObject listAvailableSpeakers(String eventID) {
+        List<String> allSpeakers = um.getAllSpeakerNames();
+        List<String> availableSpeakers = new ArrayList<>();
+        for (String speaker : allSpeakers) {
+            if (um.canAddSpeakerEvent(speaker, eventID, em.getEventStartTime(eventID), em.getEventEndTime(eventID))) {
+                availableSpeakers.add(speaker);
+            }
+        }
+        return op.listSpeakers(availableSpeakers);
     }
 
     /**
      * Called when user chooses to schedule a speaker to an event.
      */
     public JSONObject scheduleSpeakerCmd(String eventID, String speakerName) {
-        List<String> allSpeakers = um.getAllSpeakerNames();
-        List<String> allEvents = getAllEvents();
 
-        return scheduleSpeaker(allSpeakers.get(speakerName), eventID); //schedule the selected speaker
+        return scheduleSpeaker(speakerName, eventID); //schedule the selected speaker
     }
 
     /**
