@@ -197,6 +197,20 @@ public class EventManager implements Serializable {
     }
 
     /**
+     * getter for a list of all the VIP events in the system
+     * @return A arraylist of all the VIP events' names in the system
+     */
+    public ArrayList<String> getAllVipEvents(){
+        ArrayList<String> events = new ArrayList<>();
+        for(String eventID: allEvents.keySet()){
+            if(isEventVip(eventID)){
+                events.add(getEventName(eventID));
+            }
+        }
+        return events;
+    }
+
+    /**
      * changes the time of event with ID eventID to start at startTime and to end at endTime
      * @param eventID the ID of the event
      * @param startTime the new start time
