@@ -3,14 +3,8 @@ package attendee;
 import common.ILoggedInView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.*;
 import model.Message;
-
-import java.time.LocalDateTime;
 import java.util.List;
 
 public interface IMessagingView extends ILoggedInView {
@@ -30,15 +24,15 @@ public interface IMessagingView extends ILoggedInView {
     TableView<Message> getPrimaryInbox();
     TableColumn<Message, String> getPrimaryMembersColumn();
     TableColumn<Message, String> getPrimarySubjectColumn();
-    VBox getPrimaryThreadContainer();
+    ScrollPane getPrimaryThreadContainer();
     TableView<Message> getArchivedInbox();
     TableColumn<Message, String> getArchivedMembersColumn();
     TableColumn<Message, String> getArchivedSubjectColumn();
-    VBox getArchivedThreadContainer();
+    ScrollPane getArchivedThreadContainer();
     TableView<Message> getTrashInbox();
     TableColumn<Message, String> getTrashMembersColumn();
     TableColumn<Message, String> getTrashSubjectColumn();
-    VBox getTrashThreadContainer();
+    ScrollPane getTrashThreadContainer();
     TabPane getTabPane();
 
     EventHandler<ActionEvent> getNewMessageButtonAction();
