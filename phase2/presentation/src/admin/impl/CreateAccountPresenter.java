@@ -1,13 +1,10 @@
 package admin.impl;
 
-//import Controllers.ILoginController
 import controllers.AdminController;
-import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import admin.ICreateAccountPresenter;
 import admin.ICreateAccountView;
 import org.json.simple.JSONObject;
-import org.w3c.dom.Text;
 import util.TextResultUtil;
 
 public class CreateAccountPresenter implements ICreateAccountPresenter {

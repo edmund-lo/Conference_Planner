@@ -1,7 +1,7 @@
 package login.impl;
 
 import adapter.UserAccountAdapter;
-//import controllers.LoginController;
+import controllers.LoginController;
 import javafx.event.ActionEvent;
 import login.ILoginPresenter;
 import login.ILoginView;
@@ -13,11 +13,11 @@ import util.TextResultUtil;
 
 public class LoginPresenter implements ILoginPresenter {
     private ILoginView view;
-//    private LoginController lc;
+    private LoginController lc;
 
     public LoginPresenter(ILoginView view) {
         this.view = view;
-        //this.lc = new LoginController();
+        this.lc = new LoginController();
         init();
     }
 
@@ -25,8 +25,7 @@ public class LoginPresenter implements ILoginPresenter {
     public void loginButtonAction(ActionEvent actionEvent) {
         clearResultText();
 
-        //JSONObject responseJson = lc.login(this.view.getUsername(), this.view.getPassword());
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = lc.login(this.view.getUsername(), this.view.getPassword());
         if (responseJson.get("status").equals("success")) {
             UserAccount userAccount = UserAccountAdapter.getInstance()
                     .adaptData((JSONArray) responseJson.get("data")).get(0);
