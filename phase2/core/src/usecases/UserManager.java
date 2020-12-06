@@ -467,6 +467,49 @@ public class UserManager implements Serializable {
         return usernames;
     }
 
+    public boolean canBeFriend(String user, String friend){
+        if (allUsers.get(friend).getFriendRequest().contains(user))
+            return false;
+        if (allUsers.get(friend).getFriendsList().contains(user))
+            return false;
+        if (allUsers.get(user).getFriendsList().contains(friend))
+            return false;
+        return true;
+    }
+
+    public void sendFriendRequest(String user, String friend){
+        allUsers.get(friend).getFriendRequest().add(user);
+    }
+
+    public void addFriend(String user, String friend){
+        allUsers.get(user).addFriend(friend);
+        allUsers.get(friend).addFriend(user);
+    }
+
+    public void removeFriend(String user, String friend){
+        allUsers.get(user).removeFriend(friend);
+        allUsers.get(friend).removeFriend(user);
+    }
+
+    public void declineRequest(String user, String friend){
+        allUsers.get(user).getFriendRequest().remove(friend);
+    }
+
+    public JSONObject getAllFriendsJson(String username){
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+
+        for(String ID: allUsers.get(username).getFriendsList())
+            item.put(ID, allUsers.get(ID).convertToJSON());
+
+        array.add(item);
+
+        json.put("Users", array);
+
+        return json;
+    }
+
     public JSONObject getAllUsersJson(){
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
