@@ -1,32 +1,45 @@
 package attendee.impl;
 
 import adapter.MessageAdapter;
+import adapter.UserAdapter;
 import attendee.IMessagingPresenter;
 import attendee.IMessagingView;
 import controllers.AttendeeController;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import model.Message;
-import model.ScheduleEntry;
+import model.User;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import util.TextResultUtil;
-
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MessagingPresenter implements IMessagingPresenter {
     private IMessagingView view;
     private AttendeeController ac;
+    private ObservableList<User> users;
     private Message selectedPrimaryMessage;
     private Message selectedArchivedMessage;
     private Message selectedTrashMessage;
+    private CheckBox selectAll;
+    private TextField senderField;
+    private TextField recipientsField;
+    private TextField subjectField;
+    private TextArea contentArea;
 
     public MessagingPresenter(IMessagingView view) {
         this.view = view;
-        //this.ac = new AttendeeController();
+        this.ac = new AttendeeController(this.view.getSessionUsername());
         init();
     }
 
@@ -34,27 +47,83 @@ public class MessagingPresenter implements IMessagingPresenter {
     public void replyButtonAction(ActionEvent actionEvent) {
         clearResultText();
 
-
+        //JSONObject responseJson = ac.reply(this.selectedPrimaryMessage);
+        JSONObject responseJson = new JSONObject();
+        setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
+        if (responseJson.get("status").equals("success")) refreshAllInboxes();
     }
 
     @Override
     public void newMessageButtonAction(ActionEvent actionEvent) {
+        SplitPane splitPane = new SplitPane();
 
+        TableView<User> userTable = new TableView<User>();
+        this.selectAll = new CheckBox();
+
+        TableColumn<User, Boolean> checkedColumn = new TableColumn<>();
+        checkedColumn.setGraphic(selectAll);
+        TableColumn<User, String> firstNameColumn = new TableColumn<>("First Name");
+        TableColumn<User, String> lastNameColumn = new TableColumn<>("Last Name");
+        TableColumn<User, String> usernameColumn = new TableColumn<>("Username");
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
+        userTable.getColumns().add(firstNameColumn);
+        userTable.getColumns().add(lastNameColumn);
+        userTable.getColumns().add(usernameColumn);
+
+        GridPane gridPane = new GridPane();
+        Label senderLabel = new Label("From:");
+        this.senderField = new TextField(this.view.getSessionUsername());
+        this.senderField.setEditable(false);
+        Label recipientsLabel = new Label("To:");
+        this.recipientsField = new TextField();
+        this.recipientsField.setEditable(false);
+        Label subjectLabel = new Label("Subject:");
+        this.subjectField = new TextField();
+        Label contentLabel = new Label("Message:");
+        this.contentArea = new TextArea();
+        Button sendButton = new Button("Send Message");
+        sendButton.setOnAction(this::sendButtonAction);
+
+        //JSONObject responseJson = ac.getAllMessageableUsers();
+        JSONObject responseJson = new JSONObject();
+        List<User> users = UserAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
+        this.users = FXCollections.observableArrayList(users);
+        userTable.setItems(this.users);
+        userTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> updateRecipientList(recipientsField));
+
+        gridPane.setAlignment(Pos.CENTER);
+        gridPane.addRow(0, senderLabel, senderField);
+        gridPane.addRow(1, recipientsLabel, recipientsField);
+        gridPane.addRow(2, subjectLabel, subjectField);
+        gridPane.addRow(3, contentLabel, contentArea);
+        gridPane.addRow(5, sendButton);
+
+        splitPane.getItems().add(userTable);
+        splitPane.getItems().add(gridPane);
+        Tab newMessageTab = new Tab("New Message Thread", splitPane);
+        this.view.getTabPane().getTabs().add(newMessageTab);
+        this.view.getTabPane().getSelectionModel().selectLast();
     }
 
     @Override
     public void moveToTrashButtonAction(ActionEvent actionEvent) {
-
+        //ac.moveToTrash(this.selectedPrimaryMessage.getMessageId());
+        refreshAllInboxes();
     }
 
     @Override
     public void moveToArchivedButtonAction(ActionEvent actionEvent) {
-
+        //ac.moveToArchive(this.selectedPrimaryMessage.getMessageId());
+        refreshAllInboxes();
     }
 
     @Override
     public void moveToPrimaryButtonAction(ActionEvent actionEvent) {
-
+        //ac.moveToPrimary(this.selectedPrimaryMessage.getMessageId());
+        refreshAllInboxes();
     }
 
     @Override
@@ -82,10 +151,46 @@ public class MessagingPresenter implements IMessagingPresenter {
 
     @Override
     public void displayInbox(List<Message> messages, String type) {
+        ObservableList<Message> observableInbox = FXCollections.observableArrayList(messages);
+
         switch (type) {
             case "primary":
-                //this.view.getPrimaryMembersColumn().setCellValueFactory(new PropertyValueFactory<>());
+                this.view.getPrimaryMembersColumn().setCellValueFactory(cdf ->
+                        new SimpleStringProperty(getMessageMembers(cdf.getValue().getRecipientNames())));
                 this.view.getPrimarySubjectColumn().setCellValueFactory(new PropertyValueFactory<>("subject"));
+                this.view.getPrimaryInbox().setItems(observableInbox);
+                this.view.getPrimaryInbox().getSelectionModel().selectedItemProperty().addListener(
+                        (observable, oldValue, newValue) -> displayMessageThread(newValue, type));
+                break;
+            case "archived":
+                this.view.getArchivedMembersColumn().setCellValueFactory(cdf ->
+                        new SimpleStringProperty(getMessageMembers(cdf.getValue().getRecipientNames())));
+                this.view.getArchivedSubjectColumn().setCellValueFactory(new PropertyValueFactory<>("subject"));
+                this.view.getArchivedInbox().setItems(observableInbox);
+                this.view.getArchivedInbox().getSelectionModel().selectedItemProperty().addListener(
+                        (observable, oldValue, newValue) -> displayMessageThread(newValue, type));
+                break;
+            case "trash":
+                this.view.getTrashMembersColumn().setCellValueFactory(cdf ->
+                        new SimpleStringProperty(getMessageMembers(cdf.getValue().getRecipientNames())));
+                this.view.getTrashSubjectColumn().setCellValueFactory(new PropertyValueFactory<>("subject"));
+                this.view.getTrashInbox().setItems(observableInbox);
+                this.view.getTrashInbox().getSelectionModel().selectedItemProperty().addListener(
+                        (observable, oldValue, newValue) -> displayMessageThread(newValue, type));
+                break;
+        }
+    }
+
+    @Override
+    public void displayMessageThread(Message message, String type) {
+        //ac.setMessageRead(message.getMessageId());
+        switch (type) {
+            case "primary":
+                this.selectedPrimaryMessage = message;
+                this.view.setPrimarySender(message.getSenderName());
+                this.view.setPrimaryRecipientNames(message.getRecipientNames());
+                this.view.setPrimarySubject(message.getSubject());
+                //this.view.getPrimaryThreadContainer().getChildren().
                 break;
             case "archived":
                 //responseJson = ac.getArchivedMessages();
@@ -94,11 +199,6 @@ public class MessagingPresenter implements IMessagingPresenter {
                 //responseJson = ac.getTrashMessages();
                 break;
         }
-    }
-
-    @Override
-    public void displayMessageThread(Message message, String type) {
-
     }
 
     @Override
@@ -121,28 +221,58 @@ public class MessagingPresenter implements IMessagingPresenter {
         displayInbox(trashInbox, "trash");
     }
 
-    /*private void setScheduleDateTimeCellFactory(TableColumn<Message, String> column) {
-        column.setCellFactory(c -> new TableCell<>() {
-            @Override
-            protected void updateItem(List<String> dateTime, boolean empty) {
-                super.updateItem(dateTime, empty);
-                if (empty)
-                    setText(null);
-                else
-                    this.setText(format(dateTime));
-            }
-        });
-    }*/
-
     private String getMessageMembers(List<String> recipients) {
         StringBuilder sb = new StringBuilder();
-        String prefix = "";
         for (String name : recipients) {
-            sb.append(prefix);
             sb.append(name);
-            prefix = ", ";
+            sb.append(", ");
         }
+        sb.append("me");
         return sb.toString();
+    }
+
+    private List<HBox> alignMessageHistory() {
+        List<HBox> messageHistory = new ArrayList<>();
+
+        return messageHistory;
+    }
+
+    private void selectAllAction(ActionEvent actionEvent) {
+        boolean checked = this.selectAll.isSelected();
+        for (User u : this.users)
+            u.setChecked(checked);
+    }
+
+    private void updateRecipientList(TextField recipientField) {
+        StringBuilder sb = new StringBuilder();
+        String prefix = "";
+        for (User u : this.users) {
+            if (u.getChecked()) {
+                sb.append(prefix);
+                prefix = ", ";
+                sb.append(u.getUsername());
+            }
+        }
+        recipientField.setText(sb.toString());
+    }
+
+    public void sendButtonAction(ActionEvent actionEvent) {
+        JSONObject queryJson = constructMessageJson();
+        //JSONObject responseJson = oc.sendNewMessage(queryJson);
+        JSONObject responseJson = new JSONObject();
+        setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
+    }
+
+    @SuppressWarnings("unchecked")
+    private JSONObject constructMessageJson() {
+        JSONObject queryJson = new JSONObject();
+        JSONArray recipients = new JSONArray();
+        recipients.addAll(Arrays.asList(this.recipientsField.getText().split(", ")));
+        queryJson.put("sender", this.senderField.getText());
+        queryJson.put("recipients", recipients);
+        queryJson.put("subject", this.subjectField.getText());
+        queryJson.put("content", this.contentArea.getText());
+        return queryJson;
     }
 
     private void clearResultText() {

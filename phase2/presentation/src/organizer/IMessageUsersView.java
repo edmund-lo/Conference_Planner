@@ -22,6 +22,8 @@ public interface IMessageUsersView extends ILoggedInView {
     void setRecipients(String recipients);
     String getContent();
     void setContent(String content);
+    String getSubject();
+    void setSubject(String subject);
     void setResultText(String resultText);
 
     EventHandler<ActionEvent> getSendButtonAction();

@@ -53,7 +53,7 @@
                                     </HBox>
                                 </right>
                             </BorderPane>
-                            <VBox fx:id="primaryThreadContainer" />
+                            <ScrollPane fx:id="primaryThreadContainer" />
                         </center>
                         <bottom>
                             <GridPane alignment="CENTER" hgap="10" vgap="10">
@@ -97,7 +97,7 @@
                                     <Button fx:id="primaryButton1" onAction="#executeAddPrimaryFirst" text="Move Back"/>
                                 </right>
                             </BorderPane>
-                            <VBox fx:id="archivedThreadContainer" />
+                            <ScrollPane fx:id="archivedThreadContainer" />
                         </center>
                     </BorderPane>
                 </SplitPane>
@@ -130,7 +130,7 @@
                                     <Button fx:id="primaryButton2" onAction="#executeAddPrimarySecond" text="Move Back"/>
                                 </right>
                             </BorderPane>
-                            <VBox fx:id="trashThreadContainer" />
+                            <ScrollPane fx:id="trashThreadContainer" />
                         </center>
                     </BorderPane>
                 </SplitPane>
