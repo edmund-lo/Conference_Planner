@@ -220,12 +220,8 @@ public abstract class UserController {
     }
 
     public JSONObject addFriend(String username){
-        if (um.canBeFriend(this.username, username)){
-            um.addFriend(this.username, username);
-            return up.friendAdded(username);
-        }
-        return up.cantAddFriend(username);
-
+        um.addFriend(this.username, username);
+        return up.friendAdded(username);
     }
 
     public JSONObject removeFriend(String username){
