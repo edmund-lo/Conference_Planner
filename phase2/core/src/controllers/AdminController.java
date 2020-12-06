@@ -23,16 +23,37 @@ public class AdminController extends UserController{
     }
 
     /**
-     * Creates a new attendee account after performing necessary checks
+     * Creates a new account for the specified user type
      *
      * @param register JSONObject containing user info
      * @return a JSON object containing the status and description of the action
      */
-    public JSONObject createAttendeeAccount(JSONObject register) {
+    public JSONObject createAccount(JSONObject register) {
         String username = String.valueOf(register.get("username"));
         String firstName = String.valueOf(register.get("firstName"));
         String lastName = String.valueOf(register.get("lastName"));
+        String userType = String.valueOf(register.get("userType"));
 
+        if (userType.equals("attendee")) {
+            return createAttendeeAccount(username, firstName, lastName);
+        } else if (userType.equals("organizer")) {
+            return createOrganizerAccount(username, firstName, lastName);
+        } else if (userType.equals("speaker")) {
+            return createSpeakerAccount(username, firstName, lastName);
+        } else {
+            return ap.invalidUserTypeError();
+        }
+    }
+
+    /**
+     * Creates a new attendee account after performing necessary checks
+     *
+     * @param username the username
+     * @param firstName the first name
+     * @param lastName the last name
+     * @return a JSON object containing the status and description of the action
+     */
+    private JSONObject createAttendeeAccount(String username, String firstName, String lastName) {
         if (um.checkUniqueUsername(username)) { //ensures the username is unique
             um.createNewAttendee(username, firstName, lastName); //create new attendee
             return ap.attendeeCreationResult();
@@ -43,14 +64,12 @@ public class AdminController extends UserController{
     /**
      * Creates a new organizer account after performing necessary checks
      *
-     * @param register JSONObject containing user info
+     * @param username the username
+     * @param firstName the first name
+     * @param lastName the last name
      * @return a JSON object containing the status and description of the action
      */
-    public JSONObject createOrganizerAccount(JSONObject register) {
-        String username = String.valueOf(register.get("username"));
-        String firstName = String.valueOf(register.get("firstName"));
-        String lastName = String.valueOf(register.get("lastName"));
-
+    private JSONObject createOrganizerAccount(String username, String firstName, String lastName) {
         if (um.checkUniqueUsername(username)) { //ensures the username is unique
             um.createNewOrganizer(username, firstName, lastName); //create new organizer
             return ap.organizerCreationResult();
@@ -61,14 +80,12 @@ public class AdminController extends UserController{
     /**
      * Creates a new speaker account after performing necessary checks
      *
-     * @param register JSONObject containing user info
+     * @param username the username
+     * @param firstName the first name
+     * @param lastName the last name
      * @return a JSON object containing the status and description of the action
      */
-    public JSONObject createSpeakerAccount(JSONObject register) {
-        String username = String.valueOf(register.get("username"));
-        String firstName = String.valueOf(register.get("firstName"));
-        String lastName = String.valueOf(register.get("lastName"));
-
+    private JSONObject createSpeakerAccount(String username, String firstName, String lastName) {
         if (um.checkUniqueUsername(username)) { //ensures the username is unique
             um.createNewSpeaker(username, firstName, lastName); //create new speaker
             return ap.speakerCreationResult();
@@ -115,6 +132,20 @@ public class AdminController extends UserController{
             return ap.alreadyNotVipError();
         }
         return ap.invalidAttendeeNameError();
+    }
+
+    /**
+     * Removes an event with no attendees
+     *
+     * @param eventID the event
+     * @return a JSON object containing the status and description of the action
+     */
+    public JSONObject removeEvent(String eventID) {
+        if(em.eventIsEmpty(eventID)) {
+            return ap.removeEventResult();
+        } else {
+            return ap.eventNotEmptyError();
+        }
     }
 
 }

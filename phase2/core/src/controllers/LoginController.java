@@ -1,13 +1,8 @@
 package controllers;
+import entities.UserAccountEntity;
+import gateways.*;
 import org.json.simple.*;
 
-import entities.User;
-import gateways.EventGateway;
-import gateways.MessageGateway;
-import gateways.RoomGateway;
-import gateways.UserGateway;
-import model.UserAccount;
-import netscape.javascript.JSObject;
 import presenters.LoginPresenter;
 import usecases.*;
 
@@ -15,7 +10,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Scanner;
 
 /**
  * A Controller class which deals with users logging in and creating new accounts.
@@ -28,13 +22,14 @@ import java.util.Scanner;
 public class LoginController {
     private ArrayList<String[]> Accounts;
     protected UserManager um;
+    protected UserAccountManager uam;
     protected RoomManager rm;
     protected UserController controller;
+    protected LoginLogManager llm;
     private final LoginPresenter lp;
 
     //Stores logs for login. ArrayList of arrays of strings. First element is type (Login, Created Account, Logout)
     //Second element is username, third element is time.
-    protected static ArrayList<String[]> loginLogs;
     protected static ArrayList<String[]> securityAns;
 
     /**
@@ -43,9 +38,13 @@ public class LoginController {
     public LoginController(){
         UserGateway ug = new UserGateway();
         RoomGateway rg = new RoomGateway();
+        LoginLogGateway llg = new LoginLogGateway();
+        UserAccountGateway uag = new UserAccountGateway();
 
         this.um = ug.deserializeData();
         this.rm = rg.deserializeData();
+        this.llm = llg.deserializeData();
+        this.uam = uag.deserializeData();
 
         //Get list of all existing accounts from the user manager
         this.Accounts = um.getAccountInfo();
@@ -55,7 +54,7 @@ public class LoginController {
     /**
      * Called to create a new account for a user.
      */
-    public JSONObject CreateAccount(String Username, String Password, String type, String ans1, String ans2, String ans3,){
+    public JSONObject CreateAccount(String Username, String Password, String type, String ans1, String ans2, String ans3){
 
         int UsernameCheck = 0;
 
@@ -140,7 +139,7 @@ public class LoginController {
                 return lp.IncorrectCredentials();
         }
 
-        UserAccount Account = new UserAccount(Username, Password, AccountType, false, false);
+        UserAccountEntity Account = uam.GetUserAccount(Username);
         return lp.SuccessfulLogin(Account.getJSON());
     }
 
@@ -152,8 +151,8 @@ public class LoginController {
     //Returns true if past 3 logins were failed logins, false otherwise.
     public boolean suspiciousLogs(String Username){
         ArrayList<String> RecentLogs = new ArrayList<String>();
-        for (int i = Accounts.size() - 1 ; i >= 0 ; i--) {
-            if (Accounts.get(i)[0].equals(Username)) 
+        for () {
+            if (llm.getLoginLog(Username))
                 RecentLogs.add(Accounts.get(i)[1]);
             if (RecentLogs.size() == 3)
                 break;
@@ -203,7 +202,7 @@ public class LoginController {
         DateFormat dateForm = new SimpleDateFormat(pattern);
         String dateString = dateForm.format(Calendar.getInstance().getTime());
 
-        loginLogs.add(new String[]{type , Username, dateString});
+        llm.addToLoginLogSet(type, Username, dateString);
 
     }
 

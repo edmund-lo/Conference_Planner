@@ -147,6 +147,19 @@ public class OrganizerController extends UserController {
     }
 
     /**
+     * Called when user chooses to schedule a speaker to an event.
+     */
+    public JSONObject scheduleSpeakerCmd(JSONObject speakerInfo) {
+        String speakerName = ;
+        String eventId = ;
+
+        List<String> allSpeakers = um.getAllSpeakerNames();
+        List<String> allEvents = getAllEvents();
+
+        return scheduleSpeaker(allSpeakers.get(speakerName), eventId); //schedule the selected speaker
+    }
+
+    /**
      * Messages the attendees of the given list of events.
      *
      * @param speakerSchedulingInfo JSON object representing the speaker's information.
@@ -304,18 +317,20 @@ public class OrganizerController extends UserController {
     /**
      * Reschedules event with ID eventID at newStart to newEnd in roomName. Note that this should be called ONLY after
      * cancelEvent has been called
-     * @param eventId the ID of the event you wish to reschedule
-     * @param roomName the room you wish to move the event to
-     * @param newStart the time at which the event will start
-     * @param newEnd the time at which the event will end
-     * @return True iff the event was successfully rescheduled
+     * @param info contains the event ID (eventID), the room name (roomName) and the start time (startTime)
+     *             and end time (endTime)
+     * @return A JSONObject detailing the outcome
      */
-    public boolean rescheduleEvent(String eventId, String roomName, LocalDateTime newStart, LocalDateTime newEnd) {
-        if(rm.addToRoomSchedule(newStart, newEnd, roomName, eventId)){
-            em.changeEventTime(eventId, newStart, newEnd);
-            em.changeEventRoom(eventId, roomName);
-            return true;
+    public JSONObject rescheduleEvent(JSONObject info) {
+        String eventID = info.get("eventID").toString();
+        String roomName = info.get("roomName").toString();
+        LocalDateTime newStart = (LocalDateTime) info.get("startTime");
+        LocalDateTime newEnd = (LocalDateTime) info.get("endTime");
+        if(rm.addToRoomSchedule(newStart, newEnd, roomName, eventID)){
+            em.changeEventTime(eventID, newStart, newEnd);
+            em.changeEventRoom(eventID, roomName);
+            return op.rescheduleSuccess();
         }
-        return false;
+        return op.reschduleFailure(roomName);
     }
 }

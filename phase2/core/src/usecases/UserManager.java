@@ -122,7 +122,7 @@ public class UserManager implements Serializable {
      * @param usernames the usernames of all users attending the event
      * @param eventID the event ID to cancel their attendance in
      */
-    public void cancelAll(ArrayList<String> usernames, String eventID) {
+    public void cancelAll(List<String> usernames, String eventID) {
         for (String username : usernames) {
             allUsers.get(username).cancel(eventID);
         }

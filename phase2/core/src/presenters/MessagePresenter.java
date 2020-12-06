@@ -48,10 +48,10 @@ public class MessagePresenter {
     }
 
     /**
-     * informs the user that they have no messages
-     * @return this message in JSONObject format
+     * Informs the user that their message was sent successfully to name
+     * @param name name of the receiver of the message
      */
-    public JSONObject noMessagesReceived(){
-        return pu.createJSON("warning", "You currently have no messages");
+    public JSONObject messageSent(String name){
+        return pu.createJSON("success", "Message sent to "+name+" successfully!");
     }
 }
