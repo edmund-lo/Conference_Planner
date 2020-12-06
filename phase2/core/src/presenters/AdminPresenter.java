@@ -16,43 +16,89 @@ public class AdminPresenter extends UserPresenter {
         super();
     }
 
+    /**
+     * Prints message that attendee has been created
+     */
     public JSONObject attendeeCreationResult() {
         return pu.createJSON("success", "Attendee has been created");
     }
 
+    /**
+     * Prints message that organizer has been created
+     */
     public JSONObject organizerCreationResult() {
         return pu.createJSON("success", "Organizer has been created");
     }
 
+    /**
+     * Prints message that speaker has been created
+     */
     public JSONObject speakerCreationResult() {
         return pu.createJSON("success", "Speaker has been created");
     }
 
+    /**
+     * Prints message that username is already being used
+     */
     public JSONObject usedNameError() {
-        return pu.createJSON("failure", "Username already being used");
+        return pu.createJSON("error", "Username already being used");
     }
 
+    /**
+     * Lists all vips
+     *
+     * @param allVipNames all the names of vips
+     */
     public JSONObject listVips(ArrayList<String> allVipNames) {
         return pu.createJSON("success", "VIPS have been listed", "List of VIPS", allVipNames);
     }
 
+    /**
+     * Confirms attendee set as vip
+     */
     public JSONObject setVipResult() {
         return pu.createJSON("success", "Attendee is now a VIP");
     }
 
+    /**
+     * Prints message that attendee is already a vip
+     */
     public JSONObject alreadyVipError() {
-        return pu.createJSON("failure", "Attendee is already a VIP");
+        return pu.createJSON("error", "Attendee is already a VIP");
     }
 
+    /**
+     * Confirms attendee set as not vip
+     */
     public JSONObject setNotVipResult() {
         return pu.createJSON("success", "Attendee is now not a VIP");
     }
 
+    /**
+     * Prints message that attendee is already not a vip
+     */
     public JSONObject alreadyNotVipError() {
-        return pu.createJSON("failure", "Attendee is already not a VIP");
+        return pu.createJSON("error", "Attendee is already not a VIP");
     }
 
+    /**
+     * Prints message that attendee does not exist
+     */
     public JSONObject invalidAttendeeNameError() {
-        return pu.createJSON("failure", "Attendee does not exist");
+        return pu.createJSON("warning", "Attendee does not exist");
+    }
+
+    /**
+     * Confirms empty event has been removed
+     */
+    public JSONObject removeEventResult() {
+        return pu.createJSON("success", "Empty event has been removed");
+    }
+
+    /**
+     * Prints message that event is not empty
+     */
+    public JSONObject eventNotEmptyError() {
+        return pu.createJSON("error", "Event is not empty");
     }
 }
