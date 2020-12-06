@@ -179,7 +179,7 @@ public class OrganizerPresenter extends UserPresenter {
      * @param roomName the name of the event they wish to reschedule
      * @return method description in JSONObject format
      */
-    public JSONObject reschduleFailure(String roomName){
+    public JSONObject rescheduleFailure(String roomName){
         return pu.createJSON("error", "Event could not be rescheduled in "+roomName);
     }
 }

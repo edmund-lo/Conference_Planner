@@ -19,6 +19,8 @@ public abstract class User implements Serializable {
     private String firstName;
     private String lastName;
     private HashMap<String, LocalDateTime[]> schedule;
+    private List<String> friendRequest;
+    private List<String> friendsList;
     private List<String> sentMessages;
     private List<String> receivedMessages;
     private List<String> inbox;
@@ -36,6 +38,8 @@ public abstract class User implements Serializable {
         this.firstName = firstName;
         this.lastName = lastName;
         this.schedule = new HashMap<>();
+        this.friendRequest = new ArrayList<>();
+        this.friendsList = new ArrayList<>();
         this.sentMessages = new ArrayList<>();
         this.receivedMessages = new ArrayList<>();
         this.inbox = new ArrayList<>();
@@ -203,6 +207,22 @@ public abstract class User implements Serializable {
      */
     public String toString() {
         return "Username: " + this.username + "\n" +  "Role: " + this.getClass().getSimpleName() + "\n";
+    }
+
+    public void addFriend(String username){
+        friendsList.add(username);
+    }
+
+    public void removeFriend(String username){
+        friendsList.remove(username);
+    }
+
+    public List<String> getFriendRequest(){
+        return friendRequest;
+    }
+
+    public List<String> getFriendsList() {
+        return friendsList;
     }
 
     public abstract JSONObject convertToJSON();

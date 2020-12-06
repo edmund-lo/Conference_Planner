@@ -105,6 +105,26 @@ public class UserPresenter {
         return pu.createJSON("success", "Logging out...");
     }
 
+    public JSONObject friendAdded(String username){
+        return pu.createJSON("success", username + " added as friend");
+    }
+
+    public JSONObject friendRemoved(String username){
+        return pu.createJSON("success", username + " removed as friend");
+    }
+
+    public JSONObject friendRequestSent(String username){
+        return pu.createJSON("success", username + " received friend request");
+    }
+
+    public JSONObject cantAddFriend(String username){
+        return pu.createJSON("error", username + " already friend or already requested");
+    }
+
+    public JSONObject requestDenied(String username){
+        return pu.createJSON("success", username + "'s request has been declined");
+    }
+
     public void listAllUsersLabel() {
     }
 

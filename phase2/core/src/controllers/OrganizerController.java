@@ -331,6 +331,6 @@ public class OrganizerController extends UserController {
             em.changeEventRoom(eventID, roomName);
             return op.rescheduleSuccess();
         }
-        return op.reschduleFailure(roomName);
+        return op.rescheduleFailure(roomName);
     }
 }

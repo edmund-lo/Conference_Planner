@@ -219,6 +219,37 @@ public abstract class UserController {
         }
     }
 
+    public JSONObject addFriend(String username){
+        if (um.canBeFriend(this.username, username)){
+            um.addFriend(this.username, username);
+            return up.friendAdded(username);
+        }
+        return up.cantAddFriend(username);
+
+    }
+
+    public JSONObject removeFriend(String username){
+        um.removeFriend(this.username, username);
+        return up.friendRemoved(username);
+    }
+
+    public JSONObject decineRequest(String username){
+        um.declineRequest(this.username, username);
+        return up.requestDenied(username);
+    }
+
+    public JSONObject sendFriendRequest(String username){
+        if (um.canBeFriend(this.username, username)){
+            um.sendFriendRequest(this.username, username);
+            return up.friendRequestSent(username);
+        }
+        return up.cantAddFriend(username);
+    }
+
+    public JSONObject getFriends(){
+        return um.getAllFriendsJson(username);
+    }
+
     /**
      *logs the user out of the program
      *
