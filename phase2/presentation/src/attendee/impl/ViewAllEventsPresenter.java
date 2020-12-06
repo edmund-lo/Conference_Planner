@@ -22,7 +22,7 @@ public class ViewAllEventsPresenter implements IViewEventsPresenter {
 
     public ViewAllEventsPresenter(IViewEventsView view) {
         this.view = view;
-        //this.ac = new AttendeeController();
+        this.ac = new AttendeeController(this.view.getSessionUsername());
         init();
     }
 

@@ -105,6 +105,7 @@ public class MessageAttendeesPresenter implements IMessageUsersPresenter {
         recipients.addAll(Arrays.asList(this.view.getRecipients().split(", ")));
         queryJson.put("sender", this.view.getSender());
         queryJson.put("recipients", recipients);
+        queryJson.put("subject", this.view.getSubject());
         queryJson.put("content", this.view.getContent());
         return queryJson;
     }

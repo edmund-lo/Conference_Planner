@@ -9,14 +9,15 @@
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="organizer.impl.MessageSpeakersView">
+    <padding>
+        <Insets top="25" right="25" bottom="25" left="25"/>
+    </padding>
+
     <top>
         <Text text="Message All Speakers" fx:id="title" />
     </top>
     <center>
         <SplitPane>
-            <padding>
-                <Insets top="25" right="25" bottom="25" left="25"/>
-            </padding>
             <TableView fx:id="userTable">
                 <columns>
                     <TableColumn fx:id="checkedColumn">
@@ -35,10 +36,12 @@
                 <Label text="To:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
                 <TextField fx:id="recipients" GridPane.columnIndex="1" GridPane.rowIndex="1" editable="false"/>
                 <Label text="Message:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-                <TextArea fx:id="content" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                <Text fx:id="resultText" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2"/>
+                <TextField fx:id="subject" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <Label text="Message:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                <TextArea fx:id="content" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                <Text fx:id="resultText" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="2"/>
 
-                <HBox spacing="10" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="5"
+                <HBox spacing="10" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="6"
                       GridPane.columnSpan="2">
                     <Button text="Send Message" fx:id="sendButton" onAction="#executeAddSend"/>
                 </HBox>

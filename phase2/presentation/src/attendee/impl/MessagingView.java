@@ -4,11 +4,7 @@ import attendee.IMessagingView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Message;
@@ -37,11 +33,11 @@ public class MessagingView implements IMessagingView {
     @FXML
     private TableColumn<Message, String> trashSubjectColumn;
     @FXML
-    private VBox primaryThreadContainer;
+    private ScrollPane primaryThreadContainer;
     @FXML
-    private VBox archivedThreadContainer;
+    private ScrollPane archivedThreadContainer;
     @FXML
-    private VBox trashThreadContainer;
+    private ScrollPane trashThreadContainer;
     @FXML
     private Text primarySender;
     @FXML
@@ -179,7 +175,7 @@ public class MessagingView implements IMessagingView {
     }
 
     @Override
-    public VBox getPrimaryThreadContainer() {
+    public ScrollPane getPrimaryThreadContainer() {
         return this.primaryThreadContainer;
     }
 
@@ -199,7 +195,7 @@ public class MessagingView implements IMessagingView {
     }
 
     @Override
-    public VBox getArchivedThreadContainer() {
+    public ScrollPane getArchivedThreadContainer() {
         return this.archivedThreadContainer;
     }
 
@@ -219,7 +215,7 @@ public class MessagingView implements IMessagingView {
     }
 
     @Override
-    public VBox getTrashThreadContainer() {
+    public ScrollPane getTrashThreadContainer() {
         return this.trashThreadContainer;
     }
 

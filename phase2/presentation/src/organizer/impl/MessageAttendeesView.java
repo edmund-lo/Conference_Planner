@@ -27,6 +27,8 @@ public class MessageAttendeesView implements IMessageUsersView {
     @FXML
     private TextField recipients;
     @FXML
+    private TextField subject;
+    @FXML
     private TextArea content;
     @FXML
     private Text resultText;
@@ -109,6 +111,16 @@ public class MessageAttendeesView implements IMessageUsersView {
     @Override
     public void setContent(String content) {
         this.content.setText(content);
+    }
+
+    @Override
+    public String getSubject() {
+        return this.subject.getText();
+    }
+
+    @Override
+    public void setSubject(String subject) {
+        this.subject.setText(subject);
     }
 
     @Override
