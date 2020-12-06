@@ -4,6 +4,8 @@ import gateways.EventGateway;
 import gateways.MessageGateway;
 import gateways.RoomGateway;
 import gateways.UserGateway;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import presenters.MessagePresenter;
 import presenters.UserPresenter;
 import usecases.*;
@@ -33,11 +35,6 @@ public abstract class UserController {
 
     /**
      * Constructor for UserController object.
-     *
-     * @param em  current session's EventManager class.
-     * @param um  current session's UserManager class.
-     * @param rm  current session's RoomManager class.
-     * @param mm  current session's MessageManager class.
      * @param username current logged in user's username.
      */
     public UserController(String username) {
@@ -57,126 +54,6 @@ public abstract class UserController {
     }
 
     /**
-     *UI for when user signs up for an event.
-     *
-     */
-    public void signUpMenu(){
-        while (true) {
-            up.signUpEventListLabel();
-            up.listEvents(getAllEventsCanSignUp());
-            up.signUpEventPrompt();
-            try {
-                int option = parseInt(input.nextLine());
-                if (option == 0)
-                    break;
-                else if (option > getAllSignUpEvents().size()) //prevents index out of bounds
-                    up.invalidOptionError();
-                else
-                    signUpEventAttendance(getAllSignUpEvents().get(option - 1)); //option-1 is the index of the selected event
-                    break;
-            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                up.invalidOptionError();
-            }
-        }
-    }
-
-    /**
-     *UI for when user cancels an event they signed up for.
-     *
-     */
-    public void cancelMenu(){
-        while(true) {//same structure as signing up
-            up.cancelEventListLabel();
-            up.listEvents(getAttendingEventsString());
-            up.cancelEventPrompt();
-            try {
-                int option = parseInt(input.nextLine());
-                if (option == 0)
-                    break;
-                else if (option > getAttendingEvents().size())
-                    up.invalidOptionError();
-                else
-                    cancelEventAttendance(getAttendingEvents().get(option-1));
-                    break;
-            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                up.invalidOptionError();
-            }
-        }
-    }
-
-    /**
-     * UI for when users want to see all events they're attending
-     *
-     */
-    public void viewEventsMenu(){
-        while(true){//presenter displays events
-            up.listAllEventsLabel();
-            up.listEvents(getAttendingEventsString());
-            up.exitlistAllEventsLabel();
-            try{
-                int option = parseInt(input.nextLine());
-                if(option == 0){ //enter 0 to go back
-                    break;
-                }else{
-                    up.invalidOptionError();
-                }
-            }catch(NumberFormatException e){
-                up.invalidOptionError();
-            }
-        }
-    }
-
-    /**
-     *UI for when users want to message other users or view their messages.
-     *
-     */
-    public void messageMenu(){
-        while (true) {
-            mp.messageMenuPrompt();
-            try {
-                int option = parseInt(input.nextLine());
-                if (option == 0)
-                    break;
-                else if (option == 1){//1 to message a user
-                    String name;
-                    String content;
-                    boolean canSend = false;
-                    List<String> ms = getAllMessageableUsers();
-                    if (ms.size() > 0) { //checks if there are users to message
-                        mp.messageUserListLabel();
-                        up.listUsers(ms);
-                        mp.enterReceiverPrompt();
-                        name = input.nextLine();
-                        if (um.userExists(name) && !name.equals(username)) { //checks if user is valid
-                            canSend = true;
-                        } else {
-                            mp.invalidUserError();
-                        }
-                        if (canSend) { //send the message if the user is valid
-                            mp.enterMessagePrompt();
-                            content = input.nextLine();
-                            if (um.isAttendee(name) || um.isSpeaker(name))
-                                sendMessage(name, content);
-                            else
-                                mp.cannotMessageOrganizerError();
-                        }
-                    }else
-                        mp.noMessagableUsers();
-                } else if (option == 2){// 2 to view sent messages
-                    mp.showSentMessagesLabel();
-                    mp.listMessages(getAllSentMessages());
-                } else if (option == 3) {// 3 to view received messages
-                    mp.showReceivedMessagesLabel();
-                    mp.listMessages(getAllReceivedMessages());
-                } else
-                    up.invalidOptionError();
-            } catch (NumberFormatException e) {
-                up.invalidOptionError();
-            }
-        }
-    }
-
-    /**
      *Returns list of users that the user can send messages to.
      *
      *@return list of speakers and attendees in a string format
@@ -190,17 +67,17 @@ public abstract class UserController {
      * @param  eventId id of the event user is signing up for.
      *
      */
-    public void signUpEventAttendance(String eventId) {
+    public JSONObject signUpEventAttendance(String eventId) {
         LocalDateTime start = em.getEventStartTime(eventId);
         LocalDateTime end = em.getEventEndTime(eventId);
         if (!um.canSignUp(username, eventId, start, end)) {
-            up.alreadySignedUpError();
+            return up.alreadySignedUpError();
         } else if (!em.canAddUserToEvent(eventId,username)){
-            up.eventFullCapacityError();
+            return up.eventFullCapacityError();
         } else {
             em.addUserToEvent(eventId,username);
             um.signUp(username, eventId, start, end);
-            up.signUpResult(em.getEventName(eventId));
+            return up.signUpResult(em.getEventName(eventId));
         }
     }
 
@@ -210,13 +87,12 @@ public abstract class UserController {
      * @param  eventId id of the event user is signing up for.
      *
      */
-    public void cancelEventAttendance(String eventId) {
+    public JSONObject cancelEventAttendance(String eventId) {
         if(em.removeUserFromEvent(eventId, username)) {
             um.cancel(username, eventId);
-            up.cancelResult(em.getEventName(eventId));
-            return;
+            return up.cancelResult(em.getEventName(eventId));
         }
-        up.notAttendingEventError(em.getEventName(eventId));
+        return up.notAttendingEventError(em.getEventName(eventId));
     }
 
     /**
@@ -246,9 +122,9 @@ public abstract class UserController {
     }
 
     /**
-     *Returns list of all events in the conference that user with username can sign up to
+     *Returns list of all events desc in the conference that user with username can sign up to
      *
-     *@return list of all events in the conference in a string format
+     *@return list of all events in the conference in a JSONARRAY format
      */
     public List<String> getAllEventsCanSignUp(){
         ArrayList<String> eventDesc = new ArrayList<>();
@@ -274,12 +150,12 @@ public abstract class UserController {
     }
 
     /**
-     * Gets a list of all events user can sign up for
+     * Gets a list of all events IDs user can sign up for
      *
      * @return a list of all events user can sign up for
      */
-    public List<String> getAllSignUpEvents(){
-        ArrayList<String> eventDesc = new ArrayList<>();
+    public JSONArray getAllSignUpEvents(){
+        JSONArray eventDesc = new JSONArray();
         for (String id : em.getAllEventIds()){
             if(um.canSignUp(username, id, em.getEventStartTime(id), em.getEventEndTime(id))) {
                 eventDesc.add(id);
@@ -292,18 +168,12 @@ public abstract class UserController {
      *
      * @return List of Strings representing all of the user's sent messages.
      */
-    public List<String> getAllSentMessages(){
-        List<String> messageStrings = new ArrayList<>();
+    public JSONArray getAllSentMessages(){
+        JSONArray messageStrings = new JSONArray();
         List<String> userMessages = um.getSentMessages(username);
-        if (userMessages.size() == 0) {
-            mp.noMessagesLabel();
-        } else {
-            mp.showNumMessages(userMessages.size(), "sent");
-            for (String id : userMessages) {
-                messageStrings.add(mm.getSentMessageToString(id));
-            }
+        for (String id : userMessages) {
+            messageStrings.add(mm.getSentMessageToString(id));
         }
-
         return messageStrings;
     }
 
@@ -312,18 +182,12 @@ public abstract class UserController {
      *
      * @return List of Strings representing all of the user's received messages.
      */
-    public List<String> getAllReceivedMessages(){
-        List<String> messageStrings = new ArrayList<>();
+    public JSONArray getAllReceivedMessages(){
+        JSONArray messageStrings = new JSONArray();
         List<String> userMessages = um.getReceivedMessages(username);
-        if (userMessages.size() == 0) {
-            mp.noMessagesLabel();
-        } else {
-            mp.showNumMessages(userMessages.size(), "received");
-            for (String id : userMessages) {
-                messageStrings.add(mm.getReceivedMessageToString(id));
-            }
+        for (String id : userMessages) {
+            messageStrings.add(mm.getReceivedMessageToString(id));
         }
-
         return messageStrings;
     }
 
@@ -345,13 +209,13 @@ public abstract class UserController {
      * @param  recipientName username of the Entities.Attendee the message is for.
      * @param  content the contents of the message being sent.
      */
-    public void sendMessage(String recipientName, String content) {
+    public JSONObject sendMessage(String recipientName, String content) {
         if (mm.messageCheck(recipientName, username, content)) {
             String messageId = mm.createMessage(recipientName, username, content);
-            mp.messageResult(recipientName);
             addMessagesToUser(recipientName, messageId);
+            return mp.messageSent(recipientName);
         } else {
-            mp.invalidMessageError();
+            return mp.invalidMessageError();
         }
     }
 
