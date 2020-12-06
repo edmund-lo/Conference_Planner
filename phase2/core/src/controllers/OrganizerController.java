@@ -1,6 +1,6 @@
 package controllers;
 
-import org.json.simple.JSONObject;
+import org.json.simple.*;
 import presenters.OrganizerPresenter;
 
 import java.time.LocalDateTime;
@@ -33,7 +33,7 @@ public class OrganizerController extends UserController {
      * Called when user chooses to message all speakers.
      */
     public JSONObject messageAllSpeakersCmd(JSONObject messageContent) {
-        String message = ;
+        String message = messageContent.get("message");
         return messageAllSpeakers(message);
     }
 
@@ -60,7 +60,7 @@ public class OrganizerController extends UserController {
      * Called when user chooses to message all attendees.
      */
     public JSONObject messageAllAttendeesCmd(JSONObject messageContent) {
-        String message = ;
+        String message = messageContent.get("message");
         return messageAllAttendees(message);
     }
 
@@ -90,11 +90,11 @@ public class OrganizerController extends UserController {
      */
     public JSONObject createRoomCmd(JSONObject roomInfo) {
         String roomName = ;
-        int capacity = ;
-        String hasChairs = ;
-        String hasTables = ;
-        String hasProjector = ;
-        String hasSoundSystem = ;
+        int capacity = roomInfo.get("capacity");
+        String hasChairs = roomInfo.get("chairs");
+        String hasTables = roomInfo.get("tables");
+        String hasProjector = roomInfo.get("projector");
+        String hasSoundSystem = roomInfo.get("sound");
 
         return createRoom(roomName, capacity, hasChairs, hasTables, hasProjector, hasSoundSystem);
     }
@@ -147,27 +147,14 @@ public class OrganizerController extends UserController {
     }
 
     /**
-     * Called when user chooses to schedule a speaker to an event.
-     */
-    public JSONObject scheduleSpeakerCmd(JSONObject speakerInfo) {
-        String speakerName = ;
-        String eventId = ;
-
-        List<String> allSpeakers = um.getAllSpeakerNames();
-        List<String> allEvents = getAllEvents();
-
-        return scheduleSpeaker(allSpeakers.get(speakerName), eventId); //schedule the selected speaker
-    }
-
-    /**
      * Messages the attendees of the given list of events.
      *
-     * @param speakerName String representing the speaker's username.
+     * @param speakerSchedulingInfo JSON object representing the speaker's information.
      *
      */
     public JSONObject scheduleSpeaker(JSONObject speakerSchedulingInfo) {
-        String speakerName = ;
-        String eventId = ;
+        String speakerName = speakerSchedulingInfo.get("name");
+        String eventId = speakerSchedulingInfo.get("eventID");
 
         LocalDateTime start = em.getEventStartTime(eventId);
         LocalDateTime end = em.getEventEndTime(eventId);
@@ -192,10 +179,10 @@ public class OrganizerController extends UserController {
         ArrayList<String> stringConstraints = new ArrayList<>();
         ArrayList<Boolean> boolConstraints = new ArrayList<>();
 
-        String hasChairs = ;
-        String hasTables = ;
-        String hasProjector = ;
-        String hasSoundSystem = ;
+        String hasChairs = constraints.get("chairs");
+        String hasTables = constraints.get("tables");
+        String hasProjector = constraints.get("projector");
+        String hasSoundSystem = constraints.get("sound");
 
         for (String constraint : stringConstraints){ // check to see that user input is correct
             if (!isInputCorrect(constraint)){
@@ -213,7 +200,7 @@ public class OrganizerController extends UserController {
      */
     public JSONObject listPossibleRooms(JSONObject eventInfo){
         ArrayList<Boolean> constraints = getConstraints(eventInfo);
-        int eventCap = ;
+        int eventCap = eventInfo.get("capacity");
 
         ArrayList<String> possibleRooms = rm.getAllRoomsWith(constraints, eventCap); // all possible rooms that can host
         return op.listRooms(possibleRooms);
@@ -221,7 +208,7 @@ public class OrganizerController extends UserController {
 
     public JSONObject introduceRooms(JSONObject eventInfo){
         ArrayList<Boolean> constraints = getConstraints(eventInfo);
-        int eventCap = ;
+        int eventCap = eventInfo.get("capacity");
 
         ArrayList<String> possibleRooms = rm.getAllRoomsWith(constraints, eventCap); // all possible rooms that can host
         return op.roomIntroduceListLabel(possibleRooms);
@@ -229,8 +216,8 @@ public class OrganizerController extends UserController {
 
     public JSONObject roomSelection(JSONObject eventInfo) {
         ArrayList<Boolean> constraints = getConstraints(eventInfo);
-        int eventCap = ;
-        String roomName = ;
+        int eventCap = eventInfo.get("capacity");
+        String roomName = eventInfo.get("eventName");
 
         ArrayList<String> possibleRooms = rm.getAllRoomsWith(constraints, eventCap); // all possible rooms that can host
         if(roomName.equals("")){
@@ -249,14 +236,12 @@ public class OrganizerController extends UserController {
             op.noRoomError();
         else {
             ArrayList<Boolean> constraints = getConstraints(eventInfo); // get information about room constraints
-            int eventCap = ;
-            LocalDateTime startTime = ;
-            LocalDateTime endTime = ;
-            boolean vipEvent = ;
-            String roomName = ;
-            String eventName = ;
-            LocalDateTime startTime = ;
-            LocalDateTime endTime = ;
+            int eventCap = eventInfo.get("capacity");
+            LocalDateTime startTime = eventInfo.get("start");
+            LocalDateTime endTime = eventInfo.get("end");
+            boolean vipEvent = eventInfo.get("vip");
+            String roomName = eventInfo.get("roomName");
+            String eventName = eventInfo.get("eventName");
 
             ArrayList<String> possibleRooms = rm.getAllRoomsWith(constraints, eventCap);
         }
@@ -284,7 +269,8 @@ public class OrganizerController extends UserController {
     public boolean createEvent(String eventName, LocalDateTime start, LocalDateTime end, String roomName, boolean chairs,
                                boolean tables, boolean projector, boolean soundSystem, int capacity, boolean vipEvent) {
         if (rm.addToRoomSchedule(start, end, roomName, eventName)) {
-            em.createNewEvent(eventName, start, end, roomName, chairs, tables, projector, soundSystem, capacity, vipEvent);
+            em.createNewEvent(eventName, start, end, roomName, chairs, tables, projector, soundSystem, capacity,
+                    vipEvent);
             return true;
         }
         return false;

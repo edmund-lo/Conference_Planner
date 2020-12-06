@@ -12,7 +12,7 @@ import java.util.HashMap;
  * @version 1.0
  */
 public class LoginLog implements Serializable {
-    private final ArrayList<String>  logs = new ArrayList<>();
+    private final ArrayList<String>  logs = new ArrayList<String>();
     /**
      * Constructor for a LoginLog.
      *

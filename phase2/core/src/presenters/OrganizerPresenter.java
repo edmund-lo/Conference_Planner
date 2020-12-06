@@ -160,35 +160,6 @@ public class OrganizerPresenter extends UserPresenter {
     }
 
     /**
-     * Outputs a label prompting the user to input whether the room has chairs or not.
-     */
-    public void haveChairsPrompt() {
-        System.out.println("Does this room have chairs? Type \"Y\" if yes, or \"N\" if No");
-    }
-
-    /**
-     * Outputs a label prompting the user to input whether the room has tables or not.
-     */
-    public void haveTablesPrompt() {
-        System.out.println("Does this room have tables? Type \"Y\" if yes, or \"N\" if No");
-    }
-
-    /**
-     * Outputs a label prompting the user to input whether the room has a projector or not.
-     */
-    public void haveProjectorPrompt() {
-        System.out.println("Does this room have a projector? Type \"Y\" if yes, or \"N\" if No");
-    }
-
-    /**
-     * Outputs a label prompting the user to input whether the room has a projector or not.
-     */
-    public void haveSoundSystemPrompt() {
-        System.out.println("Does this room have a sound system/speakers installed? Type \"Y\" if yes, " +
-                "or \"N\" if No");
-    }
-
-    /**
      * Outputs an error message telling the user that their input was incorrect
      */
     public JSONObject incorrectInputError() {
