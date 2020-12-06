@@ -55,6 +55,15 @@ public class UserAccountEntity {
         this.SecurityA3 = A3;
     }
 
+    public String getSecurityAns(int i){
+        if (i == 1)
+            return this.SecurityA1;
+        if (i == 2)
+            return this.SecurityA2;
+        if (i == 3)
+            return this.SecurityA3;
+    }
+
     public String getPassword() {
         return password;
     }
