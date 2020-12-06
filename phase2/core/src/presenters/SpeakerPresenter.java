@@ -25,6 +25,10 @@ public class SpeakerPresenter extends UserPresenter {
         return pu.createJSON("success", "Successfully sent message to attendees of " + event + ".");
     }
 
+    public JSONObject messageEventAttendeesMultiEventsResult(){
+        return pu.createJSON("success", "Successfully sent messages to all specified event(s)");
+    }
+
     /**
      * Notifies user that their input for the event number is formatted incorrectly
      * @return method description in JSONObject format

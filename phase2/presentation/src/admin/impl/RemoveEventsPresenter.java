@@ -1,43 +1,53 @@
 package admin.impl;
 
+import adapter.ScheduleAdapter;
 import admin.IRemoveEventsPresenter;
 import admin.IRemoveEventsView;
+import controllers.AdminController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.ScheduleEntry;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import util.DateTimeUtil;
+import util.TextResultUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RemoveEventsPresenter implements IRemoveEventsPresenter {
     private IRemoveEventsView view;
+    private AdminController ac;
+    private ScheduleEntry selectedEvent;
 
     public RemoveEventsPresenter(IRemoveEventsView view) {
         this.view = view;
+        this.ac = new AdminController(this.view.getSessionUsername());
         init();
     }
 
     @Override
     public void removeButtonAction(ActionEvent actionEvent) {
-        clearResult();
+        clearResultText();
 
-        //call oc.cancelEvent method
+        //JSONObject responseJson = ac.removeEvent(this.selectedEvent.getEventId());
+        JSONObject responseJson = new JSONObject();
+        setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
+        if (responseJson.get("status").equals("success")) init();
     }
 
     @Override
-    public void setResultText(String resultText) {
+    public void setResultText(String resultText, String status) {
         this.view.setResultText(resultText);
+        TextResultUtil.getInstance().addPseudoClass(status, this.view.getResultTextControl());
     }
 
     @Override
     public List<ScheduleEntry> getEvents() {
-        //List<String[]> resultJson = ac.getAlEvents method
-        //List<ScheduleEntry> allEvents = ScheduleAdapter.adapt(resultJson);
-        List<ScheduleEntry> allEvents = new ArrayList<>();
-        return allEvents;
+        //JSONObject responseJson = ac.getAllEvents();
+        JSONObject responseJson = new JSONObject();
+        return ScheduleAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
     @Override
@@ -57,6 +67,7 @@ public class RemoveEventsPresenter implements IRemoveEventsPresenter {
 
     @Override
     public void displayEventDetails(ScheduleEntry event) {
+        this.selectedEvent = event;
         this.view.setSummaryEventName(event.getEventName());
         this.view.setSummaryRoomName(event.getEventName());
         this.view.setSummaryAttendees(event.getEventName());
@@ -75,7 +86,8 @@ public class RemoveEventsPresenter implements IRemoveEventsPresenter {
         displayEvents(allEvents);
     }
 
-    private void clearResult() {
+    private void clearResultText() {
         this.view.setResultText("");
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl());
     }
 }
