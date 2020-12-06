@@ -14,15 +14,16 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * A Use Case class that stores the rooms of the conference and updates the appropriate attributes of the rooms
- * to reflect their current state.
+ * A Use Case class that stores the login logs with key as username and values
+ * as an extendable Array List
  *
  * @author Dylan Baptist
  * @version 1.0
  *
  */
 public class LoginLogManager implements Serializable {
-    private HashMap<String, LoginLog> all_Logs;
+    ArrayList logArray = new ArrayList();
+    private HashMap<String, ArrayList> all_Logs;
     /**
      * Constructs a new empty LoginLogManager object containing no rooms.
      */
@@ -41,30 +42,42 @@ public class LoginLogManager implements Serializable {
 
         //important note: this does not handle changes to the condition
         //updates to conditions are handled elsewhere (Controllers)
+        LoginLog ll = new LoginLog(condition, username, time);
+        logArray.add(ll);
         if (!this.all_Logs.containsKey(username)){
-            this.all_Logs.put(username, new LoginLog(condition, username, time));
-            return true;
+            this.all_Logs.put(username, logArray);
+        } else {
+            if (this.all_Logs.get(username).size() == 3) {
+                this.all_Logs.get(username).remove(0);
+                this.all_Logs.get(username).add(ll);
+            } else if (this.all_Logs.get(username).size() < 3) {
+                this.all_Logs.get(username).add(ll);
+            } else {
+                while (this.all_Logs.get(username).size() > 3) {
+                    this.all_Logs.get(username).remove(0);
+                }
+            }
         }
-        return false;
+        return true;
     }
 
-    private LoginLog getLoginLog(String username){
+    public ArrayList getLoginLog(String username){
         return this.all_Logs.get(username);
     }
 
-    /**
-     * Removes a login log given a specified key
-     * @param username
-     * @return boolean based on whether the key-value was successfully removed
-     */
-    public boolean removeLoginLog(String username) {
-        LoginLog returned_val = null;
-        returned_val = all_Logs.remove(username);
-        if (returned_val != null) {
-            return true;
-        }
-        return false;
-    }
+//    /**
+//     * Removes a login log given a specified key
+//     * @param username
+//     * @return boolean based on whether the key-value was successfully removed
+//     */
+//    public boolean removeLoginLog(String username) {
+//        LoginLog returned_val = null;
+//        returned_val = all_Logs.remove(username);
+//        if (returned_val != null) {
+//            return true;
+//        }
+//        return false;
+//    }
 
     /**
      * Gets a list of all the loginLogs based on username in the system.
