@@ -4,7 +4,7 @@ import common.ILoggedInView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
-import model.Message;
+import model.MessageThread;
 import java.util.List;
 
 public interface IMessagingView extends ILoggedInView {
@@ -21,17 +21,17 @@ public interface IMessagingView extends ILoggedInView {
     void setContent(String content);
     void setResultText(String resultText);
 
-    TableView<Message> getPrimaryInbox();
-    TableColumn<Message, String> getPrimaryMembersColumn();
-    TableColumn<Message, String> getPrimarySubjectColumn();
+    TableView<MessageThread> getPrimaryInbox();
+    TableColumn<MessageThread, String> getPrimaryMembersColumn();
+    TableColumn<MessageThread, String> getPrimarySubjectColumn();
     ScrollPane getPrimaryThreadContainer();
-    TableView<Message> getArchivedInbox();
-    TableColumn<Message, String> getArchivedMembersColumn();
-    TableColumn<Message, String> getArchivedSubjectColumn();
+    TableView<MessageThread> getArchivedInbox();
+    TableColumn<MessageThread, String> getArchivedMembersColumn();
+    TableColumn<MessageThread, String> getArchivedSubjectColumn();
     ScrollPane getArchivedThreadContainer();
-    TableView<Message> getTrashInbox();
-    TableColumn<Message, String> getTrashMembersColumn();
-    TableColumn<Message, String> getTrashSubjectColumn();
+    TableView<MessageThread> getTrashInbox();
+    TableColumn<MessageThread, String> getTrashMembersColumn();
+    TableColumn<MessageThread, String> getTrashSubjectColumn();
     ScrollPane getTrashThreadContainer();
     TabPane getTabPane();
 

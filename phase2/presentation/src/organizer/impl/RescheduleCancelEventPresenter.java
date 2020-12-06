@@ -1,43 +1,51 @@
 package organizer.impl;
 
+import adapter.ScheduleAdapter;
+import controllers.OrganizerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.ScheduleEntry;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import organizer.IRescheduleCancelEventPresenter;
 import organizer.IRescheduleCancelEventView;
 import util.DateTimeUtil;
-
-import java.util.ArrayList;
+import util.TextResultUtil;
 import java.util.List;
 
 public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPresenter {
     private IRescheduleCancelEventView view;
+    private OrganizerController oc;
+    private ScheduleEntry selectedEvent;
 
     public RescheduleCancelEventPresenter(IRescheduleCancelEventView view) {
         this.view = view;
+        this.oc = new OrganizerController(this.view.getSessionUsername());
         init();
     }
 
     @Override
     public void cancelButtonAction(ActionEvent actionEvent) {
-        clearResult();
+        clearResultText();
 
-        //call oc.cancelEvent method
+        //JSONObject responseJson = oc.cancelEvent(this.selectedEvent.getEventId());
+        JSONObject responseJson = new JSONObject();
+        setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
     }
 
     @Override
-    public void setResult(String result) {
-        this.view.setResultMsg(result);
+    public void setResultText(String resultText, String status) {
+        this.view.setResultText(resultText);
+        TextResultUtil.getInstance().addPseudoClass(status, this.view.getResultTextControl());
     }
 
     @Override
     public List<ScheduleEntry> getEvents() {
-        //List<String[]> resultJson = ac.getAlEvents method
-        //List<ScheduleEntry> allEvents = ScheduleAdapter.adapt(resultJson);
-        List<ScheduleEntry> allEvents = new ArrayList<>();
-        return allEvents;
+        //JSONObject responseJson = ac.getAllEvents();
+        JSONObject responseJson = new JSONObject();
+        return ScheduleAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
     @Override
@@ -58,6 +66,7 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
 
     @Override
     public void displayEventDetails(ScheduleEntry event) {
+        this.selectedEvent = event;
         this.view.setSummaryEventName(event.getEventName());
         this.view.setSummaryRoomName(event.getEventName());
         this.view.setSummaryAttendees(event.getEventName());
@@ -77,7 +86,8 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
         displayEvents(allEvents);
     }
 
-    private void clearResult() {
-        this.view.setResultMsg("");
+    private void clearResultText() {
+        this.view.setResultText("");
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl());
     }
 }

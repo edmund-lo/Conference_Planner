@@ -1,7 +1,7 @@
 package login.impl;
 
 import adapter.UserAccountAdapter;
-import controllers.LoginController;
+//import controllers.LoginController;
 import javafx.event.ActionEvent;
 import login.ILoginPresenter;
 import login.ILoginView;
@@ -13,7 +13,7 @@ import util.TextResultUtil;
 
 public class LoginPresenter implements ILoginPresenter {
     private ILoginView view;
-    private LoginController lc;
+//    private LoginController lc;
 
     public LoginPresenter(ILoginView view) {
         this.view = view;

@@ -1,6 +1,6 @@
 package adapter;
 
-import model.Message;
+import model.MessageThread;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import util.DateTimeUtil;
@@ -18,16 +18,16 @@ public class MessageAdapter {
 
     private MessageAdapter() {}
 
-    public List<Message> adaptData(JSONArray data) {
-        List<Message> message = new ArrayList<>();
+    public List<MessageThread> adaptData(JSONArray data) {
+        List<MessageThread> messageThread = new ArrayList<>();
         for (Object datum : data) {
             JSONObject jsonObject = (JSONObject) datum;
-            message.add(mapMessage(jsonObject));
+            messageThread.add(mapMessage(jsonObject));
         }
-        return message;
+        return messageThread;
     }
 
-    private Message mapMessage(JSONObject jsonObject) {
+    private MessageThread mapMessage(JSONObject jsonObject) {
         String messageId = String.valueOf(jsonObject.get("messageId"));
         String senderName = String.valueOf(jsonObject.get("senderName"));
         List<String> recipientNames = new ArrayList<>();
@@ -36,6 +36,6 @@ public class MessageAdapter {
         boolean read = jsonObject.get("read").equals("true");
         LocalDateTime messageTime = DateTimeUtil.getInstance().parse(String.valueOf(jsonObject.get("messageTime")));
 
-        return new Message(messageId, senderName, recipientNames, subject, content, read, messageTime);
+        return new MessageThread(messageId, senderName, recipientNames, subject, content, read, messageTime);
     }
 }

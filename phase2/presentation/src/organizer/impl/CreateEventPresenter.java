@@ -1,7 +1,7 @@
 package organizer.impl;
 
 import adapter.ScheduleAdapter;
-import controllers.OrganizerController;
+//import controllers.OrganizerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
@@ -23,12 +23,12 @@ import java.util.List;
 
 public class CreateEventPresenter implements ICreateEventPresenter {
     private ICreateEventView view;
-    private OrganizerController oc;
+//    private OrganizerController oc;
     private final ObservableSet<CheckBox> selectedAmenities = FXCollections.observableSet();
 
     public CreateEventPresenter(ICreateEventView view) {
         this.view = view;
-        this.oc = new OrganizerController(this.view.getSessionUsername());
+//        this.oc = new OrganizerController(this.view.getSessionUsername());
         init();
     }
 

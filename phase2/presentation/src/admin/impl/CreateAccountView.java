@@ -78,8 +78,8 @@ public class CreateAccountView implements ICreateAccountView {
     }
 
     @Override
-    public void setResultMsg(String result) {
-        this.resultText.setText(result);
+    public void setResultText(String resultText) {
+        this.resultText.setText(resultText);
     }
 
     @Override

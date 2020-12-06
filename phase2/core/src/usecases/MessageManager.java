@@ -12,7 +12,7 @@ import org.json.simple.*;
  * Helper that manages all interaction with the Entities.Message classes and ensures no rules are broken.
  */
 public class MessageManager implements Serializable {
-    private HashMap<String, Message> allMessages;
+    private HashMap<String, MessageThread> allMessageThreads;
     //private List<String> allContents;
 
     /**
@@ -20,18 +20,18 @@ public class MessageManager implements Serializable {
      *
      */
     public MessageManager(){
-        this.allMessages = new HashMap<>();
+        this.allMessageThreads = new HashMap<>();
         //this.allContents = new ArrayList<>();
     }
 
     /**
-     * A helper to check if the message is in allMessages by its ID
+     * A helper to check if the messageThread is in allMessageThreads by its Id
      *
-     * @param messageID the ID of the event we are checking
-     * @return True iff the event is in allMessages
+     * @param messageThreadId the Id of the messageThread that we are checking
+     * @return True iff the messageThread is in allMessageThreads
      */
-    private boolean messageExists(String messageID){
-        return this.allMessages.containsKey(messageID);
+    private boolean messageThreadExists(String messageThreadId){
+        return this.allMessageThreads.containsKey(messageThreadId);
     }
 
 //      Save for phase 2
@@ -57,40 +57,45 @@ public class MessageManager implements Serializable {
     }*/
 
     /**
-     * Creator for a new Entities.Message
+     * Creator for a new Entities.Message and the MessageThread it belongs to
      *
-     * Precondition: the senderID and receiverIds exist in users
+     * Precondition: the sender and receivers exist in users
      *
      * @param content The text of this message
-     * @param senderId The id of the sender of this message
-     * @param receiverId The list of ids for the receivers of this message
+     * @param sender The username of the sender for this message
+     * @param receivers The list of usernames for the receivers of this message
+     * @param subject The subject of MessageThread this message belongs to
      *
-     * return the created message
+     * return the created messageThreadId
      */
 
-    public String createMessage(String receiverId, String senderId, String content) {
-        String messageId;
+    public String createMessage(String content, String sender, String receivers, String subject) {
+        String messageThreadId;
         do {
-            messageId = UUID.randomUUID().toString();
+            messageThreadId = UUID.randomUUID().toString();
         } while(this.messageExists(messageId));
         LocalDateTime messageTime = LocalDateTime.now();
-        Message newMessage = new Message(content, senderId, messageId, receiverId, messageTime);
+        Message newMessage = new Message(content, sender, messageTime);
+        List[Message] messages = [newMessage];
+        MessageThread newMessageThread = new MessageThread(sender, receivers, messageThreadId, subject, messages)
         this.allMessages.put(newMessage.getMessageID(), newMessage);
         //this.allContents.add(newMessage.toString());
-        return messageId;
+        return messageThreadId;
     }
 
     /**
      * Checks if a message fulfils all the requirements to be sent.
      *
+     * Precondition: the sender and receivers exist in users
+     *
      * @param content The text of this message
-     * @param senderId The id of the sender of this message
-     * @param receiverId The Id of the receiver
+     * @param sender The username of the sender for this message
+     * @param receivers The username of the receiver for this message
      *
      * @return boolean value that signifies the result of the check.
      */
 
-    public boolean messageCheck(String receiverId, String senderId, String content) {
+    public boolean messageCheck(String content, String sender, String receviers) {
         return (!receiverId.equals(senderId) && !content.equals(""));
     }
 

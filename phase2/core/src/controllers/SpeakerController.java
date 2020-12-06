@@ -1,5 +1,7 @@
 package controllers;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import presenters.SpeakerPresenter;
 import usecases.*;
 
@@ -33,49 +35,16 @@ public class SpeakerController extends UserController {
     /**
      * Called when user chooses to message one or more events' attendees.
      */
-    public void messageEventsAttendeesCmd() {
-        List<String> eventStrings = getSpeakerEvents();
-        if (eventStrings.size() != 0) { //check to ensure there exists events that have self speaking at
-            sp.speakerEventsLabel();
-            sp.listEvents(eventStrings);
-            List<String> eventIds = new ArrayList<>();
-            while (true) { //loop until user enters valid input
-                boolean crashed = false;
-                sp.messageEventAttendeesPrompt();
-                String eventIdsString = input.nextLine();
-                try {
-                    if (eventIdsString.equals("")) {
-                        sp.invalidEventNumberError();
-                        crashed = true;
-                    } else if (eventIdsString.equals("0")) { //0 is the exit index
-                        break;
-                    } else { //user entered valid input
-                        eventIds = new ArrayList<>(); //init new eventIds
-                        Map<String, LocalDateTime[]> schedule = um.getSpeakerSchedule(username);
-                        List<String> allSpeakerEventIds = new ArrayList<>(schedule.keySet());
-                        for (String i : eventIdsString.split(",")) { //loop through each of the user's inp. indices
-                            int index;
-                            try {
-                                index = parseInt(i);
-                                eventIds.add(allSpeakerEventIds.get(index - 1)); //add inputted event into the eventIds
-                            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                                sp.invalidEventNumberError();
-                                crashed = true;
-                            }
-                        }
-                    }
-                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                    sp.invalidOptionError();
-                }
-                if (!crashed) { //if while loop ran without any error then valid input hence leave the loop
-                    break;
-                }
-            }
-            mp.enterMessagePrompt();
-            String message = input.nextLine(); //take the input msg. Note that anything can go in a msg hence no try..
-            messageEventsAttendees(eventIds, message); //message all attendees at each event in eventIds
-        } else
-            sp.noSpeakerEventsError();
+    public JSONObject messageEventsAttendeesCmd(JSONArray eventIds, String message) {
+        List<String> eventIDsString = new ArrayList<>();
+        if(eventIds.isEmpty()){
+            return sp.noSpeakerEventsError();
+        }
+        for(Object ID: eventIds){
+            eventIDsString.add(ID.toString());
+        }
+        messageEventsAttendees(eventIDsString, message); //message all attendees at each event in eventIds
+        return sp.messageEventAttendeesMultiEventsResult();
     }
 
     /**

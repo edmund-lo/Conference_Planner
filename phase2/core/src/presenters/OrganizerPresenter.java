@@ -4,15 +4,14 @@ import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import org.json.simple.*;
+
 
 /**
  * Presenter prints attributes that user of program (if organizer) can do/see.
  */
 public class OrganizerPresenter extends UserPresenter {
 
-    private PresenterUtil<String> pu;
+    private final PresenterUtil<String> pu;
 
     public OrganizerPresenter(){
         pu = new PresenterUtil<>();
@@ -88,7 +87,7 @@ public class OrganizerPresenter extends UserPresenter {
      *
      * @param allRooms A set of strings of all rooms
      */
-    public JSONObject listRooms(ArrayList<String> allRooms) {
+    public JSONObject listRooms(List<String> allRooms) {
         return pu.createJSON("success", "Rooms have been listed", "List of Rooms", allRooms);
     }
 
@@ -156,7 +155,7 @@ public class OrganizerPresenter extends UserPresenter {
      * Outputs a label indicating an invalid date input
      */
     public JSONObject invalidDateError() {
-        return pu.createJSON("warning", "Unable to parse date input!");
+        return pu.createJSON("warning", "The start or end time you entered was invalid.");
     }
 
     /**
@@ -167,6 +166,13 @@ public class OrganizerPresenter extends UserPresenter {
                 "sound system was invalid");
     }
 
+    public JSONObject selectionNotValid(){
+        return pu.createJSON("error", "This room cannot accommodate the event.");
+    }
+
+    public JSONObject invalidCapacityError() {
+        return pu.createJSON("warning", "The capacity you entered was invalid.");
+    }
     /**
      * Success message for successfully rescheduling an event
      */
@@ -181,5 +187,19 @@ public class OrganizerPresenter extends UserPresenter {
      */
     public JSONObject rescheduleFailure(String roomName){
         return pu.createJSON("error", "Event could not be rescheduled in "+roomName);
+    }
+
+    public JSONObject cannotAccommodate() {
+        return pu.createJSON("error", "The capacity you entered is greater than the room can " +
+                "accommodate.");
+    }
+
+    public JSONObject cannotChangeCap(int capacity){
+        return pu.createJSON("error", "The event already has " + capacity + " or more people signed up. " +
+                "If you would like to decrease the event's capacity, cancel the event and create one.");
+    }
+
+    public JSONObject changeCapResult(){
+        return pu.createJSON("success", "The event capacity has been changed successfully.");
     }
 }

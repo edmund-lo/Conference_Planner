@@ -27,7 +27,7 @@ public interface IRescheduleCancelEventView extends ILoggedInView {
     void setSummaryAmenities(String amenities);
     void setSummaryAttendees(String attendees);
     void setSummarySpeakers(String speakers);
-    void setResultMsg(String resultMsg);
+    void setResultText(String resultText);
 
     EventHandler<ActionEvent> getCancelButtonAction();
     void setCancelButtonAction(EventHandler<ActionEvent> eventHandler);

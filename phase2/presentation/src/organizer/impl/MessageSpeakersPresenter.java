@@ -1,7 +1,7 @@
 package organizer.impl;
 
 import adapter.UserAdapter;
-import controllers.OrganizerController;
+//import controllers.OrganizerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,12 +17,12 @@ import java.util.List;
 
 public class MessageSpeakersPresenter implements IMessageUsersPresenter {
     private IMessageUsersView view;
-    private OrganizerController oc;
+//    private OrganizerController oc;
     private ObservableList<User> users;
 
     public MessageSpeakersPresenter(IMessageUsersView view) {
         this.view = view;
-        this.oc = new OrganizerController(this.view.getSessionUsername());
+//        this.oc = new OrganizerController(this.view.getSessionUsername());
         init();
     }
 
