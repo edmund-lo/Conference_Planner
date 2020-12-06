@@ -2,10 +2,6 @@ package controllers;
 
 import org.json.simple.JSONObject;
 import presenters.AdminPresenter;
-import usecases.EventManager;
-import usecases.MessageManager;
-import usecases.RoomManager;
-import usecases.UserManager;
 
 /**
  * A Controller class representing an AdminController which inherits from UserController.
@@ -17,71 +13,84 @@ public class AdminController extends UserController{
     private final AdminPresenter ap;
 
     /**
-     * Constructor for AdminController object. Uses constructor from UserController.
+     * Constructor for AdminController object. Uses constructor from UserController
      *
-     * @param em  current session's EventManager class.
-     * @param um  current session's UserManager class.
-     * @param rm  current session's RoomManager class.
-     * @param mm  current session's MessageManager class.
-     * @param username current logged in user's username.
+     * @param username current logged in user's username
      */
-    public AdminController(username) {
+    public AdminController(String username) {
         super(username);
         this.ap = new AdminPresenter();
     }
 
     /**
-     * Creates a new attendee account after performing necessary checks.
+     * Creates a new attendee account after performing necessary checks
      *
-     * @param register JSONObject containing user info.
+     * @param register JSONObject containing user info
+     * @return a JSON object containing the status and description of the action
      */
     public JSONObject createAttendeeAccount(JSONObject register) {
         String username = String.valueOf(register.get("username"));
-        String password = String.valueOf(register.get("password"));
+        String firstName = String.valueOf(register.get("firstName"));
+        String lastName = String.valueOf(register.get("lastName"));
 
         if (um.checkUniqueUsername(username)) { //ensures the username is unique
-            um.createNewAttendee(username, password); //create new attendee
+            um.createNewAttendee(username, firstName, lastName); //create new attendee
             return ap.attendeeCreationResult();
         }
         return ap.usedNameError();
     }
 
     /**
-     * Creates a new organizer account after performing necessary checks.
+     * Creates a new organizer account after performing necessary checks
      *
-     * @param register JSONObject containing user info.
+     * @param register JSONObject containing user info
+     * @return a JSON object containing the status and description of the action
      */
     public JSONObject createOrganizerAccount(JSONObject register) {
         String username = String.valueOf(register.get("username"));
-        String password = String.valueOf(register.get("password"));
+        String firstName = String.valueOf(register.get("firstName"));
+        String lastName = String.valueOf(register.get("lastName"));
 
         if (um.checkUniqueUsername(username)) { //ensures the username is unique
-            um.createNewOrganizer(username, password); //create new organizer
+            um.createNewOrganizer(username, firstName, lastName); //create new organizer
             return ap.organizerCreationResult();
         }
         return ap.usedNameError();
     }
 
     /**
-     * Creates a new speaker account after performing necessary checks.
+     * Creates a new speaker account after performing necessary checks
      *
-     * @param register JSONObject containing user info.
+     * @param register JSONObject containing user info
+     * @return a JSON object containing the status and description of the action
      */
     public JSONObject createSpeakerAccount(JSONObject register) {
         String username = String.valueOf(register.get("username"));
-        String password = String.valueOf(register.get("password"));
+        String firstName = String.valueOf(register.get("firstName"));
+        String lastName = String.valueOf(register.get("lastName"));
 
         if (um.checkUniqueUsername(username)) { //ensures the username is unique
-            um.createNewSpeaker(username, password); //create new speaker
+            um.createNewSpeaker(username, firstName, lastName); //create new speaker
             return ap.speakerCreationResult();
         }
         return ap.usedNameError();
     }
 
+    /**
+     * Lists the names of all VIPs
+     *
+     * @return a JSON object containing the status and description of the action and a list of all vips
+     */
     public JSONObject viewAllVips() {
         return ap.listVips(um.getAllVipNames());
     }
 
+    /**
+     * Sets an attendee as a vip
+     *
+     * @param username the username of the attendee to be set as a VIP
+     * @return a JSON object containing the status and description of the action
+     */
     public JSONObject setAttendeeAsVip(String username) {
         if (!um.isVip(username)) {
             um.setAttendeeAsVip(username);
@@ -92,7 +101,13 @@ public class AdminController extends UserController{
         return ap.invalidAttendeeNameError();
     }
 
-    public JSONObject setAttendeeAsNotVip() {
+    /**
+     * Sets an attendee as not a vip
+     *
+     * @param username the username of the attendee to be set as not a VIP
+     * @return a JSON object containing the status and description of the action
+     */
+    public JSONObject setAttendeeAsNotVip(String username) {
         if (um.isVip(username)) {
             um.setAttendeeAsNotVip(username);
             return ap.setNotVipResult();
