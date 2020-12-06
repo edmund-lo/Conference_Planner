@@ -139,7 +139,7 @@ public class LoginController {
                 return lp.IncorrectCredentials();
         }
 
-        UserAccountEntity Account = um.GetUserAccount(Username);
+        UserAccountEntity Account = uam.GetUserAccount(Username);
         return lp.SuccessfulLogin(Account.getJSON());
     }
 
