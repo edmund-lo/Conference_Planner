@@ -2,7 +2,7 @@ package attendee;
 
 import common.IPresenter;
 import javafx.event.ActionEvent;
-import model.Message;
+import model.MessageThread;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public interface IMessagingPresenter extends IPresenter {
     void moveToArchivedButtonAction(ActionEvent actionEvent);
     void moveToPrimaryButtonAction(ActionEvent actionEvent);
     void setResultText(String resultText, String status);
-    List<Message> getInbox(String type);
-    void displayInbox(List<Message> messages, String type);
-    void displayMessageThread(Message message, String type);
+    List<MessageThread> getInbox(String type);
+    void displayInbox(List<MessageThread> messageThreads, String type);
+    void displayMessageThread(MessageThread messageThread, String type);
 }

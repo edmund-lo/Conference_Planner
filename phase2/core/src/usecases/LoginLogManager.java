@@ -61,11 +61,12 @@ public class LoginLogManager implements Serializable {
         return true;
     }
 
-    public boolean getLoginLog(String username){
-        if (this.all_Logs.containsKey(username)) {
-            return true;
-        }
-        return false;
+    public boolean checkLogExists(String username){
+        return this.all_Logs.containsKey(username);
+    }
+
+    public ArrayList<LoginLog> getUserLogs(String Username){
+        return this.all_Logs.get(Username);
     }
 
 //    /**

@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.Message;
+import model.MessageThread;
 
 import java.util.List;
 
@@ -15,23 +15,23 @@ public class MessagingView implements IMessagingView {
     @FXML
     private TabPane tabPane;
     @FXML
-    private TableView<Message> primaryInbox;
+    private TableView<MessageThread> primaryInbox;
     @FXML
-    private TableView<Message> archivedInbox;
+    private TableView<MessageThread> archivedInbox;
     @FXML
-    private TableView<Message> trashInbox;
+    private TableView<MessageThread> trashInbox;
     @FXML
-    private TableColumn<Message, String> primaryMembersColumn;
+    private TableColumn<MessageThread, String> primaryMembersColumn;
     @FXML
-    private TableColumn<Message, String> primarySubjectColumn;
+    private TableColumn<MessageThread, String> primarySubjectColumn;
     @FXML
-    private TableColumn<Message, String> archivedMembersColumn;
+    private TableColumn<MessageThread, String> archivedMembersColumn;
     @FXML
-    private TableColumn<Message, String> archivedSubjectColumn;
+    private TableColumn<MessageThread, String> archivedSubjectColumn;
     @FXML
-    private TableColumn<Message, String> trashMembersColumn;
+    private TableColumn<MessageThread, String> trashMembersColumn;
     @FXML
-    private TableColumn<Message, String> trashSubjectColumn;
+    private TableColumn<MessageThread, String> trashSubjectColumn;
     @FXML
     private ScrollPane primaryThreadContainer;
     @FXML
@@ -160,17 +160,17 @@ public class MessagingView implements IMessagingView {
     }
 
     @Override
-    public TableView<Message> getPrimaryInbox() {
+    public TableView<MessageThread> getPrimaryInbox() {
         return this.primaryInbox;
     }
 
     @Override
-    public TableColumn<Message, String> getPrimaryMembersColumn() {
+    public TableColumn<MessageThread, String> getPrimaryMembersColumn() {
         return this.primaryMembersColumn;
     }
 
     @Override
-    public TableColumn<Message, String> getPrimarySubjectColumn() {
+    public TableColumn<MessageThread, String> getPrimarySubjectColumn() {
         return this.primarySubjectColumn;
     }
 
@@ -180,17 +180,17 @@ public class MessagingView implements IMessagingView {
     }
 
     @Override
-    public TableView<Message> getArchivedInbox() {
+    public TableView<MessageThread> getArchivedInbox() {
         return this.archivedInbox;
     }
 
     @Override
-    public TableColumn<Message, String> getArchivedMembersColumn() {
+    public TableColumn<MessageThread, String> getArchivedMembersColumn() {
         return this.archivedMembersColumn;
     }
 
     @Override
-    public TableColumn<Message, String> getArchivedSubjectColumn() {
+    public TableColumn<MessageThread, String> getArchivedSubjectColumn() {
         return this.archivedSubjectColumn;
     }
 
@@ -200,17 +200,17 @@ public class MessagingView implements IMessagingView {
     }
 
     @Override
-    public TableView<Message> getTrashInbox() {
+    public TableView<MessageThread> getTrashInbox() {
         return this.trashInbox;
     }
 
     @Override
-    public TableColumn<Message, String> getTrashMembersColumn() {
+    public TableColumn<MessageThread, String> getTrashMembersColumn() {
         return this.trashMembersColumn;
     }
 
     @Override
-    public TableColumn<Message, String> getTrashSubjectColumn() {
+    public TableColumn<MessageThread, String> getTrashSubjectColumn() {
         return this.trashSubjectColumn;
     }
 

@@ -14,8 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
-import model.Message;
+import model.MessageThread;
 import model.User;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -28,9 +27,9 @@ public class MessagingPresenter implements IMessagingPresenter {
     private IMessagingView view;
     private AttendeeController ac;
     private ObservableList<User> users;
-    private Message selectedPrimaryMessage;
-    private Message selectedArchivedMessage;
-    private Message selectedTrashMessage;
+    private MessageThread selectedPrimaryMessageThread;
+    private MessageThread selectedArchivedMessageThread;
+    private MessageThread selectedTrashMessageThread;
     private CheckBox selectAll;
     private TextField senderField;
     private TextField recipientsField;
@@ -133,7 +132,7 @@ public class MessagingPresenter implements IMessagingPresenter {
     }
 
     @Override
-    public List<Message> getInbox(String type) {
+    public List<MessageThread> getInbox(String type) {
         JSONObject responseJson = new JSONObject();
         switch (type) {
             case "primary":
@@ -150,8 +149,8 @@ public class MessagingPresenter implements IMessagingPresenter {
     }
 
     @Override
-    public void displayInbox(List<Message> messages, String type) {
-        ObservableList<Message> observableInbox = FXCollections.observableArrayList(messages);
+    public void displayInbox(List<MessageThread> messageThreads, String type) {
+        ObservableList<MessageThread> observableInbox = FXCollections.observableArrayList(messageThreads);
 
         switch (type) {
             case "primary":
@@ -182,14 +181,14 @@ public class MessagingPresenter implements IMessagingPresenter {
     }
 
     @Override
-    public void displayMessageThread(Message message, String type) {
+    public void displayMessageThread(MessageThread messageThread, String type) {
         //ac.setMessageRead(message.getMessageId());
         switch (type) {
             case "primary":
-                this.selectedPrimaryMessage = message;
-                this.view.setPrimarySender(message.getSenderName());
-                this.view.setPrimaryRecipientNames(message.getRecipientNames());
-                this.view.setPrimarySubject(message.getSubject());
+                this.selectedPrimaryMessageThread = messageThread;
+                this.view.setPrimarySender(messageThread.getSenderName());
+                this.view.setPrimaryRecipientNames(messageThread.getRecipientNames());
+                this.view.setPrimarySubject(messageThread.getSubject());
                 //this.view.getPrimaryThreadContainer().getChildren().
                 break;
             case "archived":
@@ -213,11 +212,11 @@ public class MessagingPresenter implements IMessagingPresenter {
     }
 
     private void refreshAllInboxes() {
-        List<Message> primaryInbox = getInbox("primary");
+        List<MessageThread> primaryInbox = getInbox("primary");
         displayInbox(primaryInbox, "primary");
-        List<Message> archivedInbox = getInbox("archived");
+        List<MessageThread> archivedInbox = getInbox("archived");
         displayInbox(archivedInbox, "archived");
-        List<Message> trashInbox = getInbox("trash");
+        List<MessageThread> trashInbox = getInbox("trash");
         displayInbox(trashInbox, "trash");
     }
 
