@@ -3,13 +3,17 @@ package organizer.impl;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.ScheduleEntry;
 import organizer.IRescheduleCancelEventView;
+import util.DateTimePicker;
 import util.DateTimeUtil;
+import util.NumberTextField;
+import util.ToggleSwitch;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -28,17 +32,19 @@ public class RescheduleCancelEventView implements IRescheduleCancelEventView {
     @FXML
     private TableColumn<ScheduleEntry, Integer> remainingSpotsColumn;
     @FXML
+    private ToggleSwitch toggleSwitch;
+    @FXML
     private Text summaryEventName;
     @FXML
-    private Text summaryCapacity;
+    private NumberTextField summaryCapacity;
     @FXML
     private Text summaryRemainingSpots;
     @FXML
-    private Text summaryRoomName;
+    private ChoiceBox<String> summaryRoomName;
     @FXML
-    private Text summaryStart;
+    private DateTimePicker summaryStart;
     @FXML
-    private Text summaryEnd;
+    private DateTimePicker summaryEnd;
     @FXML
     private Text summaryDuration;
     @FXML
@@ -48,11 +54,17 @@ public class RescheduleCancelEventView implements IRescheduleCancelEventView {
     @FXML
     private Text summaryAttendees;
     @FXML
+    private ChoiceBox<String> summaryVip;
+    @FXML
     private Text resultText;
 
     @FXML
     public void executeAddCancel(ActionEvent event) {
         if (cancelButtonAction != null) cancelButtonAction.handle(event);
+    }
+    @FXML
+    public void executeAddReschedule(ActionEvent event) {
+        if (rescheduleButtonAction != null) rescheduleButtonAction.handle(event);
     }
     @FXML
     public void initialize() {
@@ -61,6 +73,7 @@ public class RescheduleCancelEventView implements IRescheduleCancelEventView {
 
     private RescheduleCancelEventPresenter presenter;
     private EventHandler<ActionEvent> cancelButtonAction;
+    private EventHandler<ActionEvent> rescheduleButtonAction;
     private Stage stage;
     private String sessionUsername;
     private String sessionUserType;
@@ -96,6 +109,36 @@ public class RescheduleCancelEventView implements IRescheduleCancelEventView {
     }
 
     @Override
+    public ToggleSwitch getToggleSwitch() {
+        return this.toggleSwitch;
+    }
+
+    @Override
+    public NumberTextField getSummaryCapacityField() {
+        return this.summaryCapacity;
+    }
+
+    @Override
+    public ChoiceBox<String> getSummaryRoomsChoiceBox() {
+        return this.summaryRoomName;
+    }
+
+    @Override
+    public DateTimePicker getSummaryStart() {
+        return this.summaryStart;
+    }
+
+    @Override
+    public DateTimePicker getSummaryEnd() {
+        return this.summaryEnd;
+    }
+
+    @Override
+    public ChoiceBox<String> getSummaryVipChoiceBox() {
+        return this.summaryVip;
+    }
+
+    @Override
     public void setSummaryEventName(String eventName) {
         this.summaryEventName.setText(eventName);
     }
@@ -112,17 +155,17 @@ public class RescheduleCancelEventView implements IRescheduleCancelEventView {
 
     @Override
     public void setSummaryRoomName(String roomName) {
-        this.summaryRoomName.setText(roomName);
+        this.summaryRoomName.setValue(roomName);
     }
 
     @Override
     public void setSummaryStart(LocalDateTime start) {
-        this.summaryStart.setText(DateTimeUtil.getInstance().format(start));
+        this.summaryStart.setDateTimeValue(start);
     }
 
     @Override
     public void setSummaryEnd(LocalDateTime end) {
-        this.summaryEnd.setText(DateTimeUtil.getInstance().format(end));
+        this.summaryEnd.setDateTimeValue(end);
     }
 
     @Override
@@ -146,6 +189,11 @@ public class RescheduleCancelEventView implements IRescheduleCancelEventView {
     }
 
     @Override
+    public void setSummaryVip(String vip) {
+        this.summaryVip.setValue(vip);
+    }
+
+    @Override
     public void setResultText(String resultText) {
         this.resultText.setText(resultText);
     }
@@ -158,6 +206,16 @@ public class RescheduleCancelEventView implements IRescheduleCancelEventView {
     @Override
     public void setCancelButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.cancelButtonAction = eventHandler;
+    }
+
+    @Override
+    public EventHandler<ActionEvent> getRescheduleButtonAction() {
+        return this.rescheduleButtonAction;
+    }
+
+    @Override
+    public void setRescheduleButtonAction(EventHandler<ActionEvent> eventHandler) {
+        this.rescheduleButtonAction = eventHandler;
     }
 
     @Override

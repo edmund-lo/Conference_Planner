@@ -328,7 +328,7 @@ public class OrganizerController extends UserController {
             return op.invalidCapacityError();
         } else if (rm.getRoomCapacity(roomName) < capacity){
             return op.cannotAccommodate();
-        } else if (em.getAttendingUsers(eventID).size() < capacity){
+        } else if (em.getAttendingUsers(eventID).size() > capacity){
             return op.cannotChangeCap(capacity);
         } else {
             em.changeEventCap(eventID, capacity);
