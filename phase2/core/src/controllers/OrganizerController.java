@@ -287,17 +287,6 @@ public class OrganizerController extends UserController {
     }
 
     /**
-     * removes event with ID eventID. Removing an event results in cancelling it and then removing it completely from
-     * the system.
-     * @param eventID the ID of the event you wish to cancel
-     */
-    public void removeEvent(String eventID){
-        cancelEvent(eventID);
-        em.removeEvent(eventID);
-        this.saveData();
-    }
-
-    /**
      * Reschedules event with ID eventID at newStart to newEnd in roomName. Note that this should be called ONLY after
      * cancelEvent has been called
      * @param info contains the event ID (eventID), the room name (roomName) and the start time (startTime)
