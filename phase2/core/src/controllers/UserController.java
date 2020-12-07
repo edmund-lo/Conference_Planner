@@ -232,24 +232,44 @@ public abstract class UserController {
         }
     }
 
+    /**
+     * Adds user with name username to this user's friends list
+     * @param username username of the person this user wishes to add
+     * @return JSONObject detailing the results
+     */
     public JSONObject addFriend(String username){
         um.addFriend(this.username, username);
         this.saveData();
         return up.friendAdded(username);
     }
 
+    /**
+     * Removes ueser with name username from this user's friends list
+     * @param username username of the person this user wishes to remove
+     * @return JSONObject detailing the results
+     */
     public JSONObject removeFriend(String username){
         um.removeFriend(this.username, username);
         this.saveData();
         return up.friendRemoved(username);
     }
 
+    /**
+     * Declines the friends request from user with name username
+     * @param username the username of the friend who sent the request
+     * @return JSONObject detailing the results
+     */
     public JSONObject declineRequest(String username){
         um.declineRequest(this.username, username);
         this.saveData();
         return up.requestDenied(username);
     }
 
+    /**
+     * Sends a friends request to user with name username
+     * @param username the username of the user
+     * @return JSONObject detailing the results
+     */
     public JSONObject sendFriendRequest(String username){
         if (um.canBeFriend(this.username, username)){
             um.sendFriendRequest(this.username, username);
@@ -259,6 +279,10 @@ public abstract class UserController {
         return up.cantAddFriend(username);
     }
 
+    /**
+     * Getter for the friends of this user
+     * @return JSONObject containing all of the friends of this user
+     */
     public JSONObject getFriends(){
         return um.getAllFriendsJson(username);
     }

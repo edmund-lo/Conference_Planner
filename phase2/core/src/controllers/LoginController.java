@@ -22,29 +22,22 @@ import java.util.Calendar;
 
 public class LoginController {
     private ArrayList<String[]> Accounts;
-    protected UserManager um;
     protected UserAccountManager uam;
-    protected RoomManager rm;
-    protected UserController controller;
     protected LoginLogManager llm;
     private final LoginPresenter lp;
 
-    LoginLogGateway llg;
-    UserAccountGateway uag;
+    private final LoginLogGateway llg;
+    private final UserAccountGateway uag;
 
     /**
      * Constructor for LoginController object.
      */
     public LoginController(){
         //The gateways that will be used to serialize data
-        UserGateway ug = new UserGateway();
-        RoomGateway rg = new RoomGateway();
         this.llg = new LoginLogGateway();
         this.uag = new UserAccountGateway();
 
         //Use gateways to initialize all use cases and managers
-        this.um = ug.deserializeData();
-        this.rm = rg.deserializeData();
         this.llm = llg.deserializeData();
         this.uam = uag.deserializeData();
 
@@ -90,6 +83,7 @@ public class LoginController {
         //Add account to the user manager and update the Accounts Arraylist
         uam.addAccount(Username, Password, type, security,
                 q1, q2, q3, ans1, ans2, ans3);
+        uag.serializeData(uam);
         this.Accounts = uam.getAccountInfo();
 
         return lp.AccountMade();
@@ -140,6 +134,7 @@ public class LoginController {
         UserAccountEntity Account = uam.getUserAccount(Username);
         Account.Lock();
         uam.updateAccount(Username, Account);
+        uag.serializeData(uam);
     }
 
     /**
@@ -177,6 +172,7 @@ public class LoginController {
             //Update password
             Account.setPassword(NewPassword);
             uam.updateAccount(Account.getUsername(), Account);
+            uag.serializeData(uam);
             return true;
         }
         return false;
