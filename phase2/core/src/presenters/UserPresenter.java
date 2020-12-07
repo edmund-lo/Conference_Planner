@@ -24,7 +24,7 @@ public class UserPresenter {
     /**
      * list of events iterated and printed
      * @param events passes in list of events to iterate through and print
-     * @return a list of events in JSONOBject format
+     * @return a list of events in JSONObject format
      */
     public JSONObject listEvents(List<String> events) {
         return pu.createJSON("success", "Events have been listed", "List of Events", events);
@@ -73,7 +73,7 @@ public class UserPresenter {
     }
 
     /**
-     * Notifies the user that they ahve already signed up for an event at the specified time
+     * Notifies the user that they have already signed up for an event at the specified time
      * @return the method description in JSONObject format
      */
     public JSONObject alreadySignedUpError() {

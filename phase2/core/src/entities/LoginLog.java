@@ -2,9 +2,6 @@ package entities;
 import org.json.simple.*;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.io.*;
-import java.time.LocalDateTime;
-import java.util.HashMap;
 
 /**
  * An Entity class for a Login Log.

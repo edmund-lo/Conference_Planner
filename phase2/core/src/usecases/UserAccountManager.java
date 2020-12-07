@@ -2,12 +2,10 @@ package usecases;
 
 import entities.UserAccountEntity;
 
-import java.lang.reflect.Array;
+
 import java.util.*;
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.ArrayList;
-import org.json.simple.*;
 
 /**
  * Helper that manages all interaction with the Entities.UserAccountEntity classes and

@@ -1,16 +1,10 @@
 package usecases;
 
-import entities.Event;
 import entities.LoginLog;
-
-import entities.Room;
 import org.json.simple.*;
 import java.io.Serializable;
-import java.lang.reflect.Array;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 
 /**

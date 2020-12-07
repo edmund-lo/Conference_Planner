@@ -16,8 +16,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-import static java.lang.Integer.parseInt;
-
 /**
  * An abstract Controller class, which all other types of user controllers inherit from.
  *

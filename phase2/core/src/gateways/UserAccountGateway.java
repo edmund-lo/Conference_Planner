@@ -1,7 +1,6 @@
 package gateways;
 
 import usecases.UserAccountManager;
-import usecases.UserManager;
 
 import java.io.*;
 /**
