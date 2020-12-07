@@ -63,9 +63,14 @@ public class MessageThread implements Serializable {
      *
      * @return The read bool variable
      */
-    public boolean getRead() {
-        return this.read;
-    }
+    public boolean getRead() { return this.read; }
+
+    /**
+     * @param newRead The update checker, which tells the messages are read or not
+     *
+     * setter for these messages were read or not
+     */
+    public void setRead(boolean newRead) { this.read = newRead;}
 
     /**
      * getter for all the messages stored in this thread

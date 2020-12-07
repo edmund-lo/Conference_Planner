@@ -21,9 +21,9 @@ public abstract class User implements Serializable {
     private HashMap<String, LocalDateTime[]> schedule;
     private List<String> friendRequest;
     private List<String> friendsList;
-    private List<String> sentMessages;
-    private List<String> receivedMessages;
-    private List<String> inbox;
+    private ArrayList primaryInbox;
+    private ArrayList archivedInbox;
+    private ArrayList trashInbox;
 
     /**
      * Constructor for User object. Initializes an empty hashmap for a user's schedule and
@@ -40,9 +40,9 @@ public abstract class User implements Serializable {
         this.schedule = new HashMap<>();
         this.friendRequest = new ArrayList<>();
         this.friendsList = new ArrayList<>();
-        this.sentMessages = new ArrayList<>();
-        this.receivedMessages = new ArrayList<>();
-        this.inbox = new ArrayList<>();
+        this.primaryInbox = new ArrayList<>();
+        this.archivedInbox = new ArrayList<>();
+        this.trashInbox = new ArrayList<>();
     }
 
     /**
@@ -72,34 +72,31 @@ public abstract class User implements Serializable {
     }
 
     /**
-     * Getter for a user's sent messages.
+     * Getter for a user's primary inbox.
      *
-     * @return An arraylist containing message IDs of all sent messages
+     * @return An arraylist containing messageThread IDs of all primary messageThreads
      */
-    public List<String> getSentMessages() {
-        return sentMessages;
+    public List<String> getPrimaryInbox() {
+        return primaryInbox;
     }
 
     /**
-     * Getter for a user's received messages.
+     * Getter for a user's archived inbox.
      *
-     * @return An arraylist containing message IDs of all received messages
+     * @return An arraylist containing messageThread IDs of all archived messageThreads
      */
-    public List<String> getReceivedMessages() {
-        return receivedMessages;
+    public List<String> getArchivedInbox() {
+        return archivedInbox;
     }
 
-    public List<String> getInboxMessages() {
-        return inbox;
-    }
 
     /**
-     * Getter for a user's inbox.
+     * Getter for a user's trash inbox.
      *
-     * @return An arraylist containing message IDs of all saved messages
+     * @return An arraylist containing messageThread IDs of all trash messageThreads
      */
-    public List<String> getIndex() {
-        return inbox;
+    public List<String> getTrashInbox() {
+        return trashInbox;
     }
 
     /**
@@ -149,55 +146,73 @@ public abstract class User implements Serializable {
     }
 
     /**
-     * Adds message ID of the sent message to user's list of sent messages.
+     * Adds messageThreadId of the sent message to user's primaryInbox.
      *
-     * @param messageID the message ID of the sent message
+     * Precondition: the messageThreadId exist
+     *
+     * @param messageThreadId the messageThread Id of the sent message
      */
-    public void sendMessage(String messageID) {
-        sentMessages.add(messageID);
+    public void sendMessage(String messageThreadId) {
+        this.primaryInbox.add(messageThreadId);
     }
 
     /**
-     * Adds message ID of the received message to user's list of received messages.
+     * Adds messageThreadId of the received message to user's primaryInbox.
      *
-     * @param messageID the message ID of the received message
+     * Precondition: the messageThreadId exist
+     *
+     * @param messageThreadId the messageThreadId of the received message
      */
-    public void receiveMessage(String messageID) {
-        receivedMessages.add(messageID);
+    public void receiveMessage(String messageThreadId) {
+        this.primaryInbox.add(messageThreadId);
     }
 
     /**
-     * Adds message ID of the received message to user's inbox.
+     * Moves messageThreadId of the messageThread to user's archivedInbox.
      *
-     * @param messageID the message ID to be add
-     */
-    public void archiveToInbox(String messageID) { inbox.add(messageID); }
-
-    /**
-     * Deletes message ID of the sent message from user's list of sent messages.
+     * Precondition: the messageThreadId exist in the primary inbox
      *
-     * @param messageID the message ID of the sent message they want to delete
+     * @param messageThreadId the messageThreadId to be archived
      */
-    public void deleteSentMessage(String messageID) {
-        sentMessages.remove(messageID);
+    public void archiveToInbox(String messageThreadId) {
+        this.archivedInbox.add(messageThreadId);
+        this.primaryInbox.remove(messageThreadId);
     }
 
     /**
-     * Deletes message ID of the received message from user's list of received messages.
+     * Moves messageThreadId of the messageThread to user's trashInbox.
      *
-     * @param messageID the message ID of the received message they want to delete
+     * Precondition: the messageThreadId exist in the primary inbox
+     *
+     * @param messageThreadId the messageThreadId of the messageThread they want to move to trash bin
      */
-    public void deleteReceivedMessage(String messageID) {
-        receivedMessages.remove(messageID);
+    public void moveToTrash(String messageThreadId) {
+        this.trashInbox.add(messageThreadId);
+        this.primaryInbox.remove(messageThreadId);
     }
 
     /**
-     * Deletes message ID of the received message from user's inbox.
+     * Moves messageThreadId of the messageThread back to user's primaryInbox from the archivedInbox.
      *
-     * @param messageID the message ID in the inbox that they want to delete
+     * Precondition: the messageThreadId exist in the archivedInbox
+     *
+     * @param messageThreadId the messageThreadId to be move back
      */
-    public void deleteFromInbox(String messageID) {
-        inbox.remove(messageID);
+    public void archivedBackToPrimary(String messageThreadId) {
+        this.primaryInbox.add(messageThreadId);
+        this.archivedInbox.remove(messageThreadId);
+    }
+
+    /**
+     * Moves messageThreadId of the messageThread back to user's primaryInbox from the trashInbox.
+     *
+     * Precondition: the messageThreadId exist in the trashInbox
+     *
+     * @param messageThreadId the messageThreadId of the messageThread they want to move back from the trash bin
+     */
+    public void trashBackToPrimary(String messageThreadId) {
+        this.primaryInbox.add(messageThreadId);
+        this.trashInbox.remove(messageThreadId);
     }
 
     /**

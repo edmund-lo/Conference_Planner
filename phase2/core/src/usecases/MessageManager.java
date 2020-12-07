@@ -114,6 +114,16 @@ public class MessageManager implements Serializable {
         return true;
     }
 
+    public void readMessage(String messageThreadId){
+        MessageThread messageThread = allMessageThreads.get(messageThreadId);
+        messageThread.setRead(true);
+    }
+
+    public void unreadMessage(String messageThreadId){
+        MessageThread messageThread = allMessageThreads.get(messageThreadId);
+        messageThread.setRead(false);
+    }
+
     public JSONObject getAllMessageThreadToJson(){
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
