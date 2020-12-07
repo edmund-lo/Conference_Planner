@@ -32,6 +32,7 @@ public class OrganizerController extends UserController {
      */
     public JSONObject messageAllSpeakersCmd(JSONObject messageContent) {
         String message = messageContent.get("content").toString();
+        this.saveData();
         return messageAllSpeakers(message);
     }
 
@@ -51,6 +52,7 @@ public class OrganizerController extends UserController {
                 mp.invalidMessageError();
             }
         }
+        this.saveData();
         return op.messagedAllSpeakersResult();
     }
 
@@ -59,6 +61,7 @@ public class OrganizerController extends UserController {
      */
     public JSONObject messageAllAttendeesCmd(JSONObject messageContent) {
         String message = messageContent.get("content").toString();
+        this.saveData();
         return messageAllAttendees(message);
     }
 
@@ -80,6 +83,7 @@ public class OrganizerController extends UserController {
                 }
             }
         }
+        this.saveData();
         return op.messagedAllAttendeesResult();
     }
 
@@ -105,12 +109,14 @@ public class OrganizerController extends UserController {
      */
     public JSONObject createRoom(String roomName, int capacity, boolean hasChairs, boolean hasTables,
                                  boolean hasProjector, boolean hasSoundSystem) {
-        if(roomName.length() < 1)  //ensure that the room name is not empty
+        if (roomName.length() < 1) {  //ensure that the room name is not empty
             return op.emptyFieldError();
-        else if (rm.createRoom(roomName, capacity, hasChairs, hasTables, hasProjector, hasSoundSystem))
+        } else if (rm.createRoom(roomName, capacity, hasChairs, hasTables, hasProjector, hasSoundSystem)) {
+            this.saveData();
             return op.roomCreationResult();
-        else
+        } else {
             return op.invalidRoomNameError();
+        }
     }
 
     public JSONObject listEvents() {
@@ -123,7 +129,7 @@ public class OrganizerController extends UserController {
         if (allSpeakers.size() == 0) {
             return op.noSpeakers();
         }
-        //user picks an event to assign a speaker to
+        // user is returned a list of events
         return op.listEvents(allEvents);
     }
 
@@ -147,7 +153,6 @@ public class OrganizerController extends UserController {
      * Called when user chooses to schedule a speaker to an event.
      */
     public JSONObject scheduleSpeakerCmd(String eventID, String speakerName) {
-
         return scheduleSpeaker(speakerName, eventID); //schedule the selected speaker
     }
 
@@ -169,6 +174,7 @@ public class OrganizerController extends UserController {
         }
         em.addSpeakerToEvent(speakerName, eventID); //add speaker to event
         um.addSpeakerEvent(speakerName, eventID, start, end); //add event to speaker
+        this.saveData();
         return op.scheduleSpeakerResult();
     }
 
@@ -178,7 +184,7 @@ public class OrganizerController extends UserController {
      * @return a list of constraints for an event
      */
 
-    public List getConstraints(JSONObject constraints){
+    public List<Boolean> getConstraints(JSONObject constraints){
         boolean hasChairs = (boolean) constraints.get("chairs");
         boolean hasTables = (boolean) constraints.get("tables");
         boolean hasProjector = (boolean) constraints.get("projector");
@@ -238,6 +244,7 @@ public class OrganizerController extends UserController {
         }
         if (createEvent(eventName, startTime, endTime, roomName, constraints.get(0), constraints.get(1),
                 constraints.get(2), constraints.get(3), eventCap, vipEvent)) {
+            this.saveData();
             return op.eventCreationResult();
         } else {
             return op.eventFailedCreationError();
@@ -276,6 +283,7 @@ public class OrganizerController extends UserController {
             um.cancelSpeakerEvent(speakerName, eventId);
         }
         em.cancelEvent(eventId);
+        this.saveData();
     }
 
     /**
@@ -286,13 +294,14 @@ public class OrganizerController extends UserController {
     public void removeEvent(String eventID){
         cancelEvent(eventID);
         em.removeEvent(eventID);
+        this.saveData();
     }
 
     /**
-     * Reschedules event with ID eventID at newStart to newEnd in roomName with VIP status or not. Note that this should
-     * be called ONLY after cancelEvent has been called
-     * @param info contains the event ID (eventID), the room name (roomName), boolean of whether this event is now a
-     *             VIP event or not and the start time (startTime) and end time (endTime)
+     * Reschedules event with ID eventID at newStart to newEnd in roomName. Note that this should be called ONLY after
+     * cancelEvent has been called
+     * @param info contains the event ID (eventID), the room name (roomName) and the start time (startTime)
+     *             and end time (endTime)
      * @return A JSONObject detailing the outcome
      */
     public JSONObject rescheduleEvent(JSONObject info) {
@@ -305,6 +314,7 @@ public class OrganizerController extends UserController {
             em.changeEventTime(eventID, newStart, newEnd);
             em.changeEventRoom(eventID, roomName);
             em.changeVipStatus(eventID, isVipEvent);
+            this.saveData();
             return op.rescheduleSuccess();
         }
         return op.rescheduleFailure(roomName);
@@ -322,6 +332,7 @@ public class OrganizerController extends UserController {
             return op.cannotChangeCap(capacity);
         } else {
             em.changeEventCap(eventID, capacity);
+            this.saveData();
             return op.changeCapResult();
         }
     }
