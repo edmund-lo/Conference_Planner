@@ -103,6 +103,11 @@ public class LoginController {
         boolean UsernameExists = false;
         boolean PasswordExists = false;
 
+        if (suspiciousLogs(Username)){
+            lockOut(Username);
+            return lp.AccountLocked();
+        }
+
         //Go through all existing account to see if username entered exists in the database.
         for (String[] users : Accounts){
             if (users[0].equals(Username)){
@@ -133,6 +138,7 @@ public class LoginController {
     public void lockOut(String Username){
         UserAccountEntity Account = uam.getUserAccount(Username);
         Account.Lock();
+        uam.updateAccount(Username, Account);
     }
 
     //Returns true if past 3 logins were failed logins, false otherwise.
@@ -150,15 +156,20 @@ public class LoginController {
         return strike == 3;
     }
 
-    public boolean resetPassword(String User, String a1, String a2, String a3){
+    public boolean resetPassword(String User, String a1, String a2, String a3, String NewPassword){
         UserAccountEntity Account = uam.getUserAccount(User);
 
         lp.SecurityQuestion1();
         lp.SecurityQuestion2();
         lp.SecurityQuestion3();
 
-        return a1.equals(Account.getSecurityAns(1)) && a2.equals(Account.getSecurityAns(2))
-                && a3.equals(Account.getSecurityAns(3));
+        if(a1.equals(Account.getSecurityAns(1)) && a2.equals(Account.getSecurityAns(2))
+                && a3.equals(Account.getSecurityAns(3))){
+            Account.setPassword(NewPassword);
+            uam.updateAccount(Account.getUsername(), Account);
+            return true;
+        }
+        return false;
     }
 
     public void UpdateLogs(String Username, String type){
