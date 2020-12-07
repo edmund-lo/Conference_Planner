@@ -226,6 +226,14 @@ public class Event implements Serializable {
     }
 
     /**
+     * changes the status of whether this event is a vip even tor not
+     * @param isVip True iff this event is a VIP event
+     */
+    public void changeVipStatus(boolean isVip){
+        this.vipEvent = isVip;
+    }
+
+    /**
      * A check if this event needs chairs
      * @return True iff this event needs chairs
      */
