@@ -85,6 +85,7 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         this.view.setSummaryStart(this.view.getStart());
         this.view.setSummaryEnd(this.view.getEnd());
         this.view.setSummaryAmenities(amenitiesToString());
+        this.view.setSummaryVipEvent(this.view.getVipEvent());
 
         this.view.getTitledPane(2).setDisable(true);
         this.view.getTitledPane(3).setDisable(false);
@@ -196,7 +197,7 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         JSONObject queryJson = new JSONObject();
         queryJson.put("eventName", this.view.getEventName());
         queryJson.put("capacity", this.view.getCapacity());
-        queryJson.put("vip", Boolean.FALSE); //implement VIP checkbox
+        queryJson.put("vip", this.view.getVipEvent().equals("Yes"));
         queryJson.put("roomName", this.view.getRoomName());
         queryJson.put("start", this.view.getStart());
         queryJson.put("end", this.view.getEnd());

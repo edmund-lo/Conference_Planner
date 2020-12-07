@@ -1,6 +1,7 @@
 package organizer.impl;
 
 import adapter.UserAdapter;
+//import controllers.OrganizerController;
 import controllers.OrganizerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

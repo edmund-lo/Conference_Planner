@@ -15,7 +15,7 @@ public class RegisterPresenter implements IRegisterPresenter {
 
     public RegisterPresenter(IRegisterView view) {
         this.view = view;
-        //this.lc = new LoginController();
+        this.lc = new LoginController();
         init();
     }
 

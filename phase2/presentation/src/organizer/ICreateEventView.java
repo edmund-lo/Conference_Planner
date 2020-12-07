@@ -18,6 +18,8 @@ public interface ICreateEventView extends ILoggedInView {
     void setCapacity(int capacity);
     boolean getAmenity(int index);
     void setAmenity(int index, boolean checked);
+    String getVipEvent();
+    void setVipEvent(String vipEvent);
     String getRoomName();
     void setRoomName(String roomName);
     LocalDateTime getStart();
@@ -30,6 +32,7 @@ public interface ICreateEventView extends ILoggedInView {
     void setSummaryStart(LocalDateTime start);
     void setSummaryEnd(LocalDateTime end);
     void setSummaryAmenities(String amenities);
+    void setSummaryVipEvent(String vipEvent);
     void setResultText(String resultText, int index);
 
     ComboBox<String> getRoomComboBox();

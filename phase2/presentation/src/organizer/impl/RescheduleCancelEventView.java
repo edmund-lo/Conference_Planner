@@ -146,8 +146,8 @@ public class RescheduleCancelEventView implements IRescheduleCancelEventView {
     }
 
     @Override
-    public void setResultMsg(String resultMsg) {
-        this.resultText.setText(resultMsg);
+    public void setResultText(String resultText) {
+        this.resultText.setText(resultText);
     }
 
     @Override

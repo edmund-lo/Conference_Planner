@@ -15,7 +15,7 @@ public interface ICreateAccountView extends ILoggedInView {
     void setPassword(String password);
     String getConfirmPassword();
     void setConfirmPassword(String password);
-    void setResultMsg(String result);
+    void setResultText(String resultText);
 
     TextField getUsernameField();
     PasswordField getPasswordField();

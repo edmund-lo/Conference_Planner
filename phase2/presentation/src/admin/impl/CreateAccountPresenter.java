@@ -1,41 +1,42 @@
 package admin.impl;
 
-//import Controllers.ILoginController
-import javafx.css.PseudoClass;
+import controllers.AdminController;
 import javafx.event.ActionEvent;
 import admin.ICreateAccountPresenter;
 import admin.ICreateAccountView;
+import org.json.simple.JSONObject;
+import util.TextResultUtil;
 
 public class CreateAccountPresenter implements ICreateAccountPresenter {
     private ICreateAccountView view;
-    private final PseudoClass errorClass = PseudoClass.getPseudoClass("error");
+    private AdminController ac;
 
     public CreateAccountPresenter(ICreateAccountView view) {
         this.view = view;
+        this.ac = new AdminController(this.view.getSessionUsername());
         init();
     }
 
     @Override
     public void createAccountButtonAction(ActionEvent actionEvent) {
-        clearError();
+        clearResultText();
 
-        //call lc.register method
+        JSONObject queryJson = constructAccountJson();
+        //JSONObject responseJson = ac.createAccount(queryJson);
+        JSONObject responseJson = new JSONObject();
+        setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
+        if (responseJson.get("status").equals("success")) init();
     }
 
     @Override
-    public void setError(String error, int errorId) {
-        if (errorId == 0) {
-            this.view.getPasswordField().pseudoClassStateChanged(errorClass, true);
-            this.view.getConfirmPasswordField().pseudoClassStateChanged(errorClass, true);
+    public void setResultText(String resultText, String status) {
+        this.view.setResultText(resultText);
+        TextResultUtil.getInstance().addPseudoClass(status, this.view.getResultTextControl());
+        if (status.equals("error") || status.equals("warning")) {
+            TextResultUtil.getInstance().addPseudoClass(status, this.view.getUsernameField());
+            TextResultUtil.getInstance().addPseudoClass(status, this.view.getPasswordField());
+            TextResultUtil.getInstance().addPseudoClass(status, this.view.getConfirmPasswordField());
         }
-        if (errorId == 1) {
-            this.view.getPasswordField().pseudoClassStateChanged(errorClass, true);
-            this.view.getConfirmPasswordField().pseudoClassStateChanged(errorClass, true);
-            this.view.getUsernameField().pseudoClassStateChanged(errorClass, true);
-        } else if (errorId == 2) {
-            this.view.getUsernameField().pseudoClassStateChanged(errorClass, true);
-        }
-        this.view.setResultMsg(error);
     }
 
     @Override
@@ -43,10 +44,22 @@ public class CreateAccountPresenter implements ICreateAccountPresenter {
         this.view.setCreateAccountButtonAction(this::createAccountButtonAction);
     }
 
-    private void clearError() {
-        this.view.setResultMsg("");
-        this.view.getPasswordField().pseudoClassStateChanged(errorClass, false);
-        this.view.getConfirmPasswordField().pseudoClassStateChanged(errorClass, false);
-        this.view.getUsernameField().pseudoClassStateChanged(errorClass, false);
+    @SuppressWarnings("unchecked")
+    private JSONObject constructAccountJson() {
+        JSONObject queryJson = new JSONObject();
+        queryJson.put("username", this.view.getUsername());
+        queryJson.put("userType", this.view.getUserType());
+        queryJson.put("password", this.view.getPassword());
+        queryJson.put("confirmPassword", this.view.getConfirmPassword());
+        queryJson.put("setup", Boolean.TRUE);
+        return queryJson;
+    }
+
+    private void clearResultText() {
+        this.view.setResultText("");
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl());
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getUsernameField());
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getPasswordField());
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getConfirmPasswordField());
     }
 }

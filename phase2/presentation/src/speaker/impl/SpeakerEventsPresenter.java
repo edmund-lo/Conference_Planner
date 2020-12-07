@@ -2,6 +2,7 @@ package speaker.impl;
 
 import adapter.ScheduleAdapter;
 import adapter.UserAdapter;
+//import controllers.SpeakerController;
 import controllers.SpeakerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,7 +27,7 @@ public class SpeakerEventsPresenter implements ISpeakerEventsPresenter {
 
     public SpeakerEventsPresenter(ISpeakerEventsView view) {
         this.view = view;
-        //this.sc = new SpeakerController();
+        this.sc = new SpeakerController(this.view.getSessionUsername());
         init();
     }
 

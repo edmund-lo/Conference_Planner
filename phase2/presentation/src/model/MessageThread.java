@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class Message {
+public class MessageThread {
     private final StringProperty messageId;
     private final StringProperty senderName;
     private final ListProperty<String> recipientNames;
@@ -15,12 +15,12 @@ public class Message {
     private final BooleanProperty read;
     private final ObjectProperty<LocalDateTime> messageTime;
 
-    public Message() {
+    public MessageThread() {
         this(null, null, null, null, null, false, null);
     }
 
-    public Message(String messageId, String senderName, List<String> recipientNames, String subject, String content, boolean read,
-                   LocalDateTime messageTime) {
+    public MessageThread(String messageId, String senderName, List<String> recipientNames, String subject, String content, boolean read,
+                         LocalDateTime messageTime) {
         this.messageId = new SimpleStringProperty(messageId);
         this.senderName = new SimpleStringProperty(senderName);
         this.recipientNames = new SimpleListProperty<>(FXCollections.observableArrayList(recipientNames));

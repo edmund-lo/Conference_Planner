@@ -15,6 +15,7 @@ public class ForgotPresenter implements IForgotPresenter {
 
     public ForgotPresenter(IForgotView view) {
         this.view = view;
+        this.lc = new LoginController();
         init();
     }
 

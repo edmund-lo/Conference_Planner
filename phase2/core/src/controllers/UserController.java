@@ -141,10 +141,12 @@ public abstract class UserController {
      *
      * @return a list of all events
      */
-    public List<String> getAllEvents(){
+    public List<String> getAllEvents() {
         ArrayList<String> eventDesc = new ArrayList<>();
-        for (String id : em.getAllEventIds()){
-            eventDesc.add(em.getEventDescription(id));
+        for (String id : em.getAllEventIds()) {
+            if (em.getEventStartTime(id).isAfter(LocalDateTime.now())) {
+                eventDesc.add(em.getEventDescription(id));
+            }
         }
         return eventDesc;
     }
@@ -157,7 +159,8 @@ public abstract class UserController {
     public JSONArray getAllSignUpEvents(){
         JSONArray eventDesc = new JSONArray();
         for (String id : em.getAllEventIds()){
-            if(um.canSignUp(username, id, em.getEventStartTime(id), em.getEventEndTime(id))) {
+            if(em.getEventStartTime(id).isAfter(LocalDateTime.now()) &&
+                    um.canSignUp(username, id, em.getEventStartTime(id), em.getEventEndTime(id))) {
                 eventDesc.add(id);
             }
         }

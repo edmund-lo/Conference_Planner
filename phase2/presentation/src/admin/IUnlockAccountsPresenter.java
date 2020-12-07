@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IUnlockAccountsPresenter extends IPresenter {
     void unlockButtonAction(ActionEvent actionEvent);
-    void setResultText(String resultText);
+    void setResultText(String resultText, String status);
     List<UserAccount> getUserAccounts();
     void displayUserAccounts(List<UserAccount> accounts);
     void displayUserAccountDetails(UserAccount account);
