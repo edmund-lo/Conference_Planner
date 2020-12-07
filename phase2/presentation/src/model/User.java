@@ -8,19 +8,19 @@ public class User extends Selectable {
     private final StringProperty username;
     private final StringProperty firstName;
     private final StringProperty lastName;
-    private final IntegerProperty userType;
+    private final StringProperty userType;
     private final BooleanProperty vip;
 
     public User() {
-        this(null, null, null, 0, false);
+        this(null, null, null, null, false);
     }
 
-    public User(String username, String firstName, String lastName, int userType, boolean vip) {
+    public User(String username, String firstName, String lastName, String userType, boolean vip) {
         setChecked(false);
         this.username = new SimpleStringProperty(username);
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
-        this.userType = new SimpleIntegerProperty(userType);
+        this.userType = new SimpleStringProperty(userType);
         this.vip = new SimpleBooleanProperty(vip);
     }
 
@@ -56,15 +56,15 @@ public class User extends Selectable {
         this.lastName.set(lastName);
     }
 
-    public int getUserType() {
+    public String getUserType() {
         return userType.get();
     }
 
-    public IntegerProperty userTypeProperty() {
+    public StringProperty userTypeProperty() {
         return userType;
     }
 
-    public void setUserType(int userType) {
+    public void setUserType(String userType) {
         this.userType.set(userType);
     }
 

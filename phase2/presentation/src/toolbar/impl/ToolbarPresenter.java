@@ -42,6 +42,12 @@ public class ToolbarPresenter implements IToolbarPresenter {
     }
 
     @Override
+    public void friendsButtonAction(ActionEvent actionEvent) {
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "friends.fxml",
+                this.view.getSessionUsername(), this.view.getSessionUserType());
+    }
+
+    @Override
     public void createAccountButtonAction(ActionEvent actionEvent) {
         ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "createAccount.fxml",
                 this.view.getSessionUsername(), this.view.getSessionUserType());
@@ -124,19 +130,24 @@ public class ToolbarPresenter implements IToolbarPresenter {
 
     @Override
     public void filterAccess() {
-        if (this.view.getSessionUserType().equals("Organizer")) {
-            this.view.getAdminGroup().getChildren().clear();
-            this.view.getSpeakerGroup().getChildren().clear();
-        } else if (this.view.getSessionUserType().equals("Speaker")) {
-            this.view.getAdminGroup().getChildren().clear();
-            this.view.getOrganizerGroup().getChildren().clear();
-        } else if (this.view.getSessionUserType().equals("Admin")) {
-            this.view.getOrganizerGroup().getChildren().clear();
-            this.view.getSpeakerGroup().getChildren().clear();
-        } else {
-            this.view.getAdminGroup().getChildren().clear();
-            this.view.getSpeakerGroup().getChildren().clear();
-            this.view.getOrganizerGroup().getChildren().clear();
+        switch (this.view.getSessionUserType()) {
+            case "Organizer":
+                this.view.getAdminGroup().getChildren().clear();
+                this.view.getSpeakerGroup().getChildren().clear();
+                break;
+            case "Speaker":
+                this.view.getAdminGroup().getChildren().clear();
+                this.view.getOrganizerGroup().getChildren().clear();
+                break;
+            case "Admin":
+                this.view.getOrganizerGroup().getChildren().clear();
+                this.view.getSpeakerGroup().getChildren().clear();
+                break;
+            default:
+                this.view.getAdminGroup().getChildren().clear();
+                this.view.getSpeakerGroup().getChildren().clear();
+                this.view.getOrganizerGroup().getChildren().clear();
+                break;
         }
     }
 

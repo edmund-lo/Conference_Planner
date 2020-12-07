@@ -33,6 +33,10 @@ public class ToolbarView implements IToolbarView {
         if (messagingButtonAction != null) messagingButtonAction.handle(event);
     }
     @FXML
+    public void executeAddFriends(ActionEvent event) {
+        if (friendsButtonAction != null) friendsButtonAction.handle(event);
+    }
+    @FXML
     public void executeAddCreateRoom(ActionEvent event) {
         if (createRoomButtonAction != null) createRoomButtonAction.handle(event);
     }
@@ -94,6 +98,7 @@ public class ToolbarView implements IToolbarView {
     private EventHandler<ActionEvent> viewScheduleButtonAction;
     private EventHandler<ActionEvent> viewEventsButtonAction;
     private EventHandler<ActionEvent> messagingButtonAction;
+    private EventHandler<ActionEvent> friendsButtonAction;
     private EventHandler<ActionEvent> createRoomButtonAction;
     private EventHandler<ActionEvent> createEventButtonAction;
     private EventHandler<ActionEvent> scheduleSpeakerButtonAction;
@@ -164,6 +169,16 @@ public class ToolbarView implements IToolbarView {
     @Override
     public void setMessagingButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.messagingButtonAction = eventHandler;
+    }
+
+    @Override
+    public EventHandler<ActionEvent> getFriendsButtonAction() {
+        return this.friendsButtonAction;
+    }
+
+    @Override
+    public void setFriendsButtonAction(EventHandler<ActionEvent> eventHandler) {
+        this.friendsButtonAction = eventHandler;
     }
 
     @Override

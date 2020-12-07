@@ -14,7 +14,12 @@
                 <MenuItem text="View All Events" onAction="#executeAddViewEvents"/>
             </items>
         </MenuButton>
-        <Button text="Messaging" onAction="#executeAddMessaging"/>
+        <MenuButton text="Socials">
+            <items>
+                <MenuItem text="Messaging" onAction="#executeAddMessaging"/>
+                <MenuItem text="Friends" onAction="#executeAddFriends"/>
+            </items>
+        </MenuButton>
         <HBox fx:id="organizerGroup">
             <MenuButton text="Create">
                 <items>

@@ -18,6 +18,8 @@ public interface IToolbarView extends ILoggedInView {
     void setViewEventsButtonAction(EventHandler<ActionEvent> eventHandler);
     EventHandler<ActionEvent> getMessagingButtonAction();
     void setMessagingButtonAction(EventHandler<ActionEvent> eventHandler);
+    EventHandler<ActionEvent> getFriendsButtonAction();
+    void setFriendsButtonAction(EventHandler<ActionEvent> eventHandler);
     EventHandler<ActionEvent> getCreateRoomButtonAction();
     void setCreateRoomButtonAction(EventHandler<ActionEvent> eventHandler);
     EventHandler<ActionEvent> getCreateEventButtonAction();
