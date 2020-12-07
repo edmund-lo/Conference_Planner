@@ -72,4 +72,8 @@ public class LoginPresenter {
     public JSONObject SuccessfulLogin(JSONArray data) {
         return pu.createJSON("success", "Login Successful!", "JSONArray", data);
     }
+
+    public JSONObject noWhiteSpace() {
+        return pu.createJSON("warning", "Username cannot contain whitespaces");
+    }
 }
