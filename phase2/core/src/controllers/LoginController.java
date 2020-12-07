@@ -87,9 +87,9 @@ public class LoginController {
         lp.SecurityQuestion2();
         lp.SecurityQuestion3();
 
-        UserAccountEntity Account = new UserAccountEntity(Username, Password, type, false, security,
-        q1, q2, q3, ans1, ans2, ans3);
-
+        uam.addAccount(Username, Password, type, security,
+                q1, q2, q3, ans1, ans2, ans3));
+        this.Accounts = uam.getAccountInfo();
 
         return lp.AccountMade();
 
@@ -126,13 +126,13 @@ public class LoginController {
                 return lp.IncorrectCredentials();
         }
 
-        UserAccountEntity Account = uam.GetUserAccount(Username);
+        UserAccountEntity Account = uam.getUserAccount(Username);
         return lp.SuccessfulLogin(Account.getJSON());
     }
 
     //Locks user from logging in due to suspicious behaviour.
     public void lockOut(String Username){
-        UserAccountEntity Account = uam.GetUserAccount(Username);
+        UserAccountEntity Account = uam.getUserAccount(Username);
         Account.Lock();
     }
 
@@ -152,7 +152,7 @@ public class LoginController {
     }
 
     public boolean resetPassword(String User, String a1, String a2, String a3){
-        UserAccountEntity Account = uam.GetUserAccount(User);
+        UserAccountEntity Account = uam.getUserAccount(User);
 
         lp.SecurityQuestion1();
         lp.SecurityQuestion2();
