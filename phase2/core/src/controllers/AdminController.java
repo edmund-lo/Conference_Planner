@@ -35,10 +35,13 @@ public class AdminController extends UserController{
         String userType = String.valueOf(register.get("userType"));
 
         if (userType.equals("attendee")) {
+            this.saveData();
             return createAttendeeAccount(username, firstName, lastName);
         } else if (userType.equals("organizer")) {
+            this.saveData();
             return createOrganizerAccount(username, firstName, lastName);
         } else if (userType.equals("speaker")) {
+            this.saveData();
             return createSpeakerAccount(username, firstName, lastName);
         } else {
             return ap.invalidUserTypeError();
@@ -56,6 +59,7 @@ public class AdminController extends UserController{
     private JSONObject createAttendeeAccount(String username, String firstName, String lastName) {
         if (um.checkUniqueUsername(username)) { //ensures the username is unique
             um.createNewAttendee(username, firstName, lastName); //create new attendee
+            this.saveData();
             return ap.attendeeCreationResult();
         }
         return ap.usedNameError();
@@ -72,6 +76,7 @@ public class AdminController extends UserController{
     private JSONObject createOrganizerAccount(String username, String firstName, String lastName) {
         if (um.checkUniqueUsername(username)) { //ensures the username is unique
             um.createNewOrganizer(username, firstName, lastName); //create new organizer
+            this.saveData();
             return ap.organizerCreationResult();
         }
         return ap.usedNameError();
@@ -88,6 +93,7 @@ public class AdminController extends UserController{
     private JSONObject createSpeakerAccount(String username, String firstName, String lastName) {
         if (um.checkUniqueUsername(username)) { //ensures the username is unique
             um.createNewSpeaker(username, firstName, lastName); //create new speaker
+            this.saveData();
             return ap.speakerCreationResult();
         }
         return ap.usedNameError();
@@ -111,6 +117,7 @@ public class AdminController extends UserController{
     public JSONObject setAttendeeAsVip(String username) {
         if (!um.isVip(username)) {
             um.setAttendeeAsVip(username);
+            this.saveData();
             return ap.setVipResult();
         } else if (um.isVip(username)) {
             return ap.alreadyVipError();
@@ -126,6 +133,7 @@ public class AdminController extends UserController{
      */
     public JSONObject setAttendeeAsNotVip(String username) {
         if (um.isVip(username)) {
+            this.saveData();
             um.setAttendeeAsNotVip(username);
             return ap.setNotVipResult();
         } else if (!um.isVip(username)) {
