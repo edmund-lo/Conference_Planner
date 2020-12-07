@@ -96,7 +96,7 @@ public class MessageManager implements Serializable {
      */
 
     public boolean messageCheck(String content, String sender, String receviers) {
-        return (!receiverId.equals(senderId) && !content.equals(""));
+        return (!receiver.equals(sender) && !content.equals(""));
     }
 
     /**
@@ -108,7 +108,7 @@ public class MessageManager implements Serializable {
      */
 
     public String getSentMessageToString(String messageID) {
-        return this.allMessages.get(messageID).toStringSent();
+        return this.allMessageThreads.getMessages().get(messageID).toStringSent();
     }
 
     /**
@@ -120,7 +120,7 @@ public class MessageManager implements Serializable {
      */
 
     public String getReceivedMessageToString(String messageID) {
-        return this.allMessages.get(messageID).toStringReceived();
+        return this.allMessageThreads.getMessages().get(messageID).toStringReceived();
     }
 
     /**
@@ -132,20 +132,20 @@ public class MessageManager implements Serializable {
      */
 
     public String getInboxMessageToString(String messageID) {
-        return this.allMessages.get(messageID).toStringInbox();
+        return this.allMessageThreads.getMessages().get(messageID).toStringInbox();
     }
 
-    public JSONObject getAllMessagesJson(){
+    public JSONObject getAllMessageThreadsToJson(){
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
 
-        for(String ID: allMessages.keySet())
-            item.put(ID, allMessages.get(ID).convertToJSON());
+        for(String ID: allMessageThreads.keySet())
+            item.put(ID, allMessageThreads.get(ID).convertToJSON());
 
         array.add(item);
 
-        json.put("Messages", array);
+        json.put("MessageThreads", array);
 
         return json;
     }
