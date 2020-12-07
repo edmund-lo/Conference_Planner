@@ -146,12 +146,14 @@ public class LoginController {
      * Returns true if past 3 logins were failed logins, false otherwise.
      */
     public boolean suspiciousLogs(String Username){
+        //Check if user has logs
         if (!llm.checkLogExists(Username))
             return false;
 
         ArrayList<LoginLog> RecentLogs = llm.getUserLogs(Username);
         int strike = 0;
 
+        //Check past 3 logs, if they are all failed logins then account is suspicious.
         for (LoginLog log : RecentLogs) {
             if (log.getCondition().equals("Failed Login"))
                 strike++;
@@ -169,8 +171,10 @@ public class LoginController {
         lp.SecurityQuestion2();
         lp.SecurityQuestion3();
 
+        //Check if answers to security questions match.
         if(a1.equals(Account.getSecurityAns(1)) && a2.equals(Account.getSecurityAns(2))
                 && a3.equals(Account.getSecurityAns(3))){
+            //Update password
             Account.setPassword(NewPassword);
             uam.updateAccount(Account.getUsername(), Account);
             return true;
@@ -182,10 +186,12 @@ public class LoginController {
      * Update the logs database.
      */
     public void UpdateLogs(String Username, String type){
+        //Get current time and convert it to string/
         String pattern = "MM/dd/yyyy HH:mm:ss";
         DateFormat dateForm = new SimpleDateFormat(pattern);
         String dateString = dateForm.format(Calendar.getInstance().getTime());
 
+        //Add log.
         llm.addToLoginLogSet(type, Username, dateString);
         llg.serializeData(llm);
 
