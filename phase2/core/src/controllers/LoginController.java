@@ -22,7 +22,6 @@ import java.util.Calendar;
 
 public class LoginController {
     private ArrayList<String[]> Accounts;
-    protected UserManager um;
     protected UserAccountManager uam;
     protected LoginLogManager llm;
     private final LoginPresenter lp;
@@ -35,12 +34,10 @@ public class LoginController {
      */
     public LoginController(){
         //The gateways that will be used to serialize data
-        UserGateway ug = new UserGateway();
         this.llg = new LoginLogGateway();
         this.uag = new UserAccountGateway();
 
         //Use gateways to initialize all use cases and managers
-        this.um = ug.deserializeData();
         this.llm = llg.deserializeData();
         this.uam = uag.deserializeData();
 
