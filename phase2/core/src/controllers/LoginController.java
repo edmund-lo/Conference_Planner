@@ -2,7 +2,6 @@ package controllers;
 import entities.LoginLog;
 import entities.UserAccountEntity;
 import gateways.*;
-import model.UserAccount;
 import org.json.simple.*;
 
 import presenters.LoginPresenter;
@@ -88,7 +87,7 @@ public class LoginController {
         lp.SecurityQuestion3();
 
         uam.addAccount(Username, Password, type, security,
-                q1, q2, q3, ans1, ans2, ans3));
+                q1, q2, q3, ans1, ans2, ans3);
         this.Accounts = uam.getAccountInfo();
 
         return lp.AccountMade();
