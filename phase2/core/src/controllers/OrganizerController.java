@@ -271,8 +271,8 @@ public class OrganizerController extends UserController {
     }
 
     /**
-     * Cancels event with ID eventID. Cancelling an event results in removing all attendess and speakers from attending
-     * and removes its room. Note that the event is NOT deleted.
+     * Cancels event with ID eventID. Cancelling an event results in removing all attendees and speakers from attending
+     * and removes its room. Note that the event is NOT deleted from the system.
      * @param eventId the ID of the event you wish to cancel
      */
     public void cancelEvent(String eventId) {
