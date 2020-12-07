@@ -28,18 +28,10 @@ public class OrganizerController extends UserController {
     }
 
     /**
-     * Called when user chooses to message all speakers.
-     */
-    public JSONObject messageAllSpeakersCmd(JSONObject messageContent) {
-        String message = messageContent.get("content").toString();
-        this.saveData();
-        return messageAllSpeakers(message);
-    }
-
-    /**
-     * Messages all speakers.
+     * Messages all speakers at the conference.
      *
      * @param message String representing the user's message.
+     * @return a JSON object containing whether the message was sent successfully or not.
      */
     public JSONObject messageAllSpeakers(String message) {
         List<String> speakerNames = um.getAllSpeakerNames();
@@ -57,18 +49,10 @@ public class OrganizerController extends UserController {
     }
 
     /**
-     * Called when user chooses to message all attendees.
-     */
-    public JSONObject messageAllAttendeesCmd(JSONObject messageContent) {
-        String message = messageContent.get("content").toString();
-        this.saveData();
-        return messageAllAttendees(message);
-    }
-
-    /**
      * Messages all attendees.
      *
      * @param message String representing the user's message.
+     * @return a JSONObject with the outcome of whether the message was successfully sent.
      */
     public JSONObject messageAllAttendees(String message) {
         Set<String> attendeeNames = um.getAllUsernames();
@@ -77,7 +61,6 @@ public class OrganizerController extends UserController {
                 if (mm.messageCheck(recipientName, username, message)) { //ensure the message is valid
                     String messageId = mm.createMessage(recipientName, username, message);
                     addMessagesToUser(recipientName, messageId);
-                    return mp.messageResult(recipientName); //message user
                 } else {
                     return mp.invalidMessageError();
                 }
@@ -88,9 +71,13 @@ public class OrganizerController extends UserController {
     }
 
     /**
-     * Called when user chooses to create a new room.
+     * Creates a new room.
+     *
+     * @param roomInfo String representing the new room's name.
+     * @return a JSONObject containing whether the room was created successfully or not.
      */
-    public JSONObject createRoomCmd(JSONObject roomInfo) {
+    public JSONObject createRoom(JSONObject roomInfo) {
+        // extract the information from the json
         String roomName = roomInfo.get("roomName").toString();
         int capacity = (int) roomInfo.get("capacity");
         boolean hasChairs = (boolean) roomInfo.get("chairs");
@@ -98,17 +85,6 @@ public class OrganizerController extends UserController {
         boolean hasProjector = (boolean) roomInfo.get("projector");
         boolean hasSoundSystem = (boolean) roomInfo.get("sound");
 
-        return createRoom(roomName, capacity, hasChairs, hasTables, hasProjector, hasSoundSystem);
-    }
-
-    /**
-     * Creates a new room.
-     *
-     * @param roomName String representing the new room's name.
-     * @param capacity Integer representing the new room's capacity.
-     */
-    public JSONObject createRoom(String roomName, int capacity, boolean hasChairs, boolean hasTables,
-                                 boolean hasProjector, boolean hasSoundSystem) {
         if (roomName.length() < 1) {  //ensure that the room name is not empty
             return op.emptyFieldError();
         } else if (rm.createRoom(roomName, capacity, hasChairs, hasTables, hasProjector, hasSoundSystem)) {
@@ -119,6 +95,11 @@ public class OrganizerController extends UserController {
         }
     }
 
+    /**
+     * Lists all the events that are happening in the conference.
+     *
+     * @return a JSONObject containing all the events at the conference.
+     */
     public JSONObject listEvents() {
         List<String> allSpeakers = um.getAllSpeakerNames();
         List<String> allEvents = getAllEvents();
@@ -133,10 +114,24 @@ public class OrganizerController extends UserController {
         return op.listEvents(allEvents);
     }
 
+    /**
+     * Lists the speakers that are speaking at the conference.
+     *
+     * @param eventID
+     * @return
+     */
+
     public JSONObject listSpeakers(String eventID) {
         List<String> allSpeakers = um.getAllSpeakerNames();
         return op.listSpeakers(allSpeakers);
     }
+
+    /**
+     * Lists the speakers that are available to speak at a given event.
+     *
+     * @param eventID the ID of the event that the speakers can or cannot speak at
+     * @return a JSONObject containing the list of speakers that are available to speak at this event.
+     */
 
     public JSONObject listAvailableSpeakers(String eventID) {
         List<String> allSpeakers = um.getAllSpeakerNames();
@@ -150,20 +145,14 @@ public class OrganizerController extends UserController {
     }
 
     /**
-     * Called when user chooses to schedule a speaker to an event.
-     */
-    public JSONObject scheduleSpeakerCmd(String eventID, String speakerName) {
-        return scheduleSpeaker(speakerName, eventID); //schedule the selected speaker
-    }
-
-    /**
-     * Messages the attendees of the given list of events.
+     * Schedules a speaker to an event.
      *
      * @param speakerName the speaker's name.
      * @param eventID the ID of the event.
+     * @return a JSONObject containing whether the speaker was scheduled successfully or not.
      *
      */
-    public JSONObject scheduleSpeaker(String speakerName, String eventID) {
+    public JSONObject scheduleSpeaker(String eventID, String speakerName) {
         LocalDateTime start = em.getEventStartTime(eventID);
         LocalDateTime end = em.getEventEndTime(eventID);
         if (!em.canAddSpeakerToEvent(eventID, speakerName)) {
@@ -180,11 +169,11 @@ public class OrganizerController extends UserController {
 
     /**
      * Takes input from the user about constraints for an event.
-     *
-     * @return a list of constraints for an event
+     * @param constraints the list of amenities that are needed for an event.
+     * @return a list of constraints for an event.
      */
 
-    public List<Boolean> getConstraints(JSONObject constraints){
+    private List<Boolean> getConstraints(JSONObject constraints){
         boolean hasChairs = (boolean) constraints.get("chairs");
         boolean hasTables = (boolean) constraints.get("tables");
         boolean hasProjector = (boolean) constraints.get("projector");
@@ -251,7 +240,6 @@ public class OrganizerController extends UserController {
         }
     }
 
-
     /**
      * Attempts to create a new event with given parameters
      * @param eventName String representing the name of the event
@@ -308,6 +296,13 @@ public class OrganizerController extends UserController {
         }
         return op.rescheduleFailure(roomName);
     }
+
+    /**
+     * Changes the capacity of a given Event.
+     *
+     * @param eventInfo contains the information about the event who's capacity is attempting to be changed
+     * @return a JSONObject containing whether the capacity was changed successfully or not.
+     */
 
     public JSONObject changeEventCapacity(JSONObject eventInfo){
         String eventID = eventInfo.get("eventID").toString();
