@@ -100,6 +100,10 @@ public class UserAccountEntity {
         this.setSecurity = setSecurity;
     }
 
+    /**
+     * @return A JSONArray that contains the JSON representation of this class
+     */
+    @SuppressWarnings("unchecked")
     public JSONArray getJSON() {
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();

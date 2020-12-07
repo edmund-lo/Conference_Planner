@@ -22,6 +22,10 @@ public class Admin extends User implements Serializable {
         super(username, firstName, lastName);
     }
 
+    /**
+     * @return A JSONObject that contains the JSON representation of this class
+     */
+    @SuppressWarnings("unchecked")
     public JSONObject convertToJSON() {
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();

@@ -307,6 +307,10 @@ public class EventManager implements Serializable {
         this.allEvents.get(eventID).setCapacity(capacity);
     }
 
+    /**
+     * @return A JSONObject that contains the JSON representation of this class
+     */
+    @SuppressWarnings("unchecked")
     public JSONObject getAllEventsJson(){
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();

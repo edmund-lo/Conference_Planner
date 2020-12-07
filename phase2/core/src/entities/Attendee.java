@@ -42,6 +42,10 @@ public class Attendee extends User implements Serializable {
         return vip;
     }
 
+    /**
+     * @return A JSONObject that contains the JSON representation of this class
+     */
+    @SuppressWarnings("unchecked")
     public JSONObject convertToJSON() {
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();

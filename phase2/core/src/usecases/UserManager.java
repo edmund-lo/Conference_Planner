@@ -497,6 +497,10 @@ public class UserManager implements Serializable {
         allUsers.get(user).getFriendRequest().remove(friend);
     }
 
+    /**
+     * @return A JSONObject that contains the JSON representation of this class
+     */
+    @SuppressWarnings("unchecked")
     public JSONObject getAllFriendsJson(String username){
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
@@ -512,6 +516,10 @@ public class UserManager implements Serializable {
         return json;
     }
 
+    /**
+     * @return A JSONObject that contains the JSON representation of this class
+     */
+    @SuppressWarnings("unchecked")
     public JSONObject getAllUsersJson(){
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();

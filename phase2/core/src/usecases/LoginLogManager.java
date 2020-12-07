@@ -86,6 +86,10 @@ public class LoginLogManager implements Serializable {
         return this.all_Logs.keySet();
     }
 
+    /**
+     * @return A JSONObject that contains the JSON representation of this class
+     */
+    @SuppressWarnings("unchecked")
     public JSONObject getAllLogsJson(){
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
