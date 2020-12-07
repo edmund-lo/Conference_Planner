@@ -3,14 +3,12 @@ package controllers;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import presenters.SpeakerPresenter;
-import usecases.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static java.lang.Integer.parseInt;
 
 /**
  * A Controller class representing a SpeakerController which inherits from UserController.

@@ -2,9 +2,6 @@ package entities;
 
 import org.json.simple.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * An Entity class for an Admin that inherits from User.

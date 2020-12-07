@@ -129,7 +129,7 @@ public class EventManager implements Serializable {
     }
 
     /**
-     * cancels event with ID eventID. This removes all users and speakers from attenting in the event and changes
+     * cancels event with ID eventID. This removes all users and speakers from attending in the event and changes
      * the time and room to null.
      * @param eventID the ID of the event you wish to cancel.
      */
@@ -241,7 +241,7 @@ public class EventManager implements Serializable {
     }
 
     /**
-     * changes the room of event iwth ID eventID to roomName
+     * changes the room of event with ID eventID to roomName
      * @param eventID the ID of the event
      * @param roomName the new room name
      */
