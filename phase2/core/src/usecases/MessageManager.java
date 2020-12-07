@@ -107,11 +107,14 @@ public class MessageManager implements Serializable {
     public boolean messageCheck(String content, String sender, ArrayList<String> receivers) {
         if (content.equals("")){return false;}
         for(String receiver : receivers) {
-            if (receiver.equals(sender)){return false;}
+            if (receiver.equals(sender)) {
+                return false;
+            }
+        }
         return true;
     }
 
-    public JSONObject getPrimaryInboxToJson(){
+    public JSONObject getAllMessageThreadToJson(){
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
