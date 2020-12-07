@@ -145,7 +145,7 @@ public abstract class UserController {
     }
 
     /**
-     * Gets a list of all events
+     * Gets a list of all events that have not happened yet
      *
      * @return a list of all events
      */
