@@ -46,7 +46,7 @@ public class MessagingPresenter implements IMessagingPresenter {
     public void replyButtonAction(ActionEvent actionEvent) {
         clearResultText();
 
-        //JSONObject responseJson = ac.reply(this.selectedPrimaryMessage);
+        //JSONObject responseJson = ac.reply(this.selectedPrimaryMessage.getMessageId(), this.view.getContent());
         JSONObject responseJson = new JSONObject();
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
         if (responseJson.get("status").equals("success")) refreshAllInboxes();
@@ -56,9 +56,9 @@ public class MessagingPresenter implements IMessagingPresenter {
     public void newMessageButtonAction(ActionEvent actionEvent) {
         SplitPane splitPane = new SplitPane();
 
-        TableView<User> userTable = new TableView<User>();
+        TableView<User> userTable = new TableView<>();
         this.selectAll = new CheckBox();
-
+        this.selectAll.setOnAction(this::selectAllAction);
         TableColumn<User, Boolean> checkedColumn = new TableColumn<>();
         checkedColumn.setGraphic(selectAll);
         TableColumn<User, String> firstNameColumn = new TableColumn<>("First Name");
@@ -85,19 +85,19 @@ public class MessagingPresenter implements IMessagingPresenter {
         Button sendButton = new Button("Send Message");
         sendButton.setOnAction(this::sendButtonAction);
 
-        //JSONObject responseJson = ac.getAllMessageableUsers();
+        //JSONObject responseJson = ac.getFriendsList();
         JSONObject responseJson = new JSONObject();
         List<User> users = UserAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
         this.users = FXCollections.observableArrayList(users);
         userTable.setItems(this.users);
         userTable.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> updateRecipientList(recipientsField));
+                (observable, oldValue, newValue) -> updateRecipientList(this.recipientsField));
 
         gridPane.setAlignment(Pos.CENTER);
-        gridPane.addRow(0, senderLabel, senderField);
-        gridPane.addRow(1, recipientsLabel, recipientsField);
-        gridPane.addRow(2, subjectLabel, subjectField);
-        gridPane.addRow(3, contentLabel, contentArea);
+        gridPane.addRow(0, senderLabel, this.senderField);
+        gridPane.addRow(1, recipientsLabel, this.recipientsField);
+        gridPane.addRow(2, subjectLabel, this.subjectField);
+        gridPane.addRow(3, contentLabel, this.contentArea);
         gridPane.addRow(5, sendButton);
 
         splitPane.getItems().add(userTable);
@@ -109,19 +109,43 @@ public class MessagingPresenter implements IMessagingPresenter {
 
     @Override
     public void moveToTrashButtonAction(ActionEvent actionEvent) {
-        //ac.moveToTrash(this.selectedPrimaryMessage.getMessageId());
+        //ac.moveToTrash(this.selectedPrimaryMessageThread.getMessageId());
         refreshAllInboxes();
     }
 
     @Override
     public void moveToArchivedButtonAction(ActionEvent actionEvent) {
-        //ac.moveToArchive(this.selectedPrimaryMessage.getMessageId());
+        //ac.moveToArchive(this.selectedPrimaryMessageThread.getMessageId());
         refreshAllInboxes();
     }
 
     @Override
-    public void moveToPrimaryButtonAction(ActionEvent actionEvent) {
-        //ac.moveToPrimary(this.selectedPrimaryMessage.getMessageId());
+    public void moveToPrimaryFirstButtonAction(ActionEvent actionEvent) {
+        //ac.moveToPrimary(this.selectedArchivedMessageThread.getMessageId());
+        refreshAllInboxes();
+    }
+
+    @Override
+    public void moveToPrimarySecondButtonAction(ActionEvent actionEvent) {
+        //ac.moveToPrimary(this.selectedTrashMessageThread.getMessageId());
+        refreshAllInboxes();
+    }
+
+    @Override
+    public void unreadPrimaryButtonAction(ActionEvent actionEvent) {
+        //ac.markUnread(this.selectedPrimaryMessageThread.getMessageId());
+        refreshAllInboxes();
+    }
+
+    @Override
+    public void unreadArchivedButtonAction(ActionEvent actionEvent) {
+        //ac.markUnread(this.selectedArchivedMessageThread.getMessageId());
+        refreshAllInboxes();
+    }
+
+    @Override
+    public void unreadTrashButtonAction(ActionEvent actionEvent) {
+        //ac.markUnread(this.selectedTrashMessageThread.getMessageId());
         refreshAllInboxes();
     }
 
@@ -157,6 +181,7 @@ public class MessagingPresenter implements IMessagingPresenter {
                 this.view.getPrimaryMembersColumn().setCellValueFactory(cdf ->
                         new SimpleStringProperty(getMessageMembers(cdf.getValue().getRecipientNames())));
                 this.view.getPrimarySubjectColumn().setCellValueFactory(new PropertyValueFactory<>("subject"));
+                this.view.getPrimaryUnreadColumn().setCellValueFactory(param -> param.getValue().readProperty());
                 this.view.getPrimaryInbox().setItems(observableInbox);
                 this.view.getPrimaryInbox().getSelectionModel().selectedItemProperty().addListener(
                         (observable, oldValue, newValue) -> displayMessageThread(newValue, type));
@@ -165,6 +190,7 @@ public class MessagingPresenter implements IMessagingPresenter {
                 this.view.getArchivedMembersColumn().setCellValueFactory(cdf ->
                         new SimpleStringProperty(getMessageMembers(cdf.getValue().getRecipientNames())));
                 this.view.getArchivedSubjectColumn().setCellValueFactory(new PropertyValueFactory<>("subject"));
+                this.view.getArchivedUnreadColumn().setCellValueFactory(param -> param.getValue().readProperty());
                 this.view.getArchivedInbox().setItems(observableInbox);
                 this.view.getArchivedInbox().getSelectionModel().selectedItemProperty().addListener(
                         (observable, oldValue, newValue) -> displayMessageThread(newValue, type));
@@ -173,6 +199,7 @@ public class MessagingPresenter implements IMessagingPresenter {
                 this.view.getTrashMembersColumn().setCellValueFactory(cdf ->
                         new SimpleStringProperty(getMessageMembers(cdf.getValue().getRecipientNames())));
                 this.view.getTrashSubjectColumn().setCellValueFactory(new PropertyValueFactory<>("subject"));
+                this.view.getTrashUnreadColumn().setCellValueFactory(param -> param.getValue().readProperty());
                 this.view.getTrashInbox().setItems(observableInbox);
                 this.view.getTrashInbox().getSelectionModel().selectedItemProperty().addListener(
                         (observable, oldValue, newValue) -> displayMessageThread(newValue, type));
@@ -204,8 +231,11 @@ public class MessagingPresenter implements IMessagingPresenter {
     public void init() {
         this.view.setMoveToArchivedButtonAction(this::moveToArchivedButtonAction);
         this.view.setMoveToTrashButtonAction(this::moveToTrashButtonAction);
-        this.view.setMoveToPrimaryFirstButtonAction(this::moveToPrimaryButtonAction);
-        this.view.setMoveToPrimarySecondButtonAction(this::moveToPrimaryButtonAction);
+        this.view.setMoveToPrimaryFirstButtonAction(this::moveToPrimaryFirstButtonAction);
+        this.view.setMoveToPrimarySecondButtonAction(this::moveToPrimarySecondButtonAction);
+        this.view.setUnreadPrimaryButtonAction(this::unreadPrimaryButtonAction);
+        this.view.setUnreadArchivedButtonAction(this::unreadArchivedButtonAction);
+        this.view.setUnreadTrashButtonAction(this::unreadTrashButtonAction);
         this.view.setReplyButtonAction(this::replyButtonAction);
         this.view.setNewMessageButtonAction(this::newMessageButtonAction);
         refreshAllInboxes();

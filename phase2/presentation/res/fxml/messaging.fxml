@@ -6,7 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="650.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendee.impl.MessagingView">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="attendee.impl.MessagingView">
     <padding>
         <Insets bottom="25" left="25" right="25" top="25" />
     </padding>
@@ -28,6 +30,7 @@
                         <columns>
                             <TableColumn text="Members" fx:id="primaryMembersColumn"/>
                             <TableColumn text="Subject" fx:id="primarySubjectColumn"/>
+                            <TableColumn text="Unread" fx:id="primaryUnreadColumn"/>
                         </columns>
                     </TableView>
                     <BorderPane BorderPane.alignment="CENTER">
@@ -43,11 +46,13 @@
                         </top>
                         <center>
                             <BorderPane>
-                                <center>
+                                <left>
                                     <Text text="Message Thread"/>
-                                </center>
+                                </left>
                                 <right>
                                     <HBox>
+                                        <Button fx:id="unreadPrimaryButton" onAction="#executeAddUnreadPrimary"
+                                                text="Mark As Unread" />
                                         <Button fx:id="archiveButton" onAction="#executeAddArchive" text="Archive" />
                                         <Button fx:id="deleteButton" onAction="#executeAddDelete" text="Delete" />
                                     </HBox>
@@ -75,6 +80,7 @@
                         <columns>
                             <TableColumn text="Members" fx:id="archivedMembersColumn"/>
                             <TableColumn text="Subject" fx:id="archivedSubjectColumn"/>
+                            <TableColumn text="Unread" fx:id="archivedUnreadColumn"/>
                         </columns>
                     </TableView>
                     <BorderPane>
@@ -90,10 +96,12 @@
                         </top>
                         <center>
                             <BorderPane>
-                                <center>
+                                <left>
                                     <Text text="Message Thread"/>
-                                </center>
+                                </left>
                                 <right>
+                                    <Button fx:id="unreadArchivedButton" onAction="#executeAddUnreadArchived"
+                                            text="Mark As Unread" />
                                     <Button fx:id="primaryButton1" onAction="#executeAddPrimaryFirst" text="Move Back"/>
                                 </right>
                             </BorderPane>
@@ -108,6 +116,7 @@
                         <columns>
                             <TableColumn text="Members" fx:id="trashMembersColumn"/>
                             <TableColumn text="Subject" fx:id="trashSubjectColumn"/>
+                            <TableColumn text="Unread" fx:id="trashUnreadColumn"/>
                         </columns>
                     </TableView>
                     <BorderPane>
@@ -123,11 +132,14 @@
                         </top>
                         <center>
                             <BorderPane>
-                                <center>
+                                <left>
                                     <Text text="Message Thread"/>
-                                </center>
+                                </left>
                                 <right>
-                                    <Button fx:id="primaryButton2" onAction="#executeAddPrimarySecond" text="Move Back"/>
+                                    <Button fx:id="unreadTrashButton" onAction="#executeAddUnreadTrash"
+                                            text="Mark As Unread" />
+                                    <Button fx:id="primaryButton2" onAction="#executeAddPrimarySecond"
+                                            text="Move Back"/>
                                 </right>
                             </BorderPane>
                             <ScrollPane fx:id="trashThreadContainer" />

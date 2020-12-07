@@ -25,13 +25,19 @@ public class MessagingView implements IMessagingView {
     @FXML
     private TableColumn<MessageThread, String> primarySubjectColumn;
     @FXML
+    private TableColumn<MessageThread, Boolean> primaryUnreadColumn;
+    @FXML
     private TableColumn<MessageThread, String> archivedMembersColumn;
     @FXML
     private TableColumn<MessageThread, String> archivedSubjectColumn;
     @FXML
+    private TableColumn<MessageThread, Boolean> archivedUnreadColumn;
+    @FXML
     private TableColumn<MessageThread, String> trashMembersColumn;
     @FXML
     private TableColumn<MessageThread, String> trashSubjectColumn;
+    @FXML
+    private TableColumn<MessageThread, Boolean> trashUnreadColumn;
     @FXML
     private ScrollPane primaryThreadContainer;
     @FXML
@@ -56,8 +62,6 @@ public class MessagingView implements IMessagingView {
     private Text trashRecipients;
     @FXML
     private Text trashSubject;
-    @FXML
-    private TextArea content;
     @FXML
     private Text resultText;
 
@@ -86,6 +90,18 @@ public class MessagingView implements IMessagingView {
         if (moveToPrimarySecondButtonAction != null) moveToPrimarySecondButtonAction.handle(event);
     }
     @FXML
+    public void executeAddUnreadPrimary(ActionEvent event) {
+        if (unreadPrimaryButtonAction != null) unreadPrimaryButtonAction.handle(event);
+    }
+    @FXML
+    public void executeAddUnreadArchived(ActionEvent event) {
+        if (unreadArchivedButtonAction != null) unreadArchivedButtonAction.handle(event);
+    }
+    @FXML
+    public void executeAddUnreadTrash(ActionEvent event) {
+        if (unreadTrashButtonAction != null) unreadTrashButtonAction.handle(event);
+    }
+    @FXML
     public void initialize() { this.presenter = new MessagingPresenter(this); }
 
     private MessagingPresenter presenter;
@@ -95,6 +111,9 @@ public class MessagingView implements IMessagingView {
     private EventHandler<ActionEvent> moveToTrashButtonAction;
     private EventHandler<ActionEvent> moveToPrimaryFirstButtonAction;
     private EventHandler<ActionEvent> moveToPrimarySecondButtonAction;
+    private EventHandler<ActionEvent> unreadPrimaryButtonAction;
+    private EventHandler<ActionEvent> unreadArchivedButtonAction;
+    private EventHandler<ActionEvent> unreadTrashButtonAction;
     private Stage stage;
     private String sessionUsername;
     private String sessionUserType;
@@ -145,16 +164,6 @@ public class MessagingView implements IMessagingView {
     }
 
     @Override
-    public String getContent() {
-        return this.content.getText();
-    }
-
-    @Override
-    public void setContent(String content) {
-        this.content.setText(content);
-    }
-
-    @Override
     public void setResultText(String resultText) {
         this.resultText.setText(resultText);
     }
@@ -172,6 +181,11 @@ public class MessagingView implements IMessagingView {
     @Override
     public TableColumn<MessageThread, String> getPrimarySubjectColumn() {
         return this.primarySubjectColumn;
+    }
+
+    @Override
+    public TableColumn<MessageThread, Boolean> getPrimaryUnreadColumn() {
+        return this.primaryUnreadColumn;
     }
 
     @Override
@@ -195,6 +209,11 @@ public class MessagingView implements IMessagingView {
     }
 
     @Override
+    public TableColumn<MessageThread, Boolean> getArchivedUnreadColumn() {
+        return this.archivedUnreadColumn;
+    }
+
+    @Override
     public ScrollPane getArchivedThreadContainer() {
         return this.archivedThreadContainer;
     }
@@ -212,6 +231,11 @@ public class MessagingView implements IMessagingView {
     @Override
     public TableColumn<MessageThread, String> getTrashSubjectColumn() {
         return this.trashSubjectColumn;
+    }
+
+    @Override
+    public TableColumn<MessageThread, Boolean> getTrashUnreadColumn() {
+        return this.trashUnreadColumn;
     }
 
     @Override
@@ -282,6 +306,36 @@ public class MessagingView implements IMessagingView {
     @Override
     public void setMoveToArchivedButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.moveToArchiveButtonAction = eventHandler;
+    }
+
+    @Override
+    public EventHandler<ActionEvent> getUnreadPrimaryButtonAction() {
+        return this.unreadPrimaryButtonAction;
+    }
+
+    @Override
+    public void setUnreadPrimaryButtonAction(EventHandler<ActionEvent> eventHandler) {
+        this.unreadPrimaryButtonAction = eventHandler;
+    }
+
+    @Override
+    public EventHandler<ActionEvent> getUnreadArchivedButtonAction() {
+        return this.unreadArchivedButtonAction;
+    }
+
+    @Override
+    public void setUnreadArchivedButtonAction(EventHandler<ActionEvent> eventHandler) {
+        this.unreadArchivedButtonAction = eventHandler;
+    }
+
+    @Override
+    public EventHandler<ActionEvent> getUnreadTrashButtonAction() {
+        return unreadTrashButtonAction;
+    }
+
+    @Override
+    public void setUnreadTrashButtonAction(EventHandler<ActionEvent> eventHandler) {
+        this.unreadTrashButtonAction = eventHandler;
     }
 
     @Override
