@@ -44,7 +44,7 @@ public class UserGateway implements GatewayInterface<UserManager>, Serializable 
     }
 
     /**
-     * This method deserializes an User Manager's data
+     * This method deserializes a User Manager's data
      *
      * @return the UserManager class
      */
