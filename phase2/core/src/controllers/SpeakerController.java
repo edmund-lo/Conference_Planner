@@ -85,14 +85,6 @@ public class SpeakerController extends UserController {
     }
 
     /**
-     * Display all the events the speaker is speaking at
-     */
-    public void getDisplaySpeakerEvents() {
-        sp.speakerEventsLabel();
-        sp.listEvents(getSpeakerEvents());
-    }
-
-    /**
      * Gets all events that current speaker is speaking at.
      * @return List of Strings representing the events the current speaker is speaking at.
      */

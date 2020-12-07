@@ -32,25 +32,33 @@ public abstract class UserController {
     protected Scanner input;
     private final UserPresenter up;
     protected final MessagePresenter mp;
+    private EventGateway eg = new EventGateway();
+    private UserGateway ug = new UserGateway();
+    private RoomGateway rg = new RoomGateway();
+    private MessageGateway mg = new MessageGateway();
 
     /**
      * Constructor for UserController object.
      * @param username current logged in user's username.
      */
     public UserController(String username) {
-        EventGateway eg = new EventGateway();
-        UserGateway ug = new UserGateway();
-        RoomGateway rg = new RoomGateway();
-        MessageGateway mg = new MessageGateway();
-
         this.em = eg.deserializeData();
         this.um = ug.deserializeData();
         this.rm = rg.deserializeData();
         this.mm = mg.deserializeData();
-
         this.username = username;
         this.up = new UserPresenter();
         this.mp = new MessagePresenter();
+    }
+
+    /**
+     * serializes the data essentially saving it
+     */
+    public void saveData(){
+        eg.serializeData(em);
+        ug.serializeData(um);
+        rg.serializeData(rm);
+        mg.serializeData(mm);
     }
 
     /**
