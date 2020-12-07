@@ -52,6 +52,7 @@ public class AttendeeController extends UserController {
         } else {
             em.addUserToEvent(eventID,username);
             um.signUp(username, eventID, start, end);
+            this.saveData();
             return ap.signUpVipResult(em.getEventName(eventID));
         }
     }

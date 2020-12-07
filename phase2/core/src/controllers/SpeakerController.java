@@ -44,6 +44,7 @@ public class SpeakerController extends UserController {
             eventIDsString.add(ID.toString());
         }
         messageEventsAttendees(eventIDsString, message); //message all attendees at each event in eventIds
+        this.saveData();
         return sp.messageEventAttendeesMultiEventsResult();
     }
 
@@ -56,8 +57,10 @@ public class SpeakerController extends UserController {
     public void messageEventsAttendees(List<String> eventIds, String message) {
         for (String eventId: eventIds) { //loop through all event ids
             String eventName = em.getEventName(eventId);
-            if (messageEventAttendees(eventId, message)) //if successfully messaged all attendees at event
-                sp.messageEventAttendeesResult(eventName);
+            if (messageEventAttendees(eventId, message)) {
+                this.saveData();
+                sp.messageEventAttendeesResult(eventName); // if successfully messaged all attendees at event
+            }
             else
                 sp.messageEventAttendeesError(eventName);
         }
@@ -76,7 +79,7 @@ public class SpeakerController extends UserController {
             if (mm.messageCheck(recipientName, username, message)) {
                 String messageId = mm.createMessage(recipientName, username, message);
                 mp.messageResult(recipientName);
-                addMessagesToUser(recipientName, messageId); //message user with recipientName
+                addMessagesToUser(recipientName, messageId);//message user with recipientName
             } else {
                 mp.invalidMessageError();
             }

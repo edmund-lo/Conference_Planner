@@ -85,6 +85,7 @@ public abstract class UserController {
         } else {
             em.addUserToEvent(eventId,username);
             um.signUp(username, eventId, start, end);
+            this.saveData();
             return up.signUpResult(em.getEventName(eventId));
         }
     }
@@ -98,6 +99,7 @@ public abstract class UserController {
     public JSONObject cancelEventAttendance(String eventId) {
         if(em.removeUserFromEvent(eventId, username)) {
             um.cancel(username, eventId);
+            this.saveData();
             return up.cancelResult(em.getEventName(eventId));
         }
         return up.notAttendingEventError(em.getEventName(eventId));
@@ -211,6 +213,7 @@ public abstract class UserController {
     public void addMessagesToUser(String recipientName, String messageId) {
         um.receiveMessage(recipientName, messageId);
         um.sendMessage(this.username, messageId);
+        this.saveData();
     }
 
     /**
@@ -224,6 +227,7 @@ public abstract class UserController {
         if (mm.messageCheck(recipientName, username, content)) {
             String messageId = mm.createMessage(recipientName, username, content);
             addMessagesToUser(recipientName, messageId);
+            this.saveData();
             return mp.messageSent(recipientName);
         } else {
             return mp.invalidMessageError();
@@ -232,22 +236,26 @@ public abstract class UserController {
 
     public JSONObject addFriend(String username){
         um.addFriend(this.username, username);
+        this.saveData();
         return up.friendAdded(username);
     }
 
     public JSONObject removeFriend(String username){
         um.removeFriend(this.username, username);
+        this.saveData();
         return up.friendRemoved(username);
     }
 
-    public JSONObject decineRequest(String username){
+    public JSONObject declineRequest(String username){
         um.declineRequest(this.username, username);
+        this.saveData();
         return up.requestDenied(username);
     }
 
     public JSONObject sendFriendRequest(String username){
         if (um.canBeFriend(this.username, username)){
             um.sendFriendRequest(this.username, username);
+            this.saveData();
             return up.friendRequestSent(username);
         }
         return up.cantAddFriend(username);
