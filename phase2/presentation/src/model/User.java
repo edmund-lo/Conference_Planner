@@ -67,4 +67,16 @@ public class User extends Selectable {
     public void setUserType(int userType) {
         this.userType.set(userType);
     }
+
+    public boolean isVip() {
+        return vip.get();
+    }
+
+    public BooleanProperty vipProperty() {
+        return vip;
+    }
+
+    public void setVip(boolean vip) {
+        this.vip.set(vip);
+    }
 }
