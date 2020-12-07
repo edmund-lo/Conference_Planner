@@ -17,21 +17,22 @@ public interface IMessagingView extends ILoggedInView {
     void setTrashSender(String sender);
     void setTrashRecipientNames(List<String> recipientNames);
     void setTrashSubject(String subject);
-    String getContent();
-    void setContent(String content);
     void setResultText(String resultText);
 
     TableView<MessageThread> getPrimaryInbox();
     TableColumn<MessageThread, String> getPrimaryMembersColumn();
     TableColumn<MessageThread, String> getPrimarySubjectColumn();
+    TableColumn<MessageThread, Boolean> getPrimaryUnreadColumn();
     ScrollPane getPrimaryThreadContainer();
     TableView<MessageThread> getArchivedInbox();
     TableColumn<MessageThread, String> getArchivedMembersColumn();
     TableColumn<MessageThread, String> getArchivedSubjectColumn();
+    TableColumn<MessageThread, Boolean> getArchivedUnreadColumn();
     ScrollPane getArchivedThreadContainer();
     TableView<MessageThread> getTrashInbox();
     TableColumn<MessageThread, String> getTrashMembersColumn();
     TableColumn<MessageThread, String> getTrashSubjectColumn();
+    TableColumn<MessageThread, Boolean> getTrashUnreadColumn();
     ScrollPane getTrashThreadContainer();
     TabPane getTabPane();
 
@@ -47,4 +48,10 @@ public interface IMessagingView extends ILoggedInView {
     void setMoveToTrashButtonAction(EventHandler<ActionEvent> eventHandler);
     EventHandler<ActionEvent> getMoveToArchivedButtonAction();
     void setMoveToArchivedButtonAction(EventHandler<ActionEvent> eventHandler);
+    EventHandler<ActionEvent> getUnreadPrimaryButtonAction();
+    void setUnreadPrimaryButtonAction(EventHandler<ActionEvent> eventHandler);
+    EventHandler<ActionEvent> getUnreadArchivedButtonAction();
+    void setUnreadArchivedButtonAction(EventHandler<ActionEvent> eventHandler);
+    EventHandler<ActionEvent> getUnreadTrashButtonAction();
+    void setUnreadTrashButtonAction(EventHandler<ActionEvent> eventHandler);
 }
