@@ -78,6 +78,17 @@ public class EventManager implements Serializable {
     }
 
     /**
+     * Checks whether event with ID eventID is "empty"
+     * @param eventID the ID of the event
+     * @return True iff the event has no attending users, no speakers and no room
+     */
+    public boolean isEventEmpty(String eventID){
+        Event event = allEvents.get(eventID);
+        return event.getAttendingUsers().size() == 0 &&
+                event.getSpeakerNames().size() == 0 && event.getRoomName() == null;
+    }
+
+    /**
      * changes the status of event with ID eventID of whether it is a VIP event or not
      * @param eventID the ID of the event
      * @param isVip True iff this event is a VIP event now

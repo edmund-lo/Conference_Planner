@@ -135,13 +135,14 @@ public class AdminController extends UserController{
     }
 
     /**
-     * Removes an event with no attendees
+     * Removes an event with no attendees, no speakers and room from the system
      *
-     * @param eventID the event
+     * @param eventID the event ID
      * @return a JSON object containing the status and description of the action
      */
     public JSONObject removeEvent(String eventID) {
-        if(em.eventIsEmpty(eventID)) {
+        if(em.isEventEmpty(eventID)) {
+            em.removeEvent(eventID);
             return ap.removeEventResult();
         } else {
             return ap.eventNotEmptyError();
