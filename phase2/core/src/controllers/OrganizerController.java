@@ -289,10 +289,10 @@ public class OrganizerController extends UserController {
     }
 
     /**
-     * Reschedules event with ID eventID at newStart to newEnd in roomName. Note that this should be called ONLY after
-     * cancelEvent has been called
-     * @param info contains the event ID (eventID), the room name (roomName) and the start time (startTime)
-     *             and end time (endTime)
+     * Reschedules event with ID eventID at newStart to newEnd in roomName with VIP status or not. Note that this should
+     * be called ONLY after cancelEvent has been called
+     * @param info contains the event ID (eventID), the room name (roomName), boolean of whether this event is now a
+     *             VIP event or not and the start time (startTime) and end time (endTime)
      * @return A JSONObject detailing the outcome
      */
     public JSONObject rescheduleEvent(JSONObject info) {
@@ -300,9 +300,11 @@ public class OrganizerController extends UserController {
         String roomName = info.get("roomName").toString();
         LocalDateTime newStart = (LocalDateTime) info.get("startTime");
         LocalDateTime newEnd = (LocalDateTime) info.get("endTime");
+        boolean isVipEvent = (boolean) info.get("isVip");
         if(rm.addToRoomSchedule(newStart, newEnd, roomName, eventID)){
             em.changeEventTime(eventID, newStart, newEnd);
             em.changeEventRoom(eventID, roomName);
+            em.changeVipStatus(eventID, isVipEvent);
             return op.rescheduleSuccess();
         }
         return op.rescheduleFailure(roomName);

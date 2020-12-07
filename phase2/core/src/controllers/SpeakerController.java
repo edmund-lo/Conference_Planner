@@ -41,6 +41,9 @@ public class SpeakerController extends UserController {
             return sp.noSpeakerEventsError();
         }
         for(Object ID: eventIds){
+            if(!em.eventExists(ID.toString())){
+                return sp.eventDoesNotExist();
+            }
             eventIDsString.add(ID.toString());
         }
         messageEventsAttendees(eventIDsString, message); //message all attendees at each event in eventIds

@@ -31,7 +31,7 @@ public class EventManager implements Serializable {
      * @param eventID the ID of the event we are checking
      * @return True iff the event is in allEvents
      */
-    private boolean eventExists(String eventID){
+    public boolean eventExists(String eventID){
         return allEvents.containsKey(eventID);
     }
 
@@ -75,6 +75,15 @@ public class EventManager implements Serializable {
     public void addUserToEvent(String eventID, String userID){
         Event currentEvent = allEvents.get(eventID);
         currentEvent.addUserToEvent(userID);
+    }
+
+    /**
+     * changes the status of event with ID eventID of whether it is a VIP event or not
+     * @param eventID the ID of the event
+     * @param isVip True iff this event is a VIP event now
+     */
+    public void changeVipStatus(String eventID, boolean isVip){
+        allEvents.get(eventID).changeVipStatus(isVip);
     }
 
     /**
