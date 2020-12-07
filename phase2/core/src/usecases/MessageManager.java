@@ -5,6 +5,8 @@ import entities.Message;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
+
+import entities.MessageThread;
 import org.json.simple.*;
 
 
@@ -33,6 +35,13 @@ public class MessageManager implements Serializable {
     private boolean messageThreadExists(String messageThreadId){
         return this.allMessageThreads.containsKey(messageThreadId);
     }
+
+    /**
+     * getter for the primaryInbox
+     *
+     * @return The primaryInbox variable
+     */
+    public HashMap<String, MessageThread> getAllMessageThreads() { return this.allMessageThreads; }
 
 //      Save for phase 2
     /*/**
@@ -69,16 +78,16 @@ public class MessageManager implements Serializable {
      * return the created messageThreadId
      */
 
-    public String createMessage(String content, String sender, String receivers, String subject) {
+    public String createMessage(String content, String sender, ArrayList receivers, String subject) {
         String messageThreadId;
         do {
             messageThreadId = UUID.randomUUID().toString();
-        } while(this.messageExists(messageId));
+        } while(this.messageThreadExists(messageThreadId));
         LocalDateTime messageTime = LocalDateTime.now();
-        Message newMessage = new Message(content, sender, messageTime);
-        List[Message] messages = [newMessage];
-        MessageThread newMessageThread = new MessageThread(sender, receivers, messageThreadId, subject, messages)
-        this.allMessages.put(newMessage.getMessageID(), newMessage);
+        Message newMessage = new Message(sender, messageTime, content);
+        MessageThread newMessageThread = new MessageThread(sender, receivers, messageThreadId, subject);
+        newMessageThread.getMessages().add(newMessage);
+        this.allMessageThreads.put(newMessageThread.getMessageThreadId(), newMessageThread);
         //this.allContents.add(newMessage.toString());
         return messageThreadId;
     }
@@ -95,53 +104,20 @@ public class MessageManager implements Serializable {
      * @return boolean value that signifies the result of the check.
      */
 
-    public boolean messageCheck(String content, String sender, String receviers) {
-        return (!receiver.equals(sender) && !content.equals(""));
+    public boolean messageCheck(String content, String sender, ArrayList<String> receivers) {
+        if (content.equals("")){return false;}
+        for(String receiver : receivers) {
+            if (receiver.equals(sender)){return false;}
+        return true;
     }
 
-    /**
-     * Make the sent message to String
-     *
-     * @param messageID The id of message want to construct to string
-     *
-     * Return the String of that message
-     */
-
-    public String getSentMessageToString(String messageID) {
-        return this.allMessageThreads.getMessages().get(messageID).toStringSent();
-    }
-
-    /**
-     * Make the received message to String
-     *
-     * @param messageID The id of message want to construct to string
-     *
-     * Return the String of that message
-     */
-
-    public String getReceivedMessageToString(String messageID) {
-        return this.allMessageThreads.getMessages().get(messageID).toStringReceived();
-    }
-
-    /**
-     * Make the inbox message to String
-     *
-     * @param messageID The id of message want to construct to string
-     *
-     * Return the String of that message
-     */
-
-    public String getInboxMessageToString(String messageID) {
-        return this.allMessageThreads.getMessages().get(messageID).toStringInbox();
-    }
-
-    public JSONObject getAllMessageThreadsToJson(){
+    public JSONObject getPrimaryInboxToJson(){
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
 
-        for(String ID: allMessageThreads.keySet())
-            item.put(ID, allMessageThreads.get(ID).convertToJSON());
+        for(String ID: getAllMessageThreads().keySet())
+            item.put(ID, getAllMessageThreads().get(ID).convertToJSON());
 
         array.add(item);
 

@@ -2,34 +2,32 @@ package entities;
 
 import org.json.simple.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Message implements Serializable {
-    private final String sender;
-    private final List[String] receivers;
-    private final String messageThreadId;
+public class MessageThread implements Serializable {
+    private String sender;
+    private ArrayList receivers;
+    private String messageThreadId;
     private String subject;
     private boolean read;
-    private List[Message] messages;
+    private ArrayList messages;
 
     /**
-     * Constructor for Entities.Message
+     * Constructor for Entities.MessageThread
      *
      * @param sender The username for the sender of these messages
-     * @param receivers The usenames for the receiver of these messages
      * @param messageThreadId The id of this collection of messages
      * @param subject The subject line of this collection of messages
-     * @param messages The collection of messages stored
      */
 
-    public Message(String sender, List[String] receivers, String messageThreadId, String subject,
-                   List[Message] messages){
+    public MessageThread(String sender, ArrayList receivers, String messageThreadId, String subject){
         this.sender = sender;
         this.receivers = receivers;
         this.messageThreadId = messageThreadId;
-        this.receiverId = receiverId;
         this.subject = subject;
         this.read = false;
-        this.messages = messages;
+        this.messages = new ArrayList<>();
     }
 
     /**
@@ -44,7 +42,7 @@ public class Message implements Serializable {
      *
      * @return The a list of receivers' usernames
      */
-    public String getReceivers() { return this.receivers; }
+    public ArrayList getReceivers() { return this.receivers; }
 
     /**
      * getter for messageThreadId of these messages
@@ -74,7 +72,7 @@ public class Message implements Serializable {
      *
      * @return List of Messages
      */
-    public List[String] getMessages() {
+    public ArrayList getMessages() {
         return this.messages;
     }
 
@@ -87,10 +85,10 @@ public class Message implements Serializable {
 
         item.put("sender", getSender());
         item.put("receivers", getReceivers());
-        item.put("messageThreadId", getMessageThreadId());
         item.put("subject", getSubject());
-        item.put("read", getRead());
+        item.put("messageThreadId", getMessageThreadId());
         item.put("messages", getMessages());
+        item.put("read", getRead());
 
         array.add(item);
 
