@@ -516,6 +516,10 @@ public class UserManager implements Serializable {
         return json;
     }
 
+    public Set<String> getEvents(String username){
+        return allUsers.get(username).getSchedule().keySet();
+    }
+
     /**
      * @return A JSONObject that contains the JSON representation of this class
      */

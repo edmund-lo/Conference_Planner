@@ -287,6 +287,25 @@ public abstract class UserController {
         return um.getAllFriendsJson(username);
     }
 
+    public JSONObject getCommonEvents(String username){
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+
+        for (String eventID: um.getEvents(username)){
+            for (String eventID2: um.getEvents(this.username)){
+                if(eventID.equals((eventID2))){
+                    item.put(eventID, em.getEventJson(eventID));
+                }
+            }
+        }
+
+        array.add(item);
+
+        json.put("data", array);
+
+        return json;
+    }
     /**
      *logs the user out of the program
      *
