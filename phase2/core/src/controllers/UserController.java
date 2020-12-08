@@ -1,5 +1,6 @@
 package controllers;
 
+import entities.MessageThread;
 import gateways.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -186,29 +187,29 @@ public abstract class UserController {
         return eventDesc;
     }
     /**
-     * Gets all of current user's sent messages.
+     * Gets all of current user's JSON primary messages.
      *
-     * @return List of Strings representing all of the user's sent messages.
+     * @return List of Strings representing all of the user's primary messages.
      */
-    public JSONArray getAllSentMessages(){
+    public JSONArray getAllPrimaryMessages(){
         JSONArray messageStrings = new JSONArray();
-        List<String> userMessages = um.getSentMessages(username);
-        for (String id : userMessages) {
-            messageStrings.add(mm.getSentMessageToString(id));
+        List<String> userMessageIds = um.getPrimaryMessages(username);
+        for (String id : userMessageIds) {
+            messageStrings.add(mm.getOneMessageThreadToJson(id));
         }
         return messageStrings;
     }
 
     /**
-     * Gets all of current user's received messages.
+     * Gets all of current user's JSON archived messages.
      *
-     * @return List of Strings representing all of the user's received messages.
+     * @return List of Strings representing all of the user's archived messages.
      */
     public JSONArray getAllReceivedMessages(){
         JSONArray messageStrings = new JSONArray();
-        List<String> userMessages = um.getReceivedMessages(username);
+        List<String> userMessages = um.getArchivedMessages(username);
         for (String id : userMessages) {
-            messageStrings.add(mm.getReceivedMessageToString(id));
+            messageStrings.add(mm.getOneMessageThreadToJson(id));
         }
         return messageStrings;
     }
@@ -216,28 +217,41 @@ public abstract class UserController {
     /**
      *Calls the user manager to add a messageId to a user's list
      *
-     *@param  messageId id of the message user is adding.
-     *@param  recipientName username of the user the message is for.
+     * @param  recipientNames usernames of the user the message is for.
+     * @param  messageThreadId id of the message user is adding.
      */
-    public void addMessagesToUser(String recipientName, String messageId) {
-        um.receiveMessage(recipientName, messageId);
-        um.sendMessage(this.username, messageId);
+    public void addMessagesToUser(ArrayList<String> recipientNames, String messageThreadId) {
+        um.sendMessage(this.username, messageThreadId);
+        for(String recipientName : recipientNames) {
+            um.receiveMessage(recipientName, messageThreadId);
+        }
         this.saveData();
+    }
+
+    /**
+     * Change the status of the messageThread, given it's Id
+     *
+     * @param  messageThreadId id of the message user want to change.
+     */
+
+    public void changeMessageStatus(String messageThreadId){
+        if (mm.checkMessageStatus(messageThreadId)){
+            mm.unreadMessage(messageThreadId);
+        }else{mm.readMessage(messageThreadId);}
     }
 
     /**
      *Sends a message to an attendee.
      *
-     *
-     * @param  recipientName username of the Entities.Attendee the message is for.
      * @param  content the contents of the message being sent.
+     * @param  recipientNames usernames of the Entities.Attendee the message is for.
      */
-    public JSONObject sendMessage(String recipientName, String content) {
-        if (mm.messageCheck(recipientName, username, content)) {
-            String messageId = mm.createMessage(recipientName, username, content);
-            addMessagesToUser(recipientName, messageId);
+    public JSONObject sendMessage(String content, ArrayList recipientNames, String subject) {
+        if (mm.messageCheck(content, username, recipientNames)) {
+            String messageThreadId = mm.createMessage(content, username, recipientNames, subject);
+            addMessagesToUser(recipientNames, messageThreadId);
             this.saveData();
-            return mp.messageSent(recipientName);
+            return mp.messageSent(recipientNames);
         } else {
             return mp.invalidMessageError();
         }

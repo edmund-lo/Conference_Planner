@@ -33,16 +33,14 @@ public class OrganizerController extends UserController {
      * @param message String representing the user's message.
      * @return a JSON object containing whether the message was sent successfully or not.
      */
-    public JSONObject messageAllSpeakers(String message) {
+    public JSONObject messageAllSpeakers(String message, String subject) {
         List<String> speakerNames = um.getAllSpeakerNames();
-        for (String recipientName : speakerNames) { //loop through every speaker
-            if (mm.messageCheck(recipientName, username, message)) { //ensure that message is valid
-                String messageId = mm.createMessage(recipientName, username, message);
-                addMessagesToUser(recipientName, messageId);
-                return mp.messageResult(recipientName);
-            } else {
-                mp.invalidMessageError();
-            }
+        if (mm.messageCheck(username, message, (ArrayList<String>) speakerNames)) { //ensure that message is valid
+            String messageId = mm.createMessage(username, message, (ArrayList) speakerNames, subject);
+            addMessagesToUser((ArrayList<String>) speakerNames, messageId);
+            return mp.messageResult((ArrayList) speakerNames);
+        } else {
+            mp.invalidMessageError();
         }
         this.saveData();
         return op.messagedAllSpeakersResult();
@@ -54,17 +52,13 @@ public class OrganizerController extends UserController {
      * @param message String representing the user's message.
      * @return a JSONObject with the outcome of whether the message was successfully sent.
      */
-    public JSONObject messageAllAttendees(String message) {
+    public JSONObject messageAllAttendees(String message, String subject) {
         Set<String> attendeeNames = um.getAllUsernames();
-        for (String recipientName : attendeeNames) { //loop through all attendee names
-            if (!recipientName.equals(username)) { //ensure the organizer doesn't message self
-                if (mm.messageCheck(recipientName, username, message)) { //ensure the message is valid
-                    String messageId = mm.createMessage(recipientName, username, message);
-                    addMessagesToUser(recipientName, messageId);
-                } else {
-                    return mp.invalidMessageError();
-                }
-            }
+        if (mm.messageCheck(username, message, (ArrayList<String>) attendeeNames)) { //ensure the message is valid
+            String messageId = mm.createMessage(username, message, (ArrayList) attendeeNames, subject);
+            addMessagesToUser((ArrayList<String>) attendeeNames, messageId);
+        } else {
+            return mp.invalidMessageError();
         }
         this.saveData();
         return op.messagedAllAttendeesResult();

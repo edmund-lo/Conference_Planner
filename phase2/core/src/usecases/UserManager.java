@@ -168,61 +168,63 @@ public class UserManager implements Serializable {
     }
 
     /**
-     * Adds message ID of the sent message to user's list of sent messages.
+     * Adds messageThreadId of the sent message to user's primary inbox.
      *
      * @param username the username of the sender
-     * @param messageID the message ID
+     * @param messageThreadId the message ID
      */
-    public void sendMessage(String username, String messageID) {
-        allUsers.get(username).sendMessage(messageID);
+    public void sendMessage(String username, String messageThreadId) {
+        allUsers.get(username).sendMessage(messageThreadId);
     }
 
     /**
-     * Adds message ID of the received message to user's list of received messages.
+     * Adds messageThreadId of the received message to user's primary inbox.
      *
      * @param username the username of the receiver
-     * @param messageID the message ID
+     * @param messageThreadId the message ID
      */
-    public void receiveMessage(String username, String messageID) {
-        allUsers.get(username).receiveMessage(messageID);
+    public void receiveMessage(String username, String messageThreadId) {
+        allUsers.get(username).receiveMessage(messageThreadId);
     }
 
     /**
-     * Adds message ID of the received message to user's inbox.
+     * Archive messageThreadId of the message to user's inbox.
      *
      * @param username the username of the receiver
-     * @param messageID the message ID
+     * @param messageThreadId the message ID
      */
-    public void archiveMessage(String username, String messageID) { allUsers.get(username).archiveToInbox(messageID); }
+    public void archiveMessage(String username, String messageThreadId) {
+        allUsers.get(username).archiveToInbox(messageThreadId);
+    }
 
     /**
-     * Deletes message ID of the sent message from user's list of sent messages.
+     * Moves messageThreadId of the message from user's primary inbox to trash box.
      *
      * @param username the username of the sender
-     * @param messageID the message ID
+     * @param messageThreadId the message ID
      */
-    public void deleteSentMessage(String username, String messageID) {
-        allUsers.get(username).deleteSentMessage(messageID);
+    public void moveToTrashInbox(String username, String messageThreadId) {
+        allUsers.get(username).moveToTrash(messageThreadId);
     }
 
     /**
-     * Deletes messageID of the received message from user's list of received messages.
+     * Moves messageThreadId of the message from user's archived inbox back to primary inbox.
      *
      * @param username the username of the receiver
-     * @param messageID the messageID
+     * @param messageThreadId the messageID
      */
-    public void deleteReceivedMessage(String username, String messageID) {
-        allUsers.get(username).deleteReceivedMessage(messageID);
+    public void backFromArchived(String username, String messageThreadId) {
+        allUsers.get(username).archivedBackToPrimary(messageThreadId);
     }
 
     /**
-     * Deletes messageID of the received message from user's inbox.
+     * Deletes messageThreadId of the message from user's trash inbox back to primary inbox.
      *
      * @param username the username of the receiver
-     * @param messageID the messageID
+     * @param messageThreadId the messageID
      */
-    public void deleteMessage(String username, String messageID) {
-        allUsers.get(username).deleteFromInbox(messageID);
+    public void backFromTrash(String username, String messageThreadId) {
+        allUsers.get(username).trashBackToPrimary(messageThreadId);
     }
 
     /**
@@ -242,33 +244,33 @@ public class UserManager implements Serializable {
     }
 
     /**
-     * Gets the user's sent messages.
+     * Gets the user's primary inbox messages.
      *
-     * @param username the username of the sender
-     * @return An arraylist of the user's sent messages
+     * @param username the username of the user
+     * @return An arraylist of the user's primary messages
      */
-    public List<String> getSentMessages(String username) {
-        return allUsers.get(username).getSentMessages();
+    public List<String> getPrimaryMessages(String username) {
+        return allUsers.get(username).getPrimaryInbox();
     }
 
     /**
-     * Gets the user's received messages.
+     * Gets the user's archived messages.
      *
-     * @param username the username of the receiver
-     * @return An arraylist of the user's received messages
+     * @param username the username of the user
+     * @return An arraylist of the user's Archived messages
      */
-    public List<String> getReceivedMessages(String username) {
-        return allUsers.get(username).getReceivedMessages();
+    public List<String> getArchivedMessages(String username) {
+        return allUsers.get(username).getArchivedInbox();
     }
 
     /**
-     * Gets the user's inbox messages.
+     * Gets the user's trash messages.
      *
-     * @param username the username of the receiver
-     * @return An arraylist of the user's received messages
+     * @param username the username of the user
+     * @return An arraylist of the user's trash messages
      */
-    public List<String> getInboxMessages(String username) {
-        return allUsers.get(username).getInboxMessages();
+    public List<String> getTrashMessages(String username) {
+        return allUsers.get(username).getTrashInbox();
     }
 
     /**

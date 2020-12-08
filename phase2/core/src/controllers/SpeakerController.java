@@ -33,7 +33,7 @@ public class SpeakerController extends UserController {
     /**
      * Called when user chooses to message one or more events' attendees.
      */
-    public JSONObject messageEventsAttendeesCmd(JSONArray eventIds, String message) {
+    public JSONObject messageEventsAttendeesCmd(JSONArray eventIds, String message, String subject) {
         List<String> eventIDsString = new ArrayList<>();
         if(eventIds.isEmpty()){
             return sp.noSpeakerEventsError();
@@ -41,7 +41,7 @@ public class SpeakerController extends UserController {
         for(Object ID: eventIds){
             eventIDsString.add(ID.toString());
         }
-        messageEventsAttendees(eventIDsString, message); //message all attendees at each event in eventIds
+        messageEventsAttendees(eventIDsString, message, subject); //message all attendees at each event in eventIds
         this.saveData();
         return sp.messageEventAttendeesMultiEventsResult();
     }
@@ -52,10 +52,10 @@ public class SpeakerController extends UserController {
      * @param eventIds List of strings representing unique event IDs.
      * @param message String representing the user's message.
      */
-    public void messageEventsAttendees(List<String> eventIds, String message) {
+    public void messageEventsAttendees(List<String> eventIds, String message, String subject) {
         for (String eventId: eventIds) { //loop through all event ids
             String eventName = em.getEventName(eventId);
-            if (messageEventAttendees(eventId, message)) {
+            if (messageEventAttendees(eventId, message, subject)) {
                 this.saveData();
                 sp.messageEventAttendeesResult(eventName); // if successfully messaged all attendees at event
             }
@@ -71,17 +71,16 @@ public class SpeakerController extends UserController {
      * @param message String representing the user's message.
      * @return A boolean value signifying whether method was successful.
      */
-    public boolean messageEventAttendees(String eventId, String message) {
-        List<String> attendees = em.getAttendingUsers(eventId); //get all attendees at event with id eventId
-        for (String recipientName : attendees) { //loop through all attendees at event
-            if (mm.messageCheck(recipientName, username, message)) {
-                String messageId = mm.createMessage(recipientName, username, message);
-                mp.messageResult(recipientName);
-                addMessagesToUser(recipientName, messageId);//message user with recipientName
-            } else {
-                mp.invalidMessageError();
-            }
+    public boolean messageEventAttendees(String eventId, String message, String subject) {
+        ArrayList<String> attendees = (ArrayList<String>) em.getAttendingUsers(eventId); //get all attendees at event with id eventId
+        if (mm.messageCheck(username, message, attendees)) {
+            String messageId = mm.createMessage(username, message, attendees, subject);
+            addMessagesToUser(attendees, messageId);//message user with recipientName
+            mp.messageResult(attendees);
+        } else {
+            mp.invalidMessageError();
         }
+
         return true;
     }
 

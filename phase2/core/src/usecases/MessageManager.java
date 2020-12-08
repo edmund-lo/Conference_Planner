@@ -43,6 +43,10 @@ public class MessageManager implements Serializable {
      */
     public HashMap<String, MessageThread> getAllMessageThreads() { return this.allMessageThreads; }
 
+    public MessageThread getMessageThread(String messageThreadId){
+        return this.allMessageThreads.get(messageThreadId);
+    }
+
 //      Save for phase 2
     /*/**
      * A string representation of all the message contents
@@ -114,14 +118,52 @@ public class MessageManager implements Serializable {
         return true;
     }
 
+    /**
+     * Change the status of the messageThread to true, given it's Id
+     *
+     * @param  messageThreadId id of the message user want to change.
+     */
+
     public void readMessage(String messageThreadId){
         MessageThread messageThread = allMessageThreads.get(messageThreadId);
         messageThread.setRead(true);
     }
 
+    /**
+     * Change the status of the messageThread to false, given it's Id
+     *
+     * @param  messageThreadId id of the message user want to change.
+     */
+
     public void unreadMessage(String messageThreadId){
         MessageThread messageThread = allMessageThreads.get(messageThreadId);
         messageThread.setRead(false);
+    }
+
+    /**
+     * Check the current status of the messageThread is read or unread, given it's Id
+     *
+     * @param  messageThreadId id of the message user want to check.
+     *
+     * @return a boolean tells the status, return true iff the message has read, false otherwise
+     */
+
+    public boolean checkMessageStatus(String messageThreadId){
+        return allMessageThreads.get(messageThreadId).getRead();
+    }
+
+    public JSONObject getOneMessageThreadToJson(String messageThreadId){
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+
+        item.put(messageThreadId, getAllMessageThreads().get(messageThreadId).convertToJSON());
+
+        array.add(item);
+
+        json.put("MessageThread", array);
+
+        return json;
     }
 
     public JSONObject getAllMessageThreadToJson(){

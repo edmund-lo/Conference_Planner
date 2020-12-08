@@ -1,5 +1,8 @@
 package presenters;
 import org.json.simple.*;
+
+import java.util.ArrayList;
+
 /**
  * A Presenter class that prints Message related functionality to the user's screen
  */
@@ -21,8 +24,8 @@ public class MessagePresenter {
     /**
      * Informs the user that their message was sent to the specified recipient.
      */
-    public JSONObject messageResult(String recipient) {
-        return pu.createJSON("success", "Message sent to " + recipient);
+    public JSONObject messageResult(ArrayList recipients) {
+        return pu.createJSON("success", "Message sent to " + recipients);
     }
 
     /**
@@ -48,9 +51,9 @@ public class MessagePresenter {
 
     /**
      * Informs the user that their message was sent successfully to name
-     * @param name name of the receiver of the message
+     * @param names name of the receiver of the message
      */
-    public JSONObject messageSent(String name){
-        return pu.createJSON("success", "Message sent to "+name+" successfully!");
+    public JSONObject messageSent(ArrayList names){
+        return pu.createJSON("success", "Message sent to "+names+" successfully!");
     }
 }
