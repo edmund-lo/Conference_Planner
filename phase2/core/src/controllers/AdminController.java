@@ -42,20 +42,21 @@ public class AdminController extends UserController{
         String password = String.valueOf(register.get("password"));
         boolean vip = (boolean) register.get("vip");
 
-        if (userType.equals("attendee")) {
-            uam.addAccount(username, password, userType);
-            this.saveData();
-            return createAttendeeAccount(username, firstName, lastName, vip);
-        } else if (userType.equals("organizer")) {
-            uam.addAccount(username,password,userType);
-            this.saveData();
-            return createOrganizerAccount(username, firstName, lastName);
-        } else if (userType.equals("speaker")) {
-            uam.addAccount(username, password, userType);
-            this.saveData();
-            return createSpeakerAccount(username, firstName, lastName);
-        } else {
-            return ap.invalidUserTypeError();
+        switch (userType) {
+            case "attendee":
+                uam.addAccount(username, password, userType);
+                this.saveData();
+                return createAttendeeAccount(username, firstName, lastName, vip);
+            case "organizer":
+                uam.addAccount(username, password, userType);
+                this.saveData();
+                return createOrganizerAccount(username, firstName, lastName);
+            case "speaker":
+                uam.addAccount(username, password, userType);
+                this.saveData();
+                return createSpeakerAccount(username, firstName, lastName);
+            default:
+                return ap.invalidUserTypeError();
         }
     }
 
