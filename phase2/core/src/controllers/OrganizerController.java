@@ -247,7 +247,7 @@ public class OrganizerController extends UserController {
      * @param roomName String representing the room
      * @return Boolean value signifying whether creation was successful
      */
-    public boolean createEvent(String eventName, LocalDateTime start, LocalDateTime end, String roomName,
+    private boolean createEvent(String eventName, LocalDateTime start, LocalDateTime end, String roomName,
                                boolean chairs, boolean tables, boolean projector, boolean soundSystem, int capacity,
                                boolean vipEvent) {
         if (rm.addToRoomSchedule(start, end, roomName, eventName)) {
@@ -263,7 +263,7 @@ public class OrganizerController extends UserController {
      * and removes its room. Note that the event is NOT deleted from the system.
      * @param eventId the ID of the event you wish to cancel
      */
-    public void cancelEvent(String eventId) {
+    public JSONObject cancelEvent(String eventId) {
         rm.removeFromRoomSchedule(em.getEventStartTime(eventId),
                 em.getEventEndTime(eventId), em.getEventRoom(eventId), eventId);
         um.cancelAll(em.getAttendingUsers(eventId), eventId);
@@ -272,6 +272,7 @@ public class OrganizerController extends UserController {
         }
         em.cancelEvent(eventId);
         this.saveData();
+        return op.cancelResult();
     }
 
     /**
