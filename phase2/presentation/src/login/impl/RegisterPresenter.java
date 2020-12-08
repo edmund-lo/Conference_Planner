@@ -30,7 +30,7 @@ public class RegisterPresenter implements IRegisterPresenter {
         clearResultText();
 
         JSONObject queryJson = constructRegisterJson();
-        //JSONObject responseJson = lc.register(queryJson) method
+        //JSONObject responseJson = lc.createAccount(queryJson);
         JSONObject responseJson = new JSONObject();
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
     }

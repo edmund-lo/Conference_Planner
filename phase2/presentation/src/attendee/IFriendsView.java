@@ -21,6 +21,11 @@ public interface IFriendsView extends ILoggedInView {
     TableColumn<User, String> getUsernameUserColumn();
     TableColumn<User, String> getUserTypeUserColumn();
     TableColumn<User, Boolean> getPendingUserColumn();
+    TableView<User> getPendingTable();
+    TableColumn<User, String> getFirstNamePendingColumn();
+    TableColumn<User, String> getLastNamePendingColumn();
+    TableColumn<User, String> getUsernamePendingColumn();
+    TableColumn<User, String> getUserTypePendingColumn();
     Text getResultTextControl(int index);
     VBox getCommonEventTableContainer();
 
@@ -32,10 +37,20 @@ public interface IFriendsView extends ILoggedInView {
     void setFirstNameUser(String firstName);
     void setLastNameUser(String lastName);
     void setUserTypeUser(String userType);
+    void setUsernamePending(String username);
+    void setFirstNamePending(String firstName);
+    void setLastNamePending(String lastName);
+    void setUserTypePending(String userType);
     void setResultText(String resultText, int index);
 
     EventHandler<ActionEvent> getAddFriendButtonAction();
     void setAddFriendButtonAction(EventHandler<ActionEvent> eventHandler);
+    EventHandler<ActionEvent> getRemoveRequestButtonAction();
+    void setRemoveRequestButtonAction(EventHandler<ActionEvent> eventHandler);
     EventHandler<ActionEvent> getRemoveFriendButtonAction();
     void setRemoveFriendButtonAction(EventHandler<ActionEvent> eventHandler);
+    EventHandler<ActionEvent> getDeclineButtonAction();
+    void setDeclineButtonAction(EventHandler<ActionEvent> eventHandler);
+    EventHandler<ActionEvent> getAcceptButtonAction();
+    void setAcceptButtonAction(EventHandler<ActionEvent> eventHandler);
 }

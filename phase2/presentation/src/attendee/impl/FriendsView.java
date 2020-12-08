@@ -17,6 +17,8 @@ public class FriendsView implements IFriendsView {
     @FXML
     private TableView<User> userTable;
     @FXML
+    private TableView<User> pendingTable;
+    @FXML
     private TableColumn<User, String> firstNameFriendColumn;
     @FXML
     private TableColumn<User, String> lastNameFriendColumn;
@@ -35,6 +37,14 @@ public class FriendsView implements IFriendsView {
     @FXML
     private TableColumn<User, Boolean> pendingUserColumn;
     @FXML
+    private TableColumn<User, String> firstNamePendingColumn;
+    @FXML
+    private TableColumn<User, String> lastNamePendingColumn;
+    @FXML
+    private TableColumn<User, String> usernamePendingColumn;
+    @FXML
+    private TableColumn<User, String> userTypePendingColumn;
+    @FXML
     private Text usernameFriend;
     @FXML
     private Text firstNameFriend;
@@ -51,9 +61,19 @@ public class FriendsView implements IFriendsView {
     @FXML
     private Text userTypeUser;
     @FXML
+    private Text usernamePending;
+    @FXML
+    private Text firstNamePending;
+    @FXML
+    private Text lastNamePending;
+    @FXML
+    private Text userTypePending;
+    @FXML
     private Text resultText1;
     @FXML
     private Text resultText2;
+    @FXML
+    private Text resultText3;
     @FXML
     private VBox commonEventTableContainer;
 
@@ -62,15 +82,30 @@ public class FriendsView implements IFriendsView {
         if (removeFriendButtonAction != null) removeFriendButtonAction.handle(event);
     }
     @FXML
+    public void executeAddRemoveRequest(ActionEvent event) {
+        if (removeRequestButtonAction != null) removeRequestButtonAction.handle(event);
+    }
+    @FXML
     public void executeAddAddFriend(ActionEvent event) {
         if (addFriendButtonAction != null) addFriendButtonAction.handle(event);
+    }
+    @FXML
+    public void executeAddAccept(ActionEvent event) {
+        if (acceptButtonAction != null) acceptButtonAction.handle(event);
+    }
+    @FXML
+    public void executeAddDecline(ActionEvent event) {
+        if (declineButtonAction != null) declineButtonAction.handle(event);
     }
     @FXML
     public void initialize() { this.presenter = new FriendsPresenter(this); }
 
     private FriendsPresenter presenter;
     private EventHandler<ActionEvent> removeFriendButtonAction;
+    private EventHandler<ActionEvent> removeRequestButtonAction;
     private EventHandler<ActionEvent> addFriendButtonAction;
+    private EventHandler<ActionEvent> acceptButtonAction;
+    private EventHandler<ActionEvent> declineButtonAction;
     private Stage stage;
     private String sessionUsername;
     private String sessionUserType;
@@ -131,10 +166,36 @@ public class FriendsView implements IFriendsView {
     }
 
     @Override
+    public TableView<User> getPendingTable() {
+        return this.pendingTable;
+    }
+
+    @Override
+    public TableColumn<User, String> getFirstNamePendingColumn() {
+        return this.firstNamePendingColumn;
+    }
+
+    @Override
+    public TableColumn<User, String> getLastNamePendingColumn() {
+        return this.lastNamePendingColumn;
+    }
+
+    @Override
+    public TableColumn<User, String> getUsernamePendingColumn() {
+        return this.usernamePendingColumn;
+    }
+
+    @Override
+    public TableColumn<User, String> getUserTypePendingColumn() {
+        return this.userTypePendingColumn;
+    }
+
+    @Override
     public Text getResultTextControl(int index) {
         Text resultText = new Text();
         if (index == 1) resultText = this.resultText1;
         if (index == 2) resultText = this.resultText2;
+        if (index == 3) resultText = this.resultText3;
         return resultText;
     }
 
@@ -184,6 +245,26 @@ public class FriendsView implements IFriendsView {
     }
 
     @Override
+    public void setUsernamePending(String username) {
+        this.usernamePending.setText(username);
+    }
+
+    @Override
+    public void setFirstNamePending(String firstName) {
+        this.firstNamePending.setText(firstName);
+    }
+
+    @Override
+    public void setLastNamePending(String lastName) {
+        this.lastNamePending.setText(lastName);
+    }
+
+    @Override
+    public void setUserTypePending(String userType) {
+        this.userTypePending.setText(userType);
+    }
+
+    @Override
     public void setResultText(String resultText, int index) {
         getResultTextControl(index).setText(resultText);
     }
@@ -199,6 +280,16 @@ public class FriendsView implements IFriendsView {
     }
 
     @Override
+    public EventHandler<ActionEvent> getRemoveRequestButtonAction() {
+        return this.removeRequestButtonAction;
+    }
+
+    @Override
+    public void setRemoveRequestButtonAction(EventHandler<ActionEvent> eventHandler) {
+        this.removeRequestButtonAction = eventHandler;
+    }
+
+    @Override
     public EventHandler<ActionEvent> getRemoveFriendButtonAction() {
         return this.removeFriendButtonAction;
     }
@@ -206,6 +297,26 @@ public class FriendsView implements IFriendsView {
     @Override
     public void setRemoveFriendButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.removeFriendButtonAction = eventHandler;
+    }
+
+    @Override
+    public EventHandler<ActionEvent> getDeclineButtonAction() {
+        return this.declineButtonAction;
+    }
+
+    @Override
+    public void setDeclineButtonAction(EventHandler<ActionEvent> eventHandler) {
+        this.declineButtonAction = eventHandler;
+    }
+
+    @Override
+    public EventHandler<ActionEvent> getAcceptButtonAction() {
+        return this.acceptButtonAction;
+    }
+
+    @Override
+    public void setAcceptButtonAction(EventHandler<ActionEvent> eventHandler) {
+        this.acceptButtonAction = eventHandler;
     }
 
     @Override

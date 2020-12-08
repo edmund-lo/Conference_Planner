@@ -46,7 +46,7 @@ public class ForgotPresenter implements IForgotPresenter {
     public void confirmButtonAction(ActionEvent actionEvent) {
         clearResultText(2);
 
-        //JSONObject responseJson = lc.securityCheck()
+        //JSONObject responseJson = lc.securityCheck();
         JSONObject responseJson = new JSONObject();
         if (responseJson.get("status").equals("success")) {
             this.view.getTitledPane(2).setDisable(true);

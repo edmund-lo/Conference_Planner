@@ -27,6 +27,7 @@ public class FriendsPresenter implements IFriendsPresenter {
     private AttendeeController ac;
     private User selectedFriend;
     private User selectedUser;
+    private User selectedPending;
 
     public FriendsPresenter(IFriendsView view) {
         this.view = view;
@@ -43,11 +44,37 @@ public class FriendsPresenter implements IFriendsPresenter {
     }
 
     @Override
+    public void removeRequestButtonAction(ActionEvent actionEvent) {
+        clearResultText(2);
+
+        //JSONObject responseJson = ac.removeRequest(selectedUser.getUsername());
+        JSONObject responseJson = new JSONObject();
+        setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 1);
+    }
+
+    @Override
     public void addFriendButtonAction(ActionEvent actionEvent) {
         clearResultText(2);
 
-        JSONObject responseJson = ac.addFriend(selectedUser.getUsername());
+        JSONObject responseJson = ac.sendFriendRequest(selectedUser.getUsername());
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 2);
+    }
+
+    @Override
+    public void acceptButtonAction(ActionEvent actionEvent) {
+        clearResultText(3);
+
+        JSONObject responseJson = new JSONObject();
+        //JSONObject responseJson = ac.acceptRequest(selectedPending.getUsername());
+        setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 1);
+    }
+
+    @Override
+    public void declineButtonAction(ActionEvent actionEvent) {
+        clearResultText(3);
+
+        JSONObject responseJson = ac.declineRequest(selectedPending.getUsername());
+        setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 1);
     }
 
     @Override
@@ -60,37 +87,44 @@ public class FriendsPresenter implements IFriendsPresenter {
 
     @Override
     public List<ScheduleEntry> getCommonEvents(String username) {
-        //JSONObject responseJson = ac.getCommonEvents(username);
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = ac.getCommonEvents(username);
         return ScheduleAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
     @Override
-    public void displayUserList(List<User> userList, boolean friend) {
+    public void displayUserList(List<User> userList, String type) {
         ObservableList<User> observableUsers = FXCollections.observableArrayList(userList);
-        if (friend) {
+        if (type.equals("friends")) {
             this.view.getFirstNameFriendColumn().setCellValueFactory(new PropertyValueFactory<>("firstName"));
             this.view.getLastNameFriendColumn().setCellValueFactory(new PropertyValueFactory<>("lastName"));
             this.view.getUsernameFriendColumn().setCellValueFactory(new PropertyValueFactory<>("username"));
             this.view.getUserTypeFriendColumn().setCellValueFactory(new PropertyValueFactory<>("userType"));
             this.view.getFriendTable().setItems(observableUsers);
             this.view.getFriendTable().getSelectionModel().selectedItemProperty().addListener(
-                    (observable, oldValue, newValue) -> displayUserDetails(newValue, true));
-        } else {
-            this.view.getFirstNameFriendColumn().setCellValueFactory(new PropertyValueFactory<>("firstName"));
-            this.view.getLastNameFriendColumn().setCellValueFactory(new PropertyValueFactory<>("lastName"));
-            this.view.getUsernameFriendColumn().setCellValueFactory(new PropertyValueFactory<>("username"));
-            this.view.getUserTypeFriendColumn().setCellValueFactory(new PropertyValueFactory<>("userType"));
+                    (observable, oldValue, newValue) -> displayUserDetails(newValue, type));
+        } else if (type.equals("nonFriends")) {
+            this.view.getFirstNameUserColumn().setCellValueFactory(new PropertyValueFactory<>("firstName"));
+            this.view.getLastNameUserColumn().setCellValueFactory(new PropertyValueFactory<>("lastName"));
+            this.view.getUsernameUserColumn().setCellValueFactory(new PropertyValueFactory<>("username"));
+            this.view.getUserTypeUserColumn().setCellValueFactory(new PropertyValueFactory<>("userType"));
             this.view.getPendingUserColumn().setCellValueFactory(param -> param.getValue().getSelected());
             this.view.getUserTable().setItems(observableUsers);
             this.view.getUserTable().getSelectionModel().selectedItemProperty().addListener(
-                    (observable, oldValue, newValue) -> displayUserDetails(newValue, false));
+                    (observable, oldValue, newValue) -> displayUserDetails(newValue, type));
+        } else if (type.equals("pending")) {
+            this.view.getFirstNamePendingColumn().setCellValueFactory(new PropertyValueFactory<>("firstName"));
+            this.view.getLastNamePendingColumn().setCellValueFactory(new PropertyValueFactory<>("lastName"));
+            this.view.getUsernamePendingColumn().setCellValueFactory(new PropertyValueFactory<>("username"));
+            this.view.getUserTypePendingColumn().setCellValueFactory(new PropertyValueFactory<>("userType"));
+            this.view.getPendingTable().setItems(observableUsers);
+            this.view.getPendingTable().getSelectionModel().selectedItemProperty().addListener(
+                    (observable, oldValue, newValue) -> displayUserDetails(newValue, type));
         }
     }
 
     @Override
-    public void displayUserDetails(User user, boolean friend) {
-        if (friend) {
+    public void displayUserDetails(User user, String type) {
+        if (type.equals("friends")) {
             this.selectedFriend = user;
             this.view.setUsernameFriend(user.getUsername());
             this.view.setUserTypeFriend(user.getUserType());
@@ -98,12 +132,18 @@ public class FriendsPresenter implements IFriendsPresenter {
             this.view.setLastNameFriend(user.getLastName());
             List<ScheduleEntry> commonEvents = getCommonEvents(user.getUsername());
             displayCommonEvents(commonEvents);
-        } else {
+        } else if (type.equals("nonFriends")) {
             this.selectedUser = user;
             this.view.setUsernameUser(user.getUsername());
             this.view.setUserTypeUser(user.getUserType());
             this.view.setFirstNameUser(user.getFirstName());
             this.view.setLastNameUser(user.getLastName());
+        }else if (type.equals("pending")) {
+            this.selectedPending = user;
+            this.view.setUsernamePending(user.getUsername());
+            this.view.setUserTypePending(user.getUserType());
+            this.view.setFirstNamePending(user.getFirstName());
+            this.view.setLastNamePending(user.getLastName());
         }
     }
 
@@ -144,14 +184,16 @@ public class FriendsPresenter implements IFriendsPresenter {
     public void init() {
         this.view.setAddFriendButtonAction(this::addFriendButtonAction);
         this.view.setRemoveFriendButtonAction(this::removeFriendButtonAction);
-        List<User> pending = getUsers("pending");
-        for (User user : pending)
+        List<User> pendingSent = getUsers("pending");
+        for (User user : pendingSent)
             user.setChecked(true);
         List<User> nonFriends = getUsers("nonFriends");
         List<User> friends = getUsers("friends");
-        nonFriends.addAll(pending);
-        displayUserList(nonFriends, false);
-        displayUserList(friends, true);
+        List<User> pendingReceived = getUsers("pending");
+        nonFriends.addAll(pendingSent);
+        displayUserList(nonFriends, "nonFriends");
+        displayUserList(friends, "friends");
+        displayUserList(pendingReceived, "pending");
     }
 
     private void clearResultText(int index) {
