@@ -125,6 +125,10 @@ public class UserPresenter {
         return pu.createJSON("success", username + "'s request has been declined");
     }
 
+    public JSONObject requestRemoved(String username){
+        return pu.createJSON("success", "request to "+username + " has been removed");
+    }
+
     public void listAllUsersLabel() {
     }
 

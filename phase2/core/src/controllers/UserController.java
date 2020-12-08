@@ -254,7 +254,7 @@ public abstract class UserController {
     }
 
     /**
-     * Removes ueser with name username from this user's friends list
+     * Removes user with username from this user's friends list
      * @param username username of the person this user wishes to remove
      * @return JSONObject detailing the results
      */
@@ -262,6 +262,17 @@ public abstract class UserController {
         um.removeFriend(this.username, username);
         this.saveData();
         return up.friendRemoved(username);
+    }
+
+    /**
+     * Removes user with username from this user's sent friend requests list
+     * @param username username of the person this user wishes to remove
+     * @return JSONObject detailing the results
+     */
+    public JSONObject removeFriendRequest(String username){
+        um.declineRequest(username, this.username);
+        this.saveData();
+        return up.requestRemoved(username);
     }
 
     /**
@@ -295,6 +306,20 @@ public abstract class UserController {
      */
     public JSONObject getFriends(){
         return um.getAllFriendsJson(username);
+    }
+
+    /**
+     * Getter for the friend requests of this user
+     * @return JSONObject containing all of the friends of this user
+     */
+    public JSONObject getFriendRequests(){return um.getAllFriendsRequestsJson(username);}
+
+    public JSONObject getNonFriends(){
+        return um.getAllNonFriendsJson(username);
+    }
+
+    public JSONObject getSentRequests(){
+        return um.getAllSentRequestsJson(username);
     }
 
     public JSONObject getCommonEvents(String username){
