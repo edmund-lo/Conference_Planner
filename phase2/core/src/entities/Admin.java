@@ -37,8 +37,12 @@ public class Admin extends User implements Serializable {
         item.put("firstName", getFirstName());
         item.put("lastName", getLastName());
         item.put("schedule", getSchedule());
-        item.put("sent Messages", getSentMessages());
-        item.put("received Messages", getReceivedMessages());
+        item.put("sent requests", getSentRequest());
+        item.put("friend requests", getFriendRequest());
+        item.put("friends list", getFriendsList());
+        item.put("primary inbox", getPrimaryInbox());
+        item.put("archived inbox", getArchivedInbox());
+        item.put("trash inbox", getTrashInbox());
 
         array.add(item);
 
