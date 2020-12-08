@@ -49,7 +49,7 @@ public class LoginController {
     /**
      * Called to create a new account for a user.
      */
-    public JSONObject CreateAccount(JSONObject obj, boolean isMade){
+    public JSONObject createAccount(JSONObject obj, boolean isMade){
 
         // String Username, String Password, String type, String q1, String ans1,
         //                                    String q2, String ans2, String q3, String ans3, boolean security
@@ -120,7 +120,7 @@ public class LoginController {
 
         //If the username doesn't exist or password doesn't match, log a failed login.
         if (!(UsernameExists && PasswordExists)){
-            UpdateLogs(Username, "Failed Login");
+            updateLogs(Username, "Failed Login");
             //If past 3 logs are failed logins, lock the account.
             if (suspiciousLogs(Username)){
                 lockOut(Username);
@@ -183,20 +183,24 @@ public class LoginController {
             return lp.incorrectAnswers();
     }
 
-    public JSONObject resetPassword(String user, String newPassword){
+    public JSONObject resetPassword(String user, String newPassword, String confirmPassword){
         UserAccountEntity Account = uam.getUserAccount(user);
 
         //Update password
-        Account.setPassword(newPassword);
-        uam.updateAccount(Account.getUsername(), Account);
-        uag.serializeData(uam);
-        return lp.passwordChanged();
+        if (newPassword.equals(confirmPassword)){
+            Account.setPassword(newPassword);
+            uam.updateAccount(Account.getUsername(), Account);
+            uag.serializeData(uam);
+            return lp.passwordChanged();
+        } else
+            return lp.passwordsDontMatch();
+
     }
 
     /**
      * Update the logs database.
      */
-    public void UpdateLogs(String Username, String type){
+    public void updateLogs(String Username, String type){
         //Get current time and convert it to string/
         String pattern = "MM/dd/yyyy HH:mm:ss";
         DateFormat dateForm = new SimpleDateFormat(pattern);
@@ -208,8 +212,8 @@ public class LoginController {
 
     }
 
-    public JSONArray accountJson(String username){
-        return uam.getUserAccount(username).getJSON();
+    public JSONObject accountJson(String username){
+        return lp.accountLogs(uam.getUserAccount(username).getJSON());
     }
 
 }

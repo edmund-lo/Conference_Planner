@@ -109,4 +109,7 @@ public class AdminPresenter extends UserPresenter {
         return pu.createJSON("error", "Event is not empty");
     }
 
+    public JSONObject accountUnlocked() {
+        return pu.createJSON("success", "Account has been unlocked");
+    }
 }

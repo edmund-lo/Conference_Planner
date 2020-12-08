@@ -1,7 +1,13 @@
 package controllers;
 
+import entities.LoginLog;
+import entities.UserAccountEntity;
+import gateways.UserAccountGateway;
 import org.json.simple.JSONObject;
 import presenters.AdminPresenter;
+import usecases.LoginLogManager;
+
+import java.util.ArrayList;
 
 /**
  * A Controller class representing an AdminController which inherits from UserController.
@@ -172,8 +178,17 @@ public class AdminController extends UserController{
         }
     }
 
-    public void checkUserLogs(String username){
-
+    public ArrayList<LoginLog> checkUserLogs(String username){
+        LoginLogManager llm = new LoginLogManager();
+        return llm.getUserLogs(username);
     }
 
+    public JSONObject unlockAccount(String Username){
+        UserAccountEntity Account = uam.getUserAccount(Username);
+        Account.Unlock();
+        uam.updateAccount(Username, Account);
+        UserAccountGateway uag = new UserAccountGateway();
+        uag.serializeData(uam);
+        return ap.accountUnlocked();
+    }
 }

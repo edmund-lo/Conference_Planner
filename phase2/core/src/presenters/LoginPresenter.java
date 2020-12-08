@@ -84,4 +84,12 @@ public class LoginPresenter {
     public JSONObject correctAnswers() {
         return pu.createJSON("success", "The answers to the security questions are correct");
     }
+
+    public JSONObject accountLogs(JSONArray json) {
+        return pu.createJSON("success", "Here are the logs:", "JSONArray", json);
+    }
+
+    public JSONObject passwordsDontMatch() {
+        return pu.createJSON("warning", "Passwords do not match");
+    }
 }
