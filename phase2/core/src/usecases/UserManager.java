@@ -467,6 +467,13 @@ public class UserManager implements Serializable {
         return usernames;
     }
 
+    /**
+     * checks if user can be added to friend's list
+     *
+     * @param user the username of user
+     * @param friend the username of friend being added
+     * @return boolean for whether the user can be added
+     */
     public boolean canBeFriend(String user, String friend){
         if (allUsers.get(friend).getFriendRequest().contains(user))
             return false;
@@ -479,11 +486,25 @@ public class UserManager implements Serializable {
         return true;
     }
 
+    /**
+     * sends friend request from user to friend
+     *
+     * @param user the username of user
+     * @param friend the username of friend being added
+     *
+     */
     public void sendFriendRequest(String user, String friend){
         allUsers.get(friend).getFriendRequest().add(user);
         allUsers.get(user).getSentRequest().add(friend);
     }
 
+    /**
+     * adds friend to user's friends list and vice versa
+     *
+     * @param user the username of user
+     * @param friend the username of friend being added
+     *
+     */
     public void addFriend(String user, String friend){
         allUsers.get(user).getFriendRequest().remove(friend);
         allUsers.get(friend).getSentRequest().remove(user);
@@ -491,11 +512,25 @@ public class UserManager implements Serializable {
         allUsers.get(friend).addFriend(user);
     }
 
+    /**
+     * removes friend from user's friend list
+     *
+     * @param user the username of user
+     * @param friend the username of friend being added
+     *
+     */
     public void removeFriend(String user, String friend){
         allUsers.get(user).removeFriend(friend);
         allUsers.get(friend).removeFriend(user);
     }
 
+    /**
+     * declines friend request from friend to user
+     *
+     * @param user the username of user
+     * @param friend the username of friend being added
+     *
+     */
     public void declineRequest(String user, String friend){
         allUsers.get(friend).getSentRequest().remove(user);
         allUsers.get(user).getFriendRequest().remove(friend);
@@ -564,6 +599,10 @@ public class UserManager implements Serializable {
         return json;
     }
 
+    /**
+     * @return A JSONObject that contains the JSON representation of this class
+     */
+    @SuppressWarnings("unchecked")
     public JSONObject getAllFriendsRequestsJson(String username){
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();

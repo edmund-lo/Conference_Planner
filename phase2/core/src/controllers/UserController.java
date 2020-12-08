@@ -244,7 +244,7 @@ public abstract class UserController {
     }
 
     /**
-     * Removes user with name username from this user's friends list
+     * Removes user with username from this user's friends list
      * @param username username of the person this user wishes to remove
      * @return JSONObject detailing the results
      */
@@ -255,7 +255,7 @@ public abstract class UserController {
     }
 
     /**
-     * Removes user with name username from this user's friends list
+     * Removes user with username from this user's sent friend requests list
      * @param username username of the person this user wishes to remove
      * @return JSONObject detailing the results
      */
