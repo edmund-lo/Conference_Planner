@@ -35,8 +35,8 @@ public class UserManager implements Serializable {
      * @param firstName the first name
      * @param lastName the last name
      */
-    public void createNewAttendee(String username, String firstName, String lastName) {
-        Attendee attendee = new Attendee(username, firstName, lastName);
+    public void createNewAttendee(String username, String firstName, String lastName, boolean vip) {
+        Attendee attendee = new Attendee(username, firstName, lastName, vip);
         allUsers.put(username, attendee);
     }
 

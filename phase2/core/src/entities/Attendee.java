@@ -19,9 +19,9 @@ public class Attendee extends User implements Serializable {
      * @param firstName the user's firstName
      * @param lastName the user's lastName
      */
-    public Attendee(String username, String firstName, String lastName) {
+    public Attendee(String username, String firstName, String lastName, boolean vip) {
         super(username, firstName, lastName);
-        this.vip = false;
+        this.vip = vip;
     }
 
     /**
