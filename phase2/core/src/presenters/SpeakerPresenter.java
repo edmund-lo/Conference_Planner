@@ -1,6 +1,9 @@
 package presenters;
 import org.json.simple.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Presenter class that outputs speaker attributes that client-users can view
  * Displays menu options
@@ -52,5 +55,9 @@ public class SpeakerPresenter extends UserPresenter {
      */
     public JSONObject messageEventAttendeesError(String event) {
         return pu.createJSON("error", "Unable to message attendees of " + event + "!");
+    }
+
+    public JSONObject getSpeakerEventsOutput(List<String> events){
+        return pu.createJSON("success", "returning speaker events", "events", events);
     }
 }

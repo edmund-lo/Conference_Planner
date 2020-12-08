@@ -64,8 +64,8 @@ public abstract class UserController {
      *
      *@return list of speakers and attendees in a string format
      */
-    public ArrayList<String> getAllMessageableUsers(){
-        return um.getAllMessageableUsers(username);
+    public JSONObject getAllMessageableUsers(){
+        return up.getMessageableAttendeesOutput(um.getAllMessageableUsers(username));
     }
 
     /**
@@ -109,13 +109,13 @@ public abstract class UserController {
      *@return list of events the user is attending in a string format
      */
 
-    public List<String> getAttendingEventsString() {
+    public JSONObject getAttendingEventsString() {
         HashMap<String, LocalDateTime[]> schedule = um.getSchedule(username);
         ArrayList<String> eventDesc = new ArrayList<>();
         for (String eventId : schedule.keySet())
             eventDesc.add(em.getEventDescription(eventId));
 
-        return eventDesc;
+        return up.getEventsData(eventDesc);
     }
 
     /**
@@ -124,9 +124,9 @@ public abstract class UserController {
      *@return list of events the user is attending in a string format
      */
 
-    public List<String> getAttendingEvents() {
+    public JSONObject getAttendingEvents() {
         HashMap<String, LocalDateTime[]> schedule = um.getSchedule(username);
-        return new ArrayList<>(schedule.keySet());
+        return up.getEventsData(new ArrayList<>(schedule.keySet()));
     }
 
     /**
@@ -134,14 +134,14 @@ public abstract class UserController {
      *
      *@return list of all events in the conference in a JSONARRAY format
      */
-    public List<String> getAllEventsCanSignUp(){
+    public JSONObject getAllEventsCanSignUp(){
         ArrayList<String> eventDesc = new ArrayList<>();
         for (String id : em.getAllEventIds()){
             if(um.canSignUp(username, id, em.getEventStartTime(id), em.getEventEndTime(id))) {
                 eventDesc.add(em.getEventDescription(id));
             }
         }
-        return eventDesc;
+        return up.getEventsData(eventDesc);
     }
 
     /**
@@ -149,14 +149,14 @@ public abstract class UserController {
      *
      * @return a list of all events
      */
-    public List<String> getAllEvents() {
+    public JSONObject getAllEvents() {
         ArrayList<String> eventDesc = new ArrayList<>();
         for (String id : em.getAllEventIds()) {
             if (em.getEventStartTime(id).isAfter(LocalDateTime.now())) {
                 eventDesc.add(em.getEventDescription(id));
             }
         }
-        return eventDesc;
+        return up.getEventsData(eventDesc);
     }
 
     /**

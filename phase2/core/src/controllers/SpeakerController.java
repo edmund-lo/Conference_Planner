@@ -89,11 +89,11 @@ public class SpeakerController extends UserController {
      * Gets all events that current speaker is speaking at.
      * @return List of Strings representing the events the current speaker is speaking at.
      */
-    public List<String> getSpeakerEvents() {
+    public JSONObject getSpeakerEvents() {
         Map<String, LocalDateTime[]> schedule = um.getSpeakerSchedule(username);
         List<String> eventStrings = new ArrayList<>();
         for (String eventId : schedule.keySet()) //loop through all events in speaker's schedule
             eventStrings.add(em.getEventDescription(eventId));
-        return eventStrings;
+        return sp.getSpeakerEventsOutput(eventStrings);
     }
 }

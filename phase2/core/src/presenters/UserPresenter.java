@@ -130,4 +130,12 @@ public class UserPresenter {
 
     public void exitlistAllUsersLabel() {
     }
+
+    public JSONObject getEventsData(ArrayList<String> events){
+        return pu.createJSON("success", "list of events", "Events", events);
+    }
+
+    public JSONObject getMessageableAttendeesOutput(ArrayList<String> messages){
+        return pu.createJSON("success", "List of messageable users in string format", "users",messages);
+    }
 }
