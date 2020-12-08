@@ -105,6 +105,15 @@ public class AdminController extends UserController{
     }
 
     /**
+     * Lists the names of all attendees
+     *
+     * @return a JSON object containing the status and description of the action and a list of all attendees
+     */
+    public JSONObject viewAllAttendees() {
+        return um.getAllAttendeesJson();
+    }
+
+    /**
      * Lists the names of all VIPs
      *
      * @return a JSON object containing the status and description of the action and a list of all vips

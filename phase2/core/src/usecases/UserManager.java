@@ -644,4 +644,21 @@ public class UserManager implements Serializable {
     public JSONObject getSpeakerJson(String id){
         return this.allUsers.get(id).convertToJSON();
     }
+
+    public JSONObject getAllAttendeesJson(){
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+
+        for(String ID: allUsers.keySet()) {
+            if (isAttendee(ID)) {
+                item.put(ID, allUsers.get(ID).convertToJSON());
+            }
+        }
+        array.add(item);
+
+        json.put("Users", array);
+
+        return json;
+    }
 }
