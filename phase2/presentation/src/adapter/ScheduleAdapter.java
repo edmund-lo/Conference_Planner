@@ -41,10 +41,9 @@ public class ScheduleAdapter {
         String speakers = String.valueOf(jsonObject.get("speakers"));
         int remainingSpots = parseInt(String.valueOf(jsonObject.get("remainingSpots")));
         int capacity = parseInt(String.valueOf(jsonObject.get("capacity")));
-        boolean liked = jsonObject.get("liked").equals("true");
         boolean vip = jsonObject.get("vip").equals("true");
 
         return new ScheduleEntry(start, end, eventId, eventName, roomName, amenities, attendees, speakers, duration,
-                remainingSpots, capacity, liked, vip);
+                remainingSpots, capacity, vip);
     }
 }

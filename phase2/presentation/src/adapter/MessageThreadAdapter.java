@@ -4,13 +4,8 @@ import model.Message;
 import model.MessageThread;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import util.DateTimeUtil;
-
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.lang.Integer.parseInt;
 
 public class MessageThreadAdapter {
     private static final MessageThreadAdapter Instance = new MessageThreadAdapter();

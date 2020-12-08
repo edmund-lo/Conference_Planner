@@ -6,8 +6,6 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.Integer.parseInt;
-
 public class UserAccountAdapter {
     private static final UserAccountAdapter Instance = new UserAccountAdapter();
 
