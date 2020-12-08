@@ -1,8 +1,6 @@
 package speaker.impl;
 
 import adapter.ScheduleAdapter;
-import adapter.UserAdapter;
-//import controllers.SpeakerController;
 import controllers.SpeakerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,8 +19,8 @@ import util.TextResultUtil;
 import java.util.List;
 
 public class SpeakerEventsPresenter implements ISpeakerEventsPresenter {
-    private ISpeakerEventsView view;
-    private SpeakerController sc;
+    private final ISpeakerEventsView view;
+    private final SpeakerController sc;
     private final ObservableSet<CheckBox> selectedRecipients = FXCollections.observableSet();
 
     public SpeakerEventsPresenter(ISpeakerEventsView view) {
@@ -36,7 +34,7 @@ public class SpeakerEventsPresenter implements ISpeakerEventsPresenter {
         clearResultText();
 
         JSONObject queryJson = constructMessageJson();
-        //JSONObject responseJson = oc.sendEventMessage(queryJson);
+        //JSONObject responseJson = oc.messageEventsAttendeesCmd(queryJson);
         JSONObject responseJson = new JSONObject();
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
     }
@@ -51,8 +49,7 @@ public class SpeakerEventsPresenter implements ISpeakerEventsPresenter {
 
     @Override
     public List<ScheduleEntry> getAllSpeakerEvents() {
-        //JSONObject responseJson = oc.getSpeakerEvents(this.view.getSessionUsername);
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = sc.getSpeakerEvents();
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
         return ScheduleAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }

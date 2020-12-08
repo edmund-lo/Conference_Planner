@@ -11,12 +11,12 @@ import model.User;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import util.TextResultUtil;
-
 import java.util.List;
 
 public class SetVipPresenter implements ISetVipPresenter {
-    private ISetVipView view;
-    private AdminController ac;
+    private final ISetVipView view;
+    private final AdminController ac;
+    private User selectedUser;
 
     public SetVipPresenter(ISetVipView view) {
         this.view = view;
@@ -28,8 +28,11 @@ public class SetVipPresenter implements ISetVipPresenter {
     public void changeVipButtonAction(ActionEvent actionEvent) {
         clearResultText();
 
-        //JSONObject responseJson = ac.setVip(this.view.getUsername(), this.view.getVip());
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson;
+        if (this.view.getVip().equals("Yes"))
+            responseJson = ac.setAttendeeAsVip(this.selectedUser.getUsername());
+        else
+            responseJson = ac.setAttendeeAsNotVip(this.selectedUser.getUsername());
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
         if (responseJson.get("status").equals("success")) init();
     }
@@ -61,6 +64,7 @@ public class SetVipPresenter implements ISetVipPresenter {
 
     @Override
     public void displayUserDetails(User attendee) {
+        this.selectedUser = attendee;
         this.view.setUsername(attendee.getUsername());
         this.view.setFirstName(attendee.getFirstName());
         this.view.setLastName(attendee.getLastName());

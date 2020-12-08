@@ -22,8 +22,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class CreateEventPresenter implements ICreateEventPresenter {
-    private ICreateEventView view;
-    private OrganizerController oc;
+    private final ICreateEventView view;
+    private final OrganizerController oc;
     private final ObservableSet<CheckBox> selectedAmenities = FXCollections.observableSet();
 
     public CreateEventPresenter(ICreateEventView view) {
@@ -57,8 +57,7 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         this.view.getTableContainer().getChildren().clear();
 
         JSONObject queryJson = constructRoomRequestJson();
-        //JSONObject responseJson = oc.findRooms(queryJson);
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = oc.listPossibleRooms(queryJson);
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 1);
         if (responseJson.get("status").equals("success")) {
             this.view.getTitledPane(1).setDisable(true);
@@ -98,8 +97,7 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         clearResultText(3);
 
         JSONObject queryJson = constructEventJson();
-        //JSONObject responseJson = oc.createEvent(queryJson);
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = oc.createEventCmd(queryJson);
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 1);
         if (responseJson.get("status").equals("Success")) {
             this.view.getTitledPane(1).setDisable(false);

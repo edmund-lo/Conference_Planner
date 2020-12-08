@@ -23,8 +23,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class FriendsPresenter implements IFriendsPresenter {
-    private IFriendsView view;
-    private AttendeeController ac;
+    private final IFriendsView view;
+    private final AttendeeController ac;
     private User selectedFriend;
     private User selectedUser;
     private User selectedPending;
@@ -47,8 +47,7 @@ public class FriendsPresenter implements IFriendsPresenter {
     public void removeRequestButtonAction(ActionEvent actionEvent) {
         clearResultText(2);
 
-        //JSONObject responseJson = ac.removeRequest(selectedUser.getUsername());
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = ac.removeFriendRequest(selectedUser.getUsername());
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 1);
     }
 
@@ -64,8 +63,7 @@ public class FriendsPresenter implements IFriendsPresenter {
     public void acceptButtonAction(ActionEvent actionEvent) {
         clearResultText(3);
 
-        JSONObject responseJson = new JSONObject();
-        //JSONObject responseJson = ac.acceptRequest(selectedPending.getUsername());
+        JSONObject responseJson = ac.addFriend(selectedPending.getUsername());
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 1);
     }
 
@@ -94,56 +92,64 @@ public class FriendsPresenter implements IFriendsPresenter {
     @Override
     public void displayUserList(List<User> userList, String type) {
         ObservableList<User> observableUsers = FXCollections.observableArrayList(userList);
-        if (type.equals("friends")) {
-            this.view.getFirstNameFriendColumn().setCellValueFactory(new PropertyValueFactory<>("firstName"));
-            this.view.getLastNameFriendColumn().setCellValueFactory(new PropertyValueFactory<>("lastName"));
-            this.view.getUsernameFriendColumn().setCellValueFactory(new PropertyValueFactory<>("username"));
-            this.view.getUserTypeFriendColumn().setCellValueFactory(new PropertyValueFactory<>("userType"));
-            this.view.getFriendTable().setItems(observableUsers);
-            this.view.getFriendTable().getSelectionModel().selectedItemProperty().addListener(
-                    (observable, oldValue, newValue) -> displayUserDetails(newValue, type));
-        } else if (type.equals("nonFriends")) {
-            this.view.getFirstNameUserColumn().setCellValueFactory(new PropertyValueFactory<>("firstName"));
-            this.view.getLastNameUserColumn().setCellValueFactory(new PropertyValueFactory<>("lastName"));
-            this.view.getUsernameUserColumn().setCellValueFactory(new PropertyValueFactory<>("username"));
-            this.view.getUserTypeUserColumn().setCellValueFactory(new PropertyValueFactory<>("userType"));
-            this.view.getPendingUserColumn().setCellValueFactory(param -> param.getValue().getSelected());
-            this.view.getUserTable().setItems(observableUsers);
-            this.view.getUserTable().getSelectionModel().selectedItemProperty().addListener(
-                    (observable, oldValue, newValue) -> displayUserDetails(newValue, type));
-        } else if (type.equals("pending")) {
-            this.view.getFirstNamePendingColumn().setCellValueFactory(new PropertyValueFactory<>("firstName"));
-            this.view.getLastNamePendingColumn().setCellValueFactory(new PropertyValueFactory<>("lastName"));
-            this.view.getUsernamePendingColumn().setCellValueFactory(new PropertyValueFactory<>("username"));
-            this.view.getUserTypePendingColumn().setCellValueFactory(new PropertyValueFactory<>("userType"));
-            this.view.getPendingTable().setItems(observableUsers);
-            this.view.getPendingTable().getSelectionModel().selectedItemProperty().addListener(
-                    (observable, oldValue, newValue) -> displayUserDetails(newValue, type));
+        switch (type) {
+            case "friends":
+                this.view.getFirstNameFriendColumn().setCellValueFactory(new PropertyValueFactory<>("firstName"));
+                this.view.getLastNameFriendColumn().setCellValueFactory(new PropertyValueFactory<>("lastName"));
+                this.view.getUsernameFriendColumn().setCellValueFactory(new PropertyValueFactory<>("username"));
+                this.view.getUserTypeFriendColumn().setCellValueFactory(new PropertyValueFactory<>("userType"));
+                this.view.getFriendTable().setItems(observableUsers);
+                this.view.getFriendTable().getSelectionModel().selectedItemProperty().addListener(
+                        (observable, oldValue, newValue) -> displayUserDetails(newValue, type));
+                break;
+            case "nonFriends":
+                this.view.getFirstNameUserColumn().setCellValueFactory(new PropertyValueFactory<>("firstName"));
+                this.view.getLastNameUserColumn().setCellValueFactory(new PropertyValueFactory<>("lastName"));
+                this.view.getUsernameUserColumn().setCellValueFactory(new PropertyValueFactory<>("username"));
+                this.view.getUserTypeUserColumn().setCellValueFactory(new PropertyValueFactory<>("userType"));
+                this.view.getPendingUserColumn().setCellValueFactory(param -> param.getValue().getSelected());
+                this.view.getUserTable().setItems(observableUsers);
+                this.view.getUserTable().getSelectionModel().selectedItemProperty().addListener(
+                        (observable, oldValue, newValue) -> displayUserDetails(newValue, type));
+                break;
+            case "pending":
+                this.view.getFirstNamePendingColumn().setCellValueFactory(new PropertyValueFactory<>("firstName"));
+                this.view.getLastNamePendingColumn().setCellValueFactory(new PropertyValueFactory<>("lastName"));
+                this.view.getUsernamePendingColumn().setCellValueFactory(new PropertyValueFactory<>("username"));
+                this.view.getUserTypePendingColumn().setCellValueFactory(new PropertyValueFactory<>("userType"));
+                this.view.getPendingTable().setItems(observableUsers);
+                this.view.getPendingTable().getSelectionModel().selectedItemProperty().addListener(
+                        (observable, oldValue, newValue) -> displayUserDetails(newValue, type));
+                break;
         }
     }
 
     @Override
     public void displayUserDetails(User user, String type) {
-        if (type.equals("friends")) {
-            this.selectedFriend = user;
-            this.view.setUsernameFriend(user.getUsername());
-            this.view.setUserTypeFriend(user.getUserType());
-            this.view.setFirstNameFriend(user.getFirstName());
-            this.view.setLastNameFriend(user.getLastName());
-            List<ScheduleEntry> commonEvents = getCommonEvents(user.getUsername());
-            displayCommonEvents(commonEvents);
-        } else if (type.equals("nonFriends")) {
-            this.selectedUser = user;
-            this.view.setUsernameUser(user.getUsername());
-            this.view.setUserTypeUser(user.getUserType());
-            this.view.setFirstNameUser(user.getFirstName());
-            this.view.setLastNameUser(user.getLastName());
-        }else if (type.equals("pending")) {
-            this.selectedPending = user;
-            this.view.setUsernamePending(user.getUsername());
-            this.view.setUserTypePending(user.getUserType());
-            this.view.setFirstNamePending(user.getFirstName());
-            this.view.setLastNamePending(user.getLastName());
+        switch (type) {
+            case "friends":
+                this.selectedFriend = user;
+                this.view.setUsernameFriend(user.getUsername());
+                this.view.setUserTypeFriend(user.getUserType());
+                this.view.setFirstNameFriend(user.getFirstName());
+                this.view.setLastNameFriend(user.getLastName());
+                List<ScheduleEntry> commonEvents = getCommonEvents(user.getUsername());
+                displayCommonEvents(commonEvents);
+                break;
+            case "nonFriends":
+                this.selectedUser = user;
+                this.view.setUsernameUser(user.getUsername());
+                this.view.setUserTypeUser(user.getUserType());
+                this.view.setFirstNameUser(user.getFirstName());
+                this.view.setLastNameUser(user.getLastName());
+                break;
+            case "pending":
+                this.selectedPending = user;
+                this.view.setUsernamePending(user.getUsername());
+                this.view.setUserTypePending(user.getUserType());
+                this.view.setFirstNamePending(user.getFirstName());
+                this.view.setLastNamePending(user.getLastName());
+                break;
         }
     }
 

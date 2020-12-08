@@ -8,8 +8,8 @@ import org.json.simple.JSONObject;
 import util.TextResultUtil;
 
 public class CreateAccountPresenter implements ICreateAccountPresenter {
-    private ICreateAccountView view;
-    private AdminController ac;
+    private final ICreateAccountView view;
+    private final AdminController ac;
 
     public CreateAccountPresenter(ICreateAccountView view) {
         this.view = view;
@@ -22,10 +22,9 @@ public class CreateAccountPresenter implements ICreateAccountPresenter {
         clearResultText();
 
         JSONObject queryJson = constructAccountJson();
-        //JSONObject responseJson = ac.createAccount(queryJson);
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = ac.createAccount(queryJson);
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
-        if (responseJson.get("status").equals("success")) init();
+        if (String.valueOf(responseJson.get("status")).equals("success")) init();
     }
 
     @Override

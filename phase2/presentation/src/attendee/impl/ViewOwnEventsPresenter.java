@@ -16,8 +16,9 @@ import util.TextResultUtil;
 import java.util.List;
 
 public class ViewOwnEventsPresenter implements IViewEventsPresenter {
-    private IViewEventsView view;
-    private AttendeeController ac;
+    private final IViewEventsView view;
+    private final AttendeeController ac;
+    private ScheduleEntry selectedEvent;
 
     public ViewOwnEventsPresenter(IViewEventsView view) {
         this.view = view;
@@ -29,10 +30,9 @@ public class ViewOwnEventsPresenter implements IViewEventsPresenter {
     public void pressButtonAction(ActionEvent actionEvent) {
         clearResultText();
 
-        //JSONObject responseJson = ac.cancel(this.view.getEventName());
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = ac.cancelEventAttendance(this.selectedEvent.getEventId());
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
-        if (responseJson.get("status").equals("success")) init();
+        if (String.valueOf(responseJson.get("status")).equals("success")) init();
     }
 
     @Override
@@ -43,8 +43,7 @@ public class ViewOwnEventsPresenter implements IViewEventsPresenter {
 
     @Override
     public List<ScheduleEntry> getEvents() {
-        //JSONObject responseJson = ac.getAttendingEvents();
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = ac.getAttendingEvents();
         return ScheduleAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
@@ -66,6 +65,7 @@ public class ViewOwnEventsPresenter implements IViewEventsPresenter {
 
     @Override
     public void displayEventDetails(ScheduleEntry event) {
+        this.selectedEvent = event;
         this.view.setSummaryEventName(event.getEventName());
         this.view.setSummaryRoomName(event.getEventName());
         this.view.setSummaryAttendees(event.getEventName());
