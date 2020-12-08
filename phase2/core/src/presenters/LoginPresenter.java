@@ -72,4 +72,16 @@ public class LoginPresenter {
     public JSONObject noWhiteSpace() {
         return pu.createJSON("warning", "Username cannot contain whitespaces");
     }
+
+    public JSONObject passwordChanged() {
+        return pu.createJSON("success", "Your password has successfully been changed");
+    }
+
+    public JSONObject incorrectAnswers() {
+        return pu.createJSON("warning", "The answers to the security questions were incorrect");
+    }
+
+    public JSONObject correctAnswers() {
+        return pu.createJSON("success", "The answers to the security questions are correct");
+    }
 }

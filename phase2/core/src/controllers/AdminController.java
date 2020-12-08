@@ -172,4 +172,8 @@ public class AdminController extends UserController{
         }
     }
 
+    public void checkUserLogs(String username){
+
+    }
+
 }

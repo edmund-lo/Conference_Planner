@@ -170,23 +170,27 @@ public class LoginController {
     /**
      * Lets user change password if they can answer 3 security questions correctly which were set when making an account.
      */
-    public boolean verifySecurityAnswers(String User, String a1, String a2){
+    public JSONObject verifySecurityAnswers(String User, String a1, String a2){
         UserAccountEntity Account = uam.getUserAccount(User);
 
         lp.SecurityQuestion1();
         lp.SecurityQuestion2();
 
         //Check if answers to security questions match.
-        return a1.equals(Account.getSecurityAns(1)) && a2.equals(Account.getSecurityAns(2));
+        if (a1.equals(Account.getSecurityAns(1)) && a2.equals(Account.getSecurityAns(2)))
+            return lp.correctAnswers();
+        else
+            return lp.incorrectAnswers();
     }
 
-    public void resetPassword(String user, String newPassword){
+    public JSONObject resetPassword(String user, String newPassword){
         UserAccountEntity Account = uam.getUserAccount(user);
 
         //Update password
         Account.setPassword(newPassword);
         uam.updateAccount(Account.getUsername(), Account);
         uag.serializeData(uam);
+        return lp.passwordChanged();
     }
 
     /**
