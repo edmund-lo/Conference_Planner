@@ -202,4 +202,8 @@ public class OrganizerPresenter extends UserPresenter {
     public JSONObject changeCapResult(){
         return pu.createJSON("success", "The event capacity has been changed successfully.");
     }
+
+    public JSONObject cancelResult(){
+        return pu.createJSON("success", "The event has been cancelled successfully");
+    }
 }
