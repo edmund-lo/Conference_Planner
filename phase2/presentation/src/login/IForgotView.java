@@ -10,17 +10,17 @@ import javafx.scene.text.Text;
 public interface IForgotView extends IView {
     String getUsername();
     void setUsername(String username);
-    String getSecurityQuestion();
-    void setSecurityQuestion(String securityQuestion);
-    String getSecurityAnswer();
-    void setSecurityAnswer(String securityAnswer);
+    String getSecurityQuestion(int index);
+    void setSecurityQuestion(String securityQuestion, int index);
+    String getSecurityAnswer(int index);
+    void setSecurityAnswer(String securityAnswer, int index);
     String getPassword();
     void setPassword(String password);
     String getConfirmPassword();
     void setConfirmPassword(String password);
     void setResultText(String resultText, int index);
 
-    PasswordField getSecurityAnswerField();
+    PasswordField getSecurityAnswerField(int index);
     Text getResultTextControl(int index);
     TitledPane getTitledPane(int index);
 

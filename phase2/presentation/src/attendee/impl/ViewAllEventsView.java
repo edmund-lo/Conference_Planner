@@ -26,6 +26,8 @@ public class ViewAllEventsView implements IViewEventsView {
     @FXML
     private TableColumn<ScheduleEntry, LocalDateTime> eventEndColumn;
     @FXML
+    private TableColumn<ScheduleEntry, Boolean> vipColumn;
+    @FXML
     private TableColumn<ScheduleEntry, Integer> remainingSpotsColumn;
     @FXML
     private Text summaryEventName;
@@ -47,6 +49,8 @@ public class ViewAllEventsView implements IViewEventsView {
     private Text summarySpeakers;
     @FXML
     private Text summaryAttendees;
+    @FXML
+    private Text summaryVip;
     @FXML
     private Text resultText;
 
@@ -88,6 +92,11 @@ public class ViewAllEventsView implements IViewEventsView {
     @Override
     public TableColumn<ScheduleEntry, LocalDateTime> getEventEndColumn() {
         return this.eventEndColumn;
+    }
+
+    @Override
+    public TableColumn<ScheduleEntry, Boolean> getVipColumn() {
+        return this.vipColumn;
     }
 
 
@@ -144,6 +153,11 @@ public class ViewAllEventsView implements IViewEventsView {
     @Override
     public void setSummarySpeakers(String speakers) {
         this.summarySpeakers.setText(speakers);
+    }
+
+    @Override
+    public void setSummaryVip(String vip) {
+        this.summaryVip.setText(vip);
     }
 
     @Override

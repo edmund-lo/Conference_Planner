@@ -34,8 +34,7 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
     public void cancelButtonAction(ActionEvent actionEvent) {
         clearResultText();
 
-        //JSONObject responseJson = oc.cancelEvent(this.selectedEvent.getEventId());
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = oc.cancelEvent(this.selectedEvent.getEventId());
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
         if (String.valueOf(responseJson.get("status")).equals("success")) {
             List<ScheduleEntry> allEvents = getEvents();

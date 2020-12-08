@@ -125,8 +125,7 @@ public class CreateEventPresenter implements ICreateEventPresenter {
     public List<ScheduleEntry> getRoomSchedule() {
         String roomName = this.view.getRoomName();
         LocalDateTime start = this.view.getStart();
-        //JSONObject responseJson = oc.getRoomSchedule(roomName, start);
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = oc.listRoomSchedule(roomName, start);
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 2);
         return ScheduleAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }

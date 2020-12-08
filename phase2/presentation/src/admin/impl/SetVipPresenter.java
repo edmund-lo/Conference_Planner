@@ -45,8 +45,7 @@ public class SetVipPresenter implements ISetVipPresenter {
 
     @Override
     public List<User> getAttendeeUsers() {
-        //JSONObject responseJson = ac.getAllAttendees();
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = ac.viewAllAttendees();
         return UserAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
 
     }

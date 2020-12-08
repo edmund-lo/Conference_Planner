@@ -1,6 +1,6 @@
 package home.impl;
 
-import adapter.MessageAdapter;
+import adapter.MessageThreadAdapter;
 import adapter.ScheduleAdapter;
 import adapter.UserAdapter;
 import controllers.AttendeeController;
@@ -36,7 +36,7 @@ public class HomePresenter implements IHomePresenter {
     public void setUnreadMessages() {
         //JSONObject responseJson = ac.getUnreadMessages();
         JSONObject responseJson = new JSONObject();
-        List<MessageThread> unreadMessages = MessageAdapter.getInstance()
+        List<MessageThread> unreadMessages = MessageThreadAdapter.getInstance()
                 .adaptData((JSONArray) responseJson.get("data"));
         String result = "You have " + unreadMessages.size() + " unread messages.";
         if (unreadMessages.size() == 1) result = "You have 1 unread message.";

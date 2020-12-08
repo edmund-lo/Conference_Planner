@@ -10,8 +10,8 @@ import util.ComponentFactory;
 import util.TextResultUtil;
 
 public class SetupPresenter implements IRegisterPresenter {
-    private IRegisterView view;
-    private LoginController lc;
+    private final IRegisterView view;
+    private final LoginController lc;
 
     public SetupPresenter(IRegisterView view) {
         this.view = view;
@@ -30,8 +30,7 @@ public class SetupPresenter implements IRegisterPresenter {
         clearResultText();
 
         JSONObject queryJson = constructRegisterJson();
-        //JSONObject responseJson = lc.createAccount(queryJson);
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = lc.createAccount(queryJson, true);
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
     }
 

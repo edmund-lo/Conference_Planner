@@ -55,6 +55,7 @@ public class ViewOwnEventsPresenter implements IViewEventsPresenter {
         this.view.getRoomNameColumn().setCellValueFactory(new PropertyValueFactory<>("roomName"));
         this.view.getEventStartColumn().setCellValueFactory(new PropertyValueFactory<>("start"));
         this.view.getEventEndColumn().setCellValueFactory(new PropertyValueFactory<>("end"));
+        this.view.getVipColumn().setCellValueFactory(param -> param.getValue().vipProperty());
         this.view.getRemainingSpotsColumn().setCellValueFactory(new PropertyValueFactory<>("remainingSpots"));
 
         ObservableList<ScheduleEntry> observableSchedule = FXCollections.observableArrayList(schedule);
@@ -76,6 +77,7 @@ public class ViewOwnEventsPresenter implements IViewEventsPresenter {
         this.view.setSummarySpeakers(event.getEventName());
         this.view.setSummaryCapacity(event.getCapacity());
         this.view.setSummaryRemainingSpots(event.getRemainingSpots());
+        this.view.setSummaryVip(event.isVip() ? "Yes" : "No");
     }
 
     @Override

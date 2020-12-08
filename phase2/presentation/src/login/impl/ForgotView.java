@@ -14,9 +14,13 @@ public class ForgotView implements IForgotView {
     @FXML
     private TextField username;
     @FXML
-    private TextField securityQuestion;
+    private TextField securityQuestion1;
     @FXML
-    private PasswordField securityAnswer;
+    private PasswordField securityAnswer1;
+    @FXML
+    private TextField securityQuestion2;
+    @FXML
+    private PasswordField securityAnswer2;
     @FXML
     private PasswordField password;
     @FXML
@@ -83,23 +87,27 @@ public class ForgotView implements IForgotView {
     }
 
     @Override
-    public String getSecurityQuestion() {
-        return this.securityQuestion.getText();
+    public String getSecurityQuestion(int index) {
+        String question = "";
+        if (index == 1) question = this.securityQuestion1.getText();
+        else if (index == 2) question = this.securityQuestion2.getText();
+        return question;
     }
 
     @Override
-    public void setSecurityQuestion(String securityQuestion) {
-        this.securityQuestion.setText(securityQuestion);
+    public void setSecurityQuestion(String securityQuestion, int index) {
+        if (index == 1) this.securityQuestion1.setText(securityQuestion);
+        else if (index == 2)  this.securityQuestion2.setText(securityQuestion);
     }
 
     @Override
-    public String getSecurityAnswer() {
-        return this.securityAnswer.getText();
+    public String getSecurityAnswer(int index) {
+        return getSecurityAnswerField(index).getText();
     }
 
     @Override
-    public void setSecurityAnswer(String securityAnswer) {
-        this.securityAnswer.setText(securityAnswer);
+    public void setSecurityAnswer(String securityAnswer, int index) {
+        getSecurityAnswerField(index).setText(securityAnswer);
     }
 
     @Override
@@ -128,8 +136,11 @@ public class ForgotView implements IForgotView {
     }
 
     @Override
-    public PasswordField getSecurityAnswerField() {
-        return this.securityAnswer;
+    public PasswordField getSecurityAnswerField(int index) {
+        PasswordField securityAnswer = new PasswordField();
+        if (index == 1) securityAnswer = this.securityAnswer1;
+        else if (index == 2) securityAnswer = this.securityAnswer2;
+        return securityAnswer;
     }
 
     @Override
