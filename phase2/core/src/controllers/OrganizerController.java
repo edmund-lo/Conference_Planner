@@ -102,7 +102,7 @@ public class OrganizerController extends UserController {
      */
     public JSONObject listEvents() {
         List<String> allSpeakers = um.getAllSpeakerNames();
-        List<String> allEvents = getAllEvents();
+        JSONArray allEvents = getAllEventsList();
         //custom error messages
         if (allEvents.size() == 0) {
             return op.noEvents();
@@ -135,10 +135,10 @@ public class OrganizerController extends UserController {
 
     public JSONObject listAvailableSpeakers(String eventID) {
         List<String> allSpeakers = um.getAllSpeakerNames();
-        List<String> availableSpeakers = new ArrayList<>();
+        JSONArray availableSpeakers = new JSONArray();
         for (String speaker : allSpeakers) {
             if (um.canAddSpeakerEvent(speaker, eventID, em.getEventStartTime(eventID), em.getEventEndTime(eventID))) {
-                availableSpeakers.add(speaker);
+                availableSpeakers.add(um.getSpeakerJson(speaker));
             }
         }
         return op.listSpeakers(availableSpeakers);

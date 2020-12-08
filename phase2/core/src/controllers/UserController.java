@@ -159,6 +159,16 @@ public abstract class UserController {
         return up.getEventsData(eventDesc);
     }
 
+    public JSONArray getAllEventsList() {
+        JSONArray events = new JSONArray();
+        for (String id : em.getAllEventIds()) {
+            if (em.getEventStartTime(id).isAfter(LocalDateTime.now())) {
+                events.add(em.getEventJson(id));
+            }
+        }
+        return events;
+    }
+
     /**
      * Gets a list of all events IDs user can sign up for
      *
