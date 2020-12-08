@@ -287,6 +287,20 @@ public abstract class UserController {
         return um.getAllFriendsJson(username);
     }
 
+    /**
+     * Getter for the friend requests of this user
+     * @return JSONObject containing all of the friends of this user
+     */
+    public JSONObject getFriendRequests(){return um.getAllFriendsRequestsJson(username);}
+
+    public JSONObject getNonFriends(){
+        return um.getAllNonFriendsJson(username);
+    }
+
+    public JSONObject getSentRequests(){
+        return um.getAllSentRequestsJson(username);
+    }
+
     public JSONObject getCommonEvents(String username){
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
