@@ -73,8 +73,10 @@ public class ForgotPresenter implements IForgotPresenter {
 
     @Override
     public void setResultText(String resultText, String status, int index) {
-        if (status.equals("error") || status.equals("warning"))
-            TextResultUtil.getInstance().addPseudoClass(status, this.view.getSecurityAnswerField());
+        if (status.equals("error") || status.equals("warning")) {
+            TextResultUtil.getInstance().addPseudoClass(status, this.view.getSecurityAnswerField(1));
+            TextResultUtil.getInstance().addPseudoClass(status, this.view.getSecurityAnswerField(2));
+        }
         this.view.setResultText(resultText, index);
         TextResultUtil.getInstance().addPseudoClass(status, this.view.getResultTextControl());
     }
@@ -92,6 +94,7 @@ public class ForgotPresenter implements IForgotPresenter {
     private void clearResultText(int index) {
         this.view.setResultText("", index);
         TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl());
-        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getSecurityAnswerField());
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getSecurityAnswerField(1));
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getSecurityAnswerField(2));
     }
 }
