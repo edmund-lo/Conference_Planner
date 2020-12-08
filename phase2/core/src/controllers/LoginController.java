@@ -1,5 +1,7 @@
 package controllers;
 import entities.LoginLog;
+import entities.Organizer;
+import entities.User;
 import entities.UserAccountEntity;
 import gateways.*;
 import org.json.simple.*;
@@ -63,6 +65,10 @@ public class LoginController {
         String ans2 = obj.get("securityAnswer2").toString();
         boolean security = (Boolean) obj.get("setup");
 
+        String firstName = obj.get("firstName").toString();
+        String lastName = obj.get("lastName").toString();
+
+
 
         int UsernameCheck = 0;
         //Loops through all existing usernames.
@@ -92,15 +98,47 @@ public class LoginController {
         lp.SecurityQuestion2();
 
         //Add account to the user manager and update the Accounts Arraylist
-        uam.addAccount(Username, Password, type, security,
-                q1, q2, ans1, ans2);
-        uag.serializeData(uam);
-        this.Accounts = uam.getAccountInfo();
 
-        if (!isMade)
-            return lp.AccountMade();
-        else
+
+        if (!isMade){
+            uam.addAccount(Username, Password, type, security,
+                    q1, q2, ans1, ans2);
+            uag.serializeData(uam);
+            this.Accounts = uam.getAccountInfo();
+
+            UserManager um = new UserManager();
+            UserGateway ug = new UserGateway();
+
+            switch (type) {
+                case "attendee":
+                    uam.addAccount(Username, Password, type);
+                    um.createNewAttendee(Username, firstName, lastName, false);
+                    ug.serializeData(um);
+                    return lp.AccountMade();
+                case "organizer":
+                    uam.addAccount(Username, Password, type);
+                    um.createNewOrganizer(Username, firstName, lastName);
+                    ug.serializeData(um);
+                    return lp.AccountMade();
+                case "speaker":
+                    uam.addAccount(Username, Password, type);
+                    um.createNewSpeaker(Username, firstName, lastName);
+                    ug.serializeData(um);
+                    return lp.AccountMade();
+                default:
+                    return lp.IncorrectCredentials();
+            }
+        }
+        else{
+            UserAccountEntity account = uam.getUserAccount(Username);
+            account.setPassword(Password);
+            account.setUserType(type);
+            account.setSetSecurity(security);
+            account.setSecurityQuestions(q1, ans1, q2, ans2);
+            this.Accounts = uam.getAccountInfo();
+
             return lp.AccountExists();
+        }
     }
 
     /**
