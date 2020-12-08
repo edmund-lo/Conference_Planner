@@ -3,43 +3,40 @@ package model;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class MessageThread {
-    private final StringProperty messageId;
+    private final StringProperty messageThreadId;
     private final StringProperty senderName;
     private final ListProperty<String> recipientNames;
     private final StringProperty subject;
-    private final StringProperty content;
     private final BooleanProperty read;
-    private final ObjectProperty<LocalDateTime> messageTime;
+    private final ListProperty<Message> messageHistory;
 
     public MessageThread() {
-        this(null, null, null, null, null, false, null);
+        this(null, null, null, null, false, null);
     }
 
-    public MessageThread(String messageId, String senderName, List<String> recipientNames, String subject, String content, boolean read,
-                         LocalDateTime messageTime) {
-        this.messageId = new SimpleStringProperty(messageId);
+    public MessageThread(String messageThreadId, String senderName, List<String> recipientNames, String subject,
+                         boolean read, List<Message> messageHistory) {
+        this.messageThreadId = new SimpleStringProperty(messageThreadId);
         this.senderName = new SimpleStringProperty(senderName);
         this.recipientNames = new SimpleListProperty<>(FXCollections.observableArrayList(recipientNames));
         this.subject = new SimpleStringProperty(subject);
-        this.content = new SimpleStringProperty(content);
         this.read = new SimpleBooleanProperty(read);
-        this.messageTime = new SimpleObjectProperty<>(messageTime);
+        this.messageHistory = new SimpleListProperty<>(FXCollections.observableArrayList(messageHistory));
     }
 
-    public String getMessageId() {
-        return messageId.get();
+    public String getMessageThreadId() {
+        return messageThreadId.get();
     }
 
-    public StringProperty messageIdProperty() {
-        return messageId;
+    public StringProperty messageThreadIdProperty() {
+        return messageThreadId;
     }
 
-    public void setMessageId(String messageId) {
-        this.messageId.set(messageId);
+    public void setMessageThreadId(String messageThreadId) {
+        this.messageThreadId.set(messageThreadId);
     }
 
     public String getSenderName() {
@@ -78,18 +75,6 @@ public class MessageThread {
         this.subject.set(subject);
     }
 
-    public String getContent() {
-        return content.get();
-    }
-
-    public StringProperty contentProperty() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content.set(content);
-    }
-
     public boolean isRead() {
         return read.get();
     }
@@ -102,15 +87,15 @@ public class MessageThread {
         this.read.set(read);
     }
 
-    public LocalDateTime getMessageTime() {
-        return messageTime.get();
+    public ObservableList<Message> getMessageHistory() {
+        return messageHistory.get();
     }
 
-    public ObjectProperty<LocalDateTime> messageTimeProperty() {
-        return messageTime;
+    public ListProperty<Message> messageHistoryProperty() {
+        return messageHistory;
     }
 
-    public void setMessageTime(LocalDateTime messageTime) {
-        this.messageTime.set(messageTime);
+    public void setMessageHistory(ObservableList<Message> messageHistory) {
+        this.messageHistory.set(messageHistory);
     }
 }

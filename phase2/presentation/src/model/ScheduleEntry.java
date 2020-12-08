@@ -16,17 +16,16 @@ public class ScheduleEntry {
     private final ObjectProperty<Duration> duration;
     private final IntegerProperty remainingSpots;
     private final IntegerProperty capacity;
-    private final BooleanProperty liked;
     private final BooleanProperty vip;
 
     public ScheduleEntry() {
         this(null, null, null,null, null, null,
-                null, null, null, 0, 0, false, false);
+                null, null, null, 0, 0, false);
     }
 
     public ScheduleEntry(LocalDateTime start, LocalDateTime end, String eventId, String eventName, String roomName,
                          String amenities, String attendees, String speakers, Duration duration, int remainingSpots,
-                         int capacity, boolean liked, boolean vip) {
+                         int capacity, boolean vip) {
         this.start = new SimpleObjectProperty<>(start);
         this.end = new SimpleObjectProperty<>(end);
         this.eventId = new SimpleStringProperty(eventId);
@@ -38,7 +37,6 @@ public class ScheduleEntry {
         this.duration = new SimpleObjectProperty<>(duration);
         this.remainingSpots = new SimpleIntegerProperty(remainingSpots);
         this.capacity = new SimpleIntegerProperty(capacity);
-        this.liked = new SimpleBooleanProperty(liked);
         this.vip = new SimpleBooleanProperty(vip);
     }
 
@@ -172,18 +170,6 @@ public class ScheduleEntry {
 
     public void setCapacity(int capacity) {
         this.capacity.set(capacity);
-    }
-
-    public boolean isLiked() {
-        return liked.get();
-    }
-
-    public BooleanProperty likedProperty() {
-        return liked;
-    }
-
-    public void setLiked(boolean liked) {
-        this.liked.set(liked);
     }
 
     public boolean isVip() {

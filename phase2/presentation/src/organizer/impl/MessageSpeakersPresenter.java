@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MessageSpeakersPresenter implements IMessageUsersPresenter {
-    private IMessageUsersView view;
+    private final IMessageUsersView view;
     private OrganizerController oc;
     private ObservableList<User> users;
 

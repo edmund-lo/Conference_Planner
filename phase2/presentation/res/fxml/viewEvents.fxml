@@ -25,6 +25,7 @@
                         <TableColumn fx:id="roomNameColumn" text="Room Name"/>
                         <TableColumn fx:id="eventStartColumn" text="Start"/>
                         <TableColumn fx:id="eventEndColumn" text="End"/>
+                        <TableColumn fx:id="vipColumn" text="VIP"/>
                         <TableColumn fx:id="remainingSpotsColumn" text="Remaining Spots"/>
                     </columns>
                 </TableView>
@@ -51,9 +52,11 @@
                 <Text fx:id="summaryAttendees" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
                 <Label text="Other Speakers:" GridPane.columnIndex="0" GridPane.rowIndex="11"/>
                 <Text fx:id="summarySpeakers" GridPane.columnIndex="1" GridPane.rowIndex="11"/>
-                <Text fx:id="resultText" GridPane.columnIndex="0" GridPane.rowIndex="12" GridPane.columnSpan="2"/>
+                <Label text="VIP Event:" GridPane.columnIndex="0" GridPane.rowIndex="12"/>
+                <Text fx:id="summaryVip" GridPane.columnIndex="1" GridPane.rowIndex="12"/>
+                <Text fx:id="resultText" GridPane.columnIndex="0" GridPane.rowIndex="13" GridPane.columnSpan="2"/>
 
-                <HBox spacing="10" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="14"
+                <HBox spacing="10" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="15"
                       GridPane.columnSpan="2">
                     <Button text="Sign Up" fx:id="signUpButton" onAction="#executeAddSignUp"/>
                 </HBox>

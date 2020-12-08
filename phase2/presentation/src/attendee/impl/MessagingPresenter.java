@@ -1,6 +1,6 @@
 package attendee.impl;
 
-import adapter.MessageAdapter;
+import adapter.MessageThreadAdapter;
 import adapter.UserAdapter;
 import attendee.IMessagingPresenter;
 import attendee.IMessagingView;
@@ -169,7 +169,7 @@ public class MessagingPresenter implements IMessagingPresenter {
                 //responseJson = ac.getTrashMessages();
                 break;
         }
-        return MessageAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
+        return MessageThreadAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
     @Override

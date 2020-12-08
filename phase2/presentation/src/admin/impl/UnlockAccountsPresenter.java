@@ -16,7 +16,7 @@ import util.TextResultUtil;
 import java.util.List;
 
 public class UnlockAccountsPresenter implements IUnlockAccountsPresenter {
-    private IUnlockAccountsView view;
+    private final IUnlockAccountsView view;
     private AdminController ac;
     private UserAccount selectedAccount;
 

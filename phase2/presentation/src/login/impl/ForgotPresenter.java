@@ -10,8 +10,8 @@ import util.ComponentFactory;
 import util.TextResultUtil;
 
 public class ForgotPresenter implements IForgotPresenter {
-    private IForgotView view;
-    private LoginController lc;
+    private final IForgotView view;
+    private final LoginController lc;
 
     public ForgotPresenter(IForgotView view) {
         this.view = view;
@@ -37,8 +37,8 @@ public class ForgotPresenter implements IForgotPresenter {
     public void resetButtonAction(ActionEvent actionEvent) {
         clearResultText(3);
 
-        //JSONObject json = lc.resetPassword();
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = lc.resetPassword(this.view.getUsername(), this.view.getPassword(),
+                this.view.getConfirmPassword());
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 3);
     }
 
@@ -46,9 +46,9 @@ public class ForgotPresenter implements IForgotPresenter {
     public void confirmButtonAction(ActionEvent actionEvent) {
         clearResultText(2);
 
-        //JSONObject responseJson = lc.securityCheck();
-        JSONObject responseJson = new JSONObject();
-        if (responseJson.get("status").equals("success")) {
+        JSONObject responseJson = lc.verifySecurityAnswers(this.view.getUsername(), this.view.getSecurityAnswer(1),
+            this.view.getSecurityAnswer(2));
+        if (String.valueOf(responseJson.get("status")).equals("success")) {
             this.view.getTitledPane(2).setDisable(true);
             this.view.getTitledPane(3).setDisable(false);
             this.view.getTitledPane(2).setExpanded(false);
@@ -61,9 +61,8 @@ public class ForgotPresenter implements IForgotPresenter {
     public void displaySecurityButtonAction(ActionEvent actionEvent) {
         clearResultText(1);
 
-        //JSONObject responseJson = lc.forgot()
-        JSONObject responseJson = new JSONObject();
-        if (responseJson.get("status").equals("success")) {
+        JSONObject responseJson = lc.accountJson(this.view.getUsername());
+        if (String.valueOf(responseJson.get("status")).equals("success")) {
             this.view.getTitledPane(1).setDisable(true);
             this.view.getTitledPane(2).setDisable(false);
             this.view.getTitledPane(1).setExpanded(false);

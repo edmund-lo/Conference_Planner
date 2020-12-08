@@ -12,8 +12,8 @@ import util.ComponentFactory;
 import util.TextResultUtil;
 
 public class LoginPresenter implements ILoginPresenter {
-    private ILoginView view;
-    private LoginController lc;
+    private final ILoginView view;
+    private final LoginController lc;
 
     public LoginPresenter(ILoginView view) {
         this.view = view;

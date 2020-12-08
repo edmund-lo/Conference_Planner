@@ -1,6 +1,6 @@
 package admin.impl;
 
-import adapter.MessageAdapter;
+import adapter.MessageThreadAdapter;
 import admin.IDeleteMessagesPresenter;
 import admin.IDeleteMessagesView;
 import controllers.AdminController;
@@ -38,7 +38,7 @@ public class DeleteMessagesPresenter implements IDeleteMessagesPresenter {
     public List<MessageThread> getAllMessages() {
         //JSONObject responseJson = ac.getAllMessageThreads();
         JSONObject responseJson = new JSONObject();
-        return MessageAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
+        return MessageThreadAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
     @Override

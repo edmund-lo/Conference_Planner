@@ -16,6 +16,7 @@ public interface IViewEventsView extends ILoggedInView {
     TableColumn<ScheduleEntry, String> getRoomNameColumn();
     TableColumn<ScheduleEntry, LocalDateTime> getEventStartColumn();
     TableColumn<ScheduleEntry, LocalDateTime> getEventEndColumn();
+    TableColumn<ScheduleEntry, Boolean> getVipColumn();
     TableColumn<ScheduleEntry, Integer> getRemainingSpotsColumn();
 
     void setSummaryEventName(String eventName);
@@ -28,6 +29,7 @@ public interface IViewEventsView extends ILoggedInView {
     void setSummaryAmenities(String amenities);
     void setSummaryAttendees(String attendees);
     void setSummarySpeakers(String speakers);
+    void setSummaryVip(String vip);
     void setResultText(String resultText);
 
     EventHandler<ActionEvent> getPressButtonAction();
