@@ -56,10 +56,10 @@ public class UserAccountManager implements Serializable {
     }
 
     public void addAccount(String username, String password, String type, boolean security, String q1,
-                           String q2, String q3, String ans1, String ans2, String ans3) {
+                           String q2, String ans1, String ans2) {
 
         UserAccountEntity Account = new UserAccountEntity(username, password, type, false, security,
-                q1, q2, q3, ans1, ans2, ans3);
+                q1, q2, ans1, ans2);
 
         allUserAccountEntities.put(username, Account);
     }

@@ -48,10 +48,6 @@ public class LoginPresenter {
         System.out.println("Question 2: ");
     }
 
-    public void SecurityQuestion3() {
-        System.out.println("Question 3: ");
-    }
-
     public JSONObject NoAccount() {
         return pu.createJSON("error", "No account found");
     }

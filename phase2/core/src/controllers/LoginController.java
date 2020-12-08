@@ -49,8 +49,20 @@ public class LoginController {
     /**
      * Called to create a new account for a user.
      */
-    public JSONObject CreateAccount(String Username, String Password, String type, String q1, String ans1,
-                                    String q2, String ans2, String q3, String ans3, boolean security){
+    public JSONObject CreateAccount(JSONObject obj, boolean isMade){
+
+        // String Username, String Password, String type, String q1, String ans1,
+        //                                    String q2, String ans2, String q3, String ans3, boolean security
+
+        String Username = obj.get("username").toString();
+        String Password = obj.get("password").toString();
+        String type = obj.get("userType").toString();
+        String q1 = obj.get("securityQuestion1").toString();
+        String ans1 = obj.get("securityAnswer1").toString();
+        String q2 = obj.get("securityQuestion2").toString();
+        String ans2 = obj.get("securityAnswer2").toString();
+        boolean security = (Boolean) obj.get("setup");
+
 
         int UsernameCheck = 0;
         //Loops through all existing usernames.
@@ -78,11 +90,10 @@ public class LoginController {
         //Security Questions if forget password or want to reset
         lp.SecurityQuestion1();
         lp.SecurityQuestion2();
-        lp.SecurityQuestion3();
 
         //Add account to the user manager and update the Accounts Arraylist
         uam.addAccount(Username, Password, type, security,
-                q1, q2, q3, ans1, ans2, ans3);
+                q1, q2, ans1, ans2);
         uag.serializeData(uam);
         this.Accounts = uam.getAccountInfo();
 
@@ -159,23 +170,23 @@ public class LoginController {
     /**
      * Lets user change password if they can answer 3 security questions correctly which were set when making an account.
      */
-    public boolean resetPassword(String User, String a1, String a2, String a3, String NewPassword){
+    public boolean verifySecurityAnswers(String User, String a1, String a2){
         UserAccountEntity Account = uam.getUserAccount(User);
 
         lp.SecurityQuestion1();
         lp.SecurityQuestion2();
-        lp.SecurityQuestion3();
 
         //Check if answers to security questions match.
-        if(a1.equals(Account.getSecurityAns(1)) && a2.equals(Account.getSecurityAns(2))
-                && a3.equals(Account.getSecurityAns(3))){
-            //Update password
-            Account.setPassword(NewPassword);
-            uam.updateAccount(Account.getUsername(), Account);
-            uag.serializeData(uam);
-            return true;
-        }
-        return false;
+        return a1.equals(Account.getSecurityAns(1)) && a2.equals(Account.getSecurityAns(2));
+    }
+
+    public void resetPassword(String user, String newPassword){
+        UserAccountEntity Account = uam.getUserAccount(user);
+
+        //Update password
+        Account.setPassword(newPassword);
+        uam.updateAccount(Account.getUsername(), Account);
+        uag.serializeData(uam);
     }
 
     /**
@@ -191,6 +202,10 @@ public class LoginController {
         llm.addToLoginLogSet(type, Username, dateString);
         llg.serializeData(llm);
 
+    }
+
+    public JSONArray accountJson(String username){
+        return uam.getUserAccount(username).getJSON();
     }
 
 }
