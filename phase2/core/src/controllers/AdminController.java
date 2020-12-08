@@ -33,14 +33,19 @@ public class AdminController extends UserController{
         String firstName = String.valueOf(register.get("firstName"));
         String lastName = String.valueOf(register.get("lastName"));
         String userType = String.valueOf(register.get("userType"));
+        String password = String.valueOf(register.get("password"));
+        boolean vip = (boolean) register.get("vip");
 
         if (userType.equals("attendee")) {
+            uam.addAccount(username, password, userType);
             this.saveData();
-            return createAttendeeAccount(username, firstName, lastName);
+            return createAttendeeAccount(username, firstName, lastName, vip);
         } else if (userType.equals("organizer")) {
+            uam.addAccount(username,password,userType);
             this.saveData();
             return createOrganizerAccount(username, firstName, lastName);
         } else if (userType.equals("speaker")) {
+            uam.addAccount(username, password, userType);
             this.saveData();
             return createSpeakerAccount(username, firstName, lastName);
         } else {
@@ -56,9 +61,9 @@ public class AdminController extends UserController{
      * @param lastName the last name
      * @return a JSON object containing the status and description of the action
      */
-    private JSONObject createAttendeeAccount(String username, String firstName, String lastName) {
+    private JSONObject createAttendeeAccount(String username, String firstName, String lastName, boolean vip) {
         if (um.checkUniqueUsername(username)) { //ensures the username is unique
-            um.createNewAttendee(username, firstName, lastName); //create new attendee
+            um.createNewAttendee(username, firstName, lastName, vip); //create new attendee
             this.saveData();
             return ap.attendeeCreationResult();
         }
@@ -133,8 +138,8 @@ public class AdminController extends UserController{
      */
     public JSONObject setAttendeeAsNotVip(String username) {
         if (um.isVip(username)) {
-            this.saveData();
             um.setAttendeeAsNotVip(username);
+            this.saveData();
             return ap.setNotVipResult();
         } else if (!um.isVip(username)) {
             return ap.alreadyNotVipError();

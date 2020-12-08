@@ -16,8 +16,8 @@ import util.TextResultUtil;
 import java.util.List;
 
 public class RemoveEventsPresenter implements IRemoveEventsPresenter {
-    private IRemoveEventsView view;
-    private AdminController ac;
+    private final IRemoveEventsView view;
+    private final AdminController ac;
     private ScheduleEntry selectedEvent;
 
     public RemoveEventsPresenter(IRemoveEventsView view) {
@@ -30,8 +30,7 @@ public class RemoveEventsPresenter implements IRemoveEventsPresenter {
     public void removeButtonAction(ActionEvent actionEvent) {
         clearResultText();
 
-        //JSONObject responseJson = ac.removeEvent(this.selectedEvent.getEventId());
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = ac.removeEvent(this.selectedEvent.getEventId());
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
         if (responseJson.get("status").equals("success")) init();
     }
@@ -44,8 +43,7 @@ public class RemoveEventsPresenter implements IRemoveEventsPresenter {
 
     @Override
     public List<ScheduleEntry> getEvents() {
-        //JSONObject responseJson = ac.getAllEvents();
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = ac.getAllEvents();
         return ScheduleAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 

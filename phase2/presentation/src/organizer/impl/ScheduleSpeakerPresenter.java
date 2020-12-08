@@ -18,8 +18,8 @@ import util.TextResultUtil;
 import java.util.List;
 
 public class ScheduleSpeakerPresenter implements IScheduleSpeakerPresenter {
-    private OrganizerController oc;
-    private IScheduleSpeakerView view;
+    private final OrganizerController oc;
+    private final IScheduleSpeakerView view;
     private ScheduleEntry selectedEvent;
 
     public ScheduleSpeakerPresenter(IScheduleSpeakerView view) {
@@ -33,8 +33,7 @@ public class ScheduleSpeakerPresenter implements IScheduleSpeakerPresenter {
         clearResultText();
 
         String speaker = this.view.getAvailableSpeakerChoiceBox().getValue();
-        //JSONObject responseJson = oc.scheduleSpeaker(selectedEvent.getEventId(), speaker);
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = oc.scheduleSpeaker(selectedEvent.getEventId(), speaker);
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
         if (responseJson.get("status").equals("success"))
             handleSelect(this.selectedEvent);
@@ -48,8 +47,7 @@ public class ScheduleSpeakerPresenter implements IScheduleSpeakerPresenter {
 
     @Override
     public List<ScheduleEntry> getAllEvents() {
-        //JSONObject responseJson = ac.getAllEvents();
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = oc.getAllEvents();
         return ScheduleAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
@@ -83,8 +81,8 @@ public class ScheduleSpeakerPresenter implements IScheduleSpeakerPresenter {
     @Override
     public void displayAvailableSpeakers(ScheduleEntry event) {
         clearResultText();
-        //JSONObject responseJson = oc.getAvailableSpeakers(event.getStart(), event.getEnd());
-        JSONObject responseJson = new JSONObject();
+
+        JSONObject responseJson = oc.listAvailableSpeakers(this.selectedEvent.getEventId());
         List<User> speakerList = UserAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
         this.view.getAvailableSpeakerChoiceBox().getItems().clear();

@@ -1,9 +1,6 @@
 package controllers;
 
-import gateways.EventGateway;
-import gateways.MessageGateway;
-import gateways.RoomGateway;
-import gateways.UserGateway;
+import gateways.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import presenters.MessagePresenter;
@@ -26,6 +23,7 @@ public abstract class UserController {
     protected UserManager um;
     protected RoomManager rm;
     protected MessageManager mm;
+    protected UserAccountManager uam;
     protected String username;
     protected Scanner input;
     private final UserPresenter up;
@@ -34,6 +32,7 @@ public abstract class UserController {
     private UserGateway ug = new UserGateway();
     private RoomGateway rg = new RoomGateway();
     private MessageGateway mg = new MessageGateway();
+    private UserAccountGateway uag = new UserAccountGateway();
 
     /**
      * Constructor for UserController object.
@@ -44,6 +43,7 @@ public abstract class UserController {
         this.um = ug.deserializeData();
         this.rm = rg.deserializeData();
         this.mm = mg.deserializeData();
+        this.uam = uag.deserializeData();
         this.username = username;
         this.up = new UserPresenter();
         this.mp = new MessagePresenter();
@@ -57,6 +57,7 @@ public abstract class UserController {
         ug.serializeData(um);
         rg.serializeData(rm);
         mg.serializeData(mm);
+        uag.serializeData(uam);
     }
 
     /**

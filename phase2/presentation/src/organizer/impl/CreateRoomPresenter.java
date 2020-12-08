@@ -11,9 +11,9 @@ import organizer.ICreateRoomView;
 import util.TextResultUtil;
 
 public class CreateRoomPresenter implements ICreateRoomPresenter {
-    private ICreateRoomView view;
+    private final ICreateRoomView view;
     private final ObservableSet<CheckBox> selectedAmenities = FXCollections.observableSet();
-    private OrganizerController oc;
+    private final OrganizerController oc;
 
     public CreateRoomPresenter(ICreateRoomView view) {
         this.view = view;
@@ -26,8 +26,7 @@ public class CreateRoomPresenter implements ICreateRoomPresenter {
         clearResultText();
 
         JSONObject queryJson = constructRoomJson();
-        //JSONObject responseJson = oc.createRoom(queryJson);
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = oc.createRoom(queryJson);
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
     }
 

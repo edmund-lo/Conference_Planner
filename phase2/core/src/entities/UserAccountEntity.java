@@ -37,6 +37,12 @@ public class UserAccountEntity {
         this.SecurityA3 = A3;
     }
 
+    public UserAccountEntity(String username, String password, String userType) {
+        this.username = username;
+        this.password = password;
+        this.userType = userType;
+    }
+
     public String getUsername() {
         return username;
     }

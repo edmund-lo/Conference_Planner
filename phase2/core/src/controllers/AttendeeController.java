@@ -66,6 +66,7 @@ public class AttendeeController extends UserController {
     public JSONObject cancelVipEventAttendance(String eventID) {
         if(em.removeUserFromEvent(eventID, username)) {
             um.cancel(username, eventID);
+            this.saveData();
             return ap.cancelVipResult(em.getEventName(eventID));
         }
         return ap.notAttendingEventError(em.getEventName(eventID));

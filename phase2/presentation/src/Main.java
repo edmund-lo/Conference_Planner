@@ -3,7 +3,11 @@ import javafx.stage.Stage;
 import util.ComponentFactory;
 
 public class Main extends Application {
-
+    /**
+     * JavaFX start method, sets initial scene and title
+     * @param primaryStage Stage object that all scenes are set
+     * @throws Exception JavaFX exception that occurs during starting the GUI
+     */
     @Override
     public void start(Stage primaryStage) throws Exception{
         primaryStage.setTitle("Project Phase 2");

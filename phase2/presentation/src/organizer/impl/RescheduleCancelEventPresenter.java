@@ -20,8 +20,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPresenter {
-    private IRescheduleCancelEventView view;
-    private OrganizerController oc;
+    private final IRescheduleCancelEventView view;
+    private final OrganizerController oc;
     private ScheduleEntry selectedEvent;
 
     public RescheduleCancelEventPresenter(IRescheduleCancelEventView view) {
@@ -70,8 +70,7 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
 
     @Override
     public List<ScheduleEntry> getEvents() {
-        //JSONObject responseJson = oc.getAllEvents();
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = oc.getAllEvents();
         return ScheduleAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
