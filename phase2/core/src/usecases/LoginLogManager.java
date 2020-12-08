@@ -93,10 +93,19 @@ public class LoginLogManager implements Serializable {
     public JSONObject getAllLogsJson(){
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
+        JSONArray array2 = new JSONArray();
         JSONObject item = new JSONObject();
 
-        for(String ID: all_Logs.keySet())
-            item.put(ID, all_Logs.get(ID).convertToJSON());
+        for(String ID: all_Logs.keySet()) {
+            int num = 0;
+            JSONObject item2 = new JSONObject();
+            for(LoginLog l: all_Logs.get(ID)){
+                item2.put(num, l.convertToJSON());
+                num++;
+            }
+            array2.add(item2);
+            item.put(ID, array2);
+        }
 
         array.add(item);
 
