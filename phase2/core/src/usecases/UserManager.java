@@ -642,7 +642,6 @@ public class UserManager implements Serializable {
     }
 
     public JSONObject getSpeakerJson(String id){
-        Speaker speaker = (Speaker) this.allUsers.get(id);
-        return speaker.convertToJSON();
+        return this.allUsers.get(id).convertToJSON();
     }
 }
