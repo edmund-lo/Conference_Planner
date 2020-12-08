@@ -320,4 +320,13 @@ public class OrganizerController extends UserController {
             return op.changeCapResult();
         }
     }
+
+    public JSONObject listRoomSchedule(String roomName, LocalDateTime time) {
+        List<String> eventIDs = rm.getEventsInRoomAfter(roomName, time);
+        JSONArray schedule = new JSONArray();
+        for (String ID : eventIDs) {
+            schedule.add(em.getEventJson(ID));
+        }
+        return op.listRoomSchedule(schedule);
+    }
 }

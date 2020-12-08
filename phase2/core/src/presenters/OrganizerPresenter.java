@@ -202,4 +202,8 @@ public class OrganizerPresenter extends UserPresenter {
     public JSONObject changeCapResult(){
         return pu.createJSON("success", "The event capacity has been changed successfully.");
     }
+
+    public JSONObject listRoomSchedule(List<String> eventIDs){
+        return pu.createJSON("success", "Room schedule has been listed", "Room Schedule", );
+    }
 }

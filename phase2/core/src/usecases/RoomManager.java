@@ -84,13 +84,13 @@ public class RoomManager implements Serializable {
      * @param startTime the start time of the event to be removed to the schedule of a room.
      * @param endTime   the end time of the event to be removed from the schedule of a room.
      * @param roomName  the name of the room to remove the event from.
-     * @param eventName the name of the event to be removed
+     * @param eventID   the ID of the event to be removed
      * @return          a boolean value of true if the event was successfully removed from the room, false otherwise.
      */
     public boolean removeFromRoomSchedule(LocalDateTime startTime, LocalDateTime endTime, String roomName,
-                                          String eventName){
+                                          String eventID){
         Room room = getRoom(roomName);
-        if (room.hasEvent(startTime, endTime, eventName)) {
+        if (room.hasEvent(eventID)) {
             room.removeEvent(startTime, endTime);
             return true;
         }
@@ -166,23 +166,9 @@ public class RoomManager implements Serializable {
 
         return json;
     }
-//      ***** Saving method for phase 2
-//    /**
-//     * Reschedules an event that is happening inside a Room in this RoomManager.
-//     *
-//     * @param eventName the name of the event to be rescheduled.
-//     * @param currTime  the current start time of the event.
-//     * @param newTime   the new start time of the event.
-//     * @param roomName  the name of the room where the event is taking place.
-//     * @return          true if the event was successfully rescheduled, false otherwise.
-//     */
-//    public boolean reschedule(LocalDateTime currTime, LocalDateTime newTime, String roomName, String eventName){
-//        Room room = getRoom(roomName);
-//        if (room.hasEvent(currTime, eventName) && room.canBook(newTime)){
-//            room.removeEvent(currTime);
-//            room.addEvent(newTime, eventName);
-//            return true;
-//        }
-//        return false;
-//    }
+
+    public List<String> getEventsInRoomAfter(String roomName, LocalDateTime time){
+        return getRoom(roomName).eventsOnDay(time);
+    }
+
 }

@@ -1,9 +1,12 @@
 package entities;
 
 import org.json.simple.*;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -76,25 +79,26 @@ public class Room implements Serializable {
      *
      * @param startTime the time the event starts.
      * @param endTime   the time the event ends.
-     * @param eventName the name of the event to be added.
+     * @param eventID the name of the event to be added.
      */
-    public void addEvent(LocalDateTime startTime, LocalDateTime endTime, String eventName){
+    public void addEvent(LocalDateTime startTime, LocalDateTime endTime, String eventID){
         LocalDateTime[] times = new LocalDateTime[]{startTime, endTime};
-        this.schedule.put(times, eventName);
+        this.schedule.put(times, eventID);
     }
 
     /**
      * Checks to see if this Room's schedule has a specific event.
      *
-     * @param startTime     the time the event starts.
-     * @param endTime       the time the event ends.
-     * @param eventName     the name of the event to check for.
+     * @param eventID       the ID of the event to check for.
      * @return true if this event is scheduled in this room, false otherwise
      */
-    public boolean hasEvent(LocalDateTime startTime, LocalDateTime endTime, String eventName){
-       LocalDateTime[] times = new LocalDateTime[]{startTime, endTime};
-        return  this.schedule.containsKey(times)
-                && this.schedule.get(times).equals(eventName);
+    public boolean hasEvent(String eventID){
+        for (Map.Entry<LocalDateTime[], String> times : this.schedule.entrySet()){
+            if (times.getValue().equals(eventID)){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -183,6 +187,20 @@ public class Room implements Serializable {
             ret.append("\n");
         }
         return ret.toString();
+    }
+
+    public List<String> eventsOnDay(LocalDateTime time) {
+        List<String> events = new ArrayList<>();
+        for (Map.Entry<LocalDateTime[], String> times : this.schedule.entrySet()) {
+            LocalDateTime startTime = times.getKey()[0];
+            LocalDateTime endTime = times.getKey()[1];
+            if ((startTime.isEqual(time) | startTime.isAfter(time)) && // if the event starts on/after the time
+                    (endTime.isBefore(time.plusDays(3)) | endTime.isEqual(time.plusDays(3)))){
+                // if the event ends within a 3 day period after the specified time
+                events.add(times.getValue());
+            }
+        }
+        return events;
     }
 
     /**
