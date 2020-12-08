@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 import entities.MessageThread;
+import entities.User;
 import org.json.simple.*;
 
 
@@ -43,10 +44,19 @@ public class MessageManager implements Serializable {
      */
     public HashMap<String, MessageThread> getAllMessageThreads() { return this.allMessageThreads; }
 
+    /**
+     * getter for one messageThread given it's Id
+     *
+     * @return The messageThread variable
+     */
+
     public MessageThread getMessageThread(String messageThreadId){
         return this.allMessageThreads.get(messageThreadId);
     }
 
+    public void deleteMessage(String messageThreadId){
+        this.allMessageThreads.remove(messageThreadId);
+    }
 //      Save for phase 2
     /*/**
      * A string representation of all the message contents

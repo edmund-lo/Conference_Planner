@@ -101,6 +101,16 @@ public abstract class User implements Serializable {
         return trashInbox;
     }
 
+    public void deleteMessageFromInboxes(String messageThreadId){
+        if(this.getPrimaryInbox().contains(messageThreadId)){
+            this.primaryInbox.remove(messageThreadId);
+        }else if(this.getArchivedInbox().contains(messageThreadId)){
+            this.archivedInbox.remove(messageThreadId);
+        }else if(this.getTrashInbox().contains(messageThreadId)){
+            this.trashInbox.remove(messageThreadId);
+        }
+    }
+
     /**
      * Signs up a user for an event.
      *

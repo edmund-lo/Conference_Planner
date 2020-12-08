@@ -205,10 +205,24 @@ public abstract class UserController {
      *
      * @return List of Strings representing all of the user's archived messages.
      */
-    public JSONArray getAllReceivedMessages(){
+    public JSONArray getAllArchivedMessages(){
         JSONArray messageStrings = new JSONArray();
-        List<String> userMessages = um.getArchivedMessages(username);
-        for (String id : userMessages) {
+        List<String> userMessageIds = um.getArchivedMessages(username);
+        for (String id : userMessageIds) {
+            messageStrings.add(mm.getOneMessageThreadToJson(id));
+        }
+        return messageStrings;
+    }
+
+    /**
+     * Gets all of current user's JSON trash messages.
+     *
+     * @return List of Strings representing all of the user's trash messages.
+     */
+    public JSONArray getAllTrashMessages(){
+        JSONArray messageStrings = new JSONArray();
+        List<String> userMessageIds = um.getTrashMessages(username);
+        for (String id : userMessageIds) {
             messageStrings.add(mm.getOneMessageThreadToJson(id));
         }
         return messageStrings;

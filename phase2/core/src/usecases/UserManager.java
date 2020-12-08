@@ -207,6 +207,12 @@ public class UserManager implements Serializable {
         allUsers.get(username).moveToTrash(messageThreadId);
     }
 
+    public void deleteMessageFromUsers(String messageThreadId){
+        for(User user : this.allUsers.values()){
+            user.deleteMessageFromInboxes(messageThreadId);
+        }
+    }
+
     /**
      * Moves messageThreadId of the message from user's archived inbox back to primary inbox.
      *

@@ -3,11 +3,13 @@ package controllers;
 import entities.LoginLog;
 import entities.UserAccountEntity;
 import gateways.UserAccountGateway;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import presenters.AdminPresenter;
 import usecases.LoginLogManager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A Controller class representing an AdminController which inherits from UserController.
@@ -26,6 +28,30 @@ public class AdminController extends UserController{
     public AdminController(String username) {
         super(username);
         this.ap = new AdminPresenter();
+    }
+
+    /**
+     * Gets all of messageThreads.
+     *
+     * @return List of Strings representing all of the messageThreads.
+     */
+    public JSONArray getAllMessageThreads(){
+        JSONArray messageStrings = new JSONArray();
+        List<String> messageIds = (List<String>) mm.getAllMessageThreads().keySet();
+        for (String id : messageIds) {
+            messageStrings.add(mm.getOneMessageThreadToJson(id));
+        }
+        return messageStrings;
+    }
+
+    /**
+     * Delete a messageThread given it's Id.
+     *
+     * Precondition: the messageThread exist.
+     */
+    public void deleteMessageThread(String messageThreadId){
+        mm.deleteMessage(messageThreadId);
+        um.deleteMessageFromUsers(messageThreadId);
     }
 
     /**
