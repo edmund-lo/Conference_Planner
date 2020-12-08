@@ -92,4 +92,8 @@ public class LoginPresenter {
     public JSONObject passwordsDontMatch() {
         return pu.createJSON("warning", "Passwords do not match");
     }
+
+    public JSONObject AccountExists() {
+        return pu.createJSON("warning", "Account already exists");
+    }
 }

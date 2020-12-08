@@ -97,7 +97,10 @@ public class LoginController {
         uag.serializeData(uam);
         this.Accounts = uam.getAccountInfo();
 
-        return lp.AccountMade();
+        if (!isMade)
+            return lp.AccountMade();
+        else
+            return lp.AccountExists();
     }
 
     /**
