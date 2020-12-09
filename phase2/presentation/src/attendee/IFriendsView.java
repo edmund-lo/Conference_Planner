@@ -45,14 +45,9 @@ public interface IFriendsView extends ILoggedInView {
     void setUserTypePending(String userType);
     void setResultText(String resultText, int index);
 
-    EventHandler<ActionEvent> getAddFriendButtonAction();
     void setAddFriendButtonAction(EventHandler<ActionEvent> eventHandler);
-    EventHandler<ActionEvent> getRemoveRequestButtonAction();
     void setRemoveRequestButtonAction(EventHandler<ActionEvent> eventHandler);
-    EventHandler<ActionEvent> getRemoveFriendButtonAction();
     void setRemoveFriendButtonAction(EventHandler<ActionEvent> eventHandler);
-    EventHandler<ActionEvent> getDeclineButtonAction();
     void setDeclineButtonAction(EventHandler<ActionEvent> eventHandler);
-    EventHandler<ActionEvent> getAcceptButtonAction();
     void setAcceptButtonAction(EventHandler<ActionEvent> eventHandler);
 }

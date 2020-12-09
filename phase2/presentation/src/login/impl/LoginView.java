@@ -91,28 +91,13 @@ public class LoginView implements ILoginView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getLoginButtonAction() {
-        return loginButtonAction;
-    }
-
-    @Override
     public void setLoginButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.loginButtonAction = eventHandler;
     }
 
     @Override
-    public EventHandler<ActionEvent> getRegisterButtonAction() {
-        return registerButtonAction;
-    }
-
-    @Override
     public void setRegisterButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.registerButtonAction = eventHandler;
-    }
-
-    @Override
-    public EventHandler<ActionEvent> getForgotPasswordButtonAction() {
-        return forgotPasswordButtonAction;
     }
 
     @Override

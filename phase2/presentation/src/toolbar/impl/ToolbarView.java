@@ -132,18 +132,8 @@ public class ToolbarView implements IToolbarView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getHomeButtonAction() {
-        return this.homeButtonAction;
-    }
-
-    @Override
     public void setHomeButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.homeButtonAction = eventHandler;
-    }
-
-    @Override
-    public EventHandler<ActionEvent> getViewScheduleButtonAction() {
-        return this.viewScheduleButtonAction;
     }
 
     @Override
@@ -152,18 +142,8 @@ public class ToolbarView implements IToolbarView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getViewEventsButtonAction() {
-        return this.viewEventsButtonAction;
-    }
-
-    @Override
     public void setViewEventsButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.viewEventsButtonAction = eventHandler;
-    }
-
-    @Override
-    public EventHandler<ActionEvent> getMessagingButtonAction() {
-        return this.messagingButtonAction;
     }
 
     @Override
@@ -172,18 +152,8 @@ public class ToolbarView implements IToolbarView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getFriendsButtonAction() {
-        return this.friendsButtonAction;
-    }
-
-    @Override
     public void setFriendsButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.friendsButtonAction = eventHandler;
-    }
-
-    @Override
-    public EventHandler<ActionEvent> getCreateAccountButtonAction() {
-        return this.createAccountButtonAction;
     }
 
     @Override
@@ -192,18 +162,8 @@ public class ToolbarView implements IToolbarView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getCreateRoomButtonAction() {
-        return this.createRoomButtonAction;
-    }
-
-    @Override
     public void setCreateRoomButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.createRoomButtonAction = eventHandler;
-    }
-
-    @Override
-    public EventHandler<ActionEvent> getCreateEventButtonAction() {
-        return this.createEventButtonAction;
     }
 
     @Override
@@ -212,18 +172,8 @@ public class ToolbarView implements IToolbarView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getScheduleSpeakerButtonAction() {
-        return this.scheduleSpeakerButtonAction;
-    }
-
-    @Override
     public void setScheduleSpeakerButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.scheduleSpeakerButtonAction = eventHandler;
-    }
-
-    @Override
-    public EventHandler<ActionEvent> getCancelEventButtonAction() {
-        return this.rescheduleCancelEventButtonAction;
     }
 
     @Override
@@ -232,18 +182,8 @@ public class ToolbarView implements IToolbarView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getMessageSpeakersButtonAction() {
-        return this.messageSpeakersButtonAction;
-    }
-
-    @Override
     public void setMessageSpeakersButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.messageSpeakersButtonAction = eventHandler;
-    }
-
-    @Override
-    public EventHandler<ActionEvent> getMessageAttendeesButtonAction() {
-        return this.messageAttendeesButtonAction;
     }
 
     @Override
@@ -252,18 +192,8 @@ public class ToolbarView implements IToolbarView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getSpeakerEventsButtonAction() {
-        return this.speakerEventsButtonAction;
-    }
-
-    @Override
     public void setSpeakerEventsButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.speakerEventsButtonAction = eventHandler;
-    }
-
-    @Override
-    public EventHandler<ActionEvent> getUnlockAccountsButtonAction() {
-        return this.unlockAccountsButtonAction;
     }
 
     @Override
@@ -272,18 +202,8 @@ public class ToolbarView implements IToolbarView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getSetVipButtonAction() {
-        return this.setVipButtonAction;
-    }
-
-    @Override
     public void setSetVipButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.setVipButtonAction = eventHandler;
-    }
-
-    @Override
-    public EventHandler<ActionEvent> getDeleteMessagesButtonAction() {
-        return deleteMessagesButtonAction;
     }
 
     @Override
@@ -292,18 +212,8 @@ public class ToolbarView implements IToolbarView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getRemoveEventsButtonAction() {
-        return this.removeEventsButtonAction;
-    }
-
-    @Override
     public void setRemoveEventsButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.removeEventsButtonAction = eventHandler;
-    }
-
-    @Override
-    public EventHandler<ActionEvent> getLogoutButtonAction() {
-        return this.logoutButtonAction;
     }
 
     @Override

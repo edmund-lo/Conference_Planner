@@ -166,11 +166,6 @@ public class ViewAllEventsView implements IViewEventsView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getPressButtonAction() {
-        return this.signUpButtonAction;
-    }
-
-    @Override
     public void setPressButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.signUpButtonAction = eventHandler;
     }

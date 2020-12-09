@@ -199,18 +199,8 @@ public class RescheduleCancelEventView implements IRescheduleCancelEventView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getCancelButtonAction() {
-        return this.cancelButtonAction;
-    }
-
-    @Override
     public void setCancelButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.cancelButtonAction = eventHandler;
-    }
-
-    @Override
-    public EventHandler<ActionEvent> getRescheduleButtonAction() {
-        return this.rescheduleButtonAction;
     }
 
     @Override

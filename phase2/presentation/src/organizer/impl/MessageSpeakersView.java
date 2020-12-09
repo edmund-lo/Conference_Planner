@@ -139,18 +139,8 @@ public class MessageSpeakersView implements IMessageUsersView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getSendButtonAction() {
-        return this.createAccountButtonAction;
-    }
-
-    @Override
     public void setSendButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.createAccountButtonAction = eventHandler;
-    }
-
-    @Override
-    public EventHandler<ActionEvent> getSelectAllAction() {
-        return this.selectAllAction;
     }
 
     @Override

@@ -36,6 +36,5 @@ public interface ISpeakerEventsView extends ILoggedInView {
     void setContent(String content);
     void setResultText(String resultText);
 
-    EventHandler<ActionEvent> getSendButtonAction();
     void setSendButtonAction(EventHandler<ActionEvent> eventHandler);
 }

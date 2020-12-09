@@ -22,6 +22,5 @@ public interface ISetVipView extends ILoggedInView {
     void setVip(String vip);
     void setResultText(String resultText);
 
-    EventHandler<ActionEvent> getChangeVipButtonAction();
     void setChangeVipButtonAction(EventHandler<ActionEvent> eventHandler);
 }

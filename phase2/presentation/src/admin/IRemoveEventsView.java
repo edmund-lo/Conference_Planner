@@ -27,6 +27,5 @@ public interface IRemoveEventsView extends ILoggedInView {
     void setSummarySpeakers(String speakers);
     void setResultText(String resultText);
 
-    EventHandler<ActionEvent> getRemoveButtonAction();
     void setRemoveButtonAction(EventHandler<ActionEvent> eventHandler);
 }

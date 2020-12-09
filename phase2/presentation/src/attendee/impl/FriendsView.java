@@ -278,18 +278,8 @@ public class FriendsView implements IFriendsView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getAddFriendButtonAction() {
-        return this.addFriendButtonAction;
-    }
-
-    @Override
     public void setAddFriendButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.addFriendButtonAction = eventHandler;
-    }
-
-    @Override
-    public EventHandler<ActionEvent> getRemoveRequestButtonAction() {
-        return this.removeRequestButtonAction;
     }
 
     @Override
@@ -298,28 +288,13 @@ public class FriendsView implements IFriendsView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getRemoveFriendButtonAction() {
-        return this.removeFriendButtonAction;
-    }
-
-    @Override
     public void setRemoveFriendButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.removeFriendButtonAction = eventHandler;
     }
 
     @Override
-    public EventHandler<ActionEvent> getDeclineButtonAction() {
-        return this.declineButtonAction;
-    }
-
-    @Override
     public void setDeclineButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.declineButtonAction = eventHandler;
-    }
-
-    @Override
-    public EventHandler<ActionEvent> getAcceptButtonAction() {
-        return this.acceptButtonAction;
     }
 
     @Override

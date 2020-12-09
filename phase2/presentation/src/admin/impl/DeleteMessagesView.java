@@ -87,11 +87,6 @@ public class DeleteMessagesView implements IDeleteMessagesView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getDeleteButtonAction() {
-        return this.deleteButtonAction;
-    }
-
-    @Override
     public void setDeleteButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.deleteButtonAction = eventHandler;
     }

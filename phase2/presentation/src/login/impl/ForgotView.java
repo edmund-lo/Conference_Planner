@@ -162,18 +162,8 @@ public class ForgotView implements IForgotView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getFirstBackButtonAction() {
-        return this.firstBackButtonAction;
-    }
-
-    @Override
     public void setFirstBackButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.firstBackButtonAction = eventHandler;
-    }
-
-    @Override
-    public EventHandler<ActionEvent> getSecondBackButtonAction() {
-        return this.secondBackButtonAction;
     }
 
     @Override
@@ -182,18 +172,8 @@ public class ForgotView implements IForgotView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getPreviousButtonAction() {
-        return this.previousButtonAction;
-    }
-
-    @Override
     public void setPreviousButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.previousButtonAction = eventHandler;
-    }
-
-    @Override
-    public EventHandler<ActionEvent> getSecurityButtonAction() {
-        return this.securityButtonAction;
     }
 
     @Override
@@ -202,18 +182,8 @@ public class ForgotView implements IForgotView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getConfirmButtonAction() {
-        return this.confirmButtonAction;
-    }
-
-    @Override
     public void setConfirmButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.confirmButtonAction = eventHandler;
-    }
-
-    @Override
-    public EventHandler<ActionEvent> getResetButtonAction() {
-        return resetButtonAction;
     }
 
     @Override

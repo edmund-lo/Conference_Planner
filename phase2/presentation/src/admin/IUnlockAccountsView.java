@@ -25,6 +25,5 @@ public interface IUnlockAccountsView extends ILoggedInView {
     void setUserType(String userType);
     void setResultText(String resultText);
 
-    EventHandler<ActionEvent> getUnlockButtonAction();
     void setUnlockButtonAction(EventHandler<ActionEvent> eventHandler);
 }

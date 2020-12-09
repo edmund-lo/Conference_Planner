@@ -249,18 +249,8 @@ public class MessagingView implements IMessagingView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getNewMessageButtonAction() {
-        return this.newMessageButtonAction;
-    }
-
-    @Override
     public void setNewMessageButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.newMessageButtonAction = eventHandler;
-    }
-
-    @Override
-    public EventHandler<ActionEvent> getReplyButtonAction() {
-        return this.replyButtonAction;
     }
 
     @Override
@@ -269,18 +259,8 @@ public class MessagingView implements IMessagingView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getMoveToPrimaryFirstButtonAction() {
-        return this.moveToPrimaryFirstButtonAction;
-    }
-
-    @Override
     public void setMoveToPrimaryFirstButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.moveToPrimaryFirstButtonAction = eventHandler;
-    }
-
-    @Override
-    public EventHandler<ActionEvent> getMoveToPrimarySecondButtonAction() {
-        return this.moveToPrimarySecondButtonAction;
     }
 
     @Override
@@ -289,18 +269,8 @@ public class MessagingView implements IMessagingView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getMoveToTrashButtonAction() {
-        return this.moveToTrashButtonAction;
-    }
-
-    @Override
     public void setMoveToTrashButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.moveToTrashButtonAction = eventHandler;
-    }
-
-    @Override
-    public EventHandler<ActionEvent> getMoveToArchivedButtonAction() {
-        return this.moveToArchiveButtonAction;
     }
 
     @Override
@@ -309,28 +279,13 @@ public class MessagingView implements IMessagingView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getUnreadPrimaryButtonAction() {
-        return this.unreadPrimaryButtonAction;
-    }
-
-    @Override
     public void setUnreadPrimaryButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.unreadPrimaryButtonAction = eventHandler;
     }
 
     @Override
-    public EventHandler<ActionEvent> getUnreadArchivedButtonAction() {
-        return this.unreadArchivedButtonAction;
-    }
-
-    @Override
     public void setUnreadArchivedButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.unreadArchivedButtonAction = eventHandler;
-    }
-
-    @Override
-    public EventHandler<ActionEvent> getUnreadTrashButtonAction() {
-        return unreadTrashButtonAction;
     }
 
     @Override

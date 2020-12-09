@@ -113,11 +113,6 @@ public class SetVipView implements ISetVipView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getChangeVipButtonAction() {
-        return this.changeVipButtonAction;
-    }
-
-    @Override
     public void setChangeVipButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.changeVipButtonAction = eventHandler;
     }

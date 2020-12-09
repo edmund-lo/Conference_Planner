@@ -29,8 +29,6 @@ public interface IRegisterView extends ILoggedInView {
     TextField getSecurityQuestionField(int index);
     TextField getSecurityAnswerField(int index);
 
-    EventHandler<ActionEvent> getBackButtonAction();
     void setBackButtonAction(EventHandler<ActionEvent> eventHandler);
-    EventHandler<ActionEvent> getRegisterButtonAction();
     void setRegisterButtonAction(EventHandler<ActionEvent> eventHandler);
 }

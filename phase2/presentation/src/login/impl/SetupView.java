@@ -161,18 +161,8 @@ public class SetupView implements IRegisterView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getBackButtonAction() {
-        return this.backButtonAction;
-    }
-
-    @Override
     public void setBackButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.backButtonAction = eventHandler;
-    }
-
-    @Override
-    public EventHandler<ActionEvent> getRegisterButtonAction() {
-        return this.registerButtonAction;
     }
 
     @Override

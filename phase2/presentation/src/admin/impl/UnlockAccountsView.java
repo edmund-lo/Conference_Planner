@@ -111,11 +111,6 @@ public class UnlockAccountsView implements IUnlockAccountsView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getUnlockButtonAction() {
-        return this.unlockButtonAction;
-    }
-
-    @Override
     public void setUnlockButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.unlockButtonAction = eventHandler;
     }

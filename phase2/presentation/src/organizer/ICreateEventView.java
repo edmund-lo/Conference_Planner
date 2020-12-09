@@ -43,16 +43,10 @@ public interface ICreateEventView extends ILoggedInView {
     VBox getTableContainer();
     Text getResultTextControl(int index);
 
-    EventHandler<ActionEvent> getFindRoomsButtonAction();
     void setFindRoomsButtonAction(EventHandler<ActionEvent> eventHandler);
-    EventHandler<ActionEvent> getPreviousFirstButtonAction();
     void setPreviousFirstButtonAction(EventHandler<ActionEvent> eventHandler);
-    EventHandler<ActionEvent> getPreviewRoomButtonAction();
     void setPreviewRoomButtonAction(EventHandler<ActionEvent> eventHandler);
-    EventHandler<ActionEvent> getSummaryButtonAction();
     void setSummaryButtonAction(EventHandler<ActionEvent> eventHandler);
-    EventHandler<ActionEvent> getPreviousSecondButtonAction();
     void setPreviousSecondButtonAction(EventHandler<ActionEvent> eventHandler);
-    EventHandler<ActionEvent> getCreateEventButtonAction();
     void setCreateEventButtonAction(EventHandler<ActionEvent> eventHandler);
 }

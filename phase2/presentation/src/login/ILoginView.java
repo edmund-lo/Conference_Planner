@@ -16,10 +16,7 @@ public interface ILoginView extends IView {
     TextField getUsernameField();
     PasswordField getPasswordField();
 
-    EventHandler<ActionEvent> getLoginButtonAction();
     void setLoginButtonAction(EventHandler<ActionEvent> eventHandler);
-    EventHandler<ActionEvent> getRegisterButtonAction();
     void setRegisterButtonAction(EventHandler<ActionEvent> eventHandler);
-    EventHandler<ActionEvent> getForgotPasswordButtonAction();
     void setForgotPasswordButtonAction(EventHandler<ActionEvent> eventHandler);
 }

@@ -138,11 +138,6 @@ public class RemoveEventsView implements IRemoveEventsView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getRemoveButtonAction() {
-        return this.removeButtonAction;
-    }
-
-    @Override
     public void setRemoveButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.removeButtonAction = eventHandler;
     }

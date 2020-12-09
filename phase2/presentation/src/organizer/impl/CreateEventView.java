@@ -266,18 +266,8 @@ public class CreateEventView implements ICreateEventView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getFindRoomsButtonAction() {
-        return this.findRoomsButtonAction;
-    }
-
-    @Override
     public void setFindRoomsButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.findRoomsButtonAction = eventHandler;
-    }
-
-    @Override
-    public EventHandler<ActionEvent> getPreviousFirstButtonAction() {
-        return this.previousFirstButtonAction;
     }
 
     @Override
@@ -286,18 +276,8 @@ public class CreateEventView implements ICreateEventView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getPreviewRoomButtonAction() {
-        return previewRoomButtonAction;
-    }
-
-    @Override
     public void setPreviewRoomButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.previewRoomButtonAction = eventHandler;
-    }
-
-    @Override
-    public EventHandler<ActionEvent> getSummaryButtonAction() {
-        return summaryButtonAction;
     }
 
     @Override
@@ -306,18 +286,8 @@ public class CreateEventView implements ICreateEventView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getPreviousSecondButtonAction() {
-        return this.previousSecondButtonAction;
-    }
-
-    @Override
     public void setPreviousSecondButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.previousSecondButtonAction = eventHandler;
-    }
-
-    @Override
-    public EventHandler<ActionEvent> getCreateEventButtonAction() {
-        return this.createEventButtonAction;
     }
 
     @Override

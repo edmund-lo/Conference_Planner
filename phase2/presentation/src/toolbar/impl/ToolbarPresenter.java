@@ -10,7 +10,7 @@ import toolbar.IToolbarView;
 import util.ComponentFactory;
 
 public class ToolbarPresenter implements IToolbarPresenter {
-    private IToolbarView view;
+    private final IToolbarView view;
 
     public ToolbarPresenter(IToolbarView view) {
         this.view = view;
@@ -119,6 +119,7 @@ public class ToolbarPresenter implements IToolbarPresenter {
                 this.view.getSessionUsername(), this.view.getSessionUserType());
     }
 
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     @Override
     public void logoutButtonAction(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -159,6 +160,7 @@ public class ToolbarPresenter implements IToolbarPresenter {
         this.view.setViewScheduleButtonAction(this::viewScheduleButtonAction);
         this.view.setViewEventsButtonAction(this::viewEventsButtonAction);
         this.view.setMessagingButtonAction(this::messagingButtonAction);
+        this.view.setFriendsButtonAction(this::friendsButtonAction);
         this.view.setCreateRoomButtonAction(this::createRoomButtonAction);
         this.view.setCreateEventButtonAction(this::createEventButtonAction);
         this.view.setScheduleSpeakerButtonAction(this::scheduleSpeakerButtonAction);

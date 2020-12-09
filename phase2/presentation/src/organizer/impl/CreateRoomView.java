@@ -101,11 +101,6 @@ public class CreateRoomView implements ICreateRoomView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getCreateRoomButtonAction() {
-        return this.createRoomButtonAction;
-    }
-
-    @Override
     public void setCreateRoomButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.createRoomButtonAction = eventHandler;
     }

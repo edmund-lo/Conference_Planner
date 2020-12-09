@@ -144,11 +144,6 @@ public class ScheduleSpeakerView implements IScheduleSpeakerView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getScheduleSpeakerButtonAction() {
-        return this.scheduleSpeakerButtonAction;
-    }
-
-    @Override
     public void setScheduleSpeakerButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.scheduleSpeakerButtonAction = eventHandler;
     }

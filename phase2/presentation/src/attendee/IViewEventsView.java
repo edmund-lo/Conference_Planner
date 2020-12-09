@@ -32,6 +32,5 @@ public interface IViewEventsView extends ILoggedInView {
     void setSummaryVip(String vip);
     void setResultText(String resultText);
 
-    EventHandler<ActionEvent> getPressButtonAction();
     void setPressButtonAction(EventHandler<ActionEvent> eventHandler);
 }

@@ -23,6 +23,5 @@ public interface IDeleteMessagesView extends ILoggedInView {
     void setDeleteRecipients(List<String> recipientNames);
     void setDeleteSubject(String subject);
 
-    EventHandler<ActionEvent> getDeleteButtonAction();
     void setDeleteButtonAction(EventHandler<ActionEvent> eventHandler);
 }

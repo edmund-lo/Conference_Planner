@@ -175,11 +175,6 @@ public class SpeakerEventsView implements ISpeakerEventsView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getSendButtonAction() {
-        return this.sendButtonAction;
-    }
-
-    @Override
     public void setSendButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.sendButtonAction = eventHandler;
     }

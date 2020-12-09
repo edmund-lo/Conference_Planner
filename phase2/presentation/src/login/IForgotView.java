@@ -24,16 +24,10 @@ public interface IForgotView extends IView {
     Text getResultTextControl(int index);
     TitledPane getTitledPane(int index);
 
-    EventHandler<ActionEvent> getFirstBackButtonAction();
     void setFirstBackButtonAction(EventHandler<ActionEvent> eventHandler);
-    EventHandler<ActionEvent> getSecondBackButtonAction();
     void setSecondBackButtonAction(EventHandler<ActionEvent> eventHandler);
-    EventHandler<ActionEvent> getPreviousButtonAction();
     void setPreviousButtonAction(EventHandler<ActionEvent> eventHandler);
-    EventHandler<ActionEvent> getSecurityButtonAction();
     void setSecurityButtonAction(EventHandler<ActionEvent> eventHandler);
-    EventHandler<ActionEvent> getConfirmButtonAction();
     void setConfirmButtonAction(EventHandler<ActionEvent> eventHandler);
-    EventHandler<ActionEvent> getResetButtonAction();
     void setResetButtonAction(EventHandler<ActionEvent> eventHandler);
 }

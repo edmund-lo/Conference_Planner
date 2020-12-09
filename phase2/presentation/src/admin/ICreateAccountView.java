@@ -21,6 +21,5 @@ public interface ICreateAccountView extends ILoggedInView {
     PasswordField getPasswordField();
     PasswordField getConfirmPasswordField();
 
-    EventHandler<ActionEvent> getCreateAccountButtonAction();
     void setCreateAccountButtonAction(EventHandler<ActionEvent> eventHandler);
 }

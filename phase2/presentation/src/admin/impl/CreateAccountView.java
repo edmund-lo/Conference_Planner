@@ -98,11 +98,6 @@ public class CreateAccountView implements ICreateAccountView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getCreateAccountButtonAction() {
-        return this.createAccountButtonAction;
-    }
-
-    @Override
     public void setCreateAccountButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.createAccountButtonAction = eventHandler;
     }

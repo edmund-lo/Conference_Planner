@@ -166,11 +166,6 @@ public class ViewOwnEventsView implements IViewEventsView {
     }
 
     @Override
-    public EventHandler<ActionEvent> getPressButtonAction() {
-        return this.cancelButtonAction;
-    }
-
-    @Override
     public void setPressButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.cancelButtonAction = eventHandler;
     }

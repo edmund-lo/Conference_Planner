@@ -29,6 +29,5 @@ public interface IScheduleSpeakerView extends ILoggedInView {
     void setSummarySpeakers(String speakers);
     void setResultText(String resultText);
 
-    EventHandler<ActionEvent> getScheduleSpeakerButtonAction();
     void setScheduleSpeakerButtonAction(EventHandler<ActionEvent> eventHandler);
 }

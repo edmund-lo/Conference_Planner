@@ -41,8 +41,6 @@ public interface IRescheduleCancelEventView extends ILoggedInView {
     void setSummaryVip(String vip);
     void setResultText(String resultText);
 
-    EventHandler<ActionEvent> getCancelButtonAction();
     void setCancelButtonAction(EventHandler<ActionEvent> eventHandler);
-    EventHandler<ActionEvent> getRescheduleButtonAction();
     void setRescheduleButtonAction(EventHandler<ActionEvent> eventHandler);
 }
