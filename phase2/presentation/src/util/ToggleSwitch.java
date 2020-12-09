@@ -1,5 +1,7 @@
 package util;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -16,9 +18,10 @@ public class ToggleSwitch extends StackPane {
             "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 0.2, 0.0, 0.0, 2); -fx-background-color: WHITE;";
     private final String buttonStyleOn =
             "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 0.2, 0.0, 0.0, 2); -fx-background-color: #00893d;";
-    private boolean state;
+    private final BooleanProperty state;
 
     public ToggleSwitch() {
+        this.state = new SimpleBooleanProperty(false);
         init();
         button.setFocusTraversable(false);
     }
@@ -41,24 +44,28 @@ public class ToggleSwitch extends StackPane {
         button.setStyle(buttonStyleOff);
     }
 
-    public EventHandler<Event> toggleOnClick(Event event) {
+    public EventHandler<Event> toggleOnClick() {
         return e -> {
-            if (state) {
+            if (state.getValue()) {
                 button.setStyle(buttonStyleOff);
                 back.setFill(Color.valueOf("#ced5da"));
                 setAlignment(button, Pos.CENTER_LEFT);
-                state = false;
+                //state.setValue(false);
             } else {
                 button.setStyle(buttonStyleOn);
                 back.setFill(Color.valueOf("#80C49E"));
                 setAlignment(button, Pos.CENTER_RIGHT);
-                state = true;
+                //state.setValue(true);
             }
         };
     }
 
     public boolean getToggleState() {
-        return this.state;
+        return this.state.getValue();
+    }
+
+    public void setToggleState(boolean state) {
+        this.state.setValue(state);
     }
 
     public Button getToggleButton() { return this.button; }

@@ -47,10 +47,10 @@ public class DateTimeUtil {
     }
 
     /**
-     * Checks the String whether it is a valid date.
+     * Checks the String whether it is a valid datetime.
      *
-     * @param dateTimeString
-     * @return true if the String is a valid date
+     * @param dateTimeString String presentation of datetime
+     * @return true if the String is a valid datetime
      */
     public boolean validDate(String dateTimeString) {
         // Try to parse the String.

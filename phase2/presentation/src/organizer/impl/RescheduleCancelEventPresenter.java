@@ -5,6 +5,8 @@ import controllers.OrganizerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.ScheduleEntry;
 import org.json.simple.JSONArray;
@@ -56,9 +58,28 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
     }
 
     @Override
-    public void toggleSwitchAction() {
-        this.view.getToggleSwitch().setOnMouseClicked(this.view.getToggleSwitch()::toggleOnClick);
-        this.view.getToggleSwitch().getToggleButton().setOnMouseClicked(this.view.getToggleSwitch()::toggleOnClick);
+    public void toggleSwitchListener() {
+        this.view.getToggleSwitch().setOnMouseClicked(this::toggleSwitchHandler);
+        this.view.getToggleSwitch().getToggleButton().setOnMouseClicked(this::toggleSwitchHandler);
+    }
+
+    @Override
+    public EventHandler<Event> toggleSwitchHandler(Event event) {
+        this.view.getToggleSwitch().setToggleState(!this.view.getToggleSwitch().getToggleState());
+        if (this.view.getToggleSwitch().getToggleState()) { // toggled on edit mode
+            this.view.getSummaryStart().setDisable(false);
+            this.view.getSummaryEnd().setDisable(false);
+            this.view.getSummaryCapacityField().setDisable(false);
+            this.view.getSummaryVipChoiceBox().setDisable(false);
+            this.view.getSummaryRoomsChoiceBox().setDisable(false);
+        } else { // toggled off edit mode
+            this.view.getSummaryStart().setDisable(true);
+            this.view.getSummaryEnd().setDisable(true);
+            this.view.getSummaryCapacityField().setDisable(true);
+            this.view.getSummaryVipChoiceBox().setDisable(true);
+            this.view.getSummaryRoomsChoiceBox().setDisable(true);
+        }
+        return this.view.getToggleSwitch().toggleOnClick();
     }
 
     @Override
@@ -111,7 +132,7 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
         this.view.setRescheduleButtonAction(this::rescheduleButtonAction);
         updateDuration(this.view.getSummaryStart());
         updateDuration(this.view.getSummaryEnd());
-        toggleSwitchAction();
+        toggleSwitchListener();
         List<ScheduleEntry> allEvents = getEvents();
         displayEvents(allEvents);
     }
