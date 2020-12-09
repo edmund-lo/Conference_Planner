@@ -19,7 +19,7 @@ import java.util.List;
 
 public class MessageAttendeesPresenter implements IMessageUsersPresenter {
     private final IMessageUsersView view;
-    private OrganizerController oc;
+    private final OrganizerController oc;
     private ObservableList<User> users;
 
     public MessageAttendeesPresenter(IMessageUsersView view) {
@@ -57,8 +57,7 @@ public class MessageAttendeesPresenter implements IMessageUsersPresenter {
 
     @Override
     public List<User> getAllUsers() {
-        //JSONObject responseJson = oc.getAllUsers();
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = oc.getAllUsers();
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
         return UserAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }

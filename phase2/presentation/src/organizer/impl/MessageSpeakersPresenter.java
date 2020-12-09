@@ -17,7 +17,7 @@ import java.util.List;
 
 public class MessageSpeakersPresenter implements IMessageUsersPresenter {
     private final IMessageUsersView view;
-    private OrganizerController oc;
+    private final OrganizerController oc;
     private ObservableList<User> users;
 
     public MessageSpeakersPresenter(IMessageUsersView view) {
@@ -55,8 +55,7 @@ public class MessageSpeakersPresenter implements IMessageUsersPresenter {
 
     @Override
     public List<User> getAllUsers() {
-        //JSONObject responseJson = oc.listSpeakers();
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = oc.getAllSpeakers();
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
         return UserAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
