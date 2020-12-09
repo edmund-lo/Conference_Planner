@@ -3,6 +3,7 @@ package attendee;
 import common.ILoggedInView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
@@ -28,6 +29,7 @@ public interface IFriendsView extends ILoggedInView {
     TableColumn<User, String> getUserTypePendingColumn();
     Text getResultTextControl(int index);
     VBox getCommonEventTableContainer();
+    Button getRemoveRequestButton();
 
     void setUsernameFriend(String username);
     void setFirstNameFriend(String firstName);

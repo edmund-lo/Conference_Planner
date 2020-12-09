@@ -4,6 +4,7 @@ import attendee.IFriendsView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
@@ -76,6 +77,8 @@ public class FriendsView implements IFriendsView {
     private Text resultText3;
     @FXML
     private VBox commonEventTableContainer;
+    @FXML
+    private Button removeRequestButton;
 
     @FXML
     public void executeAddRemoveFriend(ActionEvent event) {
@@ -202,6 +205,11 @@ public class FriendsView implements IFriendsView {
     @Override
     public VBox getCommonEventTableContainer() {
         return this.commonEventTableContainer;
+    }
+
+    @Override
+    public Button getRemoveRequestButton() {
+        return this.removeRequestButton;
     }
 
     @Override

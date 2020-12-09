@@ -78,8 +78,20 @@ public class FriendsPresenter implements IFriendsPresenter {
     @Override
     public List<User> getUsers(String type) {
         JSONObject responseJson = new JSONObject();
-        /*if (type.equals("pending")) responseJson = ac.getAllUsers();
-        else responseJson = ac.getAllFriends();*/
+        switch (type) {
+            case "nonFriends":
+                responseJson = ac.getNonFriends();
+                break;
+            case "friends":
+                responseJson = ac.getFriends();
+                break;
+            case "sent":
+                responseJson = ac.getSentRequests();
+                break;
+            case "received":
+                responseJson = ac.getFriendRequests();
+                break;
+        }
         return UserAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
@@ -142,6 +154,7 @@ public class FriendsPresenter implements IFriendsPresenter {
                 this.view.setUserTypeUser(user.getUserType());
                 this.view.setFirstNameUser(user.getFirstName());
                 this.view.setLastNameUser(user.getLastName());
+                this.view.getRemoveRequestButton().setDisable(!user.isChecked());
                 break;
             case "pending":
                 this.selectedPending = user;
@@ -190,14 +203,14 @@ public class FriendsPresenter implements IFriendsPresenter {
     public void init() {
         this.view.setAddFriendButtonAction(this::addFriendButtonAction);
         this.view.setRemoveFriendButtonAction(this::removeFriendButtonAction);
-        List<User> pendingSent = getUsers("pending");
+        List<User> pendingSent = getUsers("sent");
         for (User user : pendingSent)
             user.setChecked(true);
         List<User> nonFriends = getUsers("nonFriends");
         List<User> friends = getUsers("friends");
-        List<User> pendingReceived = getUsers("pending");
-        nonFriends.addAll(pendingSent);
-        displayUserList(nonFriends, "nonFriends");
+        List<User> pendingReceived = getUsers("received");
+        pendingSent.addAll(nonFriends);
+        displayUserList(pendingSent, "nonFriends");
         displayUserList(friends, "friends");
         displayUserList(pendingReceived, "pending");
     }
