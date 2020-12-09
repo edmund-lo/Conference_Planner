@@ -634,19 +634,16 @@ public class UserManager implements Serializable {
      * @return A JSONObject that contains the JSON representation of this class
      */
     @SuppressWarnings("unchecked")
-    public JSONObject getAllUsersJson(){
-        JSONObject json = new JSONObject();
+    public JSONArray getAllUsers(){
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
 
-        for(String ID: allUsers.keySet())
-            item.put(ID, allUsers.get(ID).convertToJSON());
+        for(String username: allUsers.keySet())
+            item.put(username, allUsers.get(username).convertToJSON());
 
         array.add(item);
 
-        json.put("Users", array);
-
-        return json;
+        return array;
     }
 
     public JSONObject getSpeakerJson(String id){
@@ -668,5 +665,19 @@ public class UserManager implements Serializable {
         json.put("Users", array);
 
         return json;
+    }
+
+    public JSONArray getAllSpeakers(){
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+
+        for(String ID: allUsers.keySet()) {
+            if (isSpeaker(ID)) {
+                item.put(ID, allUsers.get(ID).convertToJSON());
+            }
+        }
+        array.add(item);
+
+        return array;
     }
 }
