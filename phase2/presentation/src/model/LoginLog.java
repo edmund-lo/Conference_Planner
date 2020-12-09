@@ -32,10 +32,6 @@ public class LoginLog {
         return loginTime.get();
     }
 
-    public ObjectProperty<LocalDateTime> loginTimeProperty() {
-        return loginTime;
-    }
-
     public void setLoginTime(LocalDateTime loginTime) {
         this.loginTime.set(loginTime);
     }

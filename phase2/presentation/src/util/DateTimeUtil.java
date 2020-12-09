@@ -46,17 +46,6 @@ public class DateTimeUtil {
         }
     }
 
-    /**
-     * Checks the String whether it is a valid datetime.
-     *
-     * @param dateTimeString String presentation of datetime
-     * @return true if the String is a valid datetime
-     */
-    public boolean validDate(String dateTimeString) {
-        // Try to parse the String.
-        return parse(dateTimeString) != null;
-    }
-
     public String formatDuration(Duration duration) {
         long seconds = duration.getSeconds();
         long absSeconds = Math.abs(seconds);

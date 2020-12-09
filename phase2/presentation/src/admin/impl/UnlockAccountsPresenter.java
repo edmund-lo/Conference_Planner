@@ -1,5 +1,6 @@
 package admin.impl;
 
+import adapter.LoginLogAdapter;
 import adapter.UserAccountAdapter;
 import admin.IUnlockAccountsPresenter;
 import admin.IUnlockAccountsView;
@@ -17,7 +18,7 @@ import java.util.List;
 
 public class UnlockAccountsPresenter implements IUnlockAccountsPresenter {
     private final IUnlockAccountsView view;
-    private AdminController ac;
+    private final AdminController ac;
     private UserAccount selectedAccount;
 
     public UnlockAccountsPresenter(IUnlockAccountsView view) {
@@ -30,8 +31,7 @@ public class UnlockAccountsPresenter implements IUnlockAccountsPresenter {
     public void unlockButtonAction(ActionEvent actionEvent) {
         clearResultText();
 
-        //JSONObject responseJson = ac.unlockAccount(selectedAccount.getUsername());
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = ac.unlockAccount(selectedAccount.getUsername());
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
         if (responseJson.get("status").equals("success")) init();
     }
@@ -61,13 +61,16 @@ public class UnlockAccountsPresenter implements IUnlockAccountsPresenter {
 
     @Override
     public void displayUserAccountDetails(UserAccount account) {
+        this.selectedAccount = account;
         this.view.setUsername(account.getUsername());
         this.view.setUserType(account.getUserType());
     }
 
     @Override
     public List<LoginLog> getUserLoginLogs(String username) {
-        return null;
+        //JSONObject responseJson = ac.getLoginLogs(username);
+        JSONObject responseJson = new JSONObject();
+        return LoginLogAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
     @Override
