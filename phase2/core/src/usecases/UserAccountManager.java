@@ -72,4 +72,8 @@ public class UserAccountManager implements Serializable {
     public void updateAccount(String username, UserAccountEntity Account){
         allUserAccountEntities.put(username, Account);
     }
+
+    public void unlockAccount(String username) {
+        allUserAccountEntities.get(username).unlock();
+    }
 }

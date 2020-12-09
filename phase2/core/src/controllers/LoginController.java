@@ -1,13 +1,15 @@
 package controllers;
-import entities.LoginLog;
-import entities.Organizer;
-import entities.User;
-import entities.UserAccountEntity;
-import gateways.*;
-import org.json.simple.*;
 
+import entities.LoginLog;
+import entities.UserAccountEntity;
+import gateways.LoginLogGateway;
+import gateways.UserAccountGateway;
+import gateways.UserGateway;
+import org.json.simple.JSONObject;
 import presenters.LoginPresenter;
-import usecases.*;
+import usecases.LoginLogManager;
+import usecases.UserAccountManager;
+import usecases.UserManager;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -189,7 +191,7 @@ public class LoginController {
      */
     public void lockOut(String Username){
         UserAccountEntity Account = uam.getUserAccount(Username);
-        Account.Lock();
+        Account.lock();
         uam.updateAccount(Username, Account);
         uag.serializeData(uam);
     }

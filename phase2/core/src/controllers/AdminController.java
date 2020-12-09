@@ -1,8 +1,7 @@
 package controllers;
 
 import entities.LoginLog;
-import entities.UserAccountEntity;
-import gateways.UserAccountGateway;
+import gateways.LoginLogGateway;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import presenters.AdminPresenter;
@@ -18,7 +17,9 @@ import java.util.List;
  *
  */
 public class AdminController extends UserController{
+    private LoginLogManager llm;
     private final AdminPresenter ap;
+    private LoginLogGateway llg;
 
     /**
      * Constructor for AdminController object. Uses constructor from UserController
@@ -28,30 +29,7 @@ public class AdminController extends UserController{
     public AdminController(String username) {
         super(username);
         this.ap = new AdminPresenter();
-    }
-
-    /**
-     * Gets all of messageThreads.
-     *
-     * @return List of Strings representing all of the messageThreads.
-     */
-    public JSONArray getAllMessageThreads(){
-        JSONArray messageStrings = new JSONArray();
-        List<String> messageIds = (List<String>) mm.getAllMessageThreads().keySet();
-        for (String id : messageIds) {
-            messageStrings.add(mm.getOneMessageThreadToJson(id));
-        }
-        return messageStrings;
-    }
-
-    /**
-     * Delete a messageThread given it's Id.
-     *
-     * Precondition: the messageThread exist.
-     */
-    public void deleteMessageThread(String messageThreadId){
-        mm.deleteMessage(messageThreadId);
-        um.deleteMessageFromUsers(messageThreadId);
+        this.llm = llg.deserializeData();
     }
 
     /**
@@ -205,17 +183,37 @@ public class AdminController extends UserController{
         }
     }
 
-    public ArrayList<LoginLog> checkUserLogs(String username){
-        LoginLogManager llm = new LoginLogManager();
-        return llm.getUserLogs(username);
+    /**
+     * Gets all of messageThreads.
+     *
+     * @return List of Strings representing all of the messageThreads.
+     */
+    public JSONArray getAllMessageThreads(){
+        JSONArray messageStrings = new JSONArray();
+        List<String> messageIds = (List<String>) mm.getAllMessageThreads().keySet();
+        for (String id : messageIds) {
+            messageStrings.add(mm.getOneMessageThreadToJson(id));
+        }
+        return messageStrings;
     }
 
-    public JSONObject unlockAccount(String Username){
-        UserAccountEntity Account = uam.getUserAccount(Username);
-        Account.Unlock();
-        uam.updateAccount(Username, Account);
-        UserAccountGateway uag = new UserAccountGateway();
-        uag.serializeData(uam);
+    /**
+     * Delete a messageThread given it's Id.
+     *
+     * Precondition: the messageThread exist.
+     */
+    public void deleteMessageThread(String messageThreadId){
+        mm.deleteMessage(messageThreadId);
+        um.deleteMessageFromUsers(messageThreadId);
+    }
+
+    public JSONObject getAllUserLogs() {
+        return llm.getAllLogsJson();
+    }
+
+    public JSONObject unlockAccount(String username){
+        uam.unlockAccount(username);
+        this.saveData();
         return ap.accountUnlocked();
     }
 }

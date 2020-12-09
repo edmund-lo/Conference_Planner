@@ -1,6 +1,9 @@
 package entities;
 import org.json.simple.*;
 
+/**
+ * An entity class for a user account.
+ */
 public class UserAccountEntity {
     private String username;
     private String password;
@@ -47,23 +50,6 @@ public class UserAccountEntity {
         this.username = username;
     }
 
-    public void setSecurityQuestions(String Q1, String A1, String Q2, String A2){
-        this.SecurityQ1 = Q1;
-        this.SecurityQ2 = Q2;
-
-        this.SecurityA1 = A1;
-        this.SecurityA2 = A2;
-    }
-
-    public String getSecurityAns(int i){
-        if (i == 1)
-            return this.SecurityA1;
-        if (i == 2)
-            return this.SecurityA2;
-        else
-            return ("Only 2 Security Answers");
-    }
-
     public String getPassword() {
         return password;
     }
@@ -84,15 +70,32 @@ public class UserAccountEntity {
         return locked;
     }
 
-    public void Lock() {
+    public void lock() {
         this.locked = true;
     }
 
-    public void Unlock() {
+    public void unlock() {
         this.locked = false;
     }
 
-    public boolean isSetSecurity() {
+    public void setSecurityQuestions(String Q1, String A1, String Q2, String A2){
+        this.SecurityQ1 = Q1;
+        this.SecurityQ2 = Q2;
+
+        this.SecurityA1 = A1;
+        this.SecurityA2 = A2;
+    }
+
+    public String getSecurityAns(int i){
+        if (i == 1)
+            return this.SecurityA1;
+        if (i == 2)
+            return this.SecurityA2;
+        else
+            return ("Only 2 Security Answers");
+    }
+
+    public boolean getSetSecurity() {
         return setSecurity;
     }
 
