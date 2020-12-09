@@ -1,14 +1,15 @@
 package usecases;
 
 import entities.Message;
+import entities.MessageThread;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.*;
-
-import entities.MessageThread;
-import entities.User;
-import org.json.simple.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.UUID;
 
 
 /**

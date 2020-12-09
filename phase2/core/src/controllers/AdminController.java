@@ -1,14 +1,9 @@
 package controllers;
 
-import entities.LoginLog;
 import gateways.LoginLogGateway;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import presenters.AdminPresenter;
 import usecases.LoginLogManager;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A Controller class representing an AdminController which inherits from UserController.
@@ -118,7 +113,7 @@ public class AdminController extends UserController{
     /**
      * Lists the names of all attendees
      *
-     * @return a JSON object containing the status and description of the action and a list of all attendees
+     * @return a JSON object containing all attendees
      */
     public JSONObject viewAllAttendees() {
         return um.getAllAttendeesJson();
@@ -184,33 +179,61 @@ public class AdminController extends UserController{
     }
 
     /**
-     * Gets all of messageThreads.
+     * Gets all message threads.
      *
-     * @return List of Strings representing all of the messageThreads.
+     * @return JSONObject containing all message threads
      */
-    public JSONArray getAllMessageThreads(){
-        JSONArray messageStrings = new JSONArray();
-        List<String> messageIds = (List<String>) mm.getAllMessageThreads().keySet();
-        for (String id : messageIds) {
-            messageStrings.add(mm.getOneMessageThreadToJson(id));
-        }
-        return messageStrings;
+    public JSONObject getAllMessageThreads() {
+        return mm.getAllMessageThreadToJson();
     }
 
     /**
-     * Delete a messageThread given it's Id.
+     * Delete a message thread given it's ID.
      *
      * Precondition: the messageThread exist.
+     * @return a JSON object containing the status and description of the action
      */
-    public void deleteMessageThread(String messageThreadId){
-        mm.deleteMessage(messageThreadId);
-        um.deleteMessageFromUsers(messageThreadId);
+    public JSONObject deleteMessageThread(String messageThreadID) {
+        mm.deleteMessage(messageThreadID);
+        um.deleteMessageFromUsers(messageThreadID);
+        this.saveData();
+        return ap.deleteMessageResult();
     }
 
+    /**
+     * Gets all user login logs
+     *
+     * @return a JSONObject containing all user login logs
+     */
     public JSONObject getAllUserLogs() {
         return llm.getAllLogsJson();
     }
 
+    /**
+     * Gets a user's login logs
+     *
+     * @param username the username
+     * @return a JSONObject containing the user's login logs
+     */
+    public JSONObject getLoginLogs(String username) {
+        return llm.getLoginLogJSON(username);
+    }
+
+    /**
+     * Gets all user accounts
+     *
+     * @return a JSONObject containing all user accounts
+     */
+    public JSONObject getAllAccounts() {
+        return uam.getAllAccountsJSON();
+    }
+
+    /**
+     * Unlocks an user's account
+     *
+     * @param username the username
+     * @return a JSON object containing the status and description of the action
+     */
     public JSONObject unlockAccount(String username){
         uam.unlockAccount(username);
         this.saveData();

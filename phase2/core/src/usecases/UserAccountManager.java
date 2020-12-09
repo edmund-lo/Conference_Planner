@@ -2,10 +2,9 @@ package usecases;
 
 import entities.UserAccountEntity;
 
-
-import java.util.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Helper that manages all interaction with the Entities.UserAccountEntity classes and

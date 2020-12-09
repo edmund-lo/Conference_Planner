@@ -109,7 +109,19 @@ public class AdminPresenter extends UserPresenter {
         return pu.createJSON("error", "Event is not empty");
     }
 
+    /**
+     * Prints message that the message is deleted
+     */
+    public JSONObject deleteMessageResult() {
+        return pu.createJSON("success", "Message is deleted.");
+    }
+
+    /**
+     * Prints message that the account is unlocked
+     */
     public JSONObject accountUnlocked() {
         return pu.createJSON("success", "Account has been unlocked");
     }
+
+
 }
