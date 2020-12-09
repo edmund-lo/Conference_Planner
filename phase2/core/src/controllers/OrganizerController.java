@@ -324,4 +324,12 @@ public class OrganizerController extends UserController {
         }
         return op.listRoomSchedule(schedule);
     }
+
+    public JSONObject getAllUsers(){
+        return op.listUsers(um.getAllUsers());
+    }
+
+    public JSONObject getAllSpeakers(){
+        return op.listSpeakers(um.getAllSpeakers());
+    }
 }
