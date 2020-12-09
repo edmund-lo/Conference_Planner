@@ -17,8 +17,8 @@ import util.DateTimeUtil;
 import java.util.List;
 
 public class DeleteMessagesPresenter implements IDeleteMessagesPresenter {
-    private IDeleteMessagesView view;
-    private AdminController ac;
+    private final IDeleteMessagesView view;
+    private final AdminController ac;
     private MessageThread selectedMessageThread;
 
     public DeleteMessagesPresenter(IDeleteMessagesView view) {
@@ -29,7 +29,7 @@ public class DeleteMessagesPresenter implements IDeleteMessagesPresenter {
 
     @Override
     public void deleteButtonAction(ActionEvent actionEvent) {
-        //JSONObject responseJson = ac.delete(this.selectedPrimaryMessage.getMessageId());
+        //JSONObject responseJson = ac.deleteMessageThread(this.selectedMessageThread.getMessageThreadId());
         JSONObject responseJson = new JSONObject();
         if (responseJson.get("status").equals("success")) init();
     }
