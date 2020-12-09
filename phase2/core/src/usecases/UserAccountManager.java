@@ -1,6 +1,7 @@
 package usecases;
 
 import entities.UserAccountEntity;
+import org.json.simple.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -74,5 +75,8 @@ public class UserAccountManager implements Serializable {
 
     public void unlockAccount(String username) {
         allUserAccountEntities.get(username).unlock();
+    }
+
+    public JSONObject getAllAccountsJSON() {
     }
 }

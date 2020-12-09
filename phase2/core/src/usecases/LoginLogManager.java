@@ -113,4 +113,7 @@ public class LoginLogManager implements Serializable {
 
         return json;
     }
+
+    public JSONObject getLoginLogJSON(String username) {
+    }
 }
