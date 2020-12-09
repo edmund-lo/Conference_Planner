@@ -12,15 +12,33 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import java.io.IOException;
 
+/**
+ * Factory class that helps create
+ */
 public class ComponentFactory {
     private static final ComponentFactory Instance = new ComponentFactory();
 
+    /**
+     * Gets the current instance of a ComponentFactory
+     * @return An instance of a ComponentFactory object
+     */
     public static ComponentFactory getInstance() {
         return Instance;
     }
 
+    /**
+     * Empty ComponentFactory constructor
+     */
     private ComponentFactory() {}
 
+    /**
+     * Tries to create a root node view with associated username and accountType in the view controller
+     * @param stage JavaFX Stage object that all scenes are set in
+     * @param fxml String FXML file name to load
+     * @param username String username for current logged in session
+     * @param accountType String user type for current logged in session
+     * @return JavaFX Node object that represents the scene
+     */
     private Node createRoot(Stage stage, String fxml, String username, String accountType) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(ClassLoader.getSystemResource("fxml/" + fxml));
@@ -38,6 +56,11 @@ public class ComponentFactory {
         }
     }
 
+    /**
+     * Creates a scene for views when the user has not logged in yet
+     * @param stage JavaFX Stage object that all scenes are set in
+     * @param fxml String FXML file name to load
+     */
     public void createLoggedOutComponent(Stage stage, String fxml) {
         Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
         Scene scene = new Scene((Parent) createRoot(stage, fxml, "", ""), screenSize.getWidth(),
@@ -45,6 +68,13 @@ public class ComponentFactory {
         stage.setScene(scene);
     }
 
+    /**
+     * Creates a scene for views when the user has logged in
+     * @param stage JavaFX Stage object that all scenes are set in
+     * @param fxml String FXML file name to load
+     * @param username String username for current logged in session
+     * @param accountType String user type for current logged in session
+     */
     public void createLoggedInComponent(Stage stage, String fxml, String username, String accountType) {
         BorderPane root = new BorderPane();
         root.setTop(createRoot(stage, "toolbar.fxml", username, accountType));

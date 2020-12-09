@@ -4,8 +4,8 @@ import util.ComponentFactory;
 
 public class Main extends Application {
     /**
-     * JavaFX start method, sets initial scene and title
-     * @param primaryStage Stage object that all scenes are set
+     * JavaFX start method, sets initial scene and title to login scene
+     * @param primaryStage JavaFX Stage object that all scenes are set in
      * @throws Exception JavaFX exception that occurs during starting the GUI
      */
     @Override
