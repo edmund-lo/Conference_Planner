@@ -33,7 +33,7 @@ public class MessageAttendeesPresenter implements IMessageUsersPresenter {
         clearResultText();
 
         JSONObject queryJson = constructMessageJson();
-        //JSONObject responseJson = oc.sendAllSpeakers(queryJson);
+        //JSONObject responseJson = oc.messageAllSpeakers(queryJson);
         JSONObject responseJson = new JSONObject();
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
     }
@@ -57,7 +57,7 @@ public class MessageAttendeesPresenter implements IMessageUsersPresenter {
 
     @Override
     public List<User> getAllUsers() {
-        //JSONObject responseJson = oc.createRoom(queryJson);
+        //JSONObject responseJson = oc.getAllUsers();
         JSONObject responseJson = new JSONObject();
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
         return UserAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
@@ -82,7 +82,7 @@ public class MessageAttendeesPresenter implements IMessageUsersPresenter {
         StringBuilder sb = new StringBuilder();
         String prefix = "";
         for (User u : this.users) {
-            if (u.getChecked()) {
+            if (u.isChecked()) {
                 sb.append(prefix);
                 prefix = ", ";
                 sb.append(u.getUsername());

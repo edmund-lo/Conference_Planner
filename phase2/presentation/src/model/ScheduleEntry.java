@@ -44,20 +44,12 @@ public class ScheduleEntry {
         return start.get();
     }
 
-    public ObjectProperty<LocalDateTime> startProperty() {
-        return start;
-    }
-
     public void setStart(LocalDateTime start) {
         this.start.set(start);
     }
 
     public LocalDateTime getEnd() {
         return end.get();
-    }
-
-    public ObjectProperty<LocalDateTime> endProperty() {
-        return end;
     }
 
     public void setEnd(LocalDateTime end) {
@@ -68,20 +60,8 @@ public class ScheduleEntry {
         return eventId.get();
     }
 
-    public StringProperty eventIdProperty() {
-        return eventId;
-    }
-
-    public void setEventId(String eventId) {
-        this.eventId.set(eventId);
-    }
-
     public String getEventName() {
         return eventName.get();
-    }
-
-    public StringProperty eventNameProperty() {
-        return eventName;
     }
 
     public void setEventName(String eventName) {
@@ -92,20 +72,12 @@ public class ScheduleEntry {
         return roomName.get();
     }
 
-    public StringProperty roomNameProperty() {
-        return roomName;
-    }
-
     public void setRoomName(String roomName) {
         this.roomName.set(roomName);
     }
 
     public String getAmenities() {
         return amenities.get();
-    }
-
-    public StringProperty amenitiesProperty() {
-        return amenities;
     }
 
     public void setAmenities(String amenities) {
@@ -116,20 +88,12 @@ public class ScheduleEntry {
         return attendees.get();
     }
 
-    public StringProperty attendeesProperty() {
-        return attendees;
-    }
-
     public void setAttendees(String attendees) {
         this.attendees.set(attendees);
     }
 
     public Duration getDuration() {
         return duration.get();
-    }
-
-    public ObjectProperty<Duration> durationProperty() {
-        return duration;
     }
 
     public void setDuration(Duration duration) {
@@ -140,10 +104,6 @@ public class ScheduleEntry {
         return remainingSpots.get();
     }
 
-    public IntegerProperty remainingSpotsProperty() {
-        return remainingSpots;
-    }
-
     public void setRemainingSpots(int remainingSpots) {
         this.remainingSpots.set(remainingSpots);
     }
@@ -152,20 +112,12 @@ public class ScheduleEntry {
         return speakers.get();
     }
 
-    public StringProperty speakersProperty() {
-        return speakers;
-    }
-
     public void setSpeakers(String speakers) {
         this.speakers.set(speakers);
     }
 
     public int getCapacity() {
         return capacity.get();
-    }
-
-    public IntegerProperty capacityProperty() {
-        return capacity;
     }
 
     public void setCapacity(int capacity) {

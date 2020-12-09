@@ -25,10 +25,6 @@ public class UserAccount {
         return username.get();
     }
 
-    public StringProperty usernameProperty() {
-        return username;
-    }
-
     public void setUsername(String username) {
         this.username.set(username);
     }
@@ -37,20 +33,12 @@ public class UserAccount {
         return password.get();
     }
 
-    public StringProperty passwordProperty() {
-        return password;
-    }
-
     public void setPassword(String password) {
         this.password.set(password);
     }
 
     public String getUserType() {
         return userType.get();
-    }
-
-    public StringProperty userTypeProperty() {
-        return userType;
     }
 
     public void setUserType(String userType) {
@@ -71,13 +59,5 @@ public class UserAccount {
 
     public boolean isSetSecurity() {
         return setSecurity.get();
-    }
-
-    public BooleanProperty setSecurityProperty() {
-        return setSecurity;
-    }
-
-    public void setSetSecurity(boolean setSecurity) {
-        this.setSecurity.set(setSecurity);
     }
 }

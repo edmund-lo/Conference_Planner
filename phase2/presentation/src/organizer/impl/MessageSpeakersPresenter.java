@@ -55,7 +55,7 @@ public class MessageSpeakersPresenter implements IMessageUsersPresenter {
 
     @Override
     public List<User> getAllUsers() {
-        //JSONObject responseJson = oc.createRoom(queryJson);
+        //JSONObject responseJson = oc.listSpeakers();
         JSONObject responseJson = new JSONObject();
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
         return UserAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
@@ -81,7 +81,7 @@ public class MessageSpeakersPresenter implements IMessageUsersPresenter {
         StringBuilder sb = new StringBuilder();
         String prefix = "";
         for (User u : this.users) {
-            if (u.getChecked()) {
+            if (u.isChecked()) {
                 sb.append(prefix);
                 prefix = ", ";
                 sb.append(u.getUsername());

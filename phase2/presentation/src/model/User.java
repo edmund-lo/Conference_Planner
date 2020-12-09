@@ -2,7 +2,6 @@ package model;
 
 import common.Selectable;
 import javafx.beans.property.*;
-import javafx.scene.control.CheckBox;
 
 public class User extends Selectable {
     private final StringProperty username;
@@ -16,7 +15,7 @@ public class User extends Selectable {
     }
 
     public User(String username, String firstName, String lastName, String userType, boolean vip) {
-        setChecked(false);
+        super();
         this.username = new SimpleStringProperty(username);
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
@@ -28,16 +27,10 @@ public class User extends Selectable {
         return username.get();
     }
 
-    public StringProperty usernameProperty() { return username; }
-
     public void setUsername(String username) { this.username.set(username); }
 
     public String getFirstName() {
         return firstName.get();
-    }
-
-    public StringProperty firstNameProperty() {
-        return firstName;
     }
 
     public void setFirstName(String firstName) {
@@ -48,20 +41,12 @@ public class User extends Selectable {
         return lastName.get();
     }
 
-    public StringProperty lastNameProperty() {
-        return lastName;
-    }
-
     public void setLastName(String lastName) {
         this.lastName.set(lastName);
     }
 
     public String getUserType() {
         return userType.get();
-    }
-
-    public StringProperty userTypeProperty() {
-        return userType;
     }
 
     public void setUserType(String userType) {

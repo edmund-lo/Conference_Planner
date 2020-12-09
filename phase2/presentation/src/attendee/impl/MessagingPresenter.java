@@ -276,7 +276,7 @@ public class MessagingPresenter implements IMessagingPresenter {
         StringBuilder sb = new StringBuilder();
         String prefix = "";
         for (User u : this.users) {
-            if (u.getChecked()) {
+            if (u.isChecked()) {
                 sb.append(prefix);
                 prefix = ", ";
                 sb.append(u.getUsername());
