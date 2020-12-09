@@ -125,6 +125,11 @@ public class LoginController {
                     um.createNewSpeaker(Username, firstName, lastName);
                     ug.serializeData(um);
                     return lp.AccountMade();
+                case "admin":
+                    uam.addAccount(Username, Password, type);
+                    um.createNewAdmin(Username, firstName, lastName);
+                    ug.serializeData(um);
+                    return lp.AccountMade();
                 default:
                     return lp.IncorrectCredentials();
             }

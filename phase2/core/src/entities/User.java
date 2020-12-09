@@ -22,9 +22,9 @@ public abstract class User implements Serializable {
     private List<String> sentRequest;
     private List<String> friendRequest;
     private List<String> friendsList;
-    private ArrayList primaryInbox;
-    private ArrayList archivedInbox;
-    private ArrayList trashInbox;
+    private List<String> primaryInbox;
+    private List<String> archivedInbox;
+    private List<String> trashInbox;
 
     /**
      * Constructor for User object. Initializes an empty hashmap for a user's schedule and

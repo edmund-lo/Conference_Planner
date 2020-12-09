@@ -1,6 +1,5 @@
 package controllers;
 
-import entities.MessageThread;
 import gateways.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
