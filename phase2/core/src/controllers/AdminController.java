@@ -172,6 +172,7 @@ public class AdminController extends UserController{
     public JSONObject removeEvent(String eventID) {
         if(em.isEventEmpty(eventID)) {
             em.removeEvent(eventID);
+            this.saveData();
             return ap.removeEventResult();
         } else {
             return ap.eventNotEmptyError();
