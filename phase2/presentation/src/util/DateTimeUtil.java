@@ -11,11 +11,21 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Utility class for formatting Duration and LocalDateTime objects from Strings and vice versa
+ */
 public class DateTimeUtil {
     private static final DateTimeUtil Instance = new DateTimeUtil();
 
+    /**
+     * Gets the current instance of a DateTimeUtil
+     * @return An instance of DateTimeUtil object
+     */
     public static DateTimeUtil getInstance() { return Instance; }
 
+    /**
+     * Empty DateTimeUtil constructor
+     */
     private DateTimeUtil() {}
 
     /** The date pattern that is used for conversion. Change as you wish. */
@@ -46,12 +56,21 @@ public class DateTimeUtil {
         }
     }
 
+    /**
+     * Converts duration into a String representation
+     * @param duration Duration object
+     * @return String representation of duration formatted hh:mm
+     */
     public String formatDuration(Duration duration) {
         long seconds = duration.getSeconds();
         long absSeconds = Math.abs(seconds);
         return String.format("%d:%02d", absSeconds / 3600, (absSeconds % 3600) / 60);
     }
 
+    /**
+     * Sets cell factory for given column
+     * @param column JavaFX column containing LocalDateTime variable from ScheduleEntry
+     */
     public void setScheduleDateTimeCellFactory(TableColumn<ScheduleEntry, LocalDateTime> column) {
         column.setCellFactory(c -> new TableCell<>() {
             @Override
@@ -65,6 +84,10 @@ public class DateTimeUtil {
         });
     }
 
+    /**
+     * Sets cell factory for given column
+     * @param column JavaFX column containing LocalDateTime variable from MessageThread
+     */
     public void setMessageDateTimeCellFactory(TableColumn<MessageThread, LocalDateTime> column) {
         column.setCellFactory(c -> new TableCell<>() {
             @Override
@@ -78,6 +101,10 @@ public class DateTimeUtil {
         });
     }
 
+    /**
+     * Sets cell factory for given column
+     * @param column JavaFX column containing LocalDateTime variable from LoginLog
+     */
     public void setLoginDateTimeCellFactory(TableColumn<LoginLog, LocalDateTime> column) {
         column.setCellFactory(c -> new TableCell<>() {
             @Override

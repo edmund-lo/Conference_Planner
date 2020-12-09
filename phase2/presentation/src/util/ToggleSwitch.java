@@ -11,6 +11,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * Utility class for a toggle switch between on and off
+ */
 public class ToggleSwitch extends StackPane {
     private final Rectangle back = new Rectangle(30, 10, Color.RED);
     private final Button button = new Button();
@@ -20,12 +23,18 @@ public class ToggleSwitch extends StackPane {
             "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 0.2, 0.0, 0.0, 2); -fx-background-color: #00893d;";
     private final BooleanProperty state;
 
+    /**
+     * ToggleSwitch constructor with default settings
+     */
     public ToggleSwitch() {
         this.state = new SimpleBooleanProperty(false);
         init();
         button.setFocusTraversable(false);
     }
 
+    /**
+     * Applies initial setting and transforms a JavaFX StackPane into a toggle switch
+     */
     private void init() {
         getChildren().addAll(back, button);
         setMinSize(30, 15);
@@ -44,6 +53,10 @@ public class ToggleSwitch extends StackPane {
         button.setStyle(buttonStyleOff);
     }
 
+    /**
+     * Event handler when the switch is clicked on
+     * @return EventHandler of Event object representing the event handler
+     */
     public EventHandler<Event> toggleOnClick() {
         return e -> {
             if (state.getValue()) {
@@ -60,13 +73,25 @@ public class ToggleSwitch extends StackPane {
         };
     }
 
+    /**
+     * Gets current toggle state
+     * @return boolean representing whether switch is on or off
+     */
     public boolean getToggleState() {
         return this.state.getValue();
     }
 
+    /**
+     * Sets the toggle state to state
+     * @param state boolean representing new state
+     */
     public void setToggleState(boolean state) {
         this.state.setValue(state);
     }
 
+    /**
+     * Gets the button associated with the toggle switch
+     * @return JavaFX Button object representing button class variable
+     */
     public Button getToggleButton() { return this.button; }
 }

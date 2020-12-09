@@ -11,41 +11,48 @@ import javafx.scene.control.TextField;
  * TextField implementation that accepts formatted number and stores them in a
  * BigDecimal property The user input is formatted when the focus is lost or the
  * user hits RETURN.
- *
- * @author Thomas Bolz
  */
 public class NumberTextField extends TextField {
     private final NumberFormat nf;
     private final ObjectProperty<BigDecimal> number = new SimpleObjectProperty<>();
 
+    /**
+     * Gets value of the number class variable
+     * @return BigDecimal object representing number
+     */
     public final BigDecimal getNumber() {
         return number.get();
     }
 
+    /**
+     * Sets value of the number class variable
+     * @param value BigDecimal object representing new value
+     */
     public final void setNumber(BigDecimal value) {
         number.set(value);
     }
 
+    /**
+     * Gets the number property
+     * @return ObjectProperty of BigDecimal representing number class variable
+     */
     public ObjectProperty<BigDecimal> numberProperty() {
         return number;
     }
 
+    /**
+     * NumberTextField constructor with default settings and listeners
+     */
     public NumberTextField() {
-        this(BigDecimal.ZERO);
-    }
-
-    public NumberTextField(BigDecimal value) {
-        this(value, NumberFormat.getInstance());
+        super(); // calls TextField constructor
+        setNumber(BigDecimal.ZERO);
         initHandlers();
+        this.nf = NumberFormat.getInstance();
     }
 
-    public NumberTextField(BigDecimal value, NumberFormat nf) {
-        super();
-        this.nf = nf;
-        initHandlers();
-        setNumber(value);
-    }
-
+    /**
+     * Initialises all the listeners associated with this NumberTextField
+     */
     private void initHandlers() {
         // force the field to be numeric only
         textProperty().addListener((observable, oldValue, newValue) -> {
