@@ -7,32 +7,34 @@ import javafx.beans.property.*;
  */
 public class UserAccount {
     private final StringProperty username;
-    private final StringProperty password;
     private final BooleanProperty locked;
     private final StringProperty userType;
     private final BooleanProperty setSecurity;
+    private final StringProperty securityQuestion1;
+    private final StringProperty securityQuestion2;
 
     /**
      * Initialises a UserAccount object with default attributes
      */
     public UserAccount() {
-        this(null, null, null, false, false);
+        this(null, null, false, false, null, null);
     }
 
     /**
      * Initialises a UserAccount object with given parameters as attributes
      * @param username String object representing user's username
-     * @param password String object representing user's password
      * @param userType String object representing user's user type
      * @param locked boolean representing whether user's account is locked or not
      * @param setSecurity boolean representing whether user has set security questions or not
      */
-    public UserAccount(String username, String password, String userType, boolean locked, boolean setSecurity) {
+    public UserAccount(String username, String userType, boolean locked, boolean setSecurity, String question1,
+                       String question2) {
         this.username = new SimpleStringProperty(username);
-        this.password = new SimpleStringProperty(password);
         this.userType = new SimpleStringProperty(userType);
         this.locked = new SimpleBooleanProperty(locked);
         this.setSecurity = new SimpleBooleanProperty(setSecurity);
+        this.securityQuestion1 = new SimpleStringProperty(question1);
+        this.securityQuestion2 = new SimpleStringProperty(question2);
     }
 
     //region Getters and Setters
@@ -42,14 +44,6 @@ public class UserAccount {
 
     public void setUsername(String username) {
         this.username.set(username);
-    }
-
-    public String getPassword() {
-        return password.get();
-    }
-
-    public void setPassword(String password) {
-        this.password.set(password);
     }
 
     public String getUserType() {
@@ -74,6 +68,22 @@ public class UserAccount {
 
     public boolean isSetSecurity() {
         return setSecurity.get();
+    }
+
+    public String getSecurityQuestion1() {
+        return securityQuestion1.get();
+    }
+
+    public void setSecurityQuestion1(String securityQuestion1) {
+        this.securityQuestion1.set(securityQuestion1);
+    }
+
+    public String getSecurityQuestion2() {
+        return securityQuestion2.get();
+    }
+
+    public void setSecurityQuestion2(String securityQuestion2) {
+        this.securityQuestion2.set(securityQuestion2);
     }
     //endregion
 }

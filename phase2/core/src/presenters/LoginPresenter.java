@@ -40,67 +40,103 @@ public class LoginPresenter {
        return pu.createJSON("warning", "Username cannot be empty!");
     }
 
-    public void SecurityQuestion1() {
-        System.out.println("Question 1: What is your date of birth?");
-    }
-
-    public void SecurityQuestion2() {
-        System.out.println("Question 2: ");
-    }
-
+    /**
+     * Notifies the user that the system can't find the account
+     */
     public JSONObject NoAccount() {
         return pu.createJSON("error", "No account found");
     }
 
+    /**
+     * Notifies the user that their answer to the security questions were incorrect
+     */
     public JSONObject IncorrectAnswers() {
         return pu.createJSON("error", "The answers to the security questions were incorrect.");
     }
 
+    /**
+     * Notifies the user that their password should have at least 6 characters
+     */
     public JSONObject EmptyPassword() {
         return pu.createJSON("warning", "Password should have at least 6 characters");
     }
 
+    /**
+     * Notifies the user that their account is locked
+     */
     public JSONObject AccountLocked() {
         return pu.createJSON("warning", "Your account has been locked due to suspicious activity. " +
                 "\nPlease contact an Admin to get help.");
     }
 
+    /**
+     * Notifies the user that their login is successfully
+     * @param data the user data
+     */
     public JSONObject SuccessfulLogin(JSONArray data) {
         return pu.createJSON("success", "Login Successful!", "JSONArray", data);
     }
 
+    /**
+     * Notifies the user that their username cannot contain whitespcaes
+     */
     public JSONObject noWhiteSpace() {
         return pu.createJSON("warning", "Username cannot contain whitespaces");
     }
 
+    /**
+     * Notifies the user that their password has been successfully changed
+     */
     public JSONObject passwordChanged() {
         return pu.createJSON("success", "Your password has successfully been changed");
     }
 
+    /**
+     * Notifies hte user that their answer to the security question is incorrect
+     */
     public JSONObject incorrectAnswers() {
         return pu.createJSON("warning", "The answers to the security questions were incorrect");
     }
 
+    /**
+     * Notifies the user that their answer to the security qustion was correct
+     */
     public JSONObject correctAnswers() {
         return pu.createJSON("success", "The answers to the security questions are correct");
     }
 
+    /**
+     * method for sending the account login logs to the presentation module
+     * @param json account logs in JSONArray format
+     */
     public JSONObject accountLogs(JSONArray json) {
         return pu.createJSON("success", "Here are the logs:", "JSONArray", json);
     }
 
+    /**
+     * Notifies the user that their passwords do not match
+     */
     public JSONObject passwordsDontMatch() {
         return pu.createJSON("warning", "Passwords do not match");
     }
 
+    /**
+     * Notifies the user that the account they are trying to make already exists
+     */
     public JSONObject AccountExists() {
         return pu.createJSON("warning", "Account already exists");
     }
 
+    /**
+     * Notifies the user that their security questions cant be empty
+     */
     public JSONObject emptyQuestion() {
         return pu.createJSON("warning", "Security questions cannon be empty.");
     }
 
+    /**
+     * Notifies the user that their security answers cannot be empty
+     */
     public JSONObject emptyAnswer() {
         return pu.createJSON("warning", "Security answers cannot be empty.");
     }

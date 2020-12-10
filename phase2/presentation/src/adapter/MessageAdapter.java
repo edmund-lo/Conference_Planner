@@ -48,7 +48,7 @@ public class MessageAdapter {
     private Message mapMessage(JSONObject jsonObject) {
         String senderName = String.valueOf(jsonObject.get("sender"));
         String content = String.valueOf(jsonObject.get("content"));
-        LocalDateTime messageTime = DateTimeUtil.getInstance().parse(String.valueOf(jsonObject.get("messageTime")));
+        LocalDateTime messageTime = DateTimeUtil.getInstance().parse(String.valueOf(jsonObject.get("time")));
 
         return new Message(senderName, content, messageTime);
     }

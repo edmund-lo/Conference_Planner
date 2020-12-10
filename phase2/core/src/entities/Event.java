@@ -3,6 +3,7 @@ package entities;
 import org.json.simple.*;
 
 import java.io.Serializable;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -276,18 +277,21 @@ public class Event implements Serializable {
 
         json.put("type", "Event");
 
-        item.put("event name", eventName);
+        item.put("eventName", eventName);
         item.put("id", eventID);
-        item.put("speaker name", speakerNames);
+        item.put("speakers", speakerNames);
         item.put("start", startTime);
         item.put("end", endTime);
+        item.put("duration", Duration.between(startTime, endTime));
         item.put("users", attendingUsers);
-        item.put("room name", roomName);
+        item.put("roomName", roomName);
         item.put("capacity", capacity);
+        item.put("remainingSpots", capacity - attendingUsers.size());
         item.put("Chairs", needsChairs);
         item.put("Tables", needsTables);
         item.put("Projector", needsProjector);
         item.put("SoundSystem", needsSoundSystem);
+        item.put("vip", vipEvent);
 
         array.add(item);
 

@@ -189,7 +189,7 @@ public class UserAccount {
         JSONArray array = new JSONArray();
 
         json.put("Username", username);
-        json.put("Account Type", userType);
+        json.put("AccountType", userType);
         json.put("Locked", locked);
         json.put("Security", setSecurity);
         json.put("Security Q1", SecurityQ1);
