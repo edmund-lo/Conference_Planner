@@ -1,10 +1,13 @@
 package login.impl;
 
+import adapter.UserAccountAdapter;
 import controllers.LoginController;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 import login.IForgotPresenter;
 import login.IForgotView;
+import model.UserAccount;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import util.ComponentFactory;
 import util.TextResultUtil;
@@ -63,6 +66,10 @@ public class ForgotPresenter implements IForgotPresenter {
 
         JSONObject responseJson = lc.accountJson(this.view.getUsername());
         if (String.valueOf(responseJson.get("status")).equals("success")) {
+            UserAccount account = UserAccountAdapter.getInstance()
+                    .adaptData((JSONArray) responseJson.get("data")).get(0);
+            this.view.setSecurityQuestion(account.getSecurityQuestion1(), 1);
+            this.view.setSecurityQuestion(account.getSecurityQuestion2(), 2);
             this.view.getTitledPane(1).setDisable(true);
             this.view.getTitledPane(2).setDisable(false);
             this.view.getTitledPane(1).setExpanded(false);
