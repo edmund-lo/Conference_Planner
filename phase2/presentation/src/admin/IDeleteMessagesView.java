@@ -6,7 +6,6 @@ import javafx.event.EventHandler;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import model.MessageThread;
 
 import java.time.LocalDateTime;

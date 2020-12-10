@@ -6,10 +6,9 @@ public class Main extends Application {
     /**
      * JavaFX start method, sets initial scene and title to login scene
      * @param primaryStage JavaFX Stage object that all scenes are set in
-     * @throws Exception JavaFX exception that occurs during starting the GUI
      */
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) {
         primaryStage.setTitle("Project Phase 2");
         ComponentFactory.getInstance().createLoggedOutComponent(primaryStage, "login.fxml");
         primaryStage.setMaximized(true);
