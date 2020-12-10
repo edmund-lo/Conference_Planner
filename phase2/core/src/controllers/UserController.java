@@ -9,7 +9,6 @@ import usecases.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -100,25 +99,20 @@ public abstract class UserController {
      *
      *@return list of events the user is attending in a string format
      */
-
-    public JSONObject getAttendingEventsString() {
-        HashMap<String, LocalDateTime[]> schedule = um.getSchedule(username);
-        ArrayList<String> eventDesc = new ArrayList<>();
-        for (String eventId : schedule.keySet())
-            eventDesc.add(em.getEventDescription(eventId));
-
-        return up.getEventsData(eventDesc);
-    }
-
-    /**
-     *Returns list of events the user is attending
-     *
-     *@return list of events the user is attending in a string format
-     */
-
     public JSONObject getAttendingEvents() {
-        HashMap<String, LocalDateTime[]> schedule = um.getSchedule(username);
-        return up.getEventsData(new ArrayList<>(schedule.keySet()));
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+
+        for (String eventID: um.getEvents(username)){
+            item.put(eventID, em.getEventJson(eventID));
+        }
+
+        array.add(item);
+
+        json.put("data", array);
+
+        return json;
     }
 
     /**
@@ -127,13 +121,21 @@ public abstract class UserController {
      *@return list of all events in the conference in a JSONArray format
      */
     public JSONObject getAllEventsCanSignUp(){
-        ArrayList<String> eventDesc = new ArrayList<>();
-        for (String id : em.getAllEventIds()){
-            if(um.canSignUp(username, id, em.getEventStartTime(id), em.getEventEndTime(id))) {
-                eventDesc.add(em.getEventDescription(id));
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+
+        for (String eventID: em.getAllEventIds()){
+            if(um.canSignUp(username, eventID, em.getEventStartTime(eventID), em.getEventEndTime(eventID))) {
+                item.put(eventID, em.getEventJson(eventID));
             }
         }
-        return up.getEventsData(eventDesc);
+
+        array.add(item);
+
+        json.put("data", array);
+
+        return json;
     }
 
     /**
@@ -142,13 +144,21 @@ public abstract class UserController {
      * @return a list of all events
      */
     public JSONObject getAllEvents() {
-        ArrayList<String> eventDesc = new ArrayList<>();
-        for (String id : em.getAllEventIds()) {
-            if (em.getEventStartTime(id).isAfter(LocalDateTime.now())) {
-                eventDesc.add(em.getEventDescription(id));
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+
+        for (String eventID: em.getAllEventIds()){
+            if(em.getEventStartTime(eventID).isAfter(LocalDateTime.now())) {
+                item.put(eventID, em.getEventJson(eventID));
             }
         }
-        return up.getEventsData(eventDesc);
+
+        array.add(item);
+
+        json.put("data", array);
+
+        return json;
     }
 
     /**
@@ -167,28 +177,24 @@ public abstract class UserController {
     }
 
     /**
-     * Gets a list of all events IDs user can sign up for
-     *
-     * @return a list of all events user can sign up for
-     */
-    public JSONArray getAllSignUpEvents(){
-        JSONArray eventDesc = new JSONArray();
-        for (String id : em.getAllEventIds()){
-            if(em.getEventStartTime(id).isAfter(LocalDateTime.now()) &&
-                    um.canSignUp(username, id, em.getEventStartTime(id), em.getEventEndTime(id))) {
-                eventDesc.add(id);
-            }
-        }
-        return eventDesc;
-    }
-
-    /**
      *Returns list of users that the user can send messages to.
      *
      *@return list of speakers and attendees in a string format
      */
     public JSONObject getAllMessageableUsers(){
-        return up.getMessageableAttendeesOutput(um.getAllMessageableUsers(username));
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+
+        for (String username: um.getAllMessageableUsers(this.username)){
+            item.put(username, um.getUserJson(username));
+        }
+
+        array.add(item);
+
+        json.put("data", array);
+
+        return json;
     }
 
     /**
@@ -196,13 +202,20 @@ public abstract class UserController {
      *
      * @return List of Strings representing all of the user's primary messages.
      */
-    public JSONArray getAllPrimaryMessages(){
-        JSONArray messageStrings = new JSONArray();
-        List<String> userMessageIds = um.getPrimaryMessages(username);
-        for (String id : userMessageIds) {
-            messageStrings.add(mm.getOneMessageThreadToJson(id));
+    public JSONObject getAllPrimaryMessages(){
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+
+        for (String id: um.getPrimaryMessages(this.username)){
+            item.put(id, mm.getOneMessageThreadToJson(id));
         }
-        return messageStrings;
+
+        array.add(item);
+
+        json.put("data", array);
+
+        return json;
     }
 
     /**
@@ -210,13 +223,20 @@ public abstract class UserController {
      *
      * @return List of Strings representing all of the user's archived messages.
      */
-    public JSONArray getAllArchivedMessages(){
-        JSONArray messageStrings = new JSONArray();
-        List<String> userMessageIds = um.getArchivedMessages(username);
-        for (String id : userMessageIds) {
-            messageStrings.add(mm.getOneMessageThreadToJson(id));
+    public JSONObject getAllArchivedMessages(){
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+
+        for (String id: um.getArchivedMessages(this.username)){
+            item.put(id, mm.getOneMessageThreadToJson(id));
         }
-        return messageStrings;
+
+        array.add(item);
+
+        json.put("data", array);
+
+        return json;
     }
 
     /**
@@ -224,13 +244,20 @@ public abstract class UserController {
      *
      * @return List of Strings representing all of the user's trash messages.
      */
-    public JSONArray getAllTrashMessages(){
-        JSONArray messageStrings = new JSONArray();
-        List<String> userMessageIds = um.getTrashMessages(username);
-        for (String id : userMessageIds) {
-            messageStrings.add(mm.getOneMessageThreadToJson(id));
+    public JSONObject getAllTrashMessages(){
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+
+        for (String id: um.getTrashMessages(this.username)){
+            item.put(id, mm.getOneMessageThreadToJson(id));
         }
-        return messageStrings;
+
+        array.add(item);
+
+        json.put("data", array);
+
+        return json;
     }
 
     /**

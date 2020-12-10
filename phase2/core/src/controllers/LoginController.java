@@ -53,11 +53,9 @@ public class LoginController {
      */
     public JSONObject createAccount(JSONObject obj, boolean isMade){
 
-        // String Username, String Password, String type, String q1, String ans1,
-        //                                    String q2, String ans2, String q3, String ans3, boolean security
-
         String Username = obj.get("username").toString();
         String Password = obj.get("password").toString();
+        String confirmPassword = obj.get("confirmPassword").toString();
         String type = obj.get("userType").toString();
         String q1 = obj.get("securityQuestion1").toString();
         String ans1 = obj.get("securityAnswer1").toString();
@@ -93,53 +91,41 @@ public class LoginController {
         if(Password.length() < 6)
             return lp.EmptyPassword();
 
+        if (!confirmPassword.equals(Password))
+            return lp.passwordsDontMatch();
+
         if (q1.length() == 0 || q2.length() == 0)
             return lp.emptyQuestion();
 
         if (ans1.length() == 0 || ans2.length() == 0)
             return lp.emptyAnswer();
 
-        //Security Questions if forget password or want to reset
-        lp.SecurityQuestion1();
-        lp.SecurityQuestion2();
-
         //Add account to the user manager and update the Accounts Arraylist
-
-
         if (!isMade){
             uam.addAccount(Username, Password, type, security,
                     q1, q2, ans1, ans2);
             uag.serializeData(uam);
             this.accounts = uam.getAccountInfo();
 
-            UserManager um = new UserManager();
             UserGateway ug = new UserGateway();
+            UserManager um = ug.deserializeData();
 
             switch (type) {
                 case "attendee":
-                    uam.addAccount(Username, Password, type);
                     um.createNewAttendee(Username, firstName, lastName, false);
-                    ug.serializeData(um);
-                    return lp.AccountMade();
+                    return makeAccount(Username, Password, type);
                 case "organizer":
-                    uam.addAccount(Username, Password, type);
                     um.createNewOrganizer(Username, firstName, lastName);
-                    ug.serializeData(um);
-                    return lp.AccountMade();
+                    return makeAccount(Username, Password, type);
                 case "speaker":
-                    uam.addAccount(Username, Password, type);
                     um.createNewSpeaker(Username, firstName, lastName);
-                    ug.serializeData(um);
-                    return lp.AccountMade();
+                    return makeAccount(Username, Password, type);
                 case "admin":
-                    uam.addAccount(Username, Password, type);
                     um.createNewAdmin(Username, firstName, lastName);
-                    ug.serializeData(um);
-                    return lp.AccountMade();
+                    return makeAccount(Username, Password, type);
                 case "vip":
-                    uam.addAccount(Username, Password, type);
                     um.createNewAttendee(Username, firstName, lastName, true);
-                    ug.serializeData(um);
+                    return makeAccount(Username, Password, type);
                 default:
                     return lp.IncorrectCredentials();
             }
@@ -154,6 +140,15 @@ public class LoginController {
 
             return lp.AccountExists();
         }
+    }
+
+    public JSONObject makeAccount(String username, String password, String type){
+        UserGateway ug = new UserGateway();
+        UserManager um = ug.deserializeData();
+
+        uam.addAccount(username, password, type);
+        ug.serializeData(um);
+        return lp.AccountMade();
     }
 
     /**
