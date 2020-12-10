@@ -232,6 +232,9 @@ public class LoginController {
 
     public JSONObject resetPassword(String user, String newPassword, String confirmPassword){
 
+        if (newPassword.length() == 0)
+            return lp.EmptyPassword();
+
         //Update password
         if (newPassword.equals(confirmPassword)){
             uam.setPassword(user, newPassword);
