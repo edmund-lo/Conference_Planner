@@ -34,6 +34,8 @@ public class AdminController extends UserController{
      * @return a JSON object containing the status and description of the action
      */
     public JSONObject createAccount(JSONObject register) {
+        this.deserializeData();
+
         String username = String.valueOf(register.get("username"));
         String firstName = String.valueOf(register.get("firstName"));
         String lastName = String.valueOf(register.get("lastName"));
@@ -117,6 +119,7 @@ public class AdminController extends UserController{
      * @return a JSON object containing all attendees
      */
     public JSONObject viewAllAttendees() {
+        this.deserializeData();
         return um.getAllAttendeesJson();
     }
 
@@ -136,6 +139,8 @@ public class AdminController extends UserController{
      * @return a JSON object containing the status and description of the action
      */
     public JSONObject setAttendeeAsVip(String username) {
+        this.deserializeData();
+
         if (!um.isVip(username)) {
             um.setAttendeeAsVip(username);
             this.saveData();
@@ -153,6 +158,8 @@ public class AdminController extends UserController{
      * @return a JSON object containing the status and description of the action
      */
     public JSONObject setAttendeeAsNotVip(String username) {
+        this.deserializeData();
+
         if (um.isVip(username)) {
             um.setAttendeeAsNotVip(username);
             this.saveData();
@@ -171,6 +178,8 @@ public class AdminController extends UserController{
      * @return a JSON object containing the status and description of the action
      */
     public JSONObject removeEvent(String eventID) {
+        this.deserializeData();
+
         if(em.isEventEmpty(eventID)) {
             em.removeEvent(eventID);
             this.saveData();
@@ -186,6 +195,7 @@ public class AdminController extends UserController{
      * @return JSONObject containing all message threads
      */
     public JSONObject getAllMessageThreads() {
+        this.deserializeData();
         return mm.getAllMessageThreadToJson();
     }
 
@@ -196,6 +206,8 @@ public class AdminController extends UserController{
      * @return a JSON object containing the status and description of the action
      */
     public JSONObject deleteMessageThread(String messageThreadID) {
+        this.deserializeData();
+
         mm.deleteMessage(messageThreadID);
         um.deleteMessageFromUsers(messageThreadID);
         this.saveData();
@@ -208,6 +220,8 @@ public class AdminController extends UserController{
      * @return a JSONObject containing all user login logs
      */
     public JSONObject getAllUserLogs() {
+        this.deserializeData();
+        this.llm = llg.deserializeData();
         return llm.getAllLogsJson();
     }
 
@@ -218,6 +232,8 @@ public class AdminController extends UserController{
      * @return a JSONObject containing the user's login logs
      */
     public JSONObject getLoginLogs(String username) {
+        this.deserializeData();
+        this.llm = llg.deserializeData();
         return llm.getLoginLogJSON(username);
     }
 
@@ -227,6 +243,7 @@ public class AdminController extends UserController{
      * @return a JSONObject containing all user accounts
      */
     public JSONObject getAllAccounts() {
+        this.deserializeData();
         return uam.getAllAccountsJSON();
     }
 
@@ -237,6 +254,7 @@ public class AdminController extends UserController{
      * @return a JSON object containing the status and description of the action
      */
     public JSONObject unlockAccount(String username){
+        this.deserializeData();
         uam.unlockAccount(username);
         this.saveData();
         return ap.accountUnlocked();

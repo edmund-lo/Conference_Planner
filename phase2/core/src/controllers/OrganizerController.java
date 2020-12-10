@@ -34,6 +34,8 @@ public class OrganizerController extends UserController {
      * @return a JSON object containing whether the message was sent successfully or not.
      */
     public JSONObject messageAllSpeakers(JSONObject register) {
+        this.deserializeData();
+
         String content = String.valueOf(register.get("content"));
         String subject = String.valueOf(register.get("subject"));
         String sender = String.valueOf(register.get("sender"));
@@ -55,6 +57,8 @@ public class OrganizerController extends UserController {
      * @return a JSONObject with the outcome of whether the message was successfully sent.
      */
     public JSONObject messageAllAttendees(JSONObject register) {
+        this.deserializeData();
+
         String content = String.valueOf(register.get("content"));
         String subject = String.valueOf(register.get("subject"));
         String sender = String.valueOf(register.get("sender"));
@@ -76,6 +80,8 @@ public class OrganizerController extends UserController {
      * @return a JSONObject containing whether the room was created successfully or not.
      */
     public JSONObject createRoom(JSONObject roomInfo) {
+        this.deserializeData();
+
         // extract the information from the json
         String roomName = roomInfo.get("roomName").toString();
         int capacity = (int) roomInfo.get("capacity");
@@ -102,6 +108,8 @@ public class OrganizerController extends UserController {
      */
 
     public JSONObject listAvailableSpeakers(String eventID) {
+        this.deserializeData();
+
         List<String> allSpeakers = um.getAllSpeakerNames();
         JSONArray availableSpeakers = new JSONArray();
         for (String speaker : allSpeakers) {
@@ -121,6 +129,8 @@ public class OrganizerController extends UserController {
      *
      */
     public JSONObject scheduleSpeaker(String eventID, String speakerName) {
+        this.deserializeData();
+
         LocalDateTime start = em.getEventStartTime(eventID);
         LocalDateTime end = em.getEventEndTime(eventID);
         if (!em.canAddSpeakerToEvent(eventID, speakerName)) {
@@ -162,6 +172,8 @@ public class OrganizerController extends UserController {
      * @return a JSON object with a warning, error or success message.
      */
     public JSONObject listPossibleRooms(JSONObject eventInfo){
+        this.deserializeData();
+
         List<Boolean> constraints = getConstraints(eventInfo);
         int eventCap = (int) eventInfo.get("capacity");
 
@@ -189,6 +201,8 @@ public class OrganizerController extends UserController {
      */
 
     public JSONObject createEventCmd(JSONObject eventInfo) {
+        this.deserializeData();
+
         if (rm.getAllRooms().size() == 0) //if there's no rooms
             op.noRoomError();
         List<Boolean> constraints = getConstraints(eventInfo); // get information about room constraints
@@ -243,6 +257,8 @@ public class OrganizerController extends UserController {
      * @param eventId the ID of the event you wish to cancel
      */
     public JSONObject cancelEvent(String eventId) {
+        this.deserializeData();
+
         rm.removeFromRoomSchedule(em.getEventStartTime(eventId),
                 em.getEventEndTime(eventId), em.getEventRoom(eventId), eventId);
         um.cancelAll(em.getAttendingUsers(eventId), eventId);
@@ -262,6 +278,8 @@ public class OrganizerController extends UserController {
      * @return A JSONObject detailing the outcome
      */
     public JSONObject rescheduleEvent(JSONObject info) {
+        this.deserializeData();
+
         String eventID = info.get("eventID").toString();
         String roomName = info.get("roomName").toString();
         LocalDateTime newStart = (LocalDateTime) info.get("startTime");
@@ -283,8 +301,9 @@ public class OrganizerController extends UserController {
      * @param eventInfo contains the information about the event who's capacity is attempting to be changed
      * @return a JSONObject containing whether the capacity was changed successfully or not.
      */
-
     public JSONObject changeEventCapacity(JSONObject eventInfo){
+        this.deserializeData();
+
         String eventID = eventInfo.get("eventID").toString();
         int capacity = (int) eventInfo.get("capacity");
         String roomName = eventInfo.get("roomName").toString();
@@ -302,6 +321,8 @@ public class OrganizerController extends UserController {
     }
 
     public JSONObject listRoomSchedule(String roomName, LocalDateTime time) {
+        this.deserializeData();
+
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
@@ -318,10 +339,12 @@ public class OrganizerController extends UserController {
     }
 
     public JSONObject getAllUsers(){
+        this.deserializeData();
         return um.getAllUsersJson();
     }
 
     public JSONObject getAllSpeakers(){
+        this.deserializeData();
         return um.getAllSpeakersJson();
     }
 }

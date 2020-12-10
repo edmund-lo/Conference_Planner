@@ -75,6 +75,8 @@ public abstract class UserController {
      *
      */
     public JSONObject signUpEventAttendance(String eventId) {
+        this.deserializeData();
+
         LocalDateTime start = em.getEventStartTime(eventId);
         LocalDateTime end = em.getEventEndTime(eventId);
         if (!um.canSignUp(username, eventId, start, end)) {
@@ -96,6 +98,8 @@ public abstract class UserController {
      *
      */
     public JSONObject cancelEventAttendance(String eventId) {
+        this.deserializeData();
+
         if(em.removeUserFromEvent(eventId, username)) {
             um.cancel(username, eventId);
             this.saveData();
@@ -110,6 +114,8 @@ public abstract class UserController {
      *@return list of events the user is attending in a string format
      */
     public JSONObject getAttendingEvents() {
+        this.deserializeData();
+
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
@@ -131,6 +137,8 @@ public abstract class UserController {
      *@return list of all events in the conference in a JSONArray format
      */
     public JSONObject getAllEventsCanSignUp(){
+        this.deserializeData();
+
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
@@ -154,6 +162,8 @@ public abstract class UserController {
      * @return a list of all events
      */
     public JSONObject getAllEvents() {
+        this.deserializeData();
+
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
@@ -172,26 +182,13 @@ public abstract class UserController {
     }
 
     /**
-     * Gets a list of all events that have not happened yet
-     *
-     * @return a list of all events
-     */
-    public JSONArray getAllEventsList() {
-        JSONArray events = new JSONArray();
-        for (String id : em.getAllEventIds()) {
-            if (em.getEventStartTime(id).isAfter(LocalDateTime.now())) {
-                events.add(em.getEventJson(id));
-            }
-        }
-        return events;
-    }
-
-    /**
      *Returns list of users that the user can send messages to.
      *
      *@return list of speakers and attendees in a string format
      */
     public JSONObject getAllMessageableUsers(){
+        this.deserializeData();
+
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
@@ -213,6 +210,8 @@ public abstract class UserController {
      * @return List of Strings representing all of the user's primary messages.
      */
     public JSONObject getAllPrimaryMessages(){
+        this.deserializeData();
+
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
@@ -234,6 +233,8 @@ public abstract class UserController {
      * @return List of Strings representing all of the user's archived messages.
      */
     public JSONObject getAllArchivedMessages(){
+        this.deserializeData();
+
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
@@ -255,11 +256,13 @@ public abstract class UserController {
      * @return List of Strings representing all of the user's trash messages.
      */
     public JSONObject getAllTrashMessages(){
+        this.deserializeData();
+
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
 
-        for (String id: um.getTrashMessages(this.username).keySet()){
+        for (String id: um.getTrashMessages(this.username)){
             item.put(id, mm.getOneMessageThreadToJson(id));
         }
 
@@ -286,6 +289,8 @@ public abstract class UserController {
      * @param  messageThreadId id of the message user is adding.
      */
     public void addMessagesToUser(ArrayList<String> recipientNames, String messageThreadId) {
+        this.deserializeData();
+
         um.sendMessage(this.username, messageThreadId);
 
         for(String recipientName : recipientNames) {
@@ -299,7 +304,6 @@ public abstract class UserController {
      *
      * @param  messageThreadId id of the message user want to change.
      */
-
     public void changeMessageStatus(String messageThreadId){
         um.changeReadForMes(username, messageThreadId);
         this.saveData();
@@ -311,6 +315,8 @@ public abstract class UserController {
      * @param  register the JSON Object which stores info about the message going to send.
      */
     public JSONObject sendMessage(JSONObject register) {
+        this.deserializeData();
+
         String content = String.valueOf(register.get("content"));
         ArrayList recipientNames = (ArrayList)(register.get("recipients"));
         String subject = String.valueOf(register.get("subject"));
@@ -332,6 +338,8 @@ public abstract class UserController {
      * @param  content the
      */
     public JSONObject replyMessage(String messageThreadId, String content) {
+        this.deserializeData();
+
         if (mm.messageThreadExists(messageThreadId)) {
             String sender = mm.reply(messageThreadId, content);
             this.saveData();
@@ -347,6 +355,8 @@ public abstract class UserController {
      * @return JSONObject detailing the results
      */
     public JSONObject addFriend(String username){
+        this.deserializeData();
+
         um.addFriend(this.username, username);
         this.saveData();
         return up.friendAdded(username);
@@ -358,6 +368,8 @@ public abstract class UserController {
      * @return JSONObject detailing the results
      */
     public JSONObject removeFriend(String username){
+        this.deserializeData();
+
         um.removeFriend(this.username, username);
         this.saveData();
         return up.friendRemoved(username);
@@ -369,6 +381,8 @@ public abstract class UserController {
      * @return JSONObject detailing the results
      */
     public JSONObject removeFriendRequest(String username){
+        this.deserializeData();
+
         um.declineRequest(username, this.username);
         this.saveData();
         return up.requestRemoved(username);
@@ -380,6 +394,8 @@ public abstract class UserController {
      * @return JSONObject detailing the results
      */
     public JSONObject declineRequest(String username){
+        this.deserializeData();
+
         um.declineRequest(this.username, username);
         this.saveData();
         return up.requestDenied(username);
@@ -391,6 +407,8 @@ public abstract class UserController {
      * @return JSONObject detailing the results
      */
     public JSONObject sendFriendRequest(String username){
+        this.deserializeData();
+
         if (um.canBeFriend(this.username, username)){
             um.sendFriendRequest(this.username, username);
             this.saveData();
@@ -404,6 +422,7 @@ public abstract class UserController {
      * @return JSONObject containing all of the friends of this user
      */
     public JSONObject getFriends(){
+        this.deserializeData();
         return um.getAllFriendsJson(username);
     }
 
@@ -411,13 +430,17 @@ public abstract class UserController {
      * Getter for the friend requests of this user
      * @return JSONObject containing all of the friend requests of this user
      */
-    public JSONObject getFriendRequests(){return um.getAllFriendsRequestsJson(username);}
+    public JSONObject getFriendRequests(){
+        this.deserializeData();
+        return um.getAllFriendsRequestsJson(username);
+    }
 
     /**
      * Getter for the non friends of this user
      * @return JSONObject containing all of the non friends of the user
      */
     public JSONObject getNonFriends(){
+        this.deserializeData();
         return um.getAllNonFriendsJson(username);
     }
 
@@ -426,6 +449,7 @@ public abstract class UserController {
      * @return JSONObject containing all of the sent requests of the suer
      */
     public JSONObject getSentRequests(){
+        this.deserializeData();
         return um.getAllSentRequestsJson(username);
     }
 
@@ -435,6 +459,8 @@ public abstract class UserController {
      * @return JSONObject containing all common events
      */
     public JSONObject getCommonEvents(String username){
+        this.deserializeData();
+
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
@@ -459,16 +485,7 @@ public abstract class UserController {
      * @return JSONObject of the user greeting
      */
     public JSONObject getUser() {
+        this.deserializeData();
         return up.greeting(um.getUserInfo(this.username)[1], um.getUserInfo(this.username)[2]);
-    }
-
-    /**
-     * Logs the user out of the program
-     *
-     * @return returns the current UserController class.
-     */
-    public UserController logout() {
-        up.logoutMessage();
-        return this;
     }
 }

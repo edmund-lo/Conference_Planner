@@ -102,19 +102,24 @@ public class LoginController {
             switch (type) {
                 case "attendee":
                     um.createNewAttendee(Username, firstName, lastName, false);
-                    return makeAccount(Username, Password, type);
+                    ug.serializeData(um);
+                    return lp.AccountMade();
                 case "organizer":
                     um.createNewOrganizer(Username, firstName, lastName);
-                    return makeAccount(Username, Password, type);
+                    ug.serializeData(um);
+                    return lp.AccountMade();
                 case "speaker":
                     um.createNewSpeaker(Username, firstName, lastName);
-                    return makeAccount(Username, Password, type);
+                    ug.serializeData(um);
+                    return lp.AccountMade();
                 case "administrator":
                     um.createNewAdmin(Username, firstName, lastName);
-                    return makeAccount(Username, Password, type);
+                    ug.serializeData(um);
+                    return lp.AccountMade();
                 case "vip":
                     um.createNewAttendee(Username, firstName, lastName, true);
-                    return makeAccount(Username, Password, type);
+                    ug.serializeData(um);
+                    return lp.AccountMade();
                 default:
                     return lp.IncorrectCredentials();
             }
@@ -134,21 +139,15 @@ public class LoginController {
         }
     }
 
-    public JSONObject makeAccount(String username, String password, String type){
-        UserGateway ug = new UserGateway();
-        UserManager um = ug.deserializeData();
-
-        uam.addAccount(username, password, type);
-        ug.serializeData(um);
-        return lp.AccountMade();
-    }
-
     /**
      * Called to let user login to an existing account in the database.
      */
     public JSONObject login(String Username, String Password){
         boolean UsernameExists = false;
         boolean PasswordExists = false;
+
+        uam = uag.deserializeData();
+        this.accounts = uam.getAccountInfo();
 
         if (Username.length() == 0)
             return lp.EmptyName();
@@ -167,8 +166,11 @@ public class LoginController {
             }
         }
 
+
+        if (!UsernameExists)
+            return lp.usernameDoesntExist();
         //If the username doesn't exist or password doesn't match, log a failed login.
-        if (!(UsernameExists && PasswordExists)){
+        else if (!(PasswordExists)){
             updateLogs(Username, false);
             //If past 3 logs are failed logins, lock the account.
             if (suspiciousLogs(Username)){
@@ -180,7 +182,7 @@ public class LoginController {
         }
 
         //If account is locked, don't let the user login.
-        uam = uag.deserializeData();
+
         if(uam.isLocked(Username))
             return lp.AccountLocked();
 
@@ -193,8 +195,6 @@ public class LoginController {
      */
     public JSONObject lockOut(String Username){
         uam = uag.deserializeData();
-        if (!usernameExists(Username))
-            return lp.IncorrectCredentials();
 
         uam.lockAccount(Username);
         uag.serializeData(uam);
@@ -267,8 +267,6 @@ public class LoginController {
      */
     public void updateLogs(String Username, boolean type){
         llm = llg.deserializeData();
-        if (!usernameExists(Username))
-            return;
 
         //Get current time and convert it to string/
         LocalDateTime time = LocalDateTime.now();

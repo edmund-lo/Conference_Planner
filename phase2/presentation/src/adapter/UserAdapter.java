@@ -46,7 +46,7 @@ public class UserAdapter {
         String username = String.valueOf(jsonObject.get("username"));
         String firstName = String.valueOf(jsonObject.get("firstName"));
         String lastName = String.valueOf(jsonObject.get("lastName"));
-        String userType = String.valueOf(jsonObject.get("userType"));
+        String userType = String.valueOf(jsonObject.get("type"));
         boolean vip = String.valueOf(jsonObject.get("vip")).equals("true");
 
         return new User(username, firstName, lastName, userType, vip);
