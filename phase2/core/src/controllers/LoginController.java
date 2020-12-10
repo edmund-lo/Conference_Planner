@@ -8,11 +8,8 @@ import presenters.LoginPresenter;
 import usecases.LoginLogManager;
 import usecases.UserAccountManager;
 import usecases.UserManager;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 /**
  * A Controller class which deals with users logging in and creating new accounts.
@@ -120,7 +117,7 @@ public class LoginController {
                 case "speaker":
                     um.createNewSpeaker(Username, firstName, lastName);
                     return makeAccount(Username, Password, type);
-                case "admin":
+                case "administrator":
                     um.createNewAdmin(Username, firstName, lastName);
                     return makeAccount(Username, Password, type);
                 case "vip":
@@ -177,7 +174,7 @@ public class LoginController {
 
         //If the username doesn't exist or password doesn't match, log a failed login.
         if (!(UsernameExists && PasswordExists)){
-            updateLogs(Username, "Failed Login");
+            updateLogs(Username, false);
             //If past 3 logs are failed logins, lock the account.
             if (suspiciousLogs(Username)){
                 lockOut(Username);
@@ -191,6 +188,7 @@ public class LoginController {
         if(uam.isLocked(Username))
             return lp.AccountLocked();
 
+        updateLogs(Username, true);
         return lp.SuccessfulLogin(uam.getAccountJSON(Username));
     }
 
@@ -219,9 +217,6 @@ public class LoginController {
     public JSONObject verifySecurityAnswers(String User, String a1, String a2){
         String[] answers = uam.getSecurityAns(User);
 
-        lp.SecurityQuestion1();
-        lp.SecurityQuestion2();
-
         //Check if answers to security questions match.
         if (a1.equals(answers[1]) && a2.equals(answers[2]))
             return lp.correctAnswers();
@@ -247,16 +242,13 @@ public class LoginController {
     /**
      * Update the logs database.
      */
-    public void updateLogs(String Username, String type){
+    public void updateLogs(String Username, boolean type){
         //Get current time and convert it to string/
-        String pattern = "MM/dd/yyyy HH:mm:ss";
-        DateFormat dateForm = new SimpleDateFormat(pattern);
-        String dateString = dateForm.format(Calendar.getInstance().getTime());
+        LocalDateTime time = LocalDateTime.now();
 
         //Add log.
-        llm.addToLoginLogSet(type, Username, dateString);
+        llm.addToLoginLogSet(type, Username, time);
         llg.serializeData(llm);
-
     }
 
     public JSONObject accountJson(String username){
