@@ -103,23 +103,23 @@ public class LoginController {
                 case "attendee":
                     um.createNewAttendee(Username, firstName, lastName, false);
                     ug.serializeData(um);
-                    return makeAccount(Username, Password, type);
+                    return lp.AccountMade();
                 case "organizer":
                     um.createNewOrganizer(Username, firstName, lastName);
                     ug.serializeData(um);
-                    return makeAccount(Username, Password, type);
+                    return lp.AccountMade();
                 case "speaker":
                     um.createNewSpeaker(Username, firstName, lastName);
                     ug.serializeData(um);
-                    return makeAccount(Username, Password, type);
+                    return lp.AccountMade();
                 case "administrator":
                     um.createNewAdmin(Username, firstName, lastName);
                     ug.serializeData(um);
-                    return makeAccount(Username, Password, type);
+                    return lp.AccountMade();
                 case "vip":
                     um.createNewAttendee(Username, firstName, lastName, true);
                     ug.serializeData(um);
-                    return makeAccount(Username, Password, type);
+                    return lp.AccountMade();
                 default:
                     return lp.IncorrectCredentials();
             }
