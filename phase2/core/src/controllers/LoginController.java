@@ -169,8 +169,8 @@ public class LoginController {
             updateLogs(Username, false);
             //If past 3 logs are failed logins, lock the account.
             if (suspiciousLogs(Username)){
-                lockOut(Username);
-                return lp.AccountLocked();
+                return lockOut(Username);
+
             }
             else
                 return lp.IncorrectCredentials();
@@ -187,12 +187,13 @@ public class LoginController {
     /**
      * Locks a user, which prevents them from logging in until an Admin unlocks their account.
      */
-    public void lockOut(String Username){
+    public JSONObject lockOut(String Username){
         if (!usernameExists(Username))
-            return;
+            return lp.IncorrectCredentials();
 
         uam.lockAccount(Username);
         uag.serializeData(uam);
+        return lp.AccountLocked();
     }
 
     /**
@@ -256,6 +257,9 @@ public class LoginController {
      * Update the logs database.
      */
     public void updateLogs(String Username, boolean type){
+        if (!usernameExists(Username))
+            return;
+
         //Get current time and convert it to string/
         LocalDateTime time = LocalDateTime.now();
 
