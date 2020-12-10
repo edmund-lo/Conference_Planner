@@ -51,6 +51,8 @@ public class MessagingView implements IMessagingView {
     @FXML
     private Text primarySubject;
     @FXML
+    private TextArea content;
+    @FXML
     private Text archivedSender;
     @FXML
     private Text archivedRecipients;
@@ -132,6 +134,11 @@ public class MessagingView implements IMessagingView {
     @Override
     public void setPrimarySubject(String subject) {
         this.primarySubject.setText(subject);
+    }
+
+    @Override
+    public String getContent() {
+        return this.content.getText();
     }
 
     @Override

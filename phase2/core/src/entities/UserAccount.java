@@ -4,14 +4,11 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * An entity class for a user account.
  */
-public class UserAccount {
+public class UserAccount implements Serializable {
     private String username;
     private String password;
     private Boolean locked;
@@ -184,8 +181,6 @@ public class UserAccount {
     public void setSetSecurity(boolean setSecurity) {
         this.setSecurity = setSecurity;
     }
-
-
 
     /**
      * @return A JSONArray that contains the JSON representation of this class
