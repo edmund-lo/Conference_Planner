@@ -53,10 +53,9 @@ public class ScheduleSpeakerView implements IScheduleSpeakerView {
     }
     @FXML
     public void initialize() {
-        this.presenter = new ScheduleSpeakerPresenter(this);
+        new ScheduleSpeakerPresenter(this);
     }
 
-    private ScheduleSpeakerPresenter presenter;
     private EventHandler<ActionEvent> scheduleSpeakerButtonAction;
     private Stage stage;
     private String sessionUsername;

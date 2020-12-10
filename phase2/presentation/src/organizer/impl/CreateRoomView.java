@@ -34,10 +34,9 @@ public class CreateRoomView implements ICreateRoomView {
     }
     @FXML
     public void initialize() {
-        this.presenter = new CreateRoomPresenter(this);
+        new CreateRoomPresenter(this);
     }
 
-    private CreateRoomPresenter presenter;
     private EventHandler<ActionEvent> createRoomButtonAction;
     private Stage stage;
     private String sessionUsername;

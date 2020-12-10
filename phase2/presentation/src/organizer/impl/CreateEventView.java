@@ -91,10 +91,9 @@ public class CreateEventView implements ICreateEventView {
     }
     @FXML
     public void initialize() {
-        this.presenter = new CreateEventPresenter(this);
+        new CreateEventPresenter(this);
     }
 
-    private CreateEventPresenter presenter;
     private EventHandler<ActionEvent> findRoomsButtonAction;
     private EventHandler<ActionEvent> previousFirstButtonAction;
     private EventHandler<ActionEvent> previewRoomButtonAction;

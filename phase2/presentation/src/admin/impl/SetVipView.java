@@ -43,10 +43,9 @@ public class SetVipView implements ISetVipView {
     }
     @FXML
     public void initialize() {
-        this.presenter = new SetVipPresenter(this);
+        new SetVipPresenter(this);
     }
 
-    private SetVipPresenter presenter;
     private EventHandler<ActionEvent> changeVipButtonAction;
     private Stage stage;
     private String sessionUsername;

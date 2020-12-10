@@ -10,6 +10,7 @@ public interface IToolbarView extends ILoggedInView {
     HBox getSpeakerGroup();
     HBox getAdminGroup();
 
+    //region Sets all button actions
     void setHomeButtonAction(EventHandler<ActionEvent> eventHandler);
     void setViewScheduleButtonAction(EventHandler<ActionEvent> eventHandler);
     void setViewEventsButtonAction(EventHandler<ActionEvent> eventHandler);
@@ -28,4 +29,5 @@ public interface IToolbarView extends ILoggedInView {
     void setDeleteMessagesButtonAction(EventHandler<ActionEvent> eventHandler);
     void setRemoveEventsButtonAction(EventHandler<ActionEvent> eventHandler);
     void setLogoutButtonAction(EventHandler<ActionEvent> eventHandler);
+    //endregion
 }

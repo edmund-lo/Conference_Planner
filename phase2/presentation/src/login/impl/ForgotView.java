@@ -64,10 +64,9 @@ public class ForgotView implements IForgotView {
     }
     @FXML
     public void initialize() {
-        this.presenter = new ForgotPresenter(this);
+        new ForgotPresenter(this);
     }
 
-    private ForgotPresenter presenter;
     private EventHandler<ActionEvent> resetButtonAction;
     private EventHandler<ActionEvent> firstBackButtonAction;
     private EventHandler<ActionEvent> secondBackButtonAction;

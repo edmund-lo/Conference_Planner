@@ -44,10 +44,9 @@ public class SetupView implements IRegisterView {
     }
     @FXML
     public void initialize() {
-        this.presenter = new SetupPresenter(this);
+        new SetupPresenter(this);
     }
 
-    private SetupPresenter presenter;
     private EventHandler<ActionEvent> registerButtonAction;
     private EventHandler<ActionEvent> backButtonAction;
     private Stage stage;

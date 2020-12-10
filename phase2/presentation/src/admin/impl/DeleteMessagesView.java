@@ -38,9 +38,10 @@ public class DeleteMessagesView implements IDeleteMessagesView {
         if (deleteButtonAction != null) deleteButtonAction.handle(event);
     }
     @FXML
-    public void initialize() { this.presenter = new DeleteMessagesPresenter(this); }
+    public void initialize() {
+        new DeleteMessagesPresenter(this);
+    }
 
-    private DeleteMessagesPresenter presenter;
     private EventHandler<ActionEvent> deleteButtonAction;
     private Stage stage;
     private String sessionUsername;

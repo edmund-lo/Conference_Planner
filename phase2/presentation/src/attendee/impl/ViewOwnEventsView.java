@@ -60,10 +60,9 @@ public class ViewOwnEventsView implements IViewEventsView {
     }
     @FXML
     public void initialize() {
-        this.presenter = new ViewOwnEventsPresenter(this);
+        new ViewOwnEventsPresenter(this);
     }
 
-    private ViewOwnEventsPresenter presenter;
     private EventHandler<ActionEvent> cancelButtonAction;
     private Stage stage;
     private String sessionUsername;

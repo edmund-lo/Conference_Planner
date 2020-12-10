@@ -43,10 +43,9 @@ public class MessageSpeakersView implements IMessageUsersView {
     }
     @FXML
     public void initialize() {
-        this.presenter = new MessageSpeakersPresenter(this);
+        new MessageSpeakersPresenter(this);
     }
 
-    private MessageSpeakersPresenter presenter;
     private EventHandler<ActionEvent> createAccountButtonAction;
     private EventHandler<ActionEvent> selectAllAction;
     private Stage stage;

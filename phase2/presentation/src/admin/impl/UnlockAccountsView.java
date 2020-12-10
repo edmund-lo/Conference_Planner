@@ -41,10 +41,9 @@ public class UnlockAccountsView implements IUnlockAccountsView {
     }
     @FXML
     public void initialize() {
-        this.presenter = new UnlockAccountsPresenter(this);
+        new UnlockAccountsPresenter(this);
     }
 
-    private UnlockAccountsPresenter presenter;
     private EventHandler<ActionEvent> unlockButtonAction;
     private Stage stage;
     private String sessionUsername;

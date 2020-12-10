@@ -101,9 +101,10 @@ public class FriendsView implements IFriendsView {
         if (declineButtonAction != null) declineButtonAction.handle(event);
     }
     @FXML
-    public void initialize() { this.presenter = new FriendsPresenter(this); }
+    public void initialize() {
+        new FriendsPresenter(this);
+    }
 
-    private FriendsPresenter presenter;
     private EventHandler<ActionEvent> removeFriendButtonAction;
     private EventHandler<ActionEvent> removeRequestButtonAction;
     private EventHandler<ActionEvent> addFriendButtonAction;

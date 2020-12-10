@@ -68,10 +68,9 @@ public class RescheduleCancelEventView implements IRescheduleCancelEventView {
     }
     @FXML
     public void initialize() {
-        this.presenter = new RescheduleCancelEventPresenter(this);
+        new RescheduleCancelEventPresenter(this);
     }
 
-    private RescheduleCancelEventPresenter presenter;
     private EventHandler<ActionEvent> cancelButtonAction;
     private EventHandler<ActionEvent> rescheduleButtonAction;
     private Stage stage;

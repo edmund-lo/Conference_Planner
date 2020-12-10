@@ -60,10 +60,9 @@ public class ViewAllEventsView implements IViewEventsView {
     }
     @FXML
     public void initialize() {
-        this.presenter = new ViewAllEventsPresenter(this);
+        new ViewAllEventsPresenter(this);
     }
 
-    private ViewAllEventsPresenter presenter;
     private EventHandler<ActionEvent> signUpButtonAction;
     private Stage stage;
     private String sessionUsername;

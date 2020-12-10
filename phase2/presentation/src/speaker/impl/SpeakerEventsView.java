@@ -59,11 +59,8 @@ public class SpeakerEventsView implements ISpeakerEventsView {
         if (sendButtonAction != null) sendButtonAction.handle(event);
     }
     @FXML
-    public void initialize() {
-        this.presenter = new SpeakerEventsPresenter(this);
-    }
+    public void initialize() { new SpeakerEventsPresenter(this); }
 
-    private SpeakerEventsPresenter presenter;
     private EventHandler<ActionEvent> sendButtonAction;
     private Stage stage;
     private String sessionUsername;

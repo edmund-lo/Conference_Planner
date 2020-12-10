@@ -16,6 +16,7 @@ public class ToolbarView implements IToolbarView {
     @FXML
     private HBox adminGroup;
 
+    //region Adds button handlers to JavaFX buttons
     @FXML
     public void executeAddHome(ActionEvent event) {
         if (homeButtonAction != null) homeButtonAction.handle(event);
@@ -88,12 +89,12 @@ public class ToolbarView implements IToolbarView {
     public void executeAddLogout(ActionEvent event) {
         if (logoutButtonAction != null) logoutButtonAction.handle(event);
     }
+    //endregion
     @FXML
     public void initialize() {
-        this.presenter = new ToolbarPresenter(this);
+        new ToolbarPresenter(this);
     }
 
-    private ToolbarPresenter presenter;
     private EventHandler<ActionEvent> homeButtonAction;
     private EventHandler<ActionEvent> viewScheduleButtonAction;
     private EventHandler<ActionEvent> viewEventsButtonAction;

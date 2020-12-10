@@ -16,10 +16,9 @@ public class HomeView implements IHomeView {
 
     @FXML
     public void initialize() {
-        this.presenter = new HomePresenter(this);
+        new HomePresenter(this);
     }
 
-    private HomePresenter presenter;
     private Stage stage;
     private String sessionUsername;
     private String sessionUserType;
