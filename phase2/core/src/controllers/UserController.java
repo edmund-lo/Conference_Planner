@@ -250,7 +250,10 @@ public abstract class UserController {
     public void changeMessageStatus(String messageThreadId){
         if (mm.checkMessageStatus(messageThreadId)){
             mm.unreadMessage(messageThreadId);
-        }else{mm.readMessage(messageThreadId);}
+        } else {
+            mm.readMessage(messageThreadId);
+        }
+        this.saveData();
     }
 
     /**
