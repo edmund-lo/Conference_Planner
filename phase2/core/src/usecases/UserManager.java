@@ -325,6 +325,15 @@ public class UserManager implements Serializable {
     }
 
     /**
+     * Gets users first and last name
+     * @param username the username
+     * @return string array of first and last name
+     */
+    public String[] getUserInfo(String username) {
+        return new String[] {allUsers.get(username).getFirstName(), allUsers.get(username).getLastName()};
+    }
+
+    /**
      * Checks if username is unique.
      *
      * @param username the username

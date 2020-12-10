@@ -259,28 +259,14 @@ public abstract class UserController {
         return json;
     }
 
-    /**
-     * Gets all of the current user's JSON unread messages
-     *
-     * @return List of Strings representing all of the user's unread messages.
-     */
-    public JSONObject getUnreadMessages() {
-        JSONObject json = new JSONObject();
-        JSONArray array = new JSONArray();
-        JSONObject item = new JSONObject();
-
-        for (String id: um.getPrimaryMessages(this.username)){
-            if (!mm.checkMessageStatus(id)) {
-                item.put(id, mm.getOneMessageThreadToJson(id));
-            }
-        }
-
-        array.add(item);
-
-        json.put("data", array);
-
-        return json;
-    }
+//    /**
+//     * Gets number of user's unread messages
+//     *
+//     * @return JSONObject of number of unread messages
+//     */
+//    public JSONObject getUnreadMessages() {
+//
+//    }
 
     /**
      *Calls the user manager to add a messageId to a user's list
@@ -445,11 +431,11 @@ public abstract class UserController {
     }
 
     /**
-     * Getter for a users json
-     * @return JSONObject of the user
+     * Getter for user greeting
+     * @return JSONObject of the user greeting
      */
     public JSONObject getUser() {
-        return um.getUserJson(this.username);
+        return up.greeting(um.getUserInfo(this.username)[1], um.getUserInfo(this.username)[2]);
     }
 
     /**

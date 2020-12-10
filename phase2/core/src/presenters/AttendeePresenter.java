@@ -50,4 +50,13 @@ public class AttendeePresenter extends UserPresenter{
     public JSONObject cancelVipResult(String eventName) {
         return pu.createJSON("success", "You have cancelled your attendance in the VIP event: " + eventName);
     }
+
+    /**
+     * Prints message about the number of events they are attending the next day
+     *
+     * @param numEvents the number of events they have the next day
+     */
+    public JSONObject numberNextDayEvents(int numEvents) {
+        return pu.createJSON("success", "You have " + numEvents + " tomorrow");
+    }
 }

@@ -74,27 +74,21 @@ public class AttendeeController extends UserController {
     }
 
     /**
-     * Gets an attendees next day events
+     * Gets an attendees number of next day events
      *
      * @return a JSON object of all the attendees next day events
      */
     public JSONObject getNextDayEvents(){
-        JSONObject json = new JSONObject();
-        JSONArray array = new JSONArray();
-        JSONObject item = new JSONObject();
+        int numEvents = 0;
 
         for (String eventID: um.getSchedule(this.username).keySet()){
             int day = em.getEventStartTime(eventID).getDayOfYear();
             if (day == LocalDateTime.now().getDayOfYear() + 1) {
-                item.put(eventID, em.getEventJson(eventID));
+                numEvents += 1;
             }
         }
 
-        array.add(item);
-
-        json.put("data", array);
-
-        return json;
+        return ap.numberNextDayEvents(numEvents);
     }
 
 }

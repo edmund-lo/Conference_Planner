@@ -158,4 +158,23 @@ public class UserPresenter {
     public JSONObject requestRemoved(String username){
         return pu.createJSON("success", "request to "+username + " has been removed");
     }
+
+    /**
+     * Greeting for the user
+     * @param firstName first name
+     * @param lastName last name
+     * @return the method description in JSONObject format
+     */
+    public JSONObject greeting(String firstName, String lastName) {
+        return pu.createJSON("success", "Welcome " + firstName + " " + lastName);
+    }
+
+    /**
+     * Notifies the user of their number of unread messages
+     * @param numUnread number of unread messages
+     * @return the method description in JSONObject format
+     */
+    public JSONObject numberUnreadMessages(int numUnread) {
+        return pu.createJSON("success", "You have " + numUnread + " unread messages");
+    }
 }
