@@ -32,6 +32,8 @@ public class SpeakerController extends UserController {
      * Called when user chooses to message one or more events' attendees.
      */
     public JSONObject messageEventsAttendeesCmd(JSONArray eventIds, String message, String subject) {
+        this.deserializeData();
+
         List<String> eventIDsString = new ArrayList<>();
         if(eventIds.isEmpty()){
             return sp.noSpeakerEventsError();
@@ -87,6 +89,8 @@ public class SpeakerController extends UserController {
      * @return List of Strings representing the events the current speaker is speaking at.
      */
     public JSONObject getSpeakerEvents() {
+        this.deserializeData();
+
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();

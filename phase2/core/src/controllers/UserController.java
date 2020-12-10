@@ -494,15 +494,4 @@ public abstract class UserController {
         this.deserializeData();
         return up.greeting(um.getUserInfo(this.username)[1], um.getUserInfo(this.username)[2]);
     }
-
-    /**
-     * Logs the user out of the program
-     *
-     * @return returns the current UserController class.
-     */
-    public UserController logout() {
-        this.deserializeData();
-        up.logoutMessage();
-        return this;
-    }
 }

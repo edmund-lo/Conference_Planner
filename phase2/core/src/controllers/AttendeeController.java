@@ -1,6 +1,5 @@
 package controllers;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import presenters.AttendeePresenter;
 
@@ -42,6 +41,8 @@ public class AttendeeController extends UserController {
      * @return a JSON object containing the status and description of the action
      */
     public JSONObject signUpVipEventAttendance(String eventID) {
+        this.deserializeData();
+
         LocalDateTime start = em.getEventStartTime(eventID);
         LocalDateTime end = em.getEventEndTime(eventID);
         if (!um.isVip(username)) {
@@ -65,6 +66,8 @@ public class AttendeeController extends UserController {
      * @return a JSON object containing the status and description of the action
      */
     public JSONObject cancelVipEventAttendance(String eventID) {
+        this.deserializeData();
+
         if(em.removeUserFromEvent(eventID, username)) {
             um.cancel(username, eventID);
             this.saveData();
@@ -80,6 +83,8 @@ public class AttendeeController extends UserController {
      */
     @SuppressWarnings("unchecked")
     public JSONObject getNextDayEvents(){
+        this.deserializeData();
+
         int numEvents = 0;
 
         for (String eventID: um.getSchedule(this.username).keySet()){
