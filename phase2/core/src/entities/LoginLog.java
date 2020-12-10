@@ -1,6 +1,7 @@
 package entities;
 import org.json.simple.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -9,7 +10,10 @@ import java.util.ArrayList;
  * @version 1.0
  */
 public class LoginLog implements Serializable {
-    private final ArrayList<String>  logs = new ArrayList<>();
+    private final ArrayList  logs = new ArrayList<>();
+    public boolean condition;
+    public String username = "";
+    public LocalDateTime time;
 
     /**
      * Constructor for a LoginLog.
@@ -19,7 +23,10 @@ public class LoginLog implements Serializable {
      * @param time the time of login
 
      */
-    public LoginLog(String condition, String username, String time) {
+    public LoginLog(boolean condition, String username, LocalDateTime time) {
+        this.condition = condition;
+        this.username = username;
+        this.time = time;
         logs.set(0, condition);
         logs.set(1, username);
         logs.set(2, time);
@@ -30,7 +37,7 @@ public class LoginLog implements Serializable {
      *
      * @return The login logs as an ArrayList
      */
-    public ArrayList<String> getLoginLogs() {
+    public ArrayList getLoginLogs() {
         return logs;
     }
 
@@ -39,8 +46,8 @@ public class LoginLog implements Serializable {
      * Example: "Successful Login"
      * @return type of login condition
      */
-    public String getCondition() {
-        return logs.get(0);
+    public boolean getCondition() {
+        return this.condition;
     }
 
     /**
@@ -48,15 +55,15 @@ public class LoginLog implements Serializable {
      * @return username
      */
     public String getUsername() {
-        return logs.get(1);
+        return this.username;
     }
 
     /**
      * gets the time of login
      * @return password
      */
-    public String getTime() {
-        return logs.get(2);
+    public LocalDateTime getTime() {
+        return this.time;
     }
 
     /**
@@ -64,7 +71,7 @@ public class LoginLog implements Serializable {
      * @return a string of the login log
      */
     public String toString() {
-        return this.getCondition() + " The username is " + this.getUsername() +
+        return "The condition of this is " + this.getCondition() + ". The username is " + this.getUsername() +
                 ". The time of login is " + this.getTime() + ".";
     }
 
