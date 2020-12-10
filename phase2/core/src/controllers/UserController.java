@@ -262,7 +262,7 @@ public abstract class UserController {
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
 
-        for (String id: um.getTrashMessages(this.username)){
+        for (String id: um.getTrashMessages(this.username).keySet()){
             item.put(id, mm.getOneMessageThreadToJson(id));
         }
 
