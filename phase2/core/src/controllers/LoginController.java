@@ -136,6 +136,10 @@ public class LoginController {
                     um.createNewAdmin(Username, firstName, lastName);
                     ug.serializeData(um);
                     return lp.AccountMade();
+                case "vip":
+                    uam.addAccount(Username, Password, type);
+                    um.createNewAttendee(Username, firstName, lastName, true);
+                    ug.serializeData(um);
                 default:
                     return lp.IncorrectCredentials();
             }
