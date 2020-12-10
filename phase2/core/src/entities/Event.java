@@ -11,10 +11,11 @@ import java.util.List;
 
 /**
  * Implementation of an event with all details pertaining to it stored inside.
+ * @author Sam De Abreu
  */
 public class Event implements Serializable {
-    private String eventName;
-    private String eventID;
+    private final String eventName;
+    private final String eventID;
     private List<String> speakerNames;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
@@ -28,13 +29,19 @@ public class Event implements Serializable {
     private boolean needsSoundSystem;
 
     /**
-     * Constructor for Entities.Event
+     * constructor for the event entity
      *
-     * @param eventID The randomly generated ID for this Entities.Event
-     * @param eventName Name of the event
-     * @param startTime Start time of the event
-     * @param endTime End time of the event
-     * @param roomName Name of the room the event is in
+     * @param eventID ID of the event
+     * @param eventName name of the event
+     * @param startTime start time of the event
+     * @param endTime end time of the event
+     * @param roomName name of the room for the event
+     * @param needsChairs whether this event needs chairs
+     * @param needsTables whether this event needs tables
+     * @param needsProjector whether this event needs a projector
+     * @param needsSoundSystem whether this event needs a sound system
+     * @param capacity capacity of this event
+     * @param vipEvent whether this event is a VIP event
      */
     public Event(String eventID, String eventName, LocalDateTime startTime, LocalDateTime endTime, String roomName,
                  boolean needsChairs, boolean needsTables, boolean needsProjector, boolean needsSoundSystem,

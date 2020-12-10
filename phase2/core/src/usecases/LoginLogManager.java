@@ -117,6 +117,7 @@ public class LoginLogManager implements Serializable {
      * @param username the username
      * @return  A JSONObject that contains the JSON representation of this class
      */
+    @SuppressWarnings("unchecked")
     public JSONObject getLoginLogJSON(String username) {
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();

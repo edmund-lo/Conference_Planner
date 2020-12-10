@@ -178,6 +178,7 @@ public class UserAccountManager implements Serializable {
      *
      * @return a JSONObject containing all user accounts
      */
+    @SuppressWarnings("unchecked")
     public JSONObject getAllAccountsJSON() {
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
