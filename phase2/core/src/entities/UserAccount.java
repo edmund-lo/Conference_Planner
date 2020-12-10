@@ -3,10 +3,12 @@ package entities;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * An entity class for a user account.
  */
-public class UserAccount {
+public class UserAccount implements Serializable {
     private String username;
     private String password;
     private Boolean locked;
