@@ -51,10 +51,6 @@ public class MessageThread {
         return senderName.get();
     }
 
-    public void setSenderName(String senderName) {
-        this.senderName.set(senderName);
-    }
-
     public ObservableList<String> getRecipientNames() {
         return recipientNames.get();
     }

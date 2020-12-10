@@ -35,7 +35,7 @@ public class UserAccount {
         this.setSecurity = new SimpleBooleanProperty(setSecurity);
     }
 
-    //region Geters and Setters
+    //region Getters and Setters
     public String getUsername() {
         return username.get();
     }
