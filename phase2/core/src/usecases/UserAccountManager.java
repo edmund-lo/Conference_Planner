@@ -1,6 +1,6 @@
 package usecases;
 
-import entities.UserAccountEntity;
+import entities.UserAccount;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -15,7 +15,7 @@ import java.util.HashMap;
  * @version 1.0
  */
 public class UserAccountManager implements Serializable {
-    private HashMap<String, UserAccountEntity> allUserAccounts;
+    private HashMap<String, UserAccount> allUserAccounts;
 
     /**
      * Constructor for UserAccountManager object. Initializes empty HashMap.
@@ -40,7 +40,7 @@ public class UserAccountManager implements Serializable {
     public void addAccount(String username, String password, String type, boolean security, String q1,
                            String q2, String ans1, String ans2) {
 
-        UserAccountEntity account = new UserAccountEntity(username, password, type, false, security,
+        UserAccount account = new UserAccount(username, password, type, false, security,
                 q1, q2, ans1, ans2);
 
         allUserAccounts.put(username, account);
@@ -54,7 +54,7 @@ public class UserAccountManager implements Serializable {
      * @param type the user's type
      */
     public void addAccount(String username, String password, String type) {
-        UserAccountEntity account = new UserAccountEntity(username, password, type);
+        UserAccount account = new UserAccount(username, password, type);
         allUserAccounts.put(username, account);
     }
 
@@ -156,7 +156,7 @@ public class UserAccountManager implements Serializable {
      */
     public ArrayList<String[]> getAccountInfo() {
         ArrayList<String[]> accountInfo = new ArrayList<>();
-        for (UserAccountEntity userAccount : allUserAccounts.values()) {
+        for (UserAccount userAccount : allUserAccounts.values()) {
             String[] info = {userAccount.getUsername(), userAccount.getPassword()};
             accountInfo.add(info);
         }

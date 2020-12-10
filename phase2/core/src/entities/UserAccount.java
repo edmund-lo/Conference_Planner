@@ -6,7 +6,7 @@ import org.json.simple.JSONObject;
 /**
  * An entity class for a user account.
  */
-public class UserAccountEntity {
+public class UserAccount {
     private String username;
     private String password;
     private Boolean locked;
@@ -32,8 +32,8 @@ public class UserAccountEntity {
      * @param A1 answer 1
      * @param A2 answer 2
      */
-    public UserAccountEntity(String username, String password, String userType, boolean locked, boolean setSecurity,
-                             String Q1, String Q2, String A1, String A2) {
+    public UserAccount(String username, String password, String userType, boolean locked, boolean setSecurity,
+                       String Q1, String Q2, String A1, String A2) {
         this.username = username;
         this.password = password;
         this.userType = userType;
@@ -54,7 +54,7 @@ public class UserAccountEntity {
      * @param password password
      * @param userType usertype
      */
-    public UserAccountEntity(String username, String password, String userType) {
+    public UserAccount(String username, String password, String userType) {
         this.username = username;
         this.password = password;
         this.userType = userType;
