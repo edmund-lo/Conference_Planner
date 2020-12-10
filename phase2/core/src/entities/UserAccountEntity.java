@@ -1,6 +1,8 @@
 package entities;
 import org.json.simple.*;
 
+import java.util.ArrayList;
+
 /**
  * An entity class for a user account.
  */
@@ -16,10 +18,6 @@ public class UserAccountEntity {
 
     private String SecurityA1;
     private String SecurityA2;
-
-    public UserAccountEntity() {
-        this(null, null, null, false, false, null, null, null, null);
-    }
 
     public UserAccountEntity(String username, String password, String userType, boolean locked, boolean setSecurity,
                              String Q1, String Q2, String A1, String A2) {
@@ -86,13 +84,8 @@ public class UserAccountEntity {
         this.SecurityA2 = A2;
     }
 
-    public String getSecurityAns(int i){
-        if (i == 1)
-            return this.SecurityA1;
-        if (i == 2)
-            return this.SecurityA2;
-        else
-            return ("Only 2 Security Answers");
+    public String[] getSecurityAns(){
+        return new String[]{this.SecurityA1, this.SecurityA2};
     }
 
     public boolean getSetSecurity() {
@@ -107,7 +100,7 @@ public class UserAccountEntity {
      * @return A JSONArray that contains the JSON representation of this class
      */
     @SuppressWarnings("unchecked")
-    public JSONArray getJSON() {
+    public JSONArray convertToJSON() {
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
 

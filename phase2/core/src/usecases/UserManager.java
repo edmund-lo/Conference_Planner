@@ -325,20 +325,6 @@ public class UserManager implements Serializable {
     }
 
     /**
-     * Gets info on all users' username, password and role.
-     *
-     * @return An arraylist of Strings containing each user's username, password and role
-     */
-    public ArrayList<String[]> getAccountInfo() {
-        ArrayList<String[]> accountInfo = new ArrayList<>();
-        for (User user : allUsers.values()) {
-            String[] info = {user.getUsername(), user.getFirstName(), user.getLastName(), user.getClass().getSimpleName()};
-            accountInfo.add(info);
-        }
-        return accountInfo;
-    }
-
-    /**
      * Checks if username is unique.
      *
      * @param username the username

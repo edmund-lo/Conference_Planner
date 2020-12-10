@@ -1,7 +1,6 @@
 package controllers;
 
 import entities.LoginLog;
-import entities.UserAccountEntity;
 import gateways.LoginLogGateway;
 import gateways.UserAccountGateway;
 import gateways.UserGateway;
@@ -25,7 +24,7 @@ import java.util.Calendar;
  */
 
 public class LoginController {
-    private ArrayList<String[]> Accounts;
+    private ArrayList<String[]> accounts;
     protected UserAccountManager uam;
     protected LoginLogManager llm;
     private final LoginPresenter lp;
@@ -46,7 +45,7 @@ public class LoginController {
         this.uam = uag.deserializeData();
 
         //Get list of all existing accounts from the user manager
-        this.Accounts = uam.getAccountInfo();
+        this.accounts = uam.getAccountInfo();
         this.lp = new LoginPresenter();
     }
 
@@ -74,7 +73,7 @@ public class LoginController {
 
         int UsernameCheck = 0;
         //Loops through all existing usernames.
-        for (String[] users : Accounts){
+        for (String[] users : accounts){
             if (users[0].equals(Username)){
                 //If the Username the user entered already exists then UsernameCheck counter is increased.
                 UsernameCheck++;
@@ -106,7 +105,7 @@ public class LoginController {
             uam.addAccount(Username, Password, type, security,
                     q1, q2, ans1, ans2);
             uag.serializeData(uam);
-            this.Accounts = uam.getAccountInfo();
+            this.accounts = uam.getAccountInfo();
 
             UserManager um = new UserManager();
             UserGateway ug = new UserGateway();
@@ -137,12 +136,12 @@ public class LoginController {
             }
         }
         else{
-            UserAccountEntity account = uam.getUserAccount(Username);
-            account.setPassword(Password);
-            account.setUserType(type);
-            account.setSetSecurity(security);
-            account.setSecurityQuestions(q1, ans1, q2, ans2);
-            this.Accounts = uam.getAccountInfo();
+            uam.setPassword(Username, Password);
+            uam.setUserType(Username, type);
+            uam.setSetSecurity(Username, security);
+            uam.setSecurityQuestions(Username, q1, ans1, q2, ans2);
+
+            this.accounts = uam.getAccountInfo();
 
             return lp.AccountExists();
         }
@@ -156,7 +155,7 @@ public class LoginController {
         boolean PasswordExists = false;
 
         //Go through all existing account to see if username entered exists in the database.
-        for (String[] users : Accounts){
+        for (String[] users : accounts){
             if (users[0].equals(Username)){
                 UsernameExists = true;
                 //If it does exist, check if the password matches.
@@ -178,21 +177,18 @@ public class LoginController {
                 return lp.IncorrectCredentials();
         }
 
-        UserAccountEntity Account = uam.getUserAccount(Username);
         //If account is locked, don't let the user login.
-        if(Account.isLocked())
+        if(uam.isLocked(Username))
             return lp.AccountLocked();
 
-        return lp.SuccessfulLogin(Account.getJSON());
+        return lp.SuccessfulLogin(uam.getAccountJSON(Username));
     }
 
     /**
      * Locks a user, which prevents them from logging in until an Admin unlocks their account.
      */
     public void lockOut(String Username){
-        UserAccountEntity Account = uam.getUserAccount(Username);
-        Account.lock();
-        uam.updateAccount(Username, Account);
+        uam.lockAccount(Username);
         uag.serializeData(uam);
     }
 
@@ -219,25 +215,23 @@ public class LoginController {
      * Lets user change password if they can answer 3 security questions correctly which were set when making an account.
      */
     public JSONObject verifySecurityAnswers(String User, String a1, String a2){
-        UserAccountEntity Account = uam.getUserAccount(User);
+        String[] answers = uam.getSecurityAns(User);
 
         lp.SecurityQuestion1();
         lp.SecurityQuestion2();
 
         //Check if answers to security questions match.
-        if (a1.equals(Account.getSecurityAns(1)) && a2.equals(Account.getSecurityAns(2)))
+        if (a1.equals(answers[1]) && a2.equals(answers[2]))
             return lp.correctAnswers();
         else
             return lp.incorrectAnswers();
     }
 
     public JSONObject resetPassword(String user, String newPassword, String confirmPassword){
-        UserAccountEntity Account = uam.getUserAccount(user);
 
         //Update password
         if (newPassword.equals(confirmPassword)){
-            Account.setPassword(newPassword);
-            uam.updateAccount(Account.getUsername(), Account);
+            uam.setPassword(user, newPassword);
             uag.serializeData(uam);
             return lp.passwordChanged();
         } else
@@ -261,7 +255,7 @@ public class LoginController {
     }
 
     public JSONObject accountJson(String username){
-        return lp.accountLogs(uam.getUserAccount(username).getJSON());
+        return lp.accountLogs(uam.getAccountJSON(username));
     }
 
 }

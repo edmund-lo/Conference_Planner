@@ -14,7 +14,7 @@ import usecases.LoginLogManager;
 public class AdminController extends UserController{
     private LoginLogManager llm;
     private final AdminPresenter ap;
-    private LoginLogGateway llg;
+    private LoginLogGateway llg = new LoginLogGateway();
 
     /**
      * Constructor for AdminController object. Uses constructor from UserController
