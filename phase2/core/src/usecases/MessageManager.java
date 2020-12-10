@@ -17,7 +17,6 @@ import java.util.UUID;
  */
 public class MessageManager implements Serializable {
     private HashMap<String, MessageThread> allMessageThreads;
-    //private List<String> allContents;
 
     /**
      * Constructor for UseCases.MessageManager
@@ -25,7 +24,6 @@ public class MessageManager implements Serializable {
      */
     public MessageManager(){
         this.allMessageThreads = new HashMap<>();
-        //this.allContents = new ArrayList<>();
     }
 
     /**
@@ -50,11 +48,15 @@ public class MessageManager implements Serializable {
      *
      * @return The messageThread variable
      */
-
     public MessageThread getMessageThread(String messageThreadId){
         return this.allMessageThreads.get(messageThreadId);
     }
 
+    /**
+     * Delete a message
+     *
+     * @param messageThreadId the messageThreadID
+     */
     public void deleteMessage(String messageThreadId){
         this.allMessageThreads.remove(messageThreadId);
     }
@@ -71,7 +73,6 @@ public class MessageManager implements Serializable {
      *
      * return the created messageThreadId
      */
-
     public String createMessage(String content, String sender, ArrayList receivers, String subject) {
         String messageThreadId;
         do {
@@ -97,7 +98,6 @@ public class MessageManager implements Serializable {
      *
      * @return boolean value that signifies the result of the check.
      */
-
     public boolean messageCheck(String content, String sender, ArrayList<String> receivers) {
         if (content.equals("")){return false;}
         for(String receiver : receivers) {
@@ -113,7 +113,6 @@ public class MessageManager implements Serializable {
      *
      * @param  messageThreadId id of the message user want to change.
      */
-
     public void readMessage(String messageThreadId){
         MessageThread messageThread = allMessageThreads.get(messageThreadId);
         messageThread.setRead(true);
@@ -124,7 +123,6 @@ public class MessageManager implements Serializable {
      *
      * @param  messageThreadId id of the message user want to change.
      */
-
     public void unreadMessage(String messageThreadId){
         MessageThread messageThread = allMessageThreads.get(messageThreadId);
         messageThread.setRead(false);
@@ -137,11 +135,16 @@ public class MessageManager implements Serializable {
      *
      * @return a boolean tells the status, return true iff the message has read, false otherwise
      */
-
     public boolean checkMessageStatus(String messageThreadId){
         return allMessageThreads.get(messageThreadId).getRead();
     }
 
+    /**
+     * Gets JSONObject for one message thread
+     *
+     * @param messageThreadId message thread id
+     * @return a JSONObject of the message thread
+     */
     public JSONObject getOneMessageThreadToJson(String messageThreadId){
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
@@ -156,6 +159,11 @@ public class MessageManager implements Serializable {
         return json;
     }
 
+    /**
+     * Gets all message threads as JSONObject
+     *
+     * @return a JSONObject of all message threads
+     */
     public JSONObject getAllMessageThreadToJson(){
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
