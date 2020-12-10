@@ -102,18 +102,23 @@ public class LoginController {
             switch (type) {
                 case "attendee":
                     um.createNewAttendee(Username, firstName, lastName, false);
+                    ug.serializeData(um);
                     return makeAccount(Username, Password, type);
                 case "organizer":
                     um.createNewOrganizer(Username, firstName, lastName);
+                    ug.serializeData(um);
                     return makeAccount(Username, Password, type);
                 case "speaker":
                     um.createNewSpeaker(Username, firstName, lastName);
+                    ug.serializeData(um);
                     return makeAccount(Username, Password, type);
                 case "administrator":
                     um.createNewAdmin(Username, firstName, lastName);
+                    ug.serializeData(um);
                     return makeAccount(Username, Password, type);
                 case "vip":
                     um.createNewAttendee(Username, firstName, lastName, true);
+                    ug.serializeData(um);
                     return makeAccount(Username, Password, type);
                 default:
                     return lp.IncorrectCredentials();
