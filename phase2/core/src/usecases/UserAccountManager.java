@@ -1,6 +1,5 @@
 package usecases;
 
-import entities.User;
 import entities.UserAccountEntity;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -16,11 +15,8 @@ import java.util.HashMap;
  * @version 1.0
  */
 public class UserAccountManager implements Serializable {
-    // key value pairing with username and all the properties of a UserAccountEntity
-    // such as security questions, username, password, etc.
     private HashMap<String, UserAccountEntity> allUserAccounts;
-    //ArrayList<String[]> logInfo = new ArrayList<>();
-    //ArrayList<UserAccountEntity> logEntity = new ArrayList<>();
+
     /**
      * Constructor for UserAccountManager object. Initializes empty HashMap.
      *
@@ -30,6 +26,18 @@ public class UserAccountManager implements Serializable {
 
     }
 
+    /**
+     * Adds new user account
+     *
+     * @param username the username
+     * @param password the password
+     * @param type the user's type
+     * @param security whether security questions have been set
+     * @param q1 security question 1
+     * @param q2 security question 2
+     * @param ans1 security answer 1
+     * @param ans2 security answer 2
+     */
     public void addAccount(String username, String password, String type, boolean security, String q1,
                            String q2, String ans1, String ans2) {
 
@@ -39,75 +47,105 @@ public class UserAccountManager implements Serializable {
         allUserAccounts.put(username, account);
     }
 
+    /**
+     * Adds new user account
+     *
+     * @param username the username
+     * @param password the password
+     * @param type the user's type
+     */
     public void addAccount(String username, String password, String type) {
         UserAccountEntity account = new UserAccountEntity(username, password, type);
         allUserAccounts.put(username, account);
     }
 
-//    public UserAccountEntity getUserAccount(String username) {
-//        if (this.allUserAccountEntities.containsKey(username)) {
-//            return this.allUserAccountEntities.get(username);
-//        }
-//        return null;
-//    }
-
-//    public ArrayList<String[]> getAccountInfo() {
-//        //iterate through the keys of the UAM,
-//        //for each key, add the username and password as the two index in the array of strings
-//
-//        String getUsername1 = "";
-//        String getPassword1 = "";
-//        for(String i : allUserAccountEntities.keySet()) {
-//            logEntity.add(this.allUserAccountEntities.get(i));
-//
-//        }
-//        for(int i = 0; i < logEntity.size(); i++) {
-//            getUsername1= logEntity.get(i).getUsername();
-//            getPassword1 = logEntity.get(i).getPassword();
-//
-//            logInfo.add(i,new String[]{getUsername1, getPassword1});
-//        }
-//        return logInfo;
-//    }
-
-
-
-//    public void updateAccount(String username, UserAccountEntity Account){
-//        allUserAccountEntities.put(username, Account);
-//    }
-
+    /**
+     * Set new username
+     *
+     * @param username the username
+     * @param newUsername the new username
+     */
     public void setUsername(String username, String newUsername) {
         allUserAccounts.get(username).setUsername(newUsername);
     }
 
+    /**
+     * Set new password
+     *
+     * @param username the username
+     * @param newPassword the new password
+     */
     public void setPassword(String username, String newPassword) {
         allUserAccounts.get(username).setPassword(newPassword);
     }
 
+    /**
+     * Set new user type
+     *
+     * @param username the username
+     * @param newUserType the new user type
+     */
     public void setUserType(String username, String newUserType) {
         allUserAccounts.get(username).setUserType(newUserType);
     }
 
+    /**
+     * Check if account is locked
+     *
+     * @param username the username
+     * @return true iff the account is locked
+     */
     public boolean isLocked(String username) {
         return allUserAccounts.get(username).isLocked();
     }
 
+    /**
+     * Locks the account
+     *
+     * @param username the username
+     */
     public void lockAccount(String username) {
         allUserAccounts.get(username).lock();
     }
 
+    /**
+     * Unlocks the account
+     *
+     * @param username the username
+     */
     public void unlockAccount(String username) {
         allUserAccounts.get(username).unlock();
     }
 
+    /**
+     * Sets security questions and answers
+     *
+     * @param username the username
+     * @param Q1 question 1
+     * @param A1 answer 1
+     * @param Q2 question 2
+     * @param A2 answer 2
+     */
     public void setSecurityQuestions(String username, String Q1, String A1, String Q2, String A2) {
         allUserAccounts.get(username).setSecurityQuestions(Q1, A1, Q2, A2);
     }
 
+    /**
+     * Sets setSecurity
+     *
+     * @param username the username
+     * @param setSecurity the new setSecurity
+     */
     public void setSetSecurity(String username, boolean setSecurity) {
         allUserAccounts.get(username).setSetSecurity(setSecurity);
     }
 
+    /**
+     * Gets the security answers
+     *
+     * @param username the username
+     * @return a string array containing security answers
+     */
     public String[] getSecurityAns(String username) {
         return allUserAccounts.get(username).getSecurityAns();
     }
@@ -126,10 +164,21 @@ public class UserAccountManager implements Serializable {
         return accountInfo;
     }
 
+    /**
+     * Gets the user account's json
+     *
+     * @param username the username
+     * @return a JSONArray of the user account
+     */
     public JSONArray getAccountJSON(String username) {
         return allUserAccounts.get(username).convertToJSON();
     }
 
+    /**
+     * Gets all user accounts' json
+     *
+     * @return a JSONObject containing all user accounts
+     */
     public JSONObject getAllAccountsJSON() {
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
