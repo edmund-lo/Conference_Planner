@@ -4,6 +4,9 @@ import javafx.beans.property.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+/**
+ * Model class for ScheduleEntry object
+ */
 public class ScheduleEntry {
     private final ObjectProperty<LocalDateTime> start;
     private final ObjectProperty<LocalDateTime> end;
@@ -18,11 +21,29 @@ public class ScheduleEntry {
     private final IntegerProperty capacity;
     private final BooleanProperty vip;
 
+    /**
+     * Initialises a ScheduleEntry object with default attributes
+     */
     public ScheduleEntry() {
         this(null, null, null,null, null, null,
                 null, null, null, 0, 0, false);
     }
 
+    /**
+     * Initialises a ScheduleEntry object with given parameters as attributes
+     * @param start LocalDateTime object representing event's start date and time
+     * @param end LocalDateTime object representing event's end date and time
+     * @param eventId String object representing event's unique ID
+     * @param eventName String object representing event's name
+     * @param roomName String object representing event's room name
+     * @param amenities String object representing event's required amenities
+     * @param attendees String object representing event's attendees
+     * @param speakers String object representing event's speakers
+     * @param duration Duration object representing event's duration
+     * @param remainingSpots int representing remaining spots for the event
+     * @param capacity int representing event's maximum capacity
+     * @param vip boolean representing whether event has VIP status or not
+     */
     public ScheduleEntry(LocalDateTime start, LocalDateTime end, String eventId, String eventName, String roomName,
                          String amenities, String attendees, String speakers, Duration duration, int remainingSpots,
                          int capacity, boolean vip) {
@@ -40,6 +61,7 @@ public class ScheduleEntry {
         this.vip = new SimpleBooleanProperty(vip);
     }
 
+    //region Getters and Setters
     public LocalDateTime getStart() {
         return start.get();
     }
@@ -135,4 +157,5 @@ public class ScheduleEntry {
     public void setVip(boolean vip) {
         this.vip.set(vip);
     }
+    //endregion
 }

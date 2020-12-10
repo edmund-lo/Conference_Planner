@@ -53,17 +53,54 @@ public class ScheduleAdapter {
         LocalDateTime start = DateTimeUtil.getInstance().parse(String.valueOf(jsonObject.get("start")));
         LocalDateTime end = DateTimeUtil.getInstance().parse(String.valueOf(jsonObject.get("end")));
         Duration duration = Duration.ofMinutes(parseLong(String.valueOf(jsonObject.get("duration"))));
-        String eventId = String.valueOf(jsonObject.get("eventId"));
-        String eventName = String.valueOf(jsonObject.get("eventName"));
-        String roomName = String.valueOf(jsonObject.get("roomName"));
-        String amenities = String.valueOf(jsonObject.get("amenities"));
-        String attendees = String.valueOf(jsonObject.get("attendees"));
-        String speakers = String.valueOf(jsonObject.get("speakers"));
+        String eventId = String.valueOf(jsonObject.get("id"));
+        String eventName = String.valueOf(jsonObject.get("event name"));
+        String roomName = String.valueOf(jsonObject.get("room name"));
+        String amenities = getAmenities(jsonObject);
+        String attendees = convertListToString((JSONArray) jsonObject.get("users"));
+        String speakers = convertListToString((JSONArray) jsonObject.get("speakers"));
         int remainingSpots = parseInt(String.valueOf(jsonObject.get("remainingSpots")));
         int capacity = parseInt(String.valueOf(jsonObject.get("capacity")));
         boolean vip = String.valueOf(jsonObject.get("vip")).equals("true");
 
         return new ScheduleEntry(start, end, eventId, eventName, roomName, amenities, attendees, speakers, duration,
                 remainingSpots, capacity, vip);
+    }
+
+    /**
+     * Converts jsonArray into an appropriate String representation
+     * @param jsonArray JSONArray object representing a List of String objects
+     * @return String representation of jsonArray
+     */
+    private String convertListToString(JSONArray jsonArray) {
+        if (jsonArray.isEmpty()) return "None";
+        StringBuilder sb = new StringBuilder();
+        String prefix = "";
+        for (Object object : jsonArray) {
+            sb.append(prefix);
+            sb.append(object.toString());
+            prefix = ", ";
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Gets an appropriate String representation of an event's required amenities
+     * @param jsonObject JSONObject object representing event
+     * @return String presentation of an event's required amenities
+     */
+    private String getAmenities(JSONObject jsonObject) {
+        StringBuilder sb = new StringBuilder();
+        String prefix = "";
+        String[] amenityKeys = new String[]{"Chairs", "Tables", "Projector", "SoundSystem"};
+        for (String key : amenityKeys) {
+            if (String.valueOf(jsonObject.get(key)).equals("true")) {
+                sb.append(prefix);
+                sb.append(key);
+                prefix = ", ";
+            }
+        }
+        if (sb.toString().equals("")) return "None";
+        else return sb.toString();
     }
 }
