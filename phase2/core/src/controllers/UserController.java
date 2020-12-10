@@ -61,15 +61,6 @@ public abstract class UserController {
     }
 
     /**
-     *Returns list of users that the user can send messages to.
-     *
-     *@return list of speakers and attendees in a string format
-     */
-    public JSONObject getAllMessageableUsers(){
-        return up.getMessageableAttendeesOutput(um.getAllMessageableUsers(username));
-    }
-
-    /**
      *Called when user signs up for an event.
      * @param  eventId id of the event user is signing up for.
      *
@@ -133,7 +124,7 @@ public abstract class UserController {
     /**
      *Returns list of all events desc in the conference that user with username can sign up to
      *
-     *@return list of all events in the conference in a JSONARRAY format
+     *@return list of all events in the conference in a JSONArray format
      */
     public JSONObject getAllEventsCanSignUp(){
         ArrayList<String> eventDesc = new ArrayList<>();
@@ -160,6 +151,11 @@ public abstract class UserController {
         return up.getEventsData(eventDesc);
     }
 
+    /**
+     * Gets a list of all events that have not happened yet
+     *
+     * @return a list of all events
+     */
     public JSONArray getAllEventsList() {
         JSONArray events = new JSONArray();
         for (String id : em.getAllEventIds()) {
@@ -185,6 +181,16 @@ public abstract class UserController {
         }
         return eventDesc;
     }
+
+    /**
+     *Returns list of users that the user can send messages to.
+     *
+     *@return list of speakers and attendees in a string format
+     */
+    public JSONObject getAllMessageableUsers(){
+        return up.getMessageableAttendeesOutput(um.getAllMessageableUsers(username));
+    }
+
     /**
      * Gets all of current user's JSON primary messages.
      *
@@ -344,18 +350,31 @@ public abstract class UserController {
 
     /**
      * Getter for the friend requests of this user
-     * @return JSONObject containing all of the friends of this user
+     * @return JSONObject containing all of the friend requests of this user
      */
     public JSONObject getFriendRequests(){return um.getAllFriendsRequestsJson(username);}
 
+    /**
+     * Getter for the non friends of this user
+     * @return JSONObject containing all of the non friends of the user
+     */
     public JSONObject getNonFriends(){
         return um.getAllNonFriendsJson(username);
     }
 
+    /**
+     * Getter for the sent requests of this user
+     * @return JSONObject containing all of the sent requests of the suer
+     */
     public JSONObject getSentRequests(){
         return um.getAllSentRequestsJson(username);
     }
 
+    /**
+     * Getter for all common events
+     * @param username the username
+     * @return JSONObject containing all common events
+     */
     public JSONObject getCommonEvents(String username){
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
@@ -375,10 +394,11 @@ public abstract class UserController {
 
         return json;
     }
+
     /**
-     *logs the user out of the program
+     * Logs the user out of the program
      *
-     *@return returns the current UserController class.
+     * @return returns the current UserController class.
      */
     public UserController logout() {
         up.logoutMessage();
