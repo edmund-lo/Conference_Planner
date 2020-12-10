@@ -21,7 +21,6 @@ public class LoginLogGateway implements GatewayInterface<LoginLogManager>, Seria
      *
      * @param llm LoginLogManager object
      */
-
     public void serializeData(LoginLogManager llm){
         //try catch block, enters try and catches if there is a FileNotFoundException or silently
         //catches IO exception

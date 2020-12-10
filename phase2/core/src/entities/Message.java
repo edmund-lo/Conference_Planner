@@ -95,6 +95,10 @@ public class Message implements Serializable {
 //                "Message: " + this.content + "\n";
 //    }
 
+    /**
+     * For converting this class to a JSON format
+     * @return a JSONObject that describes this entity
+     */
     @SuppressWarnings("unchecked")
     public JSONObject convertToJSON() {
         JSONObject json = new JSONObject();

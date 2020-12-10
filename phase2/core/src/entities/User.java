@@ -56,10 +56,18 @@ public abstract class User implements Serializable {
         return username;
     }
 
+    /**
+     * getter for user's first name
+     * @return user's firstname
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * getter for user's last name
+     * @return user's last name
+     */
     public String getLastName() {
         return lastName;
     }
@@ -101,6 +109,11 @@ public abstract class User implements Serializable {
         return trashInbox;
     }
 
+    /**
+     * removes messagethread from user's inbox
+     *
+     * @param messageThreadId id of the message thread
+     */
     public void deleteMessageFromInboxes(String messageThreadId){
         if(this.getPrimaryInbox().contains(messageThreadId)){
             this.primaryInbox.remove(messageThreadId);
@@ -236,26 +249,56 @@ public abstract class User implements Serializable {
         return "Username: " + this.username + "\n" +  "Role: " + this.getClass().getSimpleName() + "\n";
     }
 
+    /**
+     * adds person to user's friend list
+     *
+     * @param username username of the person you wish to add
+     */
     public void addFriend(String username){
         friendsList.add(username);
     }
 
+    /**
+     * removes person from user's friend list
+     *
+     * @param username username of the person you wish to remove
+     */
     public void removeFriend(String username){
         friendsList.remove(username);
     }
 
+    /**
+     * getter for all friend requests
+     *
+     * @return a list of strings of all the friends requests user has
+     */
     public List<String> getFriendRequest(){
         return friendRequest;
     }
 
+    /**
+     * getter for the friends list
+     *
+     * @return user's friends list
+     */
     public List<String> getFriendsList() {
         return friendsList;
     }
 
+    /**
+     * getter for sent friends requests
+     *
+     * @return a list of strings of all the sent friend requests from user
+     */
     public List<String> getSentRequest() {
         return sentRequest;
     }
 
+    /**
+     * Abstract method for converting this entity class to JSONObject format
+     *
+     * @return the JSONObject version of this class
+     */
     public abstract JSONObject convertToJSON();
 
 }

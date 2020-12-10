@@ -166,10 +166,16 @@ public class OrganizerPresenter extends UserPresenter {
                 "sound system was invalid");
     }
 
+    /**
+     * Notifies the user that the room specified cannot work with this event
+     */
     public JSONObject selectionNotValid(){
         return pu.createJSON("error", "This room cannot accommodate the event.");
     }
 
+    /**
+     * Notifies the user that the capacity entered is invalid
+     */
     public JSONObject invalidCapacityError() {
         return pu.createJSON("warning", "The capacity you entered was invalid.");
     }
@@ -189,28 +195,48 @@ public class OrganizerPresenter extends UserPresenter {
         return pu.createJSON("error", "Event could not be rescheduled in "+roomName);
     }
 
+    /**
+     * Notifies the user that the capacity they entered is greater than what the room can accommodate
+     */
     public JSONObject cannotAccommodate() {
         return pu.createJSON("error", "The capacity you entered is greater than the room can " +
                 "accommodate.");
     }
 
+    /**
+     * Notifies the user that they cannot change the event capacity
+     */
     public JSONObject cannotChangeCap(int capacity){
         return pu.createJSON("error", "The event already has " + capacity + " or more people signed up. " +
                 "If you would like to decrease the event's capacity, cancel the event and create one.");
     }
 
+    /**
+     * Notifies the user that the event capacity was changed successfully
+     */
     public JSONObject changeCapResult(){
         return pu.createJSON("success", "The event capacity has been changed successfully.");
     }
 
+    /**
+     * Notifies the user that the event has been cancelled successfully
+     */
     public JSONObject cancelResult(){
         return pu.createJSON("success", "The event has been cancelled successfully");
     }
 
+    /**
+     * Method for delivering a list of event Ids to the presentation module
+     * @param eventIDs a list of eventIDs in string format
+     */
     public JSONObject listRoomSchedule(List<String> eventIDs){
         return pu.createJSON("success", "Room schedule has been listed", "Room Schedule", eventIDs);
     }
 
+    /**
+     * Method for delivering a list of users to the presentation module
+     * @param speakerNames list of speaker names in string format
+     */
     public JSONObject listUsers(List<String> speakerNames){
         return pu.createJSON("success", "Users have been listed", "List of Users", speakerNames);
     }
