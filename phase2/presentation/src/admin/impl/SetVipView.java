@@ -11,9 +11,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.User;
-import model.UserAccount;
-
-import java.time.LocalDateTime;
 
 public class SetVipView implements ISetVipView {
     @FXML
