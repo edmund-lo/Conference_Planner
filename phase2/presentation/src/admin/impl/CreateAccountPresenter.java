@@ -47,7 +47,7 @@ public class CreateAccountPresenter implements ICreateAccountPresenter {
     private JSONObject constructAccountJson() {
         JSONObject queryJson = new JSONObject();
         queryJson.put("username", this.view.getUsername());
-        queryJson.put("userType", this.view.getUserType());
+        queryJson.put("userType", this.view.getUserType().toLowerCase());
         queryJson.put("password", this.view.getPassword());
         queryJson.put("confirmPassword", this.view.getConfirmPassword());
         queryJson.put("setup", Boolean.TRUE);
