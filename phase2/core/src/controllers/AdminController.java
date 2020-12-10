@@ -37,17 +37,18 @@ public class AdminController extends UserController{
         String username = String.valueOf(register.get("username"));
         String firstName = String.valueOf(register.get("firstName"));
         String lastName = String.valueOf(register.get("lastName"));
-        boolean vip = (boolean) register.get("vip");
         String password = String.valueOf(register.get("password"));
         String userType = String.valueOf(register.get("userType"));
 
         switch (userType) {
             case "attendee":
-                return createAttendeeAccount(username, firstName, lastName, vip, password, userType);
+                return createAttendeeAccount(username, firstName, lastName, false, password, userType);
             case "organizer":
                 return createOrganizerAccount(username, firstName, lastName, password, userType);
             case "speaker":
                 return createSpeakerAccount(username, firstName, lastName, password, userType);
+            case "vip":
+                return createAttendeeAccount(username, firstName, lastName, true, password, userType);
             default:
                 return ap.invalidUserTypeError();
         }
