@@ -635,6 +635,7 @@ public class UserManager implements Serializable {
     /**
      * @return A JSONObject that contains the JSON representation of this class
      */
+    @SuppressWarnings("unchecked")
     public JSONObject getAllUsersJson(){
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
@@ -653,6 +654,7 @@ public class UserManager implements Serializable {
     /**
      * @return A JSONObject that contains the JSON representation of this class
      */
+    @SuppressWarnings("unchecked")
     public JSONObject getAllAttendeesJson(){
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
@@ -673,6 +675,7 @@ public class UserManager implements Serializable {
     /**
      * @return A JSONObject that contains the JSON representation of this class
      */
+    @SuppressWarnings("unchecked")
     public JSONObject getAllSpeakersJson(){
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
