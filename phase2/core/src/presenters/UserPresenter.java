@@ -105,41 +105,57 @@ public class UserPresenter {
         return pu.createJSON("success", "Logging out...");
     }
 
+    /**
+     * Notifies the user that they successfully added friend to their friends list
+     * @param username username of the friend added
+     * @return the method description in JSONObject format
+     */
     public JSONObject friendAdded(String username){
         return pu.createJSON("success", username + " added as friend");
     }
 
+    /**
+     *  Notifies the user that they successfully removed friend from their friends list
+     * @param username username of the friends removed
+     * @return the method description in JSONObject format
+     */
     public JSONObject friendRemoved(String username){
         return pu.createJSON("success", username + " removed as friend");
     }
 
+    /**
+     * Notifies the user that they're friend request was received
+     * @param username username of the receiver of the friend request
+     * @return the method description in JSONObject format
+     */
     public JSONObject friendRequestSent(String username){
         return pu.createJSON("success", username + " received friend request");
     }
 
+    /**
+     * Notifies the user that they already sent a friends request to the specified user
+     * @param username username of the user who received the friends request
+     * @return the method description in JSONObject format
+     */
     public JSONObject cantAddFriend(String username){
         return pu.createJSON("error", username + " already friend or already requested");
     }
 
+    /**
+     * Notifies the user that their friend request ahs been declined
+     * @param username username of the receiver of the friends request
+     * @return the method description in JSONObject format
+     */
     public JSONObject requestDenied(String username){
         return pu.createJSON("success", username + "'s request has been declined");
     }
 
+    /**
+     * Notifies the user that their request sent to specified user has been removed
+     * @param username the username of the receiver of the request
+     * @return the method description in JSONObject format
+     */
     public JSONObject requestRemoved(String username){
         return pu.createJSON("success", "request to "+username + " has been removed");
-    }
-
-    public void listAllUsersLabel() {
-    }
-
-    public void exitlistAllUsersLabel() {
-    }
-
-    public JSONObject getEventsData(ArrayList<String> events){
-        return pu.createJSON("success", "list of events", "Events", events);
-    }
-
-    public JSONObject getMessageableAttendeesOutput(ArrayList<String> messages){
-        return pu.createJSON("success", "List of messageable users in string format", "users",messages);
     }
 }

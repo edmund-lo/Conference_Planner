@@ -145,6 +145,7 @@ public class MessageManager implements Serializable {
      * @param messageThreadId message thread id
      * @return a JSONObject of the message thread
      */
+    @SuppressWarnings("unchecked")
     public JSONObject getOneMessageThreadToJson(String messageThreadId){
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
@@ -164,6 +165,7 @@ public class MessageManager implements Serializable {
      *
      * @return a JSONObject of all message threads
      */
+    @SuppressWarnings("unchecked")
     public JSONObject getAllMessageThreadToJson(){
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();

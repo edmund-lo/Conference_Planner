@@ -28,6 +28,9 @@ public class SpeakerPresenter extends UserPresenter {
         return pu.createJSON("success", "Successfully sent message to attendees of " + event + ".");
     }
 
+    /**
+     * Notifies the user that all they're sent messages were sent successfully
+     */
     public JSONObject messageEventAttendeesMultiEventsResult(){
         return pu.createJSON("success", "Successfully sent messages to all specified event(s)");
     }
@@ -57,6 +60,10 @@ public class SpeakerPresenter extends UserPresenter {
         return pu.createJSON("error", "Unable to message attendees of " + event + "!");
     }
 
+    /**
+     * Method for sending a list of speaker events to the presentation module
+     * @param events list of events in string format
+     */
     public JSONObject getSpeakerEventsOutput(List<String> events){
         return pu.createJSON("success", "returning speaker events", "events", events);
     }

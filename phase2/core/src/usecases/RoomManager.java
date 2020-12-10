@@ -111,7 +111,6 @@ public class RoomManager implements Serializable {
      *
      * @return  a set containing all of the room names
      */
-
     public List<String> getAllRoomsWith(List<Boolean> constraints, int eventCap){
         List<String> possibleRooms = new ArrayList<>();
         for (Map.Entry<String, Room> room : this.allRooms.entrySet()){
