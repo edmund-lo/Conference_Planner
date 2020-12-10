@@ -93,6 +93,12 @@ public class LoginController {
         if(Password.length() < 6)
             return lp.EmptyPassword();
 
+        if (q1.length() == 0 || q2.length() == 0)
+            return lp.emptyQuestion();
+
+        if (ans1.length() == 0 || ans2.length() == 0)
+            return lp.emptyAnswer();
+
         //Security Questions if forget password or want to reset
         lp.SecurityQuestion1();
         lp.SecurityQuestion2();
@@ -152,6 +158,12 @@ public class LoginController {
     public JSONObject login(String Username, String Password){
         boolean UsernameExists = false;
         boolean PasswordExists = false;
+
+        if (Username.length() == 0)
+            return lp.EmptyName();
+
+        if (Password.length() == 0)
+            return lp.EmptyPassword();
 
         //Go through all existing account to see if username entered exists in the database.
         for (String[] users : accounts){
