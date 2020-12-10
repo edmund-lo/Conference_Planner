@@ -139,14 +139,6 @@ public class LoginController {
         }
     }
 
-    public JSONObject makeAccount(String username, String password, String type){
-        uam = uag.deserializeData();
-
-        uam.addAccount(username, password, type);
-        uag.serializeData(uam);
-        return lp.AccountMade();
-    }
-
     /**
      * Called to let user login to an existing account in the database.
      */
