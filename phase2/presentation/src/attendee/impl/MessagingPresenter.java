@@ -49,8 +49,8 @@ public class MessagingPresenter implements IMessagingPresenter {
     public void replyButtonAction(ActionEvent actionEvent) {
         clearResultText();
 
-        //JSONObject responseJson = ac.reply(this.selectedPrimaryMessage.getMessageId(), this.view.getContent());
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = ac.replyMessage(this.selectedPrimaryMessageThread.getMessageThreadId(),
+                this.view.getContent());
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
         if (responseJson.get("status").equals("success")) refreshAllInboxes();
     }
@@ -118,25 +118,25 @@ public class MessagingPresenter implements IMessagingPresenter {
 
     @Override
     public void moveToTrashButtonAction(ActionEvent actionEvent) {
-        //ac.moveToTrash(this.selectedPrimaryMessageThread.getMessageId());
+        //ac.moveToTrash(this.selectedPrimaryMessageThread.getMessageThreadId());
         refreshAllInboxes();
     }
 
     @Override
     public void moveToArchivedButtonAction(ActionEvent actionEvent) {
-        //ac.moveToArchive(this.selectedPrimaryMessageThread.getMessageId());
+        //ac.moveToArchive(this.selectedPrimaryMessageThread.getMessageThreadId());
         refreshAllInboxes();
     }
 
     @Override
     public void moveToPrimaryFirstButtonAction(ActionEvent actionEvent) {
-        //ac.moveToPrimary(this.selectedArchivedMessageThread.getMessageId());
+        //ac.moveToPrimary(this.selectedArchivedMessageThread.getMessageThreadId());
         refreshAllInboxes();
     }
 
     @Override
     public void moveToPrimarySecondButtonAction(ActionEvent actionEvent) {
-        //ac.moveToPrimary(this.selectedTrashMessageThread.getMessageId());
+        //ac.moveToPrimary(this.selectedTrashMessageThread.getMessageThreadId());
         refreshAllInboxes();
     }
 
@@ -229,17 +229,17 @@ public class MessagingPresenter implements IMessagingPresenter {
                 break;
             case "archived":
                 this.selectedArchivedMessageThread = messageThread;
-                this.view.setPrimarySender(messageThread.getSenderName());
-                this.view.setPrimaryRecipientNames(messageThread.getRecipientNames());
-                this.view.setPrimarySubject(messageThread.getSubject());
-                displayMessageHistory(messageThread, this.view.getPrimaryThreadContainer());
+                this.view.setArchivedSender(messageThread.getSenderName());
+                this.view.setArchivedRecipientNames(messageThread.getRecipientNames());
+                this.view.setArchivedSubject(messageThread.getSubject());
+                displayMessageHistory(messageThread, this.view.getArchivedThreadContainer());
                 break;
             case "trash":
                 this.selectedTrashMessageThread = messageThread;
-                this.view.setPrimarySender(messageThread.getSenderName());
-                this.view.setPrimaryRecipientNames(messageThread.getRecipientNames());
-                this.view.setPrimarySubject(messageThread.getSubject());
-                displayMessageHistory(messageThread, this.view.getPrimaryThreadContainer());
+                this.view.setTrashSender(messageThread.getSenderName());
+                this.view.setTrashRecipientNames(messageThread.getRecipientNames());
+                this.view.setTrashSubject(messageThread.getSubject());
+                displayMessageHistory(messageThread, this.view.getTrashThreadContainer());
                 break;
         }
     }
