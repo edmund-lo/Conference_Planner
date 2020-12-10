@@ -1,6 +1,7 @@
 package gateways;
 
 import usecases.UserAccountManager;
+//import usecases.UserManager;
 
 import java.io.*;
 /**
@@ -24,7 +25,7 @@ public class UserAccountGateway implements GatewayInterface<UserAccountManager>,
             //create new file
             File new_file = new File(fileName);
             //save data objects in designated store file
-            //Serialize object by writing UserAccountManager uam as value to variable conv_obj
+            //Serialize object by writing UserAccountManager um as value to variable conv_obj
             FileOutputStream store_file = new FileOutputStream(new_file);
             ObjectOutputStream conv_obj = new ObjectOutputStream(store_file);
             conv_obj.writeObject(uam);
@@ -45,7 +46,7 @@ public class UserAccountGateway implements GatewayInterface<UserAccountManager>,
      * @return the UserAccountManager class
      */
     public UserAccountManager deserializeData() {
-        //Instantiate UserAccountManager object um
+        //Instantiate UserManager object uam
         UserAccountManager uam = new UserAccountManager();
         //try catch block ensures FileNotFound, ClassNotFound and IO Exception are caught
         try {
@@ -72,6 +73,5 @@ public class UserAccountGateway implements GatewayInterface<UserAccountManager>,
             System.out.println("UserAccountManager Class was not found");
         }
         return uam;
-
     }
 }
