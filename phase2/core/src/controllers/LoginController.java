@@ -166,8 +166,11 @@ public class LoginController {
             }
         }
 
+
+        if (!UsernameExists)
+            return lp.usernameDoesntExist();
         //If the username doesn't exist or password doesn't match, log a failed login.
-        if (!(UsernameExists && PasswordExists)){
+        else if (!(PasswordExists)){
             updateLogs(Username, false);
             //If past 3 logs are failed logins, lock the account.
             if (suspiciousLogs(Username)){
@@ -192,8 +195,6 @@ public class LoginController {
      */
     public JSONObject lockOut(String Username){
         uam = uag.deserializeData();
-        if (!usernameExists(Username))
-            return lp.IncorrectCredentials();
 
         uam.lockAccount(Username);
         uag.serializeData(uam);
@@ -266,8 +267,6 @@ public class LoginController {
      */
     public void updateLogs(String Username, boolean type){
         llm = llg.deserializeData();
-        if (!usernameExists(Username))
-            return;
 
         //Get current time and convert it to string/
         LocalDateTime time = LocalDateTime.now();

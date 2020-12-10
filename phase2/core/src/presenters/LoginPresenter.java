@@ -140,4 +140,8 @@ public class LoginPresenter {
     public JSONObject emptyAnswer() {
         return pu.createJSON("warning", "Security answers cannot be empty.");
     }
+
+    public JSONObject usernameDoesntExist() {
+        return pu.createJSON("warning", "The username you entered does not exist.");
+    }
 }
