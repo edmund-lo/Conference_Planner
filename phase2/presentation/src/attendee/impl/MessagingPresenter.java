@@ -169,13 +169,13 @@ public class MessagingPresenter implements IMessagingPresenter {
         JSONObject responseJson = new JSONObject();
         switch (type) {
             case "primary":
-                //responseJson = ac.getAllPrimaryMessages();
+                responseJson = ac.getAllPrimaryMessages();
                 break;
             case "archived":
-                //responseJson = ac.getArchivedMessages();
+                responseJson = ac.getAllArchivedMessages();
                 break;
             case "trash":
-                //responseJson = ac.getTrashMessages();
+                responseJson = ac.getAllTrashMessages();
                 break;
         }
         return MessageThreadAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));

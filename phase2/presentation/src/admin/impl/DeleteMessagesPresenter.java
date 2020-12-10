@@ -8,7 +8,12 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import model.Message;
 import model.MessageThread;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -29,15 +34,13 @@ public class DeleteMessagesPresenter implements IDeleteMessagesPresenter {
 
     @Override
     public void deleteButtonAction(ActionEvent actionEvent) {
-        //JSONObject responseJson = ac.deleteMessageThread(this.selectedMessageThread.getMessageThreadId());
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = ac.deleteMessageThread(this.selectedMessageThread.getMessageThreadId());
         if (responseJson.get("status").equals("success")) init();
     }
 
     @Override
     public List<MessageThread> getAllMessages() {
-        //JSONObject responseJson = ac.getAllMessageThreads();
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = ac.getAllMessageThreads();
         return MessageThreadAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
@@ -60,7 +63,7 @@ public class DeleteMessagesPresenter implements IDeleteMessagesPresenter {
         this.view.setDeleteSender(messageThread.getSenderName());
         this.view.setDeleteRecipients(messageThread.getRecipientNames());
         this.view.setDeleteSubject(messageThread.getSubject());
-        //this.view.getPrimaryThreadContainer().getChildren().
+        displayMessageHistory(messageThread, this.view.getDeleteThreadContainer());
     }
 
     @Override
@@ -68,6 +71,19 @@ public class DeleteMessagesPresenter implements IDeleteMessagesPresenter {
         this.view.setDeleteButtonAction(this::deleteButtonAction);
         List<MessageThread> deleteInbox = getAllMessages();
         displayInbox(deleteInbox);
+    }
+
+    private void displayMessageHistory(MessageThread messageThread, ScrollPane pane) {
+        pane.setContent(null);
+        VBox messageTiles = new VBox();
+        for (Message message : messageThread.getMessageHistory()) {
+            String messageString = message.getSenderName() + ": " + message.getContent() + " (" +
+                    DateTimeUtil.getInstance().format(message.getMessageTime()) + ")";
+            Text messageText = new Text(messageString);
+            HBox tile = new HBox(messageText);
+            messageTiles.getChildren().add(tile);
+        }
+        pane.setContent(messageTiles);
     }
 
     private String getMessageMembers(List<String> recipients) {
