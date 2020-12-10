@@ -217,7 +217,7 @@ public abstract class UserController {
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
 
-        for (String id: um.getPrimaryMessages(this.username)){
+        for (String id: um.getPrimaryMessages(this.username).keySet()){
             item.put(id, mm.getOneMessageThreadToJson(id));
         }
 
@@ -238,7 +238,7 @@ public abstract class UserController {
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
 
-        for (String id: um.getArchivedMessages(this.username)){
+        for (String id: um.getArchivedMessages(this.username).keySet()){
             item.put(id, mm.getOneMessageThreadToJson(id));
         }
 
@@ -259,7 +259,7 @@ public abstract class UserController {
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
 
-        for (String id: um.getTrashMessages(this.username)){
+        for (String id: um.getTrashMessages(this.username).keySet()){
             item.put(id, mm.getOneMessageThreadToJson(id));
         }
 
@@ -301,11 +301,7 @@ public abstract class UserController {
      */
 
     public void changeMessageStatus(String messageThreadId){
-        if (mm.checkMessageStatus(messageThreadId)){
-            mm.unreadMessage(messageThreadId);
-        } else {
-            mm.readMessage(messageThreadId);
-        }
+        um.changeReadForMes(username, messageThreadId);
         this.saveData();
     }
 

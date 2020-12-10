@@ -117,37 +117,6 @@ public class MessageManager implements Serializable {
     }
 
     /**
-     * Change the status of the messageThread to true, given it's Id
-     *
-     * @param  messageThreadId id of the message user want to change.
-     */
-    public void readMessage(String messageThreadId){
-        MessageThread messageThread = allMessageThreads.get(messageThreadId);
-        messageThread.setRead(true);
-    }
-
-    /**
-     * Change the status of the messageThread to false, given it's Id
-     *
-     * @param  messageThreadId id of the message user want to change.
-     */
-    public void unreadMessage(String messageThreadId){
-        MessageThread messageThread = allMessageThreads.get(messageThreadId);
-        messageThread.setRead(false);
-    }
-
-    /**
-     * Check the current status of the messageThread is read or unread, given it's Id
-     *
-     * @param  messageThreadId id of the message user want to check.
-     *
-     * @return a boolean tells the status, return true iff the message has read, false otherwise
-     */
-    public boolean checkMessageStatus(String messageThreadId){
-        return allMessageThreads.get(messageThreadId).getRead();
-    }
-
-    /**
      * Gets JSONObject for one message thread
      *
      * @param messageThreadId message thread id
