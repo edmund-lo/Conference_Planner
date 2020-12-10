@@ -37,23 +37,17 @@ public class AdminController extends UserController{
         String username = String.valueOf(register.get("username"));
         String firstName = String.valueOf(register.get("firstName"));
         String lastName = String.valueOf(register.get("lastName"));
-        String userType = String.valueOf(register.get("userType"));
-        String password = String.valueOf(register.get("password"));
         boolean vip = (boolean) register.get("vip");
+        String password = String.valueOf(register.get("password"));
+        String userType = String.valueOf(register.get("userType"));
 
         switch (userType) {
             case "attendee":
-                uam.addAccount(username, password, userType);
-                this.saveData();
-                return createAttendeeAccount(username, firstName, lastName, vip);
+                return createAttendeeAccount(username, firstName, lastName, vip, password, userType);
             case "organizer":
-                uam.addAccount(username, password, userType);
-                this.saveData();
-                return createOrganizerAccount(username, firstName, lastName);
+                return createOrganizerAccount(username, firstName, lastName, password, userType);
             case "speaker":
-                uam.addAccount(username, password, userType);
-                this.saveData();
-                return createSpeakerAccount(username, firstName, lastName);
+                return createSpeakerAccount(username, firstName, lastName, password, userType);
             default:
                 return ap.invalidUserTypeError();
         }
@@ -67,9 +61,11 @@ public class AdminController extends UserController{
      * @param lastName the last name
      * @return a JSON object containing the status and description of the action
      */
-    private JSONObject createAttendeeAccount(String username, String firstName, String lastName, boolean vip) {
+    private JSONObject createAttendeeAccount(String username, String firstName, String lastName, boolean vip,
+                                             String password, String userType) {
         if (um.checkUniqueUsername(username)) { //ensures the username is unique
             um.createNewAttendee(username, firstName, lastName, vip); //create new attendee
+            uam.addAccount(username, password, userType);
             this.saveData();
             return ap.attendeeCreationResult();
         }
@@ -84,9 +80,11 @@ public class AdminController extends UserController{
      * @param lastName the last name
      * @return a JSON object containing the status and description of the action
      */
-    private JSONObject createOrganizerAccount(String username, String firstName, String lastName) {
+    private JSONObject createOrganizerAccount(String username, String firstName, String lastName,
+                                              String password, String userType) {
         if (um.checkUniqueUsername(username)) { //ensures the username is unique
             um.createNewOrganizer(username, firstName, lastName); //create new organizer
+            uam.addAccount(username, password, userType);
             this.saveData();
             return ap.organizerCreationResult();
         }
@@ -101,9 +99,11 @@ public class AdminController extends UserController{
      * @param lastName the last name
      * @return a JSON object containing the status and description of the action
      */
-    private JSONObject createSpeakerAccount(String username, String firstName, String lastName) {
+    private JSONObject createSpeakerAccount(String username, String firstName, String lastName,
+                                            String password, String userType) {
         if (um.checkUniqueUsername(username)) { //ensures the username is unique
             um.createNewSpeaker(username, firstName, lastName); //create new speaker
+            uam.addAccount(username, password, userType);
             this.saveData();
             return ap.speakerCreationResult();
         }
