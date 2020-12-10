@@ -189,6 +189,11 @@ public class Room implements Serializable {
         return ret.toString();
     }
 
+    /**
+     * getter for the events on a specific time
+     * @param time which day
+     * @return a list of strings of the event IDs occuring on time
+     */
     public List<String> eventsOnDay(LocalDateTime time) {
         List<String> events = new ArrayList<>();
         for (Map.Entry<LocalDateTime[], String> times : this.schedule.entrySet()) {
