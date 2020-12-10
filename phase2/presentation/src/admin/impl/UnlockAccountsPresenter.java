@@ -44,8 +44,7 @@ public class UnlockAccountsPresenter implements IUnlockAccountsPresenter {
 
     @Override
     public List<UserAccount> getUserAccounts() {
-        //JSONObject responseJson = ac.getAllAccounts();
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = ac.getAllAccounts();
         return UserAccountAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
@@ -68,8 +67,7 @@ public class UnlockAccountsPresenter implements IUnlockAccountsPresenter {
 
     @Override
     public List<LoginLog> getUserLoginLogs(String username) {
-        //JSONObject responseJson = ac.getLoginLogs(username);
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = ac.getLoginLogs(username);
         return LoginLogAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 

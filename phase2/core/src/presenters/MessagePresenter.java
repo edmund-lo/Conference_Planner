@@ -53,7 +53,7 @@ public class MessagePresenter {
      * Informs the user that their message was sent successfully to name
      * @param names name of the receiver of the message
      */
-    public JSONObject messageSent(ArrayList names){
+    public JSONObject messageSent(ArrayList<String> names){
         return pu.createJSON("success", "Message sent to "+names+" successfully!");
     }
 }
