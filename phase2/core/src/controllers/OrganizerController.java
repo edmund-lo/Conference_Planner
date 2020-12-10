@@ -90,37 +90,6 @@ public class OrganizerController extends UserController {
     }
 
     /**
-     * Lists all the events that are happening in the conference.
-     *
-     * @return a JSONObject containing all the events at the conference.
-     */
-    public JSONObject listEvents() {
-        List<String> allSpeakers = um.getAllSpeakerNames();
-        JSONArray allEvents = getAllEventsList();
-        //custom error messages
-        if (allEvents.size() == 0) {
-            return op.noEvents();
-        }
-        if (allSpeakers.size() == 0) {
-            return op.noSpeakers();
-        }
-        // user is returned a list of events
-        return op.listEvents(allEvents);
-    }
-
-    /**
-     * Lists the speakers that are speaking at the conference.
-     *
-     * @param eventID
-     * @return
-     */
-
-    public JSONObject listSpeakers(String eventID) {
-        List<String> allSpeakers = um.getAllSpeakerNames();
-        return op.listSpeakers(allSpeakers);
-    }
-
-    /**
      * Lists the speakers that are available to speak at a given event.
      *
      * @param eventID the ID of the event that the speakers can or cannot speak at
@@ -191,8 +160,19 @@ public class OrganizerController extends UserController {
         List<Boolean> constraints = getConstraints(eventInfo);
         int eventCap = (int) eventInfo.get("capacity");
 
-        List<String> possibleRooms = rm.getAllRoomsWith(constraints, eventCap); // all possible rooms that can host
-        return op.listRooms(possibleRooms);
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+
+        for (String roomID: rm.getAllRoomsWith(constraints, eventCap)){
+            item.put(roomID, rm.getRoomJson(roomID));
+        }
+
+        array.add(item);
+
+        json.put("data", array);
+
+        return json;
     }
 
     /**
@@ -317,12 +297,19 @@ public class OrganizerController extends UserController {
     }
 
     public JSONObject listRoomSchedule(String roomName, LocalDateTime time) {
-        List<String> eventIDs = rm.getEventsInRoomAfter(roomName, time);
-        JSONArray schedule = new JSONArray();
-        for (String ID : eventIDs) {
-            schedule.add(em.getEventJson(ID));
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+
+        for (String eventID: rm.getEventsInRoomAfter(roomName, time)){
+            item.put(eventID, em.getEventJson(eventID));
         }
-        return op.listRoomSchedule(schedule);
+
+        array.add(item);
+
+        json.put("data", array);
+
+        return json;
     }
 
     public JSONObject getAllUsers(){
