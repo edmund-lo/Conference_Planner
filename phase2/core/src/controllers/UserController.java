@@ -256,12 +256,15 @@ public abstract class UserController {
     /**
      *Sends a message to an attendee.
      *
-     * @param  content the contents of the message being sent.
-     * @param  recipientNames usernames of the Entities.Attendee the message is for.
+     * @param  register the JSON Object which stores info about the message going to send.
      */
-    public JSONObject sendMessage(String content, ArrayList recipientNames, String subject) {
+    public JSONObject sendMessage(JSONObject register) {
+        String content = String.valueOf(register.get("content"));
+        ArrayList recipientNames = (ArrayList)(register.get("recipients"));
+        String subject = String.valueOf(register.get("subject"));
+        String sender = String.valueOf(register.get("sender"));
         if (mm.messageCheck(content, username, recipientNames)) {
-            String messageThreadId = mm.createMessage(content, username, recipientNames, subject);
+            String messageThreadId = mm.createMessage(content, sender, recipientNames, subject);
             addMessagesToUser(recipientNames, messageThreadId);
             this.saveData();
             return mp.messageSent(recipientNames);
