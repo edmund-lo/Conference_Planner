@@ -13,6 +13,7 @@ import java.util.UUID;
 
 /**
  * Helper that manages all interaction with the Entities. Event classes and ensures no rules are broken.
+ * @author Sam De Abreu
  */
 public class EventManager implements Serializable {
     private HashMap<String, Event> allEvents;
@@ -107,7 +108,8 @@ public class EventManager implements Serializable {
     public boolean canAddUserToEvent(String eventID, String userID){
         if(eventExists(eventID)){
             Event currentEvent = allEvents.get(eventID);
-            return currentEvent.getAttendingUsers().size() < 2 && !currentEvent.getAttendingUsers().contains(userID);
+            return currentEvent.getAttendingUsers().size() < currentEvent.getCapacity()
+                    && !currentEvent.getAttendingUsers().contains(userID);
         }
         return false;
     }
@@ -307,9 +309,15 @@ public class EventManager implements Serializable {
         this.allEvents.get(eventID).setCapacity(capacity);
     }
 
+    /**
+     * getter for getting the JSON representation of an event
+     * @param ID id of the event
+     * @return the JSONObject representation of the event
+     */
     public JSONObject getEventJson(String ID){
         return allEvents.get(ID).convertToJSON();
     }
+
     /**
      * @return A JSONObject that contains the JSON representation of this class
      */

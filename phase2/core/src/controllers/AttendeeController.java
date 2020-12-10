@@ -78,6 +78,7 @@ public class AttendeeController extends UserController {
      *
      * @return a JSON object of all the attendees next day events
      */
+    @SuppressWarnings("unchecked")
     public JSONObject getNextDayEvents(){
         int numEvents = 0;
 

@@ -65,14 +65,6 @@ public class LoginController {
 
 
 
-        int UsernameCheck = 0;
-        //Loops through all existing usernames.
-        for (String[] users : accounts){
-            if (users[0].equals(Username)){
-                //If the Username the user entered already exists then UsernameCheck counter is increased.
-                UsernameCheck++;
-            }
-        }
         //Check for whitespace
         if (Username.contains(" "))
             return lp.noWhiteSpace();
@@ -81,7 +73,7 @@ public class LoginController {
             return lp.EmptyName();
 
         //If the counter is 0, that means the username isn't taken and can be set.
-        if (UsernameCheck != 0)
+        if (usernameExists(Username))
             return lp.UsernameTaken();
 
         //Check minimum password length for security
@@ -196,8 +188,29 @@ public class LoginController {
      * Locks a user, which prevents them from logging in until an Admin unlocks their account.
      */
     public void lockOut(String Username){
+        if (!usernameExists(Username))
+            return;
+
         uam.lockAccount(Username);
         uag.serializeData(uam);
+    }
+
+    /**
+     * return true if username already exists.
+     */
+    public boolean usernameExists(String username){
+        //Update accounts list
+        this.accounts = uam.getAccountInfo();
+
+        int UsernameCheck = 0;
+        //Loops through all existing usernames.
+        for (String[] users : accounts){
+            if (users[0].equals(username)){
+                //If the Username the user entered already exists then UsernameCheck counter is increased.
+                UsernameCheck++;
+            }
+        }
+        return UsernameCheck != 0;
     }
 
     /**
