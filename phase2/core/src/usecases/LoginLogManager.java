@@ -33,7 +33,7 @@ public class LoginLogManager implements Serializable {
      * @param time the time of login for this user
      * @return a boolean value of true if the login log was successfully created, false otherwise.
      */
-    public boolean addToLoginLogSet(boolean condition, String username, LocalDateTime time) {
+    public void addToLoginLogSet(boolean condition, String username, LocalDateTime time) {
 
         //important note: this does not handle changes to the condition
         //updates to conditions are handled elsewhere (Controllers)
@@ -55,7 +55,6 @@ public class LoginLogManager implements Serializable {
                 }
             }
         }
-        return true;
     }
 
     /**
@@ -76,7 +75,7 @@ public class LoginLogManager implements Serializable {
         int strike = 0;
 
         for (LoginLog log : allLogs.get(username)) {
-            if (log.getCondition() == false) {
+            if (!log.getCondition()) {
                 strike++;
             }
         }
