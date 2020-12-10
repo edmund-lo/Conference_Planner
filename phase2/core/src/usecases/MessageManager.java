@@ -58,27 +58,6 @@ public class MessageManager implements Serializable {
     public void deleteMessage(String messageThreadId){
         this.allMessageThreads.remove(messageThreadId);
     }
-//      Save for phase 2
-    /*/**
-     * A string representation of all the message contents
-     *
-     * @return allContents
-     */
-
-    /*public List<String> getMessageContents(){
-        for (Message message : this.allMessages.values()){
-            this.allContents.add(message.toString());
-        }
-        return this.allContents;
-    }*/
-
-    /*/**;
-     * Add new content to all contents
-     *//*
-
-    public void addMessageContent(HashMap<String, Message> message){
-        this.allContents.add(message.toString());
-    }*/
 
     /**
      * Creator for a new Entities.Message and the MessageThread it belongs to
