@@ -305,6 +305,8 @@ public abstract class UserController {
      * @param  messageThreadId id of the message user want to change.
      */
     public void changeMessageStatus(String messageThreadId){
+        this.deserializeData();
+
         um.changeReadForMes(username, messageThreadId);
         this.saveData();
     }
