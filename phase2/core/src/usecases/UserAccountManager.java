@@ -11,7 +11,7 @@ import java.util.HashMap;
 /**
  * Helper that manages all interaction with the Entities.UserAccountEntity classes and
  * ensures no rules are broken.
- * @author dylan
+ * @author dylan, Edmund
  * @version 1.0
  */
 public class UserAccountManager implements Serializable {
@@ -23,7 +23,6 @@ public class UserAccountManager implements Serializable {
      */
     public UserAccountManager(){
         this.allUserAccounts = new HashMap<>();
-
     }
 
     /**
