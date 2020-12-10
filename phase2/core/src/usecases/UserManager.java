@@ -612,30 +612,47 @@ public class UserManager implements Serializable {
         return json;
     }
 
+    /**
+     * Gets a user's attending events
+     *
+     * @param username the username
+     * @return a set containing event ids
+     */
     public Set<String> getEvents(String username){
         return allUsers.get(username).getSchedule().keySet();
     }
 
     /**
+     * Gets a speaker Json
+     *
+     * @param username the username
+     * @return a Json object of the speaker
+     */
+    public JSONObject getSpeakerJson(String username){
+        return this.allUsers.get(username).convertToJSON();
+    }
+
+    /**
      * @return A JSONObject that contains the JSON representation of this class
      */
-    @SuppressWarnings("unchecked")
-    public JSONArray getAllUsers(){
+    public JSONObject getAllUsersJson(){
+        JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
 
-        for(String username: allUsers.keySet())
-            item.put(username, allUsers.get(username).convertToJSON());
-
+        for(String ID: allUsers.keySet()) {
+            item.put(ID, allUsers.get(ID).convertToJSON());
+        }
         array.add(item);
 
-        return array;
+        json.put("Users", array);
+
+        return json;
     }
 
-    public JSONObject getSpeakerJson(String id){
-        return this.allUsers.get(id).convertToJSON();
-    }
-
+    /**
+     * @return A JSONObject that contains the JSON representation of this class
+     */
     public JSONObject getAllAttendeesJson(){
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
@@ -648,12 +665,16 @@ public class UserManager implements Serializable {
         }
         array.add(item);
 
-        json.put("Users", array);
+        json.put("Attendees", array);
 
         return json;
     }
 
-    public JSONArray getAllSpeakers(){
+    /**
+     * @return A JSONObject that contains the JSON representation of this class
+     */
+    public JSONObject getAllSpeakersJson(){
+        JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
 
@@ -664,6 +685,8 @@ public class UserManager implements Serializable {
         }
         array.add(item);
 
-        return array;
+        json.put("Speakers", array);
+
+        return json;
     }
 }

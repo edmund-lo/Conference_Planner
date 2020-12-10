@@ -326,10 +326,10 @@ public class OrganizerController extends UserController {
     }
 
     public JSONObject getAllUsers(){
-        return op.listUsers(um.getAllUsers());
+        return um.getAllUsersJson();
     }
 
     public JSONObject getAllSpeakers(){
-        return op.listSpeakers(um.getAllSpeakers());
+        return um.getAllSpeakersJson();
     }
 }
