@@ -11,6 +11,7 @@ public interface IMessagingView extends ILoggedInView {
     void setPrimarySender(String sender);
     void setPrimaryRecipientNames(List<String> recipientNames);
     void setPrimarySubject(String subject);
+    String getContent();
     void setArchivedSender(String sender);
     void setArchivedRecipientNames(List<String> recipientNames);
     void setArchivedSubject(String subject);
