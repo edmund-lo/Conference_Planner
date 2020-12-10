@@ -31,10 +31,9 @@ public class LoginView implements ILoginView {
     }
     @FXML
     public void initialize() {
-        this.presenter = new LoginPresenter(this);
+        new LoginPresenter(this);
     }
 
-    private LoginPresenter presenter;
     private EventHandler<ActionEvent> registerButtonAction;
     private EventHandler<ActionEvent> loginButtonAction;
     private EventHandler<ActionEvent> forgotPasswordButtonAction;

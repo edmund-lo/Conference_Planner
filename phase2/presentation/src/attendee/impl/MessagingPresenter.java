@@ -14,18 +14,21 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import model.Message;
 import model.MessageThread;
 import model.User;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import util.DateTimeUtil;
 import util.TextResultUtil;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class MessagingPresenter implements IMessagingPresenter {
-    private IMessagingView view;
-    private AttendeeController ac;
+    private final IMessagingView view;
+    private final AttendeeController ac;
     private ObservableList<User> users;
     private MessageThread selectedPrimaryMessageThread;
     private MessageThread selectedArchivedMessageThread;
@@ -50,6 +53,13 @@ public class MessagingPresenter implements IMessagingPresenter {
         JSONObject responseJson = new JSONObject();
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
         if (responseJson.get("status").equals("success")) refreshAllInboxes();
+    }
+
+    @Override
+    public void sendButtonAction(ActionEvent actionEvent) {
+        JSONObject queryJson = constructMessageJson();
+        JSONObject responseJson = ac.sendMessage(queryJson);
+        setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
     }
 
     @Override
@@ -85,8 +95,7 @@ public class MessagingPresenter implements IMessagingPresenter {
         Button sendButton = new Button("Send Message");
         sendButton.setOnAction(this::sendButtonAction);
 
-        //JSONObject responseJson = ac.getFriendsList();
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = ac.getFriends();
         List<User> users = UserAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
         this.users = FXCollections.observableArrayList(users);
         userTable.setItems(this.users);
@@ -133,19 +142,19 @@ public class MessagingPresenter implements IMessagingPresenter {
 
     @Override
     public void unreadPrimaryButtonAction(ActionEvent actionEvent) {
-        //ac.markUnread(this.selectedPrimaryMessageThread.getMessageId());
+        ac.changeMessageStatus(this.selectedPrimaryMessageThread.getMessageThreadId());
         refreshAllInboxes();
     }
 
     @Override
     public void unreadArchivedButtonAction(ActionEvent actionEvent) {
-        //ac.markUnread(this.selectedArchivedMessageThread.getMessageId());
+        ac.changeMessageStatus(this.selectedArchivedMessageThread.getMessageThreadId());
         refreshAllInboxes();
     }
 
     @Override
     public void unreadTrashButtonAction(ActionEvent actionEvent) {
-        //ac.markUnread(this.selectedTrashMessageThread.getMessageId());
+        ac.changeMessageStatus(this.selectedTrashMessageThread.getMessageThreadId());
         refreshAllInboxes();
     }
 
@@ -160,7 +169,7 @@ public class MessagingPresenter implements IMessagingPresenter {
         JSONObject responseJson = new JSONObject();
         switch (type) {
             case "primary":
-                //responseJson = ac.getPrimaryMessages();
+                //responseJson = ac.getAllPrimaryMessages();
                 break;
             case "archived":
                 //responseJson = ac.getArchivedMessages();
@@ -209,20 +218,28 @@ public class MessagingPresenter implements IMessagingPresenter {
 
     @Override
     public void displayMessageThread(MessageThread messageThread, String type) {
-        //ac.setMessageRead(message.getMessageId());
+        if (!messageThread.isRead()) ac.changeMessageStatus(messageThread.getMessageThreadId());
         switch (type) {
             case "primary":
                 this.selectedPrimaryMessageThread = messageThread;
                 this.view.setPrimarySender(messageThread.getSenderName());
                 this.view.setPrimaryRecipientNames(messageThread.getRecipientNames());
                 this.view.setPrimarySubject(messageThread.getSubject());
-                //this.view.getPrimaryThreadContainer().getChildren().
+                displayMessageHistory(messageThread, this.view.getPrimaryThreadContainer());
                 break;
             case "archived":
-                //responseJson = ac.getArchivedMessages();
+                this.selectedArchivedMessageThread = messageThread;
+                this.view.setPrimarySender(messageThread.getSenderName());
+                this.view.setPrimaryRecipientNames(messageThread.getRecipientNames());
+                this.view.setPrimarySubject(messageThread.getSubject());
+                displayMessageHistory(messageThread, this.view.getPrimaryThreadContainer());
                 break;
             case "trash":
-                //responseJson = ac.getTrashMessages();
+                this.selectedTrashMessageThread = messageThread;
+                this.view.setPrimarySender(messageThread.getSenderName());
+                this.view.setPrimaryRecipientNames(messageThread.getRecipientNames());
+                this.view.setPrimarySubject(messageThread.getSubject());
+                displayMessageHistory(messageThread, this.view.getPrimaryThreadContainer());
                 break;
         }
     }
@@ -260,10 +277,17 @@ public class MessagingPresenter implements IMessagingPresenter {
         return sb.toString();
     }
 
-    private List<HBox> alignMessageHistory() {
-        List<HBox> messageHistory = new ArrayList<>();
-
-        return messageHistory;
+    private void displayMessageHistory(MessageThread messageThread, ScrollPane pane) {
+        pane.setContent(null);
+        VBox messageTiles = new VBox();
+        for (Message message : messageThread.getMessageHistory()) {
+            String messageString = message.getSenderName() + ": " + message.getContent() + " (" +
+                    DateTimeUtil.getInstance().format(message.getMessageTime()) + ")";
+            Text messageText = new Text(messageString);
+            HBox tile = new HBox(messageText);
+            messageTiles.getChildren().add(tile);
+        }
+        pane.setContent(messageTiles);
     }
 
     private void selectAllAction(ActionEvent actionEvent) {
@@ -283,13 +307,6 @@ public class MessagingPresenter implements IMessagingPresenter {
             }
         }
         recipientField.setText(sb.toString());
-    }
-
-    public void sendButtonAction(ActionEvent actionEvent) {
-        JSONObject queryJson = constructMessageJson();
-        //JSONObject responseJson = oc.sendNewMessage(queryJson);
-        JSONObject responseJson = new JSONObject();
-        setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
     }
 
     @SuppressWarnings("unchecked")

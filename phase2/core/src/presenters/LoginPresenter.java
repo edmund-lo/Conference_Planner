@@ -96,4 +96,12 @@ public class LoginPresenter {
     public JSONObject AccountExists() {
         return pu.createJSON("warning", "Account already exists");
     }
+
+    public JSONObject emptyQuestion() {
+        return pu.createJSON("warning", "Security questions cannon be empty.");
+    }
+
+    public JSONObject emptyAnswer() {
+        return pu.createJSON("warning", "Security answers cannot be empty.");
+    }
 }

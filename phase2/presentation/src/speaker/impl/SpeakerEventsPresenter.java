@@ -34,7 +34,7 @@ public class SpeakerEventsPresenter implements ISpeakerEventsPresenter {
         clearResultText();
 
         JSONObject queryJson = constructMessageJson();
-        //JSONObject responseJson = oc.messageEventsAttendeesCmd(queryJson);
+        //JSONObject responseJson = sc.messageEventsAttendeesCmd(queryJson);
         JSONObject responseJson = new JSONObject();
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
     }
@@ -43,8 +43,10 @@ public class SpeakerEventsPresenter implements ISpeakerEventsPresenter {
     public void setResultText(String resultText, String status) {
         this.view.setResultText(resultText);
         TextResultUtil.getInstance().addPseudoClass(status, this.view.getResultTextControl());
-        if (status.equals("warning") || status.equals("error"))
+        if (status.equals("warning") || status.equals("error")) {
+            TextResultUtil.getInstance().addPseudoClass(status, this.view.getSubjectField());
             TextResultUtil.getInstance().addPseudoClass(status, this.view.getContentArea());
+        }
     }
 
     @Override
@@ -118,6 +120,7 @@ public class SpeakerEventsPresenter implements ISpeakerEventsPresenter {
         }
         queryJson.put("sender", this.view.getSender());
         queryJson.put("recipients", recipients);
+        queryJson.put("subject", this.view.getSubject());
         queryJson.put("content", this.view.getContent());
         return queryJson;
     }
@@ -125,6 +128,7 @@ public class SpeakerEventsPresenter implements ISpeakerEventsPresenter {
     private void clearResultText() {
         this.view.setResultText("");
         TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl());
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getSubjectField());
         TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getContentArea());
     }
 

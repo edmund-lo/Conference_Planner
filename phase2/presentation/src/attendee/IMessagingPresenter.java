@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface IMessagingPresenter extends IPresenter {
     void replyButtonAction(ActionEvent actionEvent);
+    void sendButtonAction(ActionEvent actionEvent);
     void newMessageButtonAction(ActionEvent actionEvent);
     void moveToTrashButtonAction(ActionEvent actionEvent);
     void moveToArchivedButtonAction(ActionEvent actionEvent);

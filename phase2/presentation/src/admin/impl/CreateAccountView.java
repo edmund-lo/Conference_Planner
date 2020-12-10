@@ -28,10 +28,9 @@ public class CreateAccountView implements ICreateAccountView {
     }
     @FXML
     public void initialize() {
-        this.presenter = new CreateAccountPresenter(this);
+        new CreateAccountPresenter(this);
     }
 
-    private CreateAccountPresenter presenter;
     private EventHandler<ActionEvent> createAccountButtonAction;
     private Stage stage;
     private String sessionUsername;

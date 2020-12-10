@@ -52,10 +52,9 @@ public class RemoveEventsView implements IRemoveEventsView {
     }
     @FXML
     public void initialize() {
-        this.presenter = new RemoveEventsPresenter(this);
+        new RemoveEventsPresenter(this);
     }
 
-    private RemoveEventsPresenter presenter;
     private EventHandler<ActionEvent> removeButtonAction;
     private Stage stage;
     private String sessionUsername;

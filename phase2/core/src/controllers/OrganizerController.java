@@ -132,7 +132,7 @@ public class OrganizerController extends UserController {
         JSONArray availableSpeakers = new JSONArray();
         for (String speaker : allSpeakers) {
             if (um.canAddSpeakerEvent(speaker, eventID, em.getEventStartTime(eventID), em.getEventEndTime(eventID))) {
-                availableSpeakers.add(um.getSpeakerJson(speaker));
+                availableSpeakers.add(um.getUserJson(speaker));
             }
         }
         return op.listSpeakers(availableSpeakers);

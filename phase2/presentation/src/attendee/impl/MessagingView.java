@@ -102,9 +102,10 @@ public class MessagingView implements IMessagingView {
         if (unreadTrashButtonAction != null) unreadTrashButtonAction.handle(event);
     }
     @FXML
-    public void initialize() { this.presenter = new MessagingPresenter(this); }
+    public void initialize() {
+        new MessagingPresenter(this);
+    }
 
-    private MessagingPresenter presenter;
     private EventHandler<ActionEvent> replyButtonAction;
     private EventHandler<ActionEvent> newMessageButtonAction;
     private EventHandler<ActionEvent> moveToArchiveButtonAction;
