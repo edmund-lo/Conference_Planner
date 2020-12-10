@@ -4,10 +4,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import presenters.SpeakerPresenter;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -89,10 +87,18 @@ public class SpeakerController extends UserController {
      * @return List of Strings representing the events the current speaker is speaking at.
      */
     public JSONObject getSpeakerEvents() {
-        Map<String, LocalDateTime[]> schedule = um.getSpeakerSchedule(username);
-        List<String> eventStrings = new ArrayList<>();
-        for (String eventId : schedule.keySet()) //loop through all events in speaker's schedule
-            eventStrings.add(em.getEventDescription(eventId));
-        return sp.getSpeakerEventsOutput(eventStrings);
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+
+        for (String eventID: um.getSpeakerSchedule(this.username).keySet()){
+            item.put(eventID, em.getEventJson(eventID));
+        }
+
+        array.add(item);
+
+        json.put("data", array);
+
+        return json;
     }
 }
