@@ -81,6 +81,10 @@ public class MessageThread implements Serializable {
         return this.messages;
     }
 
+    public void addMessages(Message message) {
+        this.messages.add(message);
+    }
+
     /**
      * For converting this class to a JSON format
      * @return a JSONObject that describes this entity

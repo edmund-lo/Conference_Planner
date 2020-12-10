@@ -32,7 +32,7 @@ public class MessageManager implements Serializable {
      * @param messageThreadId the Id of the messageThread that we are checking
      * @return True iff the messageThread is in allMessageThreads
      */
-    private boolean messageThreadExists(String messageThreadId){
+    public boolean messageThreadExists(String messageThreadId){
         return this.allMessageThreads.containsKey(messageThreadId);
     }
 
@@ -85,6 +85,14 @@ public class MessageManager implements Serializable {
         this.allMessageThreads.put(newMessageThread.getMessageThreadId(), newMessageThread);
         //this.allContents.add(newMessage.toString());
         return messageThreadId;
+    }
+
+    public String reply(String messageThreadId, String content){
+        MessageThread newMessageThread = this.allMessageThreads.get(messageThreadId);
+        Message newMessage = new Message(newMessageThread.getSender(), LocalDateTime.now(), content);
+        newMessageThread.addMessages(newMessage);
+        Message newMessage2 = (Message) newMessageThread.getMessages().get(newMessageThread.getMessages().size()-1);
+        return newMessage2.getSenderName();
     }
 
     /**
