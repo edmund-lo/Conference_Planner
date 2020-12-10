@@ -147,6 +147,19 @@ public class RoomManager implements Serializable {
         return getRoom(roomName).roomScheduleToString();
     }
 
+    public List<String> getEventsInRoomAfter(String roomName, LocalDateTime time){
+        return getRoom(roomName).eventsOnDay(time);
+    }
+
+    /**
+     * Gets JSONObject for a room
+     * @param roomID the room ID
+     * @return A JSONObject that contains the JSON representation of this class
+     */
+    public JSONObject getRoomJson(String roomID) {
+        return allRooms.get(roomID).convertToJSON();
+    }
+
     /**
      * @return A JSONObject that contains the JSON representation of this class
      */
@@ -165,9 +178,4 @@ public class RoomManager implements Serializable {
 
         return json;
     }
-
-    public List<String> getEventsInRoomAfter(String roomName, LocalDateTime time){
-        return getRoom(roomName).eventsOnDay(time);
-    }
-
 }
