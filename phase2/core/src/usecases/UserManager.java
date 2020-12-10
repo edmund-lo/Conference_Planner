@@ -623,12 +623,12 @@ public class UserManager implements Serializable {
     }
 
     /**
-     * Gets a speaker Json
+     * Gets a user Json
      *
      * @param username the username
-     * @return a Json object of the speaker
+     * @return a Json object of the user
      */
-    public JSONObject getSpeakerJson(String username){
+    public JSONObject getUserJson(String username){
         return this.allUsers.get(username).convertToJSON();
     }
 

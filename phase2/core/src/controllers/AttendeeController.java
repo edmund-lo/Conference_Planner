@@ -1,5 +1,6 @@
 package controllers;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import presenters.AttendeePresenter;
 
@@ -70,6 +71,30 @@ public class AttendeeController extends UserController {
             return ap.cancelVipResult(em.getEventName(eventID));
         }
         return ap.notAttendingEventError(em.getEventName(eventID));
+    }
+
+    /**
+     * Gets an attendees next day events
+     *
+     * @return a JSON object of all the attendees next day events
+     */
+    public JSONObject getNextDayEvents(){
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+
+        for (String eventID: um.getSchedule(this.username).keySet()){
+            int day = em.getEventStartTime(eventID).getDayOfYear();
+            if (day == LocalDateTime.now().getDayOfYear() + 1) {
+                item.put(eventID, em.getEventJson(eventID));
+            }
+        }
+
+        array.add(item);
+
+        json.put("data", array);
+
+        return json;
     }
 
 }

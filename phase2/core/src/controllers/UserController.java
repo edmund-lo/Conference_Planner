@@ -396,6 +396,14 @@ public abstract class UserController {
     }
 
     /**
+     * Getter for a users json
+     * @return JSONObject of the user
+     */
+    public JSONObject getUser() {
+        return um.getUserJson(this.username);
+    }
+
+    /**
      * Logs the user out of the program
      *
      * @return returns the current UserController class.
