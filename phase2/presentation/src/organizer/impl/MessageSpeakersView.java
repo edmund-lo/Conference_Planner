@@ -139,6 +139,11 @@ public class MessageSpeakersView implements IMessageUsersView {
     }
 
     @Override
+    public TextField getSubjectField() {
+        return this.subject;
+    }
+
+    @Override
     public void setSendButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.createAccountButtonAction = eventHandler;
     }

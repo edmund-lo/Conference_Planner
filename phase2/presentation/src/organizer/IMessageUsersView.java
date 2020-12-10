@@ -15,6 +15,7 @@ public interface IMessageUsersView extends ILoggedInView {
     CheckBox getSelectAll();
     TextField getRecipientsField();
     TextArea getContentArea();
+    TextField getSubjectField();
 
     String getSender();
     void setSender(String sender);

@@ -36,20 +36,8 @@ public class Message {
         return senderName.get();
     }
 
-    public StringProperty senderNameProperty() {
-        return senderName;
-    }
-
-    public void setSenderName(String senderName) {
-        this.senderName.set(senderName);
-    }
-
     public String getContent() {
         return content.get();
-    }
-
-    public StringProperty contentProperty() {
-        return content;
     }
 
     public void setContent(String content) {
@@ -58,14 +46,6 @@ public class Message {
 
     public LocalDateTime getMessageTime() {
         return messageTime.get();
-    }
-
-    public ObjectProperty<LocalDateTime> messageTimeProperty() {
-        return messageTime;
-    }
-
-    public void setMessageTime(LocalDateTime messageTime) {
-        this.messageTime.set(messageTime);
     }
     //endregion
 }

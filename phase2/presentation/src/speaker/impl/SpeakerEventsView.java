@@ -50,6 +50,8 @@ public class SpeakerEventsView implements ISpeakerEventsView {
     @FXML
     private FlowPane recipients;
     @FXML
+    private TextField subject;
+    @FXML
     private TextArea content;
 
     @FXML
@@ -100,6 +102,11 @@ public class SpeakerEventsView implements ISpeakerEventsView {
     @Override
     public TextArea getContentArea() {
         return this.content;
+    }
+
+    @Override
+    public TextField getSubjectField() {
+        return this.subject;
     }
 
     @Override
@@ -167,6 +174,16 @@ public class SpeakerEventsView implements ISpeakerEventsView {
     @Override
     public void setContent(String content) {
         this.content.setText(content);
+    }
+
+    @Override
+    public String getSubject() {
+        return this.subject.getText();
+    }
+
+    @Override
+    public void setSubject(String subject) {
+        this.subject.setText(subject);
     }
 
     @Override

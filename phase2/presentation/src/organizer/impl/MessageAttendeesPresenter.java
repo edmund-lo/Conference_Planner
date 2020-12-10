@@ -51,6 +51,7 @@ public class MessageAttendeesPresenter implements IMessageUsersPresenter {
         TextResultUtil.getInstance().addPseudoClass(status, this.view.getResultTextControl());
         if (status.equals("warning") || status.equals("error")) {
             TextResultUtil.getInstance().addPseudoClass(status, this.view.getRecipientsField());
+            TextResultUtil.getInstance().addPseudoClass(status, this.view.getSubjectField());
             TextResultUtil.getInstance().addPseudoClass(status, this.view.getContentArea());
         }
     }

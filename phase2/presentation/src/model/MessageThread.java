@@ -47,20 +47,8 @@ public class MessageThread {
         return messageThreadId.get();
     }
 
-    public StringProperty messageThreadIdProperty() {
-        return messageThreadId;
-    }
-
-    public void setMessageThreadId(String messageThreadId) {
-        this.messageThreadId.set(messageThreadId);
-    }
-
     public String getSenderName() {
         return senderName.get();
-    }
-
-    public StringProperty senderNameProperty() {
-        return senderName;
     }
 
     public void setSenderName(String senderName) {
@@ -71,20 +59,12 @@ public class MessageThread {
         return recipientNames.get();
     }
 
-    public ListProperty<String> recipientNamesProperty() {
-        return recipientNames;
-    }
-
     public void setRecipientNames(ObservableList<String> recipientNames) {
         this.recipientNames.set(recipientNames);
     }
 
     public String getSubject() {
         return subject.get();
-    }
-
-    public StringProperty subjectProperty() {
-        return subject;
     }
 
     public void setSubject(String subject) {
@@ -99,20 +79,8 @@ public class MessageThread {
         return read;
     }
 
-    public void setRead(boolean read) {
-        this.read.set(read);
-    }
-
     public ObservableList<Message> getMessageHistory() {
         return messageHistory.get();
-    }
-
-    public ListProperty<Message> messageHistoryProperty() {
-        return messageHistory;
-    }
-
-    public void setMessageHistory(ObservableList<Message> messageHistory) {
-        this.messageHistory.set(messageHistory);
     }
     //endregion
 }

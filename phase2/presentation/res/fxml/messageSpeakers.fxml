@@ -35,7 +35,7 @@
                 <TextField fx:id="sender" GridPane.columnIndex="1" GridPane.rowIndex="0" editable="false"/>
                 <Label text="To:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
                 <TextField fx:id="recipients" GridPane.columnIndex="1" GridPane.rowIndex="1" editable="false"/>
-                <Label text="Message:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <Label text="Subject:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
                 <TextField fx:id="subject" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
                 <Label text="Message:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
                 <TextArea fx:id="content" GridPane.columnIndex="1" GridPane.rowIndex="3"/>

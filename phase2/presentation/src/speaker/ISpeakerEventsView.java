@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import model.ScheduleEntry;
 
@@ -20,6 +21,7 @@ public interface ISpeakerEventsView extends ILoggedInView {
     TableColumn<ScheduleEntry, LocalDateTime> getEventEndColumn();
     FlowPane getRecipientFlowPane();
     TextArea getContentArea();
+    TextField getSubjectField();
 
     void setSummaryEventName(String eventName);
     void setSummaryCapacity(int capacity);
@@ -34,6 +36,8 @@ public interface ISpeakerEventsView extends ILoggedInView {
     void setSender(String sender);
     String getContent();
     void setContent(String content);
+    String getSubject();
+    void setSubject(String subject);
     void setResultText(String resultText);
 
     void setSendButtonAction(EventHandler<ActionEvent> eventHandler);

@@ -50,6 +50,7 @@ public class MessageSpeakersPresenter implements IMessageUsersPresenter {
         if (status.equals("warning") || status.equals("error")) {
             TextResultUtil.getInstance().addPseudoClass(status, this.view.getRecipientsField());
             TextResultUtil.getInstance().addPseudoClass(status, this.view.getContentArea());
+            TextResultUtil.getInstance().addPseudoClass(status, this.view.getSubjectField());
         }
     }
 
@@ -114,5 +115,6 @@ public class MessageSpeakersPresenter implements IMessageUsersPresenter {
         TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl());
         TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getContentArea());
         TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getRecipientsField());
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getSubjectField());
     }
 }
