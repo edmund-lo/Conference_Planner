@@ -27,9 +27,9 @@ public class LoginLog implements Serializable {
         this.condition = condition;
         this.username = username;
         this.time = time;
-        logs.set(0, condition);
-        logs.set(1, username);
-        logs.set(2, time);
+        logs.add(condition);
+        logs.add(username);
+        logs.add(time);
     }
 
     /**
