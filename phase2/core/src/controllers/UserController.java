@@ -9,7 +9,6 @@ import usecases.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -251,6 +250,29 @@ public abstract class UserController {
 
         for (String id: um.getTrashMessages(this.username)){
             item.put(id, mm.getOneMessageThreadToJson(id));
+        }
+
+        array.add(item);
+
+        json.put("data", array);
+
+        return json;
+    }
+
+    /**
+     * Gets all of the current user's JSON unread messages
+     *
+     * @return List of Strings representing all of the user's unread messages.
+     */
+    public JSONObject getUnreadMessages() {
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+
+        for (String id: um.getPrimaryMessages(this.username)){
+            if (!mm.checkMessageStatus(id)) {
+                item.put(id, mm.getOneMessageThreadToJson(id));
+            }
         }
 
         array.add(item);
