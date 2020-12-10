@@ -155,6 +155,9 @@ public class LoginController {
         boolean UsernameExists = false;
         boolean PasswordExists = false;
 
+        uam = uag.deserializeData();
+        this.accounts = uam.getAccountInfo();
+
         if (Username.length() == 0)
             return lp.EmptyName();
 
@@ -185,7 +188,7 @@ public class LoginController {
         }
 
         //If account is locked, don't let the user login.
-        uam = uag.deserializeData();
+
         if(uam.isLocked(Username))
             return lp.AccountLocked();
 
