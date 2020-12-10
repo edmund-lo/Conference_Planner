@@ -1,6 +1,8 @@
 package usecases;
 
+import entities.LoginLog;
 import entities.UserAccountEntity;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.io.Serializable;
@@ -78,5 +80,18 @@ public class UserAccountManager implements Serializable {
     }
 
     public JSONObject getAllAccountsJSON() {
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+
+        for(String ID: allUserAccountEntities.keySet())
+            item.put(ID, allUserAccountEntities.get(ID).getJSON());
+
+
+        array.add(item);
+
+        json.put("User Accounts", array);
+
+        return json;
     }
 }

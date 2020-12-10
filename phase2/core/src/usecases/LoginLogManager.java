@@ -115,5 +115,21 @@ public class LoginLogManager implements Serializable {
     }
 
     public JSONObject getLoginLogJSON(String username) {
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+
+        int num = 0;
+
+        for(LoginLog l: all_Logs.get(username)){
+            item.put(num, l.convertToJSON());
+            num++;
+        }
+
+        array.add(item);
+
+        json.put("LoginLogs", array);
+
+        return json;
     }
 }
