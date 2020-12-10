@@ -140,11 +140,10 @@ public class LoginController {
     }
 
     public JSONObject makeAccount(String username, String password, String type){
-        UserGateway ug = new UserGateway();
-        UserManager um = ug.deserializeData();
+        uam = uag.deserializeData();
 
         uam.addAccount(username, password, type);
-        ug.serializeData(um);
+        uag.serializeData(uam);
         return lp.AccountMade();
     }
 
