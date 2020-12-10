@@ -287,6 +287,7 @@ public abstract class UserController {
      */
     public void addMessagesToUser(ArrayList<String> recipientNames, String messageThreadId) {
         um.sendMessage(this.username, messageThreadId);
+
         for(String recipientName : recipientNames) {
             um.receiveMessage(recipientName, messageThreadId);
         }
@@ -325,6 +326,22 @@ public abstract class UserController {
             return mp.messageSent(recipientNames);
         } else {
             return mp.invalidMessageError();
+        }
+    }
+
+    /**
+     * Replies a message to an attendee.
+     *
+     * @param  messageThreadId the messageThreadId that the user want to reply to.
+     * @param  content the
+     */
+    public JSONObject replyMessage(String messageThreadId, String content) {
+        if (mm.messageThreadExists(messageThreadId)) {
+            String sender = mm.reply(messageThreadId, content);
+            this.saveData();
+            return mp.messageReplied(sender);
+        } else {
+            return mp.invalidMessageIdError();
         }
     }
 

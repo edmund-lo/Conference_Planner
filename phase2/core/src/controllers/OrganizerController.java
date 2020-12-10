@@ -30,38 +30,43 @@ public class OrganizerController extends UserController {
     /**
      * Messages all speakers at the conference.
      *
-     * @param message String representing the user's message.
+     * @param register The JSON Object which stores all data about the message wanted to send.
      * @return a JSON object containing whether the message was sent successfully or not.
      */
-    public JSONObject messageAllSpeakers(String message, String subject) {
+    public JSONObject messageAllSpeakers(JSONObject register) {
+        String content = String.valueOf(register.get("content"));
+        String subject = String.valueOf(register.get("subject"));
+        String sender = String.valueOf(register.get("sender"));
         List<String> speakerNames = um.getAllSpeakerNames();
-        if (mm.messageCheck(username, message, (ArrayList<String>) speakerNames)) { //ensure that message is valid
-            String messageId = mm.createMessage(username, message, (ArrayList) speakerNames, subject);
+        if (mm.messageCheck(content, sender, (ArrayList<String>) speakerNames)) { //ensure that message is valid
+            String messageId = mm.createMessage(content, sender, (ArrayList) speakerNames, subject);
             addMessagesToUser((ArrayList<String>) speakerNames, messageId);
-            return mp.messageResult((ArrayList) speakerNames);
+            this.saveData();
+            return op.messagedAllSpeakersResult();
         } else {
-            mp.invalidMessageError();
+            return mp.invalidMessageError();
         }
-        this.saveData();
-        return op.messagedAllSpeakersResult();
     }
 
     /**
      * Messages all attendees.
      *
-     * @param message String representing the user's message.
+     * @param register The JSON Object which stores all data about the message wanted to send.
      * @return a JSONObject with the outcome of whether the message was successfully sent.
      */
-    public JSONObject messageAllAttendees(String message, String subject) {
+    public JSONObject messageAllAttendees(JSONObject register) {
+        String content = String.valueOf(register.get("content"));
+        String subject = String.valueOf(register.get("subject"));
+        String sender = String.valueOf(register.get("sender"));
         Set<String> attendeeNames = um.getAllUsernames();
-        if (mm.messageCheck(username, message, (ArrayList<String>) attendeeNames)) { //ensure the message is valid
-            String messageId = mm.createMessage(username, message, (ArrayList) attendeeNames, subject);
+        if (mm.messageCheck(content, sender, (ArrayList<String>) attendeeNames)) { //ensure the message is valid
+            String messageId = mm.createMessage(content, sender, (ArrayList) attendeeNames, subject);
             addMessagesToUser((ArrayList<String>) attendeeNames, messageId);
+            this.saveData();
+            return op.messagedAllSpeakersResult();
         } else {
             return mp.invalidMessageError();
         }
-        this.saveData();
-        return op.messagedAllAttendeesResult();
     }
 
     /**
