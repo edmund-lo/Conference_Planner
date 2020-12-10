@@ -59,6 +59,17 @@ public abstract class UserController {
     }
 
     /**
+     * deserialize all data
+     */
+    public void deserializeData() {
+        this.em = eg.deserializeData();
+        this.um = ug.deserializeData();
+        this.rm = rg.deserializeData();
+        this.mm = mg.deserializeData();
+        this.uam = uag.deserializeData();
+    }
+
+    /**
      *Called when user signs up for an event.
      * @param  eventId id of the event user is signing up for.
      *
@@ -265,7 +276,7 @@ public abstract class UserController {
 //     * @return JSONObject of number of unread messages
 //     */
 //    public JSONObject getUnreadMessages() {
-//
+//        return up.numberUnreadMessages(numUnread);
 //    }
 
     /**
