@@ -62,7 +62,7 @@ public class LoginController {
 
         String firstName = obj.get("firstName").toString();
         String lastName = obj.get("lastName").toString();
-
+        uam = uag.deserializeData();
 
 
         //Check for whitespace
@@ -120,12 +120,15 @@ public class LoginController {
             }
         }
         else{
+            uam = uag.deserializeData();
+
             uam.setPassword(Username, Password);
             uam.setUserType(Username, type);
             uam.setSetSecurity(Username, security);
             uam.setSecurityQuestions(Username, q1, ans1, q2, ans2);
 
             this.accounts = uam.getAccountInfo();
+            uag.serializeData(uam);
 
             return lp.AccountExists();
         }
@@ -177,6 +180,7 @@ public class LoginController {
         }
 
         //If account is locked, don't let the user login.
+        uam = uag.deserializeData();
         if(uam.isLocked(Username))
             return lp.AccountLocked();
 
@@ -188,6 +192,7 @@ public class LoginController {
      * Locks a user, which prevents them from logging in until an Admin unlocks their account.
      */
     public JSONObject lockOut(String Username){
+        uam = uag.deserializeData();
         if (!usernameExists(Username))
             return lp.IncorrectCredentials();
 
@@ -201,6 +206,7 @@ public class LoginController {
      */
     public boolean usernameExists(String username){
         //Update accounts list
+        uam = uag.deserializeData();
         this.accounts = uam.getAccountInfo();
 
         int UsernameCheck = 0;
@@ -219,6 +225,7 @@ public class LoginController {
      */
     public boolean suspiciousLogs(String Username){
         //Check if user has logs
+        llm = llg.deserializeData();
         if (!llm.checkLogExists(Username))
             return false;
 
@@ -229,6 +236,7 @@ public class LoginController {
      * Lets user change password if they can answer 3 security questions correctly which were set when making an account.
      */
     public JSONObject verifySecurityAnswers(String User, String a1, String a2){
+        uam = uag.deserializeData();
         String[] answers = uam.getSecurityAns(User);
 
         //Check if answers to security questions match.
@@ -243,6 +251,7 @@ public class LoginController {
         if (newPassword.length() == 0)
             return lp.EmptyPassword();
 
+        uam = uag.deserializeData();
         //Update password
         if (newPassword.equals(confirmPassword)){
             uam.setPassword(user, newPassword);
@@ -257,6 +266,7 @@ public class LoginController {
      * Update the logs database.
      */
     public void updateLogs(String Username, boolean type){
+        llm = llg.deserializeData();
         if (!usernameExists(Username))
             return;
 
