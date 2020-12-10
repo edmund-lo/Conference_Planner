@@ -43,12 +43,13 @@ public class UserAccountAdapter {
      * @return UserAccount model with mapped attributes
      */
     private UserAccount mapUserAccount(JSONObject jsonObject) {
-        String username = String.valueOf(jsonObject.get("username"));
-        String password = String.valueOf(jsonObject.get("password"));
-        boolean locked = String.valueOf(jsonObject.get("locked")).equals("true");
-        String accountType = String.valueOf(jsonObject.get("userType"));
-        boolean setSecurity = String.valueOf(jsonObject.get("setSecurity")).equals("true");
+        String username = String.valueOf(jsonObject.get("Username"));
+        boolean locked = String.valueOf(jsonObject.get("Locked")).equals("true");
+        String accountType = String.valueOf(jsonObject.get("AccountType"));
+        boolean setSecurity = String.valueOf(jsonObject.get("Security")).equals("true");
+        String question1 = String.valueOf(jsonObject.get("Security Q1"));
+        String question2 = String.valueOf(jsonObject.get("Security Q2"));
 
-        return new UserAccount(username, password, accountType, locked, setSecurity);
+        return new UserAccount(username, accountType, locked, setSecurity, question1, question2);
     }
 }

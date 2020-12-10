@@ -54,8 +54,8 @@ public class ScheduleAdapter {
         LocalDateTime end = DateTimeUtil.getInstance().parse(String.valueOf(jsonObject.get("end")));
         Duration duration = Duration.ofMinutes(parseLong(String.valueOf(jsonObject.get("duration"))));
         String eventId = String.valueOf(jsonObject.get("id"));
-        String eventName = String.valueOf(jsonObject.get("event name"));
-        String roomName = String.valueOf(jsonObject.get("room name"));
+        String eventName = String.valueOf(jsonObject.get("eventName"));
+        String roomName = String.valueOf(jsonObject.get("roomName"));
         String amenities = getAmenities(jsonObject);
         String attendees = convertListToString((JSONArray) jsonObject.get("users"));
         String speakers = convertListToString((JSONArray) jsonObject.get("speakers"));

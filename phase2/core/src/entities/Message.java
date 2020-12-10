@@ -95,6 +95,7 @@ public class Message implements Serializable {
 //                "Message: " + this.content + "\n";
 //    }
 
+    @SuppressWarnings("unchecked")
     public JSONObject convertToJSON() {
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
@@ -102,7 +103,7 @@ public class Message implements Serializable {
 
         json.put("type", "Message");
 
-        item.put("sender Id", getSenderName());
+        item.put("sender", getSenderName());
         item.put("time", getMessageTime());
         item.put("content", getContent());
 

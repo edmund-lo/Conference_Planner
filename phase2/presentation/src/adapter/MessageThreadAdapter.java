@@ -44,7 +44,7 @@ public class MessageThreadAdapter {
      * @return MessageThread model with mapped attributes
      */
     private MessageThread mapMessageThread(JSONObject jsonObject) {
-        String messageId = String.valueOf(jsonObject.get("messageId"));
+        String messageId = String.valueOf(jsonObject.get("messageThreadId"));
         String senderName = String.valueOf(jsonObject.get("sender"));
         JSONArray recipientsArray = (JSONArray) jsonObject.get("receivers");
         List<String> recipientNames = new ArrayList<>();
