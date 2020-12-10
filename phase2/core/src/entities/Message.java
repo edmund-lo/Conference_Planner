@@ -107,7 +107,7 @@ public class Message implements Serializable {
 
         json.put("type", "Message");
 
-        item.put("sender Id", getSenderName());
+        item.put("sender", getSenderName());
         item.put("time", getMessageTime());
         item.put("content", getContent());
 
