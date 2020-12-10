@@ -3,6 +3,7 @@ package usecases;
 import entities.LoginLog;
 import org.json.simple.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -32,7 +33,7 @@ public class LoginLogManager implements Serializable {
      * @param time the time of login for this user
      * @return a boolean value of true if the login log was successfully created, false otherwise.
      */
-    public boolean addToLoginLogSet(String condition, String username, String time) {
+    public boolean addToLoginLogSet(boolean condition, String username, LocalDateTime time) {
 
         //important note: this does not handle changes to the condition
         //updates to conditions are handled elsewhere (Controllers)
@@ -59,8 +60,8 @@ public class LoginLogManager implements Serializable {
         return this.all_Logs.containsKey(username);
     }
 
-    public ArrayList<LoginLog> getUserLogs(String Username){
-        return this.all_Logs.get(Username);
+    public ArrayList<LoginLog> getUserLogs(String username){
+        return this.all_Logs.get(username);
     }
 
 //    /**
