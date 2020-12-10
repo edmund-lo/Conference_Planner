@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @version 1.0
  */
 public class LoginLog implements Serializable {
-    private final ArrayList<String>  logs = new ArrayList<String>();
+    private final ArrayList<String>  logs = new ArrayList<>();
 
     /**
      * Constructor for a LoginLog.
@@ -59,6 +59,10 @@ public class LoginLog implements Serializable {
         return logs.get(2);
     }
 
+    /**
+     * toString for the login log
+     * @return a string of the login log
+     */
     public String toString() {
         return this.getCondition() + " The username is " + this.getUsername() +
                 ". The time of login is " + this.getTime() + ".";

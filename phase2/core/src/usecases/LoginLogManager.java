@@ -16,13 +16,13 @@ import java.util.Set;
  *
  */
 public class LoginLogManager implements Serializable {
-    ArrayList logArray = new ArrayList();
-    private HashMap<String, ArrayList<LoginLog>> all_Logs;
+    private HashMap<String, ArrayList<LoginLog>> allLogs;
+
     /**
-     * Constructs a new empty LoginLogManager object containing no rooms.
+     * Constructs a new empty LoginLogManager object containing no logs.
      */
     public LoginLogManager() {
-        this.all_Logs = new HashMap<>();
+        this.allLogs = new HashMap<>();
     }
 
     /**
@@ -37,56 +37,53 @@ public class LoginLogManager implements Serializable {
         //important note: this does not handle changes to the condition
         //updates to conditions are handled elsewhere (Controllers)
         LoginLog ll = new LoginLog(condition, username, time);
-        logArray.add(ll);
-        if (!this.all_Logs.containsKey(username)){
-            this.all_Logs.put(username, logArray);
+
+        if (!this.allLogs.containsKey(username)){
+            ArrayList logArray = new ArrayList();
+            logArray.add(ll);
+            this.allLogs.put(username, logArray);
         } else {
-            if (this.all_Logs.get(username).size() == 3) {
-                this.all_Logs.get(username).remove(0);
-                this.all_Logs.get(username).add(ll);
-            } else if (this.all_Logs.get(username).size() < 3) {
-                this.all_Logs.get(username).add(ll);
+            if (this.allLogs.get(username).size() == 3) {
+                this.allLogs.get(username).remove(0);
+                this.allLogs.get(username).add(ll);
+            } else if (this.allLogs.get(username).size() < 3) {
+                this.allLogs.get(username).add(ll);
             } else {
-                while (this.all_Logs.get(username).size() > 3) {
-                    this.all_Logs.get(username).remove(0);
+                while (this.allLogs.get(username).size() > 3) {
+                    this.allLogs.get(username).remove(0);
                 }
             }
         }
         return true;
     }
 
-    public boolean checkLogExists(String username){
-        return this.all_Logs.containsKey(username);
-    }
-
-    public ArrayList<LoginLog> getUserLogs(String Username){
-        return this.all_Logs.get(Username);
-    }
-
-//    /**
-//     * Removes a login log given a specified key
-//     * @param username
-//     * @return boolean based on whether the key-value was successfully removed
-//     */
-//    public boolean removeLoginLog(String username) {
-//        LoginLog returned_val = null;
-//        returned_val = all_Logs.remove(username);
-//        if (returned_val != null) {
-//            return true;
-//        }
-//        return false;
-//    }
-
     /**
-     * Gets a list of all the loginLogs based on username in the system.
-     *
-     * @return  a set containing all of the username keys
+     * Checks if login logs exist for a user
+     * @param username the username
+     * @return true iff login logs exist
      */
-    public Set<String> getAllUsernames(){
-        return this.all_Logs.keySet();
+    public boolean checkLogExists(String username){
+        return this.allLogs.containsKey(username);
     }
 
     /**
+     * Checks if login logs are suspicious
+     * @param username the username
+     * @return true iff login logs are suspicious
+     */
+    public boolean suspiciousLogs(String username) {
+        int strike = 0;
+
+        for (LoginLog log : allLogs.get(username)) {
+            if (log.getCondition().equals("Failed Login"))
+                strike++;
+        }
+
+        return strike == 3;
+    }
+
+    /**
+     * Gets all logs JSON
      * @return A JSONObject that contains the JSON representation of this class
      */
     @SuppressWarnings("unchecked")
@@ -96,10 +93,10 @@ public class LoginLogManager implements Serializable {
         JSONArray array2 = new JSONArray();
         JSONObject item = new JSONObject();
 
-        for(String ID: all_Logs.keySet()) {
+        for(String ID: allLogs.keySet()) {
             int num = 0;
             JSONObject item2 = new JSONObject();
-            for(LoginLog l: all_Logs.get(ID)){
+            for(LoginLog l: allLogs.get(ID)){
                 item2.put(num, l.convertToJSON());
                 num++;
             }
@@ -114,6 +111,11 @@ public class LoginLogManager implements Serializable {
         return json;
     }
 
+    /**
+     * Gets login log json for a user
+     * @param username the username
+     * @return  A JSONObject that contains the JSON representation of this class
+     */
     public JSONObject getLoginLogJSON(String username) {
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
@@ -121,7 +123,7 @@ public class LoginLogManager implements Serializable {
 
         int num = 0;
 
-        for(LoginLog l: all_Logs.get(username)){
+        for(LoginLog l: allLogs.get(username)){
             item.put(num, l.convertToJSON());
             num++;
         }

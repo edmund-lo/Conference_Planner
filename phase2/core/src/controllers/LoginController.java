@@ -1,6 +1,5 @@
 package controllers;
 
-import entities.LoginLog;
 import gateways.LoginLogGateway;
 import gateways.UserAccountGateway;
 import gateways.UserGateway;
@@ -200,15 +199,7 @@ public class LoginController {
         if (!llm.checkLogExists(Username))
             return false;
 
-        ArrayList<LoginLog> RecentLogs = llm.getUserLogs(Username);
-        int strike = 0;
-
-        //Check past 3 logs, if they are all failed logins then account is suspicious.
-        for (LoginLog log : RecentLogs) {
-            if (log.getCondition().equals("Failed Login"))
-                strike++;
-        }
-        return strike == 3;
+        return llm.suspiciousLogs(Username);
     }
 
     /**
