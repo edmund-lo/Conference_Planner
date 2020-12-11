@@ -716,8 +716,9 @@ public class UserManager implements Serializable {
      * @version 1.0 the parameter type may be changed in future versions
      * @return a formatted schedule (String) of the events by ID at the required time frame
      */
-    //request schedule only for the events that the username has in their schedule
-    public String requestSchedule(String username, LocalDateTime[] event_time) {
+    //request schedule based on time constraint for the events that the username has in their schedule
+    //Events can go for more than a day
+    public String requestScheduleByTime(String username, LocalDateTime[] event_time) {
 
         DateTimeFormatter dayTime = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         DateTimeFormatter hourMin = DateTimeFormatter.ofPattern("HH:mm");
@@ -746,11 +747,12 @@ public class UserManager implements Serializable {
      * @author dylan, @version 1.0
      * @return formatted schedule of all events that Speaker is present at
      */
+    //fix assumption that events can not go for longer than a day
     public String requestScheduleByDay(String username, LocalDateTime[] eventDay) {
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
         String formatted_day = sdf.format(eventDay);
         DateTimeFormatter dayTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-        DateTimeFormatter hourMin = DateTimeFormatter.ofPattern("HH:mm");
+        //DateTimeFormatter hourMin = DateTimeFormatter.ofPattern("HH:mm");
 
         StringBuilder ret = new StringBuilder("Here are the events in your schedule on "
                 + formatted_day + "'s:" + "\n");
@@ -763,7 +765,7 @@ public class UserManager implements Serializable {
                 String eventName = scheduleByDay.getKey();
                 ret.append(event_StartTime);
                 ret.append("-");
-                ret.append(hourMin.format(scheduleByDay.getValue()[1]));
+                ret.append(dayTime.format(scheduleByDay.getValue()[1]));
                 ret.append(" -- ");
                 ret.append(eventName);
                 ret.append("\n");
@@ -772,26 +774,6 @@ public class UserManager implements Serializable {
         return ret.toString();
     }
 
-//    //return a schedule of all the events at a given room name
-//    //Events handle the room name
-//    public String requestScheduleByRoom(String username, EventManager em, Event e, String name) {
-//
-//        StringBuilder ret = new StringBuilder("Schedule by Room  " + name + ":" + "\n");
-//        DateTimeFormatter dayTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-//        DateTimeFormatter hourMin = DateTimeFormatter.ofPattern("HH:mm");
-//        for (Map.Entry<String, Event> event : em. entrySet()) {
-//            String eventStartTime = dayTime.format(event.getValue()[0]);
-//            String eventName = event.getKey();
-//            ret.append(eventStartTime);
-//            ret.append("-");
-//            ret.append(hourMin.format(event.getValue()[1]));
-//            ret.append(" -- ");
-//            ret.append(eventName);
-//            ret.append("\n");
-//        }
-//        return ret.toString();
-//
-//    }
 
     /**
      * Gets a user Json
