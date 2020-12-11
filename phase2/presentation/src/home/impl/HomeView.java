@@ -4,7 +4,6 @@ import home.IHomeView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 public class HomeView implements IHomeView {
     @FXML
@@ -19,7 +18,6 @@ public class HomeView implements IHomeView {
         new HomePresenter(this);
     }
 
-    private Stage stage;
     private String sessionUsername;
     private String sessionUserType;
 

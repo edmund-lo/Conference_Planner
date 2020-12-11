@@ -9,7 +9,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import model.User;
 
 public class FriendsView implements IFriendsView {
@@ -110,7 +109,6 @@ public class FriendsView implements IFriendsView {
     private EventHandler<ActionEvent> addFriendButtonAction;
     private EventHandler<ActionEvent> acceptButtonAction;
     private EventHandler<ActionEvent> declineButtonAction;
-    private Stage stage;
     private String sessionUsername;
     private String sessionUserType;
 

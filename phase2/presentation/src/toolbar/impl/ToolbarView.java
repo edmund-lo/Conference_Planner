@@ -5,7 +5,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import toolbar.IToolbarView;
 
 public class ToolbarView implements IToolbarView {
@@ -113,7 +112,6 @@ public class ToolbarView implements IToolbarView {
     private EventHandler<ActionEvent> deleteMessagesButtonAction;
     private EventHandler<ActionEvent> removeEventsButtonAction;
     private EventHandler<ActionEvent> logoutButtonAction;
-    private Stage stage;
     private String sessionUsername;
     private String sessionUserType;
 

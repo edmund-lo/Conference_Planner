@@ -45,7 +45,6 @@ public class UnlockAccountsView implements IUnlockAccountsView {
     }
 
     private EventHandler<ActionEvent> unlockButtonAction;
-    private Stage stage;
     private String sessionUsername;
     private String sessionUserType;
 

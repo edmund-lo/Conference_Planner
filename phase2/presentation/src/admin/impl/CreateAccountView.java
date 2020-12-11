@@ -8,7 +8,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 public class CreateAccountView implements ICreateAccountView {
     @FXML
@@ -32,7 +31,6 @@ public class CreateAccountView implements ICreateAccountView {
     }
 
     private EventHandler<ActionEvent> createAccountButtonAction;
-    private Stage stage;
     private String sessionUsername;
     private String sessionUserType;
 

@@ -5,7 +5,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import model.User;
 import organizer.IMessageUsersView;
 
@@ -48,7 +47,6 @@ public class MessageSpeakersView implements IMessageUsersView {
 
     private EventHandler<ActionEvent> createAccountButtonAction;
     private EventHandler<ActionEvent> selectAllAction;
-    private Stage stage;
     private String sessionUsername;
     private String sessionUserType;
 

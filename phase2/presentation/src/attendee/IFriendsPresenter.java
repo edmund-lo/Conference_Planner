@@ -1,7 +1,6 @@
 package attendee;
 
 import common.ILoggedInPresenter;
-import common.IPresenter;
 import javafx.event.ActionEvent;
 import model.ScheduleEntry;
 import model.User;

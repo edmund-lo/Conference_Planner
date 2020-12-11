@@ -6,7 +6,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import model.MessageThread;
 
 import java.util.List;
@@ -117,7 +116,6 @@ public class MessagingView implements IMessagingView {
     private EventHandler<ActionEvent> unreadPrimaryButtonAction;
     private EventHandler<ActionEvent> unreadArchivedButtonAction;
     private EventHandler<ActionEvent> unreadTrashButtonAction;
-    private Stage stage;
     private String sessionUsername;
     private String sessionUserType;
 

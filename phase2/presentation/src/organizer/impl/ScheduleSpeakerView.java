@@ -7,7 +7,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import model.ScheduleEntry;
 import organizer.IScheduleSpeakerView;
 import util.DateTimeUtil;
@@ -57,7 +56,6 @@ public class ScheduleSpeakerView implements IScheduleSpeakerView {
     }
 
     private EventHandler<ActionEvent> scheduleSpeakerButtonAction;
-    private Stage stage;
     private String sessionUsername;
     private String sessionUserType;
 

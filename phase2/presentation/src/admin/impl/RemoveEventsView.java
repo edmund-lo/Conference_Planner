@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import model.ScheduleEntry;
 import util.DateTimeUtil;
 
@@ -56,7 +55,6 @@ public class RemoveEventsView implements IRemoveEventsView {
     }
 
     private EventHandler<ActionEvent> removeButtonAction;
-    private Stage stage;
     private String sessionUsername;
     private String sessionUserType;
 
