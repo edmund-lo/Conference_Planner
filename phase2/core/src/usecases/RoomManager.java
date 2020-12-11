@@ -114,17 +114,32 @@ public class RoomManager implements Serializable {
     public List<String> getAllRoomsWith(List<Boolean> constraints, int eventCap){
         List<String> possibleRooms = new ArrayList<>();
         for (Map.Entry<String, Room> room : this.allRooms.entrySet()){
+            boolean roomHasConstraints = true;
             Room thisRoom = room.getValue();
             System.out.println(thisRoom.getCapacity() >= eventCap);
-            if (thisRoom.hasChairs() == constraints.get(0)
-                    && thisRoom.hasTables() == constraints.get(1)
-                    && thisRoom.hasProjector() == constraints.get(2)
-                    && thisRoom.hasSoundSystem() == constraints.get(3)
-                    && thisRoom.getCapacity() >= eventCap){
+
+            List<Boolean> roomAmenities = getRoomAmenities(thisRoom);
+            for (int i = 0; i < constraints.size(); i ++) {
+                if (constraints.get(i)) {
+                    if (!roomAmenities.get(i)) {
+                        roomHasConstraints = false;
+                    }
+                }
+            }
+            if (roomHasConstraints) {
                 possibleRooms.add(room.getKey());
             }
         }
         return possibleRooms;
+    }
+
+    private List<Boolean> getRoomAmenities(Room thisRoom) {
+        List<Boolean> roomAmenities = new ArrayList<>();
+        roomAmenities.add(thisRoom.hasChairs());
+        roomAmenities.add(thisRoom.hasTables());
+        roomAmenities.add(thisRoom.hasProjector());
+        roomAmenities.add(thisRoom.hasSoundSystem());
+        return roomAmenities;
     }
 
 //      ***** Saving method for phase 2

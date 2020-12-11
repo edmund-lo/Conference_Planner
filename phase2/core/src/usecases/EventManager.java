@@ -270,6 +270,20 @@ public class EventManager implements Serializable {
     }
 
     /**
+     * getter for event Id by knowing its name
+     * @param eventName name of the event
+     * @return ID of the event in string format
+     */
+    public String getEventIDByName(String eventName){
+        for(String eventID: allEvents.keySet()){
+            if(allEvents.get(eventID).getEventName().equals(eventName)){
+                return eventID;
+            }
+        }
+        return null;
+    }
+
+    /**
      * getter for the event name of event with ID eventID
      *
      * @param eventID the ID of the eventID
