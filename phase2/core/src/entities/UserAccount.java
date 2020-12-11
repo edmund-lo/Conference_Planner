@@ -188,9 +188,9 @@ public class UserAccount implements Serializable {
      * @return A JSONArray that contains the JSON representation of this class
      */
     @SuppressWarnings("unchecked")
-    public JSONArray convertToJSON() {
+    public JSONObject convertToJSON() {
         JSONObject json = new JSONObject();
-        JSONArray array = new JSONArray();
+
 
         json.put("Username", username);
         json.put("AccountType", userType.substring(0,1).toUpperCase() + userType.substring(1));
@@ -201,9 +201,9 @@ public class UserAccount implements Serializable {
         json.put("Security Q2", SecurityQ2);
         json.put("Security A2", SecurityA2);
 
-        array.add(json);
 
-        return array;
+
+        return json;
     }
 }
 

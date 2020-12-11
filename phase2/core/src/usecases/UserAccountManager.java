@@ -170,7 +170,11 @@ public class UserAccountManager implements Serializable {
      * @return a JSONArray of the user account
      */
     public JSONArray getAccountJSON(String username) {
-        return allUserAccounts.get(username).convertToJSON();
+        JSONArray array = new JSONArray();
+        JSONObject json = allUserAccounts.get(username).convertToJSON();
+        array.add(json);
+
+        return array;
     }
 
     /**
