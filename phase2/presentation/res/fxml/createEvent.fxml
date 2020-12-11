@@ -54,13 +54,13 @@
                         <Label text="Suggested Rooms:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
                         <ComboBox fx:id="roomName" value="Attendee" GridPane.columnIndex="1" GridPane.rowIndex="2"
                                   editable="true"/>
-                        <Label text="Start:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-                        <DateTimePicker fx:id="eventStart" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                        <Label text="End:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-                        <DateTimePicker fx:id="eventEnd" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                        <Text fx:id="resultText2" GridPane.columnIndex="0" GridPane.rowIndex="7" GridPane.columnSpan="2"/>
+                        <Label text="Start:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                        <DateTimePicker fx:id="eventStart" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                        <Label text="End:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                        <DateTimePicker fx:id="eventEnd" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                        <Text fx:id="resultText2" GridPane.columnIndex="0" GridPane.rowIndex="7" GridPane.columnSpan="5"/>
 
-                        <VBox fx:id="tableContainer" GridPane.columnIndex="0" GridPane.rowIndex="9"
+                        <VBox fx:id="tableContainer" GridPane.columnIndex="0" GridPane.rowIndex="7"
                               GridPane.columnSpan="2"/>
 
                         <HBox spacing="10" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="11"
