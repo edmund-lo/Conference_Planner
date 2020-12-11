@@ -21,7 +21,6 @@ public class LoginLog implements Serializable {
      * @param condition the type and condition of the log
      * @param username the username of the User
      * @param time the time of login
-
      */
     public LoginLog(boolean condition, String username, LocalDateTime time) {
         this.condition = condition;

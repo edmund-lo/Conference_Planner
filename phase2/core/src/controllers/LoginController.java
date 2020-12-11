@@ -1,5 +1,6 @@
 package controllers;
 
+import entities.User;
 import gateways.LoginLogGateway;
 import gateways.UserAccountGateway;
 import gateways.UserGateway;
@@ -85,20 +86,18 @@ public class LoginController {
         if (ans1.length() == 0 || ans2.length() == 0)
             return lp.emptyAnswer();
 
+        UserGateway ug = new UserGateway();
+        UserManager um = ug.deserializeData();
         //Add account to the user manager and update the Accounts Arraylist
         if (!isMade){
             //If the counter is 0, that means the username isn't taken and can be set.
             if (usernameExists(Username))
                 return lp.UsernameTaken();
 
-
             uam.addAccount(Username, Password, type, security,
                     q1, q2, ans1, ans2);
             uag.serializeData(uam);
             this.accounts = uam.getAccountInfo();
-
-            UserGateway ug = new UserGateway();
-            UserManager um = ug.deserializeData();
 
             switch (type) {
                 case "attendee":
@@ -127,6 +126,12 @@ public class LoginController {
         }
         else{
             uam = uag.deserializeData();
+            User us = um.getUser(Username);
+
+            us.setFirstName(firstName);
+            us.setLastName(lastName);
+
+            ug.serializeData(um);
 
             uam.setPassword(Username, Password);
             uam.setUserType(Username, type);

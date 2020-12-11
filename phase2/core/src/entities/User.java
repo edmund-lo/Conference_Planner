@@ -74,6 +74,14 @@ public abstract class User implements Serializable {
         return lastName;
     }
 
+    public void setFirstName(String fn) {
+        this.firstName = fn;
+    }
+
+    public void setLastName(String ln) {
+        this.lastName = ln;
+    }
+
     /**
      * Getter for a user's schedule of events that they are attending.
      *
