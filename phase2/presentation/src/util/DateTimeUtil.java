@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Utility class for formatting Duration and LocalDateTime objects from Strings and vice versa
+ * Static utility class for formatting Duration and LocalDateTime objects from Strings and vice versa
  */
 public class DateTimeUtil {
     private static final DateTimeUtil Instance = new DateTimeUtil();

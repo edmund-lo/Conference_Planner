@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * Factory class that helps create
+ * Static factory class that helps create
  */
 public class ComponentFactory {
     private static final ComponentFactory Instance = new ComponentFactory();

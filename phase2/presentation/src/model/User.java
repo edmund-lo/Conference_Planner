@@ -1,6 +1,5 @@
 package model;
 
-import common.Selectable;
 import javafx.beans.property.*;
 
 /**

@@ -4,7 +4,7 @@ import javafx.css.PseudoClass;
 import javafx.scene.Node;
 
 /**
- * Utility class for adding pseudo classes to JavaFX nodes, i.e. text and form fields
+ * Static utility class for adding pseudo classes to JavaFX nodes, i.e. text and form fields
  */
 public class TextResultUtil {
     public static final TextResultUtil Instance = new TextResultUtil();
