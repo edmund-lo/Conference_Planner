@@ -305,6 +305,42 @@ public abstract class UserController {
     }
 
     /**
+     * Moves messageThreadId of the message from user's primary inbox to trash box.
+     *
+     * @param messageThreadId the message ID
+     */
+
+    public void moveToTrash(String messageThreadId){
+        um.moveToTrashInbox(this.username, messageThreadId);
+    }
+
+    /**
+     * Moves messageThreadId of the message from user's primary inbox to archived inbox.
+     *
+     * @param messageThreadId the message ID
+     */
+
+    public void moveToArchive(String messageThreadId){
+        um.archiveMessage(this.username, messageThreadId);
+    }
+
+    /**
+     * Moves messageThreadId of the message from user's archived/trash inbox back to primary inbox.
+     * It will first check where the message belongs to.
+     *
+     * @param messageThreadId the message ID
+     */
+
+    public void moveToPrimary(String messageThreadId){
+        if(um.getUser(this.username).getArchivedInbox().containsKey(messageThreadId)){
+            um.backFromArchived(this.username, messageThreadId);
+        }else if(um.getUser(this.username).getTrashInbox().containsKey(messageThreadId)){
+            um.backFromTrash(this.username, messageThreadId);
+        }
+
+    }
+
+    /**
      * Adds user with name username to this user's friends list
      * @param username username of the person this user wishes to add
      * @return JSONObject detailing the results

@@ -5,10 +5,8 @@ import entities.Event;
 import org.json.simple.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 
 /**
@@ -309,6 +307,37 @@ public class EventManager implements Serializable {
         this.allEvents.get(eventID).setCapacity(capacity);
     }
 
+    /**
+     * Returns a requested schedule in string format, with username and the desired RoomName
+     * @param username User's username
+     * @param roomName Name of room that is specified
+     * @return a StringBuilder's toString (a string) formatted
+     * schedule that shows all events that are present in the Room
+     */
+
+    //return a schedule of all the events at a given room name
+    //Events handle the room name
+    public String requestScheduleByRoom(String username, String roomName) {
+
+        StringBuilder ret = new StringBuilder("Schedule by Room  " + roomName + ":" + "\n");
+        DateTimeFormatter dayTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+
+        for (Map.Entry<String, Event> event : this.allEvents.entrySet()) {
+            if (event.getValue().getRoomName().equals(roomName)) {
+                String event_start = dayTime.format(event.getValue().getStartTime());
+                String event_end = dayTime.format(event.getValue().getEndTime());
+                String eventName = event.getValue().getEventName();
+                ret.append(event_start);
+                ret.append("-");
+                ret.append(event_end);
+                ret.append(" -- ");
+                ret.append(eventName);
+                ret.append("\n");
+            }
+        }
+        return ret.toString();
+
+    }
     /**
      * getter for getting the JSON representation of an event
      * @param ID id of the event
