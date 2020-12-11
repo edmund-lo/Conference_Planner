@@ -139,6 +139,10 @@ public class UserAccountManager implements Serializable {
         allUserAccounts.get(username).setSetSecurity(setSecurity);
     }
 
+    public boolean getSecurity(String username) {
+        return allUserAccounts.get(username).getSetSecurity();
+    }
+
     /**
      * Gets the security answers
      *

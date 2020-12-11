@@ -72,10 +72,6 @@ public class LoginController {
         if (Username.length() < 1)
             return lp.EmptyName();
 
-        //If the counter is 0, that means the username isn't taken and can be set.
-        if (usernameExists(Username))
-            return lp.UsernameTaken();
-
         //Check minimum password length for security
         if(Password.length() < 6)
             return lp.EmptyPassword();
@@ -91,6 +87,11 @@ public class LoginController {
 
         //Add account to the user manager and update the Accounts Arraylist
         if (!isMade){
+            //If the counter is 0, that means the username isn't taken and can be set.
+            if (usernameExists(Username))
+                return lp.UsernameTaken();
+
+
             uam.addAccount(Username, Password, type, security,
                     q1, q2, ans1, ans2);
             uag.serializeData(uam);
@@ -135,7 +136,7 @@ public class LoginController {
             this.accounts = uam.getAccountInfo();
             uag.serializeData(uam);
 
-            return lp.AccountExists();
+            return lp.AccountUpdated();
         }
     }
 
@@ -237,6 +238,13 @@ public class LoginController {
      */
     public JSONObject verifySecurityAnswers(String User, String a1, String a2){
         uam = uag.deserializeData();
+
+        if (!usernameExists(User))
+            return lp.usernameDoesntExist();
+
+        if (uam.getSecurity(User))
+            return lp.noSecurity();
+
         String[] answers = uam.getSecurityAns(User);
 
         //Check if answers to security questions match.
