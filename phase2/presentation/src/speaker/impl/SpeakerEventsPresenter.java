@@ -20,11 +20,19 @@ import util.DateTimeUtil;
 import util.TextResultUtil;
 import java.util.List;
 
+/**
+ * Presenter class for viewing speaker events plus messaging events' attendees screen
+ */
 public class SpeakerEventsPresenter implements ISpeakerEventsPresenter {
     private final ISpeakerEventsView view;
     private final SpeakerController sc;
     private final ObservableSet<CheckBox> selectedRecipients = FXCollections.observableSet();
 
+    /**
+     * Initialises a SpeakerEventsPresenter object with given view and new AdminController,
+     * gets and sets current session's user information
+     * @param view ISpeakerEventsView interface implementation
+     */
     public SpeakerEventsPresenter(ISpeakerEventsView view) {
         this.view = view;
         getUserData();
@@ -32,6 +40,10 @@ public class SpeakerEventsPresenter implements ISpeakerEventsPresenter {
         init();
     }
 
+    /**
+     * Performs send message button action and displays the result
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void sendButtonAction(ActionEvent actionEvent) {
         clearResultText();
@@ -42,6 +54,11 @@ public class SpeakerEventsPresenter implements ISpeakerEventsPresenter {
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
     }
 
+    /**
+     * Sets the result of the action given status
+     * @param resultText String object describing the result
+     * @param status String object representing the status of the controller method call
+     */
     @Override
     public void setResultText(String resultText, String status) {
         this.view.setResultText(resultText);
@@ -52,6 +69,10 @@ public class SpeakerEventsPresenter implements ISpeakerEventsPresenter {
         }
     }
 
+    /**
+     * Gets all Event entities that this speaker is speaking at and converts them into ScheduleEntry models
+     * @return List of ScheduleEntry models
+     */
     @Override
     public List<ScheduleEntry> getAllSpeakerEvents() {
         JSONObject responseJson = sc.getSpeakerEvents();
@@ -59,6 +80,11 @@ public class SpeakerEventsPresenter implements ISpeakerEventsPresenter {
         return ScheduleAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
+
+    /**
+     * Displays speakerSchedule in the TableView and adds listeners
+     * @param speakerSchedule List of ScheduleEntry models
+     */
     @Override
     public void displaySpeakerEvents(List<ScheduleEntry> speakerSchedule) {
         DateTimeUtil.getInstance().setScheduleDateTimeCellFactory(this.view.getEventStartColumn());
@@ -74,6 +100,10 @@ public class SpeakerEventsPresenter implements ISpeakerEventsPresenter {
                 (observable, oldValue, newValue) -> handleSelect(newValue));
     }
 
+    /**
+     * Displays event's attributes
+     * @param event ScheduleEntry model that has been selected
+     */
     @Override
     public void displayEventDetails(ScheduleEntry event) {
         this.view.setSummaryEventName(event.getEventName());
@@ -87,6 +117,10 @@ public class SpeakerEventsPresenter implements ISpeakerEventsPresenter {
         this.view.setSummaryCapacity(event.getCapacity());
     }
 
+    /**
+     * Displays event's recipient list as checkboxes to choose from
+     * @param event ScheduleEntry model
+     */
     @Override
     public void displayRecipients(ScheduleEntry event) {
         this.view.getRecipientFlowPane().getChildren().clear();
@@ -105,6 +139,9 @@ public class SpeakerEventsPresenter implements ISpeakerEventsPresenter {
         }
     }
 
+    /**
+     * Init method which sets all the button actions, gets and displays all events
+     */
     @Override
     public void init() {
         this.view.setSendButtonAction(this::sendButtonAction);
@@ -113,6 +150,9 @@ public class SpeakerEventsPresenter implements ISpeakerEventsPresenter {
         displaySpeakerEvents(speakerEvents);
     }
 
+    /**
+     * Helper method to get and set current user's information to the view class variable
+     */
     @Override
     public void getUserData() {
         UserAccountHolder holder = UserAccountHolder.getInstance();
@@ -121,6 +161,10 @@ public class SpeakerEventsPresenter implements ISpeakerEventsPresenter {
         this.view.setSessionUserType(account.getUserType());
     }
 
+    /**
+     * Helper method to encode JSON object for creating a new message
+     * @return JSONObject object representing a new message form
+     */
     @SuppressWarnings("unchecked")
     private JSONObject constructMessageJson() {
         JSONObject queryJson = new JSONObject();
@@ -136,6 +180,9 @@ public class SpeakerEventsPresenter implements ISpeakerEventsPresenter {
         return queryJson;
     }
 
+    /**
+     * Helper method to clear all result text and affected form fields
+     */
     private void clearResultText() {
         this.view.setResultText("");
         TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl());
@@ -143,11 +190,19 @@ public class SpeakerEventsPresenter implements ISpeakerEventsPresenter {
         TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getContentArea());
     }
 
+    /**
+     * Helper method to handle select event
+     * @param event ScheduleEntry model that has been selected
+     */
     private void handleSelect(ScheduleEntry event) {
         displayEventDetails(event);
         displayRecipients(event);
     }
 
+    /**
+     * Helper method to add checkbox listeners
+     * @param checkBox JavaFX Checkbox object
+     */
     private void configureCheckBox(CheckBox checkBox) {
         if (checkBox.isSelected())
             selectedRecipients.add(checkBox);
