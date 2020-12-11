@@ -61,7 +61,7 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         JSONObject queryJson = constructRoomRequestJson();
         JSONObject responseJson = oc.listPossibleRooms(queryJson);
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 1);
-        if (responseJson.get("status").equals("success")) {
+        if (String.valueOf(responseJson.get("status")).equals("success")) {
             this.view.getTitledPane(1).setDisable(true);
             this.view.getTitledPane(2).setDisable(false);
             this.view.getTitledPane(1).setExpanded(false);
@@ -101,7 +101,7 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         JSONObject queryJson = constructEventJson();
         JSONObject responseJson = oc.createEventCmd(queryJson);
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 1);
-        if (responseJson.get("status").equals("Success")) {
+        if (String.valueOf(responseJson.get("status")).equals("success")) {
             this.view.getTitledPane(1).setDisable(false);
             this.view.getTitledPane(3).setDisable(true);
             this.view.getTitledPane(1).setExpanded(true);

@@ -37,7 +37,7 @@ public class SetVipPresenter implements ISetVipPresenter {
         else
             responseJson = ac.setAttendeeAsNotVip(this.selectedUser.getUsername());
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
-        if (responseJson.get("status").equals("success")) init();
+        if (String.valueOf(responseJson.get("status")).equals("success")) init();
     }
 
     @Override

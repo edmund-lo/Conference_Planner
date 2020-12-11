@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
-import static java.lang.Long.parseLong;
 
 /**
  * Adapter class for mapping Event entities to ScheduleEntry models

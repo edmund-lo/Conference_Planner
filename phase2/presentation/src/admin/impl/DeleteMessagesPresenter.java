@@ -38,7 +38,7 @@ public class DeleteMessagesPresenter implements IDeleteMessagesPresenter {
     @Override
     public void deleteButtonAction(ActionEvent actionEvent) {
         JSONObject responseJson = ac.deleteMessageThread(this.selectedMessageThread.getMessageThreadId());
-        if (responseJson.get("status").equals("success")) init();
+        if (String.valueOf(responseJson.get("status")).equals("success")) init();
     }
 
     @Override

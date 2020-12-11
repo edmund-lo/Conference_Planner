@@ -35,7 +35,7 @@ public class RemoveEventsPresenter implements IRemoveEventsPresenter {
 
         JSONObject responseJson = ac.removeEvent(this.selectedEvent.getEventId());
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
-        if (responseJson.get("status").equals("success")) init();
+        if (String.valueOf(responseJson.get("status")).equals("success")) init();
     }
 
     @Override

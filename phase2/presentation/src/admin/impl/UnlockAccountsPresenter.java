@@ -35,7 +35,7 @@ public class UnlockAccountsPresenter implements IUnlockAccountsPresenter {
 
         JSONObject responseJson = ac.unlockAccount(selectedAccount.getUsername());
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
-        if (responseJson.get("status").equals("success")) init();
+        if (String.valueOf(responseJson.get("status")).equals("success")) init();
     }
 
     @Override
