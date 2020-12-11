@@ -59,4 +59,8 @@ public class SpeakerPresenter extends UserPresenter {
     public JSONObject messageEventAttendeesError(String event) {
         return pu.createJSON("error", "Unable to message attendees of " + event + "!");
     }
+
+    public JSONObject noEventsGivenError(){
+        return pu.createJSON("warning", "No events entered");
+    }
 }

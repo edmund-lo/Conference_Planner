@@ -52,16 +52,17 @@ public class SpeakerController extends UserController {
      * @param eventIds List of strings representing unique event IDs.
      * @param message String representing the user's message.
      */
-    public void messageEventsAttendees(List<String> eventIds, String message, String subject) {
+    public JSONObject messageEventsAttendees(List<String> eventIds, String message, String subject) {
         for (String eventId: eventIds) { //loop through all event ids
             String eventName = em.getEventName(eventId);
             if (messageEventAttendees(eventId, message, subject)) {
                 this.saveData();
-                sp.messageEventAttendeesResult(eventName); // if successfully messaged all attendees at event
+                return sp.messageEventAttendeesResult(eventName); // if successfully messaged all attendees at event
             }
             else
-                sp.messageEventAttendeesError(eventName);
+                 return sp.messageEventAttendeesError(eventName);
         }
+        return sp.noEventsGivenError();
     }
 
     /**
@@ -88,21 +89,15 @@ public class SpeakerController extends UserController {
      * Gets all events that current speaker is speaking at.
      * @return List of Strings representing the events the current speaker is speaking at.
      */
-    public JSONObject getSpeakerEvents() {
+    public JSONArray getSpeakerEvents() {
         this.deserializeData();
 
-        JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
-        JSONObject item = new JSONObject();
 
         for (String eventID: um.getSpeakerSchedule(this.username).keySet()){
-            item.put(eventID, em.getEventJson(eventID));
+            array.add(em.getEventJson(eventID));
         }
 
-        array.add(item);
-
-        json.put("data", array);
-
-        return json;
+        return array;
     }
 }

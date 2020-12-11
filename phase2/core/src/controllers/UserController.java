@@ -116,19 +116,13 @@ public abstract class UserController {
     public JSONObject getAttendingEvents() {
         this.deserializeData();
 
-        JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
-        JSONObject item = new JSONObject();
 
         for (String eventID: um.getEvents(username)){
-            item.put(eventID, em.getEventJson(eventID));
+            array.add(em.getEventJson(eventID));
         }
 
-        array.add(item);
-
-        json.put("data", array);
-
-        return json;
+        return up.getAttendingEvents(array);
     }
 
     /**
@@ -139,21 +133,15 @@ public abstract class UserController {
     public JSONObject getAllEventsCanSignUp(){
         this.deserializeData();
 
-        JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
-        JSONObject item = new JSONObject();
 
         for (String eventID: em.getAllEventIds()){
             if(um.canSignUp(username, eventID, em.getEventStartTime(eventID), em.getEventEndTime(eventID))) {
-                item.put(eventID, em.getEventJson(eventID));
+                array.add(em.getEventJson(eventID));
             }
         }
 
-        array.add(item);
-
-        json.put("data", array);
-
-        return json;
+        return up.getAllEventsCanSignUp(array);
     }
 
     /**
@@ -164,21 +152,15 @@ public abstract class UserController {
     public JSONObject getAllEvents() {
         this.deserializeData();
 
-        JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
-        JSONObject item = new JSONObject();
 
         for (String eventID: em.getAllEventIds()){
             if(em.getEventStartTime(eventID).isAfter(LocalDateTime.now())) {
-                item.put(eventID, em.getEventJson(eventID));
+                array.add(em.getEventJson(eventID));
             }
         }
 
-        array.add(item);
-
-        json.put("data", array);
-
-        return json;
+        return up.getAllEvents(array);
     }
 
     /**
@@ -189,19 +171,13 @@ public abstract class UserController {
     public JSONObject getAllPrimaryMessages(){
         this.deserializeData();
 
-        JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
-        JSONObject item = new JSONObject();
 
         for (String id: um.getPrimaryMessages(this.username).keySet()){
-            item.put(id, mm.getOneMessageThreadToJson(id));
+            array.add(mm.getOneMessageThreadToJson(id));
         }
 
-        array.add(item);
-
-        json.put("data", array);
-
-        return json;
+        return up.getAllPrimaryMessages(array);
     }
 
     /**
@@ -212,19 +188,13 @@ public abstract class UserController {
     public JSONObject getAllArchivedMessages(){
         this.deserializeData();
 
-        JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
-        JSONObject item = new JSONObject();
 
         for (String id: um.getArchivedMessages(this.username).keySet()){
-            item.put(id, mm.getOneMessageThreadToJson(id));
+            array.add(mm.getOneMessageThreadToJson(id));
         }
 
-        array.add(item);
-
-        json.put("data", array);
-
-        return json;
+        return up.getAllArchivedMessages(array);
     }
 
     /**
@@ -235,19 +205,13 @@ public abstract class UserController {
     public JSONObject getAllTrashMessages(){
         this.deserializeData();
 
-        JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
-        JSONObject item = new JSONObject();
 
         for (String id: um.getTrashMessages(this.username).keySet()){
-            item.put(id, mm.getOneMessageThreadToJson(id));
+            array.add(mm.getOneMessageThreadToJson(id));
         }
 
-        array.add(item);
-
-        json.put("data", array);
-
-        return json;
+        return up.getAllTrashMessages(array);
     }
 
     /**
@@ -423,7 +387,7 @@ public abstract class UserController {
      */
     public JSONObject getFriendRequests(){
         this.deserializeData();
-        return um.getAllFriendsRequestsJson(username);
+        return up.getFriends(um.getAllFriendsRequestsJson(username));
     }
 
     /**
@@ -432,7 +396,7 @@ public abstract class UserController {
      */
     public JSONObject getNonFriends(){
         this.deserializeData();
-        return um.getAllNonFriendsJson(username);
+        return up.getNonFriends(um.getAllNonFriendsJson(username));
     }
 
     /**
@@ -441,7 +405,7 @@ public abstract class UserController {
      */
     public JSONObject getSentRequests(){
         this.deserializeData();
-        return um.getAllSentRequestsJson(username);
+        return up.getSentRequests(um.getAllSentRequestsJson(username));
     }
 
     /**
@@ -452,23 +416,17 @@ public abstract class UserController {
     public JSONObject getCommonEvents(String username){
         this.deserializeData();
 
-        JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
-        JSONObject item = new JSONObject();
 
         for (String eventID: um.getEvents(username)){
             for (String eventID2: um.getEvents(this.username)){
                 if(eventID.equals((eventID2))){
-                    item.put(eventID, em.getEventJson(eventID));
+                    array.add(em.getEventJson(eventID));
                 }
             }
         }
 
-        array.add(item);
-
-        json.put("data", array);
-
-        return json;
+        return up.getCommonEvents(array);
     }
 
     /**

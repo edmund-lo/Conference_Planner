@@ -318,28 +318,22 @@ public class OrganizerController extends UserController {
     public JSONObject listRoomSchedule(String roomName, LocalDateTime time) {
         this.deserializeData();
 
-        JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
-        JSONObject item = new JSONObject();
 
         for (String eventID: rm.getEventsInRoomAfter(roomName, time)){
-            item.put(eventID, em.getEventJson(eventID));
+            array.add(em.getEventJson(eventID));
         }
 
-        array.add(item);
-
-        json.put("data", array);
-
-        return json;
+        return op.listRoomSchedule(array);
     }
 
     public JSONObject getAllUsers(){
         this.deserializeData();
-        return um.getAllUsersJson();
+        return op.getAllUsers(um.getAllUsersJson());
     }
 
     public JSONObject getAllSpeakers(){
         this.deserializeData();
-        return um.getAllSpeakersJson();
+        return op.getAllSpeakers(um.getAllSpeakersJson());
     }
 }

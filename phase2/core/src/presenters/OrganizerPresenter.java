@@ -241,4 +241,16 @@ public class OrganizerPresenter extends UserPresenter {
     public JSONObject invalidCapacity(){
         return pu.createJSON("warning", "Your capacity must be greater than 0");
     }
+
+    public JSONObject listRoomSchedule(JSONArray data){
+        return pu.createJSON("success", "returning room schedule", data);
+    }
+
+    public JSONObject getAllUsers(JSONArray data){
+        return pu.createJSON("success", "returning all users", data);
+    }
+
+    public JSONObject getAllSpeakers(JSONArray data){
+        return pu.createJSON("success", "returning all speakers", data);
+    }
 }
