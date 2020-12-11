@@ -45,6 +45,6 @@ public class AttendeePresenter extends UserPresenter{
      * @param numEvents the number of events they have the next day
      */
     public JSONObject numberNextDayEvents(int numEvents) {
-        return pu.createJSON("success", "You have " + numEvents + " tomorrow");
+        return pu.createJSON("success", "You have " + numEvents + " events tomorrow");
     }
 }
