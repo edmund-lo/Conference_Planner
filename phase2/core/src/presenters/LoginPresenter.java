@@ -74,7 +74,7 @@ public class LoginPresenter {
      * @param data the user data
      */
     public JSONObject SuccessfulLogin(JSONArray data) {
-        return pu.createJSON("success", "Login Successful!", "JSONArray", data);
+        return pu.createJSON("success", "Login Successful!", data);
     }
 
     /**
@@ -110,7 +110,7 @@ public class LoginPresenter {
      * @param json account logs in JSONArray format
      */
     public JSONObject accountLogs(JSONArray json) {
-        return pu.createJSON("success", "Here are the logs:", "JSONArray", json);
+        return pu.createJSON("success", "Here are the logs:", json);
     }
 
     /**
