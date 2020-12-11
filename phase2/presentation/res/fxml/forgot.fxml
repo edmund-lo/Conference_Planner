@@ -58,7 +58,7 @@
                         <Text text="Enter your new password." GridPane.columnIndex="0" GridPane.rowIndex="0"
                               GridPane.columnSpan="2"/>
                         <Label text="New Password:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-                        <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="2" editable="false"/>
+                        <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label text="Confirm New Password:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
                         <PasswordField fx:id="confirmPassword" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
                         <Text fx:id="resultText3" GridPane.columnIndex="0" GridPane.rowIndex="7" GridPane.columnSpan="2"/>
