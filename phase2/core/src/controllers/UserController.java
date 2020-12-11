@@ -256,6 +256,8 @@ public abstract class UserController {
      * @return JSONObject of number of unread messages
      */
     public JSONObject getUnreadMessages() {
+        this.deserializeData();
+
         int numUnread = 0;
         for(boolean read : um.getAllUsers().get(this.username).getPrimaryInbox().values()){
             if(!read){ numUnread += 1; }
