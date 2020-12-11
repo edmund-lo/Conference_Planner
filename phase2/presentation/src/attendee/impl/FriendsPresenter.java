@@ -24,6 +24,9 @@ import util.TextResultUtil;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Presenter class for friends functionality screen
+ */
 public class FriendsPresenter implements IFriendsPresenter {
     private final IFriendsView view;
     private final AttendeeController ac;
@@ -31,6 +34,11 @@ public class FriendsPresenter implements IFriendsPresenter {
     private User selectedUser;
     private User selectedPending;
 
+    /**
+     * Initialises a FriendsPresenter object with given view and new AttendeeController,
+     * gets and sets current session's user information
+     * @param view IFriendsView interface implementation
+     */
     public FriendsPresenter(IFriendsView view) {
         this.view = view;
         getUserData();
@@ -38,6 +46,10 @@ public class FriendsPresenter implements IFriendsPresenter {
         init();
     }
 
+    /**
+     * Performs remove friend button action and displays the result
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void removeFriendButtonAction(ActionEvent actionEvent) {
         clearResultText(1);
@@ -46,6 +58,10 @@ public class FriendsPresenter implements IFriendsPresenter {
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 1);
     }
 
+    /**
+     * Performs rescind friend request button action and displays the result
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void removeRequestButtonAction(ActionEvent actionEvent) {
         clearResultText(2);
@@ -54,6 +70,10 @@ public class FriendsPresenter implements IFriendsPresenter {
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 1);
     }
 
+    /**
+     * Performs send friend request button action and displays the result
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void addFriendButtonAction(ActionEvent actionEvent) {
         clearResultText(2);
@@ -62,6 +82,10 @@ public class FriendsPresenter implements IFriendsPresenter {
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 2);
     }
 
+    /**
+     * Performs accept friend request button action and displays the result
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void acceptButtonAction(ActionEvent actionEvent) {
         clearResultText(3);
@@ -70,6 +94,10 @@ public class FriendsPresenter implements IFriendsPresenter {
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 1);
     }
 
+    /**
+     * Performs decline friend request button action and displays the result
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void declineButtonAction(ActionEvent actionEvent) {
         clearResultText(3);
@@ -78,6 +106,11 @@ public class FriendsPresenter implements IFriendsPresenter {
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 1);
     }
 
+    /**
+     * Gets list of User entities based on type and adapts them to User models
+     * @param type String object representing which type of Users to get
+     * @return List of User models
+     */
     @Override
     public List<User> getUsers(String type) {
         JSONObject responseJson = new JSONObject();
@@ -98,12 +131,22 @@ public class FriendsPresenter implements IFriendsPresenter {
         return UserAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
+    /**
+     * Gets common Event entities between yourself and another user and adapts them to ScheduleEntry models
+     * @param username String object representing other user's username
+     * @return List of ScheduleEntry models
+     */
     @Override
     public List<ScheduleEntry> getCommonEvents(String username) {
         JSONObject responseJson = ac.getCommonEvents(username);
         return ScheduleAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
+    /**
+     * Displays a list of User models in the TableView corresponding to type along with setting listeners
+     * @param userList List of User models
+     * @param type String object representing which TableView to display in
+     */
     @Override
     public void displayUserList(List<User> userList, String type) {
         ObservableList<User> observableUsers = FXCollections.observableArrayList(userList);
@@ -139,6 +182,11 @@ public class FriendsPresenter implements IFriendsPresenter {
         }
     }
 
+    /**
+     * Displays a User model's attributes in the tab corresponding to type
+     * @param user User model that has been selected
+     * @param type String object representing which tab to display in
+     */
     @Override
     public void displayUserDetails(User user, String type) {
         switch (type) {
@@ -169,6 +217,10 @@ public class FriendsPresenter implements IFriendsPresenter {
         }
     }
 
+    /**
+     * Displays commonEvents in the friends tab
+     * @param commonEvents List of ScheduleEntry models
+     */
     @Override
     public void displayCommonEvents(List<ScheduleEntry> commonEvents) {
         Text tableHeader = new Text("Room Schedule");
@@ -196,12 +248,21 @@ public class FriendsPresenter implements IFriendsPresenter {
         this.view.getCommonEventTableContainer().getChildren().add(scheduleTable);
     }
 
+    /**
+     * Sets the result of the action given status
+     * @param resultText String object describing the result
+     * @param status String object representing the status of the controller method call
+     * @param index int representing which Text object to set
+     */
     @Override
     public void setResultText(String resultText, String status, int index) {
         this.view.setResultText(resultText, index);
         TextResultUtil.getInstance().addPseudoClass(status, this.view.getResultTextControl(index));
     }
 
+    /**
+     * Init method which sets all the button actions
+     */
     @Override
     public void init() {
         this.view.setAddFriendButtonAction(this::addFriendButtonAction);
@@ -222,6 +283,9 @@ public class FriendsPresenter implements IFriendsPresenter {
         displayUserList(pendingReceived, "pending");
     }
 
+    /**
+     * Helper method to get and set current user's information to the view class variable
+     */
     @Override
     public void getUserData() {
         UserAccountHolder holder = UserAccountHolder.getInstance();
@@ -230,6 +294,9 @@ public class FriendsPresenter implements IFriendsPresenter {
         this.view.setSessionUserType(account.getUserType());
     }
 
+    /**
+     * Helper method to clear all result text and affected form fields
+     */
     private void clearResultText(int index) {
         this.view.setResultText("", index);
         TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl(index));

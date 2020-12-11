@@ -15,11 +15,19 @@ import org.json.simple.JSONObject;
 import util.TextResultUtil;
 import java.util.List;
 
+/**
+ * Presenter class for setting attendees' VIP status screen
+ */
 public class SetVipPresenter implements ISetVipPresenter {
     private final ISetVipView view;
     private final AdminController ac;
     private User selectedUser;
 
+    /**
+     * Initialises a SetVipPresenter object with given view and new AdminController,
+     * gets and sets current session's user information
+     * @param view ISetVipView interface implementation
+     */
     public SetVipPresenter(ISetVipView view) {
         this.view = view;
         getUserData();
@@ -27,6 +35,10 @@ public class SetVipPresenter implements ISetVipPresenter {
         init();
     }
 
+    /**
+     * Performs change attendee's VIP status button action and displays the result
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void changeVipButtonAction(ActionEvent actionEvent) {
         clearResultText();
@@ -40,12 +52,21 @@ public class SetVipPresenter implements ISetVipPresenter {
         if (String.valueOf(responseJson.get("status")).equals("success")) init();
     }
 
+    /**
+     * Sets the result of the action given status
+     * @param resultText String object describing the result
+     * @param status String object representing the status of the controller method call
+     */
     @Override
     public void setResultText(String resultText, String status) {
         this.view.setResultText(resultText);
         TextResultUtil.getInstance().addPseudoClass(status, this.view.getResultTextControl());
     }
 
+    /**
+     * Gets all Attendee entities stored in the database and converts them into User models
+     * @return List of User models
+     */
     @Override
     public List<User> getAttendeeUsers() {
         JSONObject responseJson = ac.viewAllAttendees();
@@ -53,6 +74,10 @@ public class SetVipPresenter implements ISetVipPresenter {
 
     }
 
+    /**
+     * Displays attendees in the TableView and adds listeners
+     * @param attendees List of User models
+     */
     @Override
     public void displayUsers(List<User> attendees) {
         this.view.getUsernameColumn().setCellValueFactory(new PropertyValueFactory<>("username"));
@@ -64,6 +89,10 @@ public class SetVipPresenter implements ISetVipPresenter {
                 (observable, oldValue, newValue) -> displayUserDetails(newValue));
     }
 
+    /**
+     * Displays attendee's attributes
+     * @param attendee User model that has been selected
+     */
     @Override
     public void displayUserDetails(User attendee) {
         this.selectedUser = attendee;
@@ -73,6 +102,9 @@ public class SetVipPresenter implements ISetVipPresenter {
         this.view.setVip(attendee.isVip() ? "Yes" : "No");
     }
 
+    /**
+     * Init method which sets all the button actions
+     */
     @Override
     public void init() {
         this.view.setChangeVipButtonAction(this::changeVipButtonAction);
@@ -80,6 +112,9 @@ public class SetVipPresenter implements ISetVipPresenter {
         displayUsers(attendees);
     }
 
+    /**
+     * Helper method to get and set current user's information to the view class variable
+     */
     @Override
     public void getUserData() {
         UserAccountHolder holder = UserAccountHolder.getInstance();
@@ -88,6 +123,9 @@ public class SetVipPresenter implements ISetVipPresenter {
         this.view.setSessionUserType(account.getUserType());
     }
 
+    /**
+     * Helper method to clear all result text and affected form fields
+     */
     private void clearResultText() {
         this.view.setResultText("");
         TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl());
