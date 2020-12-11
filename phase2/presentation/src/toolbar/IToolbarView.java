@@ -3,12 +3,14 @@ package toolbar;
 import common.ILoggedInView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.ToolBar;
 import javafx.scene.layout.HBox;
 
 public interface IToolbarView extends ILoggedInView {
     HBox getOrganizerGroup();
     HBox getSpeakerGroup();
     HBox getAdminGroup();
+    ToolBar getToolBar();
 
     //region Sets all button actions
     void setHomeButtonAction(EventHandler<ActionEvent> eventHandler);

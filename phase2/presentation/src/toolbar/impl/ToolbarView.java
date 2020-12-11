@@ -3,6 +3,7 @@ package toolbar.impl;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.ToolBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import toolbar.IToolbarView;
@@ -14,6 +15,8 @@ public class ToolbarView implements IToolbarView {
     private HBox speakerGroup;
     @FXML
     private HBox adminGroup;
+    @FXML
+    private ToolBar toolbar;
 
     //region Adds button handlers to JavaFX buttons
     @FXML
@@ -128,6 +131,11 @@ public class ToolbarView implements IToolbarView {
     @Override
     public HBox getAdminGroup() {
         return this.adminGroup;
+    }
+
+    @Override
+    public ToolBar getToolBar() {
+        return this.toolbar;
     }
 
     @Override

@@ -10,7 +10,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Project Phase 2");
-        ComponentFactory.getInstance().createFirstComponent(primaryStage, "login.fxml");
+        ComponentFactory.getInstance().createLoggedOutComponent(primaryStage, "login.fxml");
         primaryStage.setMaximized(true);
         primaryStage.show();
     }

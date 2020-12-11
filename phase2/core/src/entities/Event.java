@@ -289,7 +289,6 @@ public class Event implements Serializable {
         item.put("speakers", speakerNames);
         item.put("start", startTime);
         item.put("end", endTime);
-        item.put("duration", Duration.between(startTime, endTime));
         item.put("users", attendingUsers);
         item.put("roomName", roomName);
         item.put("capacity", capacity);

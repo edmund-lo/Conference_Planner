@@ -46,13 +46,22 @@ public class ComponentFactory {
         }
     }
 
+    /**
+     * Helper method to get a JavaFX Stage object from actionEvent
+     * @param actionEvent JavaFX ActionEvent object representing user input event
+     * @return JavaFX Stage object that all scenes will be set in
+     */
     private Stage getStageFromEvent(ActionEvent actionEvent) {
         Node node = (Node) actionEvent.getSource();
         return (Stage) node.getScene().getWindow();
     }
 
-
-    public void createFirstComponent(Stage stage, String fxml) {
+    /**
+     * Creates a scene for view when the user has not logged in yet
+     * @param stage JavaFX Stage object that all scenes will be set in
+     * @param fxml String FXML file name to load
+     */
+    public void createLoggedOutComponent(Stage stage, String fxml) {
         Scene scene = new Scene((Parent) createRoot(fxml), screenSize.getWidth(), screenSize.getHeight());
         stage.setScene(scene);
     }
@@ -63,7 +72,20 @@ public class ComponentFactory {
      * @param fxml String FXML file name to load
      */
     public void createLoggedOutComponent(ActionEvent actionEvent, String fxml) {
-        createFirstComponent(getStageFromEvent(actionEvent), fxml);
+        createLoggedOutComponent(getStageFromEvent(actionEvent), fxml);
+    }
+
+    /**
+     * Creates a scene for view when the user has logged in
+     * @param stage JavaFX Stage object that all scenes will be set in
+     * @param fxml String FXML file name to load
+     */
+    public void createLoggedInComponent(Stage stage, String fxml) {
+        BorderPane root = new BorderPane();
+        root.setTop(createRoot("toolbar.fxml"));
+        root.setCenter(createRoot(fxml));
+        Scene scene = new Scene(root, screenSize.getWidth(), screenSize.getHeight());
+        stage.setScene(scene);
     }
 
     /**
@@ -72,10 +94,15 @@ public class ComponentFactory {
      * @param fxml String FXML file name to load
      */
     public void createLoggedInComponent(ActionEvent actionEvent, String fxml) {
-        BorderPane root = new BorderPane();
-        root.setTop(createRoot("toolbar.fxml"));
-        root.setCenter(createRoot(fxml));
-        Scene scene = new Scene(root, screenSize.getWidth(), screenSize.getHeight());
-        getStageFromEvent(actionEvent).setScene(scene);
+        createLoggedInComponent(getStageFromEvent(actionEvent), fxml);
+    }
+
+    /**
+     * Creates a scene for view when the user has not logged in yet
+     * @param node JavaFX Node object represents one of the scene's nodes
+     * @param fxml String FXML file name to load
+     */
+    public void createLoggedInComponent(Node node, String fxml) {
+        createLoggedInComponent((Stage) node.getScene().getWindow(), fxml);
     }
 }

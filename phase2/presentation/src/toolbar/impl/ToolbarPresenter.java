@@ -27,57 +27,57 @@ public class ToolbarPresenter implements IToolbarPresenter {
 
     @Override
     public void viewScheduleButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(actionEvent, "viewSchedule.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getToolBar(), "viewSchedule.fxml");
     }
 
     @Override
     public void viewEventsButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(actionEvent, "viewEvents.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getToolBar(), "viewEvents.fxml");
     }
 
     @Override
     public void messagingButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(actionEvent, "messaging.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getToolBar(), "messaging.fxml");
     }
 
     @Override
     public void friendsButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(actionEvent, "friends.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getToolBar(), "friends.fxml");
     }
 
     @Override
     public void createAccountButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(actionEvent, "createAccount.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getToolBar(), "createAccount.fxml");
     }
 
     @Override
     public void createRoomButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(actionEvent, "createRoom.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getToolBar(), "createRoom.fxml");
     }
 
     @Override
     public void createEventButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(actionEvent, "createEvent.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getToolBar(), "createEvent.fxml");
     }
 
     @Override
     public void scheduleSpeakerButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(actionEvent, "scheduleSpeaker.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getToolBar(), "scheduleSpeaker.fxml");
     }
 
     @Override
     public void cancelEventButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(actionEvent, "rescheduleCancelEvent.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getToolBar(), "rescheduleCancelEvent.fxml");
     }
 
     @Override
     public void messageSpeakersButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(actionEvent, "messageSpeakers.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getToolBar(), "messageSpeakers.fxml");
     }
 
     @Override
     public void messageAttendeesButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(actionEvent, "messageAttendees.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getToolBar(), "messageAttendees.fxml");
     }
 
     @Override
@@ -87,22 +87,22 @@ public class ToolbarPresenter implements IToolbarPresenter {
 
     @Override
     public void unlockAccountsButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(actionEvent, "unlockAccounts.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getToolBar(), "unlockAccounts.fxml");
     }
 
     @Override
     public void setVipButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(actionEvent, "setVip.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getToolBar(), "setVip.fxml");
     }
 
     @Override
     public void deleteMessagesButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(actionEvent, "deleteMessages.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getToolBar(), "deleteMessages.fxml");
     }
 
     @Override
     public void removeEventsButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedInComponent(actionEvent, "removeEvents.fxml");
+        ComponentFactory.getInstance().createLoggedInComponent(this.view.getToolBar(), "removeEvents.fxml");
     }
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")
@@ -130,7 +130,7 @@ public class ToolbarPresenter implements IToolbarPresenter {
                 this.view.getAdminGroup().getChildren().clear();
                 this.view.getOrganizerGroup().getChildren().clear();
                 break;
-            case "Admin":
+            case "Administrator":
                 this.view.getOrganizerGroup().getChildren().clear();
                 this.view.getSpeakerGroup().getChildren().clear();
                 break;
