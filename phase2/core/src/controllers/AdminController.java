@@ -124,15 +124,6 @@ public class AdminController extends UserController{
     }
 
     /**
-     * Lists the names of all VIPs
-     *
-     * @return a JSON object containing the status and description of the action and a list of all vips
-     */
-    public JSONObject viewAllVips() {
-        return ap.listVips(um.getAllVipNames());
-    }
-
-    /**
      * Sets an attendee as a vip
      *
      * @param username the username of the attendee to be set as a VIP

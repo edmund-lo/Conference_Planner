@@ -1,8 +1,6 @@
 package presenters;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.json.simple.*;
+import org.json.simple.JSONObject;
 
 /**
  * Presenter outputs for client type User
@@ -20,23 +18,6 @@ public class UserPresenter {
 
     public UserPresenter(){
         pu = new PresenterUtil<>();
-    }
-    /**
-     * list of events iterated and printed
-     * @param events passes in list of events to iterate through and print
-     * @return a list of events in JSONObject format
-     */
-    public JSONObject listEvents(List<String> events) {
-        return pu.createJSON("success", "Events have been listed", "List of Events", events);
-    }
-
-    /**
-     * Lists users
-     * @param users list of users iterated through and printed for the user.
-     * @return a list of users in JSONObject format
-     */
-    public JSONObject listUsers(List<String> users) {
-        return pu.createJSON("success", "Users have been listed", "List of Users", users);
     }
 
     /**

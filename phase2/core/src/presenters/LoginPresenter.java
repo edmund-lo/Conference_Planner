@@ -74,11 +74,11 @@ public class LoginPresenter {
      * @param data the user data
      */
     public JSONObject SuccessfulLogin(JSONArray data) {
-        return pu.createJSON("success", "Login Successful!", "JSONArray", data);
+        return pu.createJSON("success", "Login Successful!", data);
     }
 
     /**
-     * Notifies the user that their username cannot contain whitespcaes
+     * Notifies the user that their username cannot contain whitespaces
      */
     public JSONObject noWhiteSpace() {
         return pu.createJSON("warning", "Username cannot contain whitespaces");
@@ -99,7 +99,7 @@ public class LoginPresenter {
     }
 
     /**
-     * Notifies the user that their answer to the security qustion was correct
+     * Notifies the user that their answer to the security question was correct
      */
     public JSONObject correctAnswers() {
         return pu.createJSON("success", "The answers to the security questions are correct");
@@ -110,7 +110,7 @@ public class LoginPresenter {
      * @param json account logs in JSONArray format
      */
     public JSONObject accountLogs(JSONArray json) {
-        return pu.createJSON("success", "Here are the logs:", "JSONArray", json);
+        return pu.createJSON("success", "Here are the logs:", json);
     }
 
     /**

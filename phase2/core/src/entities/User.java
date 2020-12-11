@@ -22,9 +22,9 @@ public abstract class User implements Serializable {
     private List<String> sentRequest;
     private List<String> friendRequest;
     private List<String> friendsList;
-    private List<String> primaryInbox;
-    private List<String> archivedInbox;
-    private List<String> trashInbox;
+    private HashMap<String, Boolean> primaryInbox;
+    private HashMap<String, Boolean> archivedInbox;
+    private HashMap<String, Boolean> trashInbox;
 
     /**
      * Constructor for User object. Initializes an empty hashmap for a user's schedule and
@@ -42,9 +42,9 @@ public abstract class User implements Serializable {
         this.sentRequest = new ArrayList<>();
         this.friendRequest = new ArrayList<>();
         this.friendsList = new ArrayList<>();
-        this.primaryInbox = new ArrayList<>();
-        this.archivedInbox = new ArrayList<>();
-        this.trashInbox = new ArrayList<>();
+        this.primaryInbox = new HashMap<>();
+        this.archivedInbox = new HashMap<>();
+        this.trashInbox = new HashMap<>();
     }
 
     /**
@@ -86,8 +86,8 @@ public abstract class User implements Serializable {
      *
      * @return An arraylist containing messageThread IDs of all primary messageThreads
      */
-    public List<String> getPrimaryInbox() {
-        return primaryInbox;
+    public HashMap<String, Boolean> getPrimaryInbox() {
+        return (HashMap<String, Boolean>) primaryInbox.keySet();
     }
 
     /**
@@ -95,8 +95,8 @@ public abstract class User implements Serializable {
      *
      * @return An arraylist containing messageThread IDs of all archived messageThreads
      */
-    public List<String> getArchivedInbox() {
-        return archivedInbox;
+    public HashMap<String, Boolean> getArchivedInbox() {
+        return (HashMap<String, Boolean>) archivedInbox.keySet();
     }
 
 
@@ -105,21 +105,70 @@ public abstract class User implements Serializable {
      *
      * @return An arraylist containing messageThread IDs of all trash messageThreads
      */
-    public List<String> getTrashInbox() {
-        return trashInbox;
+    public HashMap<String, Boolean> getTrashInbox() {
+        return (HashMap<String, Boolean>) trashInbox.keySet();
     }
 
     /**
-     * removes messagethread from user's inbox
+     * Getter for the current status of a messageThread given its inbox and id.
+     *
+     * @param inbox the inbox where this messageThread is in.
+     * @param messageThreadId the id of this messageThread.
+     *
+     * @return the boolean value of the message has been read or not, true iff read, false otherwise.
+     */
+
+    public boolean getRead(HashMap<String, Boolean> inbox, String messageThreadId){
+        return inbox.get(messageThreadId);
+    }
+
+    /**
+     * Getter for the inbox of where this messageThread is in.
+     *
+     * Precondition: this messageThread is in one of the user's inboxes.
+     *
+     * @param messageThreadId the id of this messageThread.
+     *
+     * @return the boolean value of the message has been read or not, true iff read, false otherwise.
+     */
+
+    public HashMap<String, Boolean> getInboxOfMessage(String messageThreadId){
+        if(this.primaryInbox.containsKey(messageThreadId)){
+            return this.primaryInbox;
+        }else if(this.archivedInbox.containsKey(messageThreadId)) {
+            return this.archivedInbox;
+        }else{
+            return this.trashInbox;
+        }
+    }
+
+    /**
+     * Setter for the current status of a messageThread given its id.
+     * Change to true if was false, vis versa
+     *
+     * @param messageThreadId the id of this messageThread.
+     *
+     */
+
+    public void changeRead(String messageThreadId){
+        HashMap<String, Boolean> inbox = this.getInboxOfMessage(messageThreadId);
+        if(getRead(inbox, messageThreadId)) {
+            inbox.replace(messageThreadId, false);
+        }else{inbox.replace(messageThreadId, true);
+        }
+    }
+
+    /**
+     * removes messageThread from user's inbox
      *
      * @param messageThreadId id of the message thread
      */
     public void deleteMessageFromInboxes(String messageThreadId){
-        if(this.getPrimaryInbox().contains(messageThreadId)){
+        if(this.getPrimaryInbox().containsKey(messageThreadId)){
             this.primaryInbox.remove(messageThreadId);
-        }else if(this.getArchivedInbox().contains(messageThreadId)){
+        }else if(this.getArchivedInbox().containsKey(messageThreadId)){
             this.archivedInbox.remove(messageThreadId);
-        }else if(this.getTrashInbox().contains(messageThreadId)){
+        }else if(this.getTrashInbox().containsKey(messageThreadId)){
             this.trashInbox.remove(messageThreadId);
         }
     }
@@ -178,7 +227,7 @@ public abstract class User implements Serializable {
      * @param messageThreadId the messageThread Id of the sent message
      */
     public void sendMessage(String messageThreadId) {
-        this.primaryInbox.add(messageThreadId);
+        this.primaryInbox.put(messageThreadId, true);
     }
 
     /**
@@ -189,7 +238,7 @@ public abstract class User implements Serializable {
      * @param messageThreadId the messageThreadId of the received message
      */
     public void receiveMessage(String messageThreadId) {
-        this.primaryInbox.add(messageThreadId);
+        this.primaryInbox.put(messageThreadId, false);
     }
 
     /**
@@ -200,7 +249,7 @@ public abstract class User implements Serializable {
      * @param messageThreadId the messageThreadId to be archived
      */
     public void archiveToInbox(String messageThreadId) {
-        this.archivedInbox.add(messageThreadId);
+        this.archivedInbox.put(messageThreadId, primaryInbox.get(messageThreadId));
         this.primaryInbox.remove(messageThreadId);
     }
 
@@ -212,7 +261,7 @@ public abstract class User implements Serializable {
      * @param messageThreadId the messageThreadId of the messageThread they want to move to trash bin
      */
     public void moveToTrash(String messageThreadId) {
-        this.trashInbox.add(messageThreadId);
+        this.trashInbox.put(messageThreadId, primaryInbox.get(messageThreadId));
         this.primaryInbox.remove(messageThreadId);
     }
 
@@ -224,7 +273,7 @@ public abstract class User implements Serializable {
      * @param messageThreadId the messageThreadId to be move back
      */
     public void archivedBackToPrimary(String messageThreadId) {
-        this.primaryInbox.add(messageThreadId);
+        this.primaryInbox.put(messageThreadId, archivedInbox.get(messageThreadId));
         this.archivedInbox.remove(messageThreadId);
     }
 
@@ -236,7 +285,7 @@ public abstract class User implements Serializable {
      * @param messageThreadId the messageThreadId of the messageThread they want to move back from the trash bin
      */
     public void trashBackToPrimary(String messageThreadId) {
-        this.primaryInbox.add(messageThreadId);
+        this.primaryInbox.put(messageThreadId, trashInbox.get(messageThreadId));
         this.trashInbox.remove(messageThreadId);
     }
 

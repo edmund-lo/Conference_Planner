@@ -29,6 +29,24 @@ public class UserManager implements Serializable {
     }
 
     /**
+     * Gets the User attribute given the username of this user.
+     *
+     * @return the user attribute
+     */
+    public User getUser(String username) {
+        return this.allUsers.get(username);
+    }
+
+    /**
+     * Gets all the Users.
+     *
+     * @return a hash map of all users with usernames as keys and User attribute as values
+     */
+    public HashMap<String, User> getAllUsers() {
+        return this.allUsers;
+    }
+
+    /**
      * Creates new attendee with username and password.
      *
      * @param username the username
@@ -188,6 +206,27 @@ public class UserManager implements Serializable {
     }
 
     /**
+     * Change the current status of a messageThread for a specific user.
+     *
+     * @param username the username of the receiver
+     * @param messageThreadId the message ID
+     */
+    public void changeReadForMes(String username, String messageThreadId) {
+        allUsers.get(username).changeRead(messageThreadId);
+    }
+
+    /**
+     * Getter of the current status of a messageThread for a specific user.
+     *
+     * @param username the username of the receiver
+     * @param messageThreadId the message ID
+     */
+    public boolean getReadForMes(String username, String messageThreadId) {
+        User newUser = allUsers.get(username);
+        return newUser.getRead(newUser.getInboxOfMessage(messageThreadId), messageThreadId);
+    }
+
+    /**
      * Archive messageThreadId of the message to user's inbox.
      *
      * @param username the username of the receiver
@@ -206,6 +245,12 @@ public class UserManager implements Serializable {
     public void moveToTrashInbox(String username, String messageThreadId) {
         allUsers.get(username).moveToTrash(messageThreadId);
     }
+
+    /**
+     * delete messageThreadId of the message from any of three user's inboxes.
+     *
+     * @param messageThreadId the message ID
+     */
 
     public void deleteMessageFromUsers(String messageThreadId){
         for(User user : this.allUsers.values()){
@@ -255,7 +300,7 @@ public class UserManager implements Serializable {
      * @param username the username of the user
      * @return An arraylist of the user's primary messages
      */
-    public List<String> getPrimaryMessages(String username) {
+    public HashMap<String, Boolean> getPrimaryMessages(String username) {
         return allUsers.get(username).getPrimaryInbox();
     }
 
@@ -265,7 +310,7 @@ public class UserManager implements Serializable {
      * @param username the username of the user
      * @return An arraylist of the user's Archived messages
      */
-    public List<String> getArchivedMessages(String username) {
+    public HashMap<String, Boolean> getArchivedMessages(String username) {
         return allUsers.get(username).getArchivedInbox();
     }
 
@@ -275,7 +320,7 @@ public class UserManager implements Serializable {
      * @param username the username of the user
      * @return An arraylist of the user's trash messages
      */
-    public List<String> getTrashMessages(String username) {
+    public HashMap<String, Boolean> getTrashMessages(String username) {
         return allUsers.get(username).getTrashInbox();
     }
 

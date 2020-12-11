@@ -2,8 +2,6 @@ package presenters;
 
 import org.json.simple.JSONObject;
 
-import java.util.ArrayList;
-
 /**
  * A Presenter class representing an AttendeePresenter which inherits from UserPresenter
  *
@@ -14,16 +12,6 @@ public class AttendeePresenter extends UserPresenter{
 
     public AttendeePresenter() {
         super();
-    }
-
-    /**
-     * Lists all vip events
-     *
-     * @param allVipEvents an arraylist of all vip events
-     * @return all vip events
-     */
-    public JSONObject listVipEvents(ArrayList<String> allVipEvents) {
-        return pu.createJSON("success", "VIP Events have been listed", "List of VIP Events", allVipEvents);
     }
 
     /**
