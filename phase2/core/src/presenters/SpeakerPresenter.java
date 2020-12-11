@@ -1,5 +1,6 @@
 package presenters;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.List;
@@ -58,5 +59,12 @@ public class SpeakerPresenter extends UserPresenter {
      */
     public JSONObject messageEventAttendeesError(String event) {
         return pu.createJSON("error", "Unable to message attendees of " + event + "!");
+    }
+
+    public JSONObject noEventsGivenError(){
+        return pu.createJSON("warning", "No events entered");
+    }
+    public JSONObject getSpeakerEvents(JSONArray data){
+        return pu.createJSON("success", "returning speaker events", data);
     }
 }

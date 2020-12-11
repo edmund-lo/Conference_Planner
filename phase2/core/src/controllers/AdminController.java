@@ -121,7 +121,7 @@ public class AdminController extends UserController{
      */
     public JSONObject viewAllAttendees() {
         this.deserializeData();
-        return um.getAllAttendeesJson();
+        return ap.viewAllAttendees(um.getAllAttendeesJson());
     }
 
     /**
@@ -188,7 +188,7 @@ public class AdminController extends UserController{
      */
     public JSONObject getAllMessageThreads() {
         this.deserializeData();
-        return ap.getAllMessageThreads(mm.getAllMessageThreadToJson());
+        return ap.getAllMessageThreads(mm.getAllMessageThreadsJson());
     }
 
     /**

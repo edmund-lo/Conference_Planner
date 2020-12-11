@@ -123,18 +123,8 @@ public class MessageManager implements Serializable {
      * @return a JSONObject of the message thread
      */
     @SuppressWarnings("unchecked")
-    public JSONObject getOneMessageThreadToJson(String messageThreadId){
-        JSONObject json = new JSONObject();
-        JSONArray array = new JSONArray();
-        JSONObject item = new JSONObject();
-
-        item.put(messageThreadId, getAllMessageThreads().get(messageThreadId).convertToJSON());
-
-        array.add(item);
-
-        json.put("MessageThread", array);
-
-        return json;
+    public JSONObject getMessageThreadJson(String messageThreadId){
+        return allMessageThreads.get(messageThreadId).convertToJSON();
     }
 
     /**
@@ -143,11 +133,11 @@ public class MessageManager implements Serializable {
      * @return a JSONObject of all message threads
      */
     @SuppressWarnings("unchecked")
-    public JSONArray getAllMessageThreadToJson(){
+    public JSONArray getAllMessageThreadsJson(){
         JSONArray array = new JSONArray();
 
-        for(String ID: getAllMessageThreads().keySet())
-            array.add(getAllMessageThreads().get(ID).convertToJSON());
+        for(String ID: allMessageThreads.keySet())
+            array.add(allMessageThreads.get(ID).convertToJSON());
 
         return array;
     }

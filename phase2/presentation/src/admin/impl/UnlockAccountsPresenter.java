@@ -17,11 +17,19 @@ import util.DateTimeUtil;
 import util.TextResultUtil;
 import java.util.List;
 
+/**
+ * Presenter class for unlocking user accounts screen
+ */
 public class UnlockAccountsPresenter implements IUnlockAccountsPresenter {
     private final IUnlockAccountsView view;
     private final AdminController ac;
     private UserAccount selectedAccount;
 
+    /**
+     * Initialises a UnlockAccountsPresenter object with given view and new AdminController,
+     * gets and sets current session's user information
+     * @param view IUnlockAccountsView interface implementation
+     */
     public UnlockAccountsPresenter(IUnlockAccountsView view) {
         this.view = view;
         getUserData();
@@ -29,6 +37,10 @@ public class UnlockAccountsPresenter implements IUnlockAccountsPresenter {
         init();
     }
 
+    /**
+     * Performs unlock account button action and displays the result
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void unlockButtonAction(ActionEvent actionEvent) {
         clearResultText();
@@ -38,18 +50,31 @@ public class UnlockAccountsPresenter implements IUnlockAccountsPresenter {
         if (String.valueOf(responseJson.get("status")).equals("success")) init();
     }
 
+    /**
+     * Sets the result of the action given status
+     * @param resultText String object describing the result
+     * @param status String object representing the status of the controller method call
+     */
     @Override
     public void setResultText(String resultText, String status) {
         this.view.setResultText(resultText);
         TextResultUtil.getInstance().addPseudoClass(status, this.view.getResultTextControl());
     }
 
+    /**
+     * Gets all UserAccount entities stored in the database and converts them into UserAccount models
+     * @return List of UserAccount models
+     */
     @Override
     public List<UserAccount> getUserAccounts() {
         JSONObject responseJson = ac.getAllAccounts();
         return UserAccountAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
+    /**
+     * Displays accounts in the TableView and adds listeners
+     * @param accounts List of UserAccount models
+     */
     @Override
     public void displayUserAccounts(List<UserAccount> accounts) {
         this.view.getUsernameColumn().setCellValueFactory(new PropertyValueFactory<>("username"));
@@ -60,6 +85,10 @@ public class UnlockAccountsPresenter implements IUnlockAccountsPresenter {
                 (observable, oldValue, newValue) -> handleSelect(newValue));
     }
 
+    /**
+     * Displays account's attributes
+     * @param account UserAccount model that has been selected
+     */
     @Override
     public void displayUserAccountDetails(UserAccount account) {
         this.selectedAccount = account;
@@ -69,12 +98,21 @@ public class UnlockAccountsPresenter implements IUnlockAccountsPresenter {
         displayUserLoginLogs(logs);
     }
 
+    /**
+     * Gets all LoginLog entities stored in the database and converts them into LoginLog models
+     * @param username String object representing selected user's username
+     * @return List of LoginLog models
+     */
     @Override
     public List<LoginLog> getUserLoginLogs(String username) {
         JSONObject responseJson = ac.getLoginLogs(username);
         return LoginLogAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
+    /**
+     * Displays logs in the TableView
+     * @param logs List of LoginLog models
+     */
     @Override
     public void displayUserLoginLogs(List<LoginLog> logs) {
         DateTimeUtil.getInstance().setLoginDateTimeCellFactory(this.view.getLoginTimeColumn());
@@ -83,6 +121,9 @@ public class UnlockAccountsPresenter implements IUnlockAccountsPresenter {
         this.view.getLogsTable().setItems(FXCollections.observableList(logs));
     }
 
+    /**
+     * Init method which sets all the button actions, gets and displays all events
+     */
     @Override
     public void init() {
         this.view.setUnlockButtonAction(this::unlockButtonAction);
@@ -90,6 +131,9 @@ public class UnlockAccountsPresenter implements IUnlockAccountsPresenter {
         displayUserAccounts(accounts);
     }
 
+    /**
+     * Helper method to get and set current user's information to the view class variable
+     */
     @Override
     public void getUserData() {
         UserAccountHolder holder = UserAccountHolder.getInstance();
@@ -98,11 +142,18 @@ public class UnlockAccountsPresenter implements IUnlockAccountsPresenter {
         this.view.setSessionUserType(account.getUserType());
     }
 
+    /**
+     * Helper method to clear all result text and affected form fields
+     */
     private void clearResultText() {
         this.view.setResultText("");
         TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl());
     }
 
+    /**
+     * Helper method to handle select event
+     * @param account UserAccount model that has been selected
+     */
     private void handleSelect(UserAccount account) {
         getUserLoginLogs(account.getUsername());
         displayUserAccountDetails(account);

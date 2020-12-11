@@ -17,11 +17,19 @@ import util.DateTimeUtil;
 import util.TextResultUtil;
 import java.util.List;
 
+/**
+ * Presenter class for removing events screen
+ */
 public class RemoveEventsPresenter implements IRemoveEventsPresenter {
     private final IRemoveEventsView view;
     private final AdminController ac;
     private ScheduleEntry selectedEvent;
 
+    /**
+     * Initialises a RemoveEventsPresenter object with given view and new AdminController,
+     * gets and sets current session's user information
+     * @param view IRemoveEventsView interface implementation
+     */
     public RemoveEventsPresenter(IRemoveEventsView view) {
         this.view = view;
         getUserData();
@@ -29,6 +37,10 @@ public class RemoveEventsPresenter implements IRemoveEventsPresenter {
         init();
     }
 
+    /**
+     * Performs remove event button action and displays the result
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void removeButtonAction(ActionEvent actionEvent) {
         clearResultText();
@@ -38,18 +50,31 @@ public class RemoveEventsPresenter implements IRemoveEventsPresenter {
         if (String.valueOf(responseJson.get("status")).equals("success")) init();
     }
 
+    /**
+     * Sets the result of the action given status
+     * @param resultText String object describing the result
+     * @param status String object representing the status of the controller method call
+     */
     @Override
     public void setResultText(String resultText, String status) {
         this.view.setResultText(resultText);
         TextResultUtil.getInstance().addPseudoClass(status, this.view.getResultTextControl());
     }
 
+    /**
+     * Gets all Event entities stored in the database and converts them into ScheduleEntry models
+     * @return List of ScheduleEntry models
+     */
     @Override
     public List<ScheduleEntry> getEvents() {
         JSONObject responseJson = ac.getAllEvents();
         return ScheduleAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
+    /**
+     * Displays schedule in the TableView and adds listeners
+     * @param schedule List of ScheduleEntry models
+     */
     @Override
     public void displayEvents(List<ScheduleEntry> schedule) {
         DateTimeUtil.getInstance().setScheduleDateTimeCellFactory(this.view.getEventStartColumn());
@@ -65,6 +90,10 @@ public class RemoveEventsPresenter implements IRemoveEventsPresenter {
                 (observable, oldValue, newValue) -> displayEventDetails(newValue));
     }
 
+    /**
+     * Displays event's attributes
+     * @param event ScheduleEntry model that has been selected
+     */
     @Override
     public void displayEventDetails(ScheduleEntry event) {
         this.selectedEvent = event;
@@ -79,6 +108,9 @@ public class RemoveEventsPresenter implements IRemoveEventsPresenter {
         this.view.setSummaryCapacity(event.getCapacity());
     }
 
+    /**
+     * Init method which sets all the button actions, gets and displays all events
+     */
     @Override
     public void init() {
         this.view.setRemoveButtonAction(this::removeButtonAction);
@@ -86,6 +118,9 @@ public class RemoveEventsPresenter implements IRemoveEventsPresenter {
         displayEvents(allEvents);
     }
 
+    /**
+     * Helper method to get and set current user's information to the view class variable
+     */
     @Override
     public void getUserData() {
         UserAccountHolder holder = UserAccountHolder.getInstance();
@@ -94,6 +129,9 @@ public class RemoveEventsPresenter implements IRemoveEventsPresenter {
         this.view.setSessionUserType(account.getUserType());
     }
 
+    /**
+     * Helper method to clear all result text and affected form fields
+     */
     private void clearResultText() {
         this.view.setResultText("");
         TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl());

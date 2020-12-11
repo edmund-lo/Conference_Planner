@@ -1,5 +1,6 @@
 package presenters;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
@@ -157,5 +158,45 @@ public class UserPresenter {
      */
     public JSONObject numberUnreadMessages(int numUnread) {
         return pu.createJSON("success", "You have " + numUnread + " unread messages");
+    }
+
+    public JSONObject getAttendingEvents(JSONArray data){
+        return pu.createJSON("success", "returning attending events", data);
+    }
+
+    public JSONObject getAllEventsCanSignUp(JSONArray data){
+        return pu.createJSON("success", "returning all events can sign up", data);
+    }
+
+    public JSONObject getAllEvents(JSONArray data){
+        return pu.createJSON("success", "returning all events", data);
+    }
+
+    public JSONObject getAllPrimaryMessages(JSONArray data){
+        return pu.createJSON("success", "returning all primary messages", data);
+    }
+
+    public JSONObject getAllArchivedMessages(JSONArray data){
+        return pu.createJSON("success", "returning all archived messages", data);
+    }
+
+    public JSONObject getAllTrashMessages(JSONArray data){
+        return pu.createJSON("success", "returning all trash messages", data);
+    }
+
+    public JSONObject getFriends(JSONArray data){
+        return pu.createJSON("success", "returning all friends", data);
+    }
+
+    public JSONObject getNonFriends(JSONArray data){
+        return pu.createJSON("success", "returning all non friends", data);
+    }
+
+    public JSONObject getSentRequests(JSONArray data){
+        return pu.createJSON("success", "return all sent requests", data);
+    }
+
+    public JSONObject getCommonEvents(JSONArray data){
+        return pu.createJSON("success", "returning common events", data);
     }
 }

@@ -10,12 +10,20 @@ import org.json.simple.JSONObject;
 import util.ComponentFactory;
 import util.TextResultUtil;
 
+/**
+ * Presenter class for the register new user screen
+ */
 public class SetupPresenter implements IRegisterPresenter {
     private final IRegisterView view;
     private final LoginController lc;
     private String sessionUsername;
     private String sessionUserType;
 
+    /**
+     * Initialises a SetupPresenter object with given view and new LoginController,
+     * gets and sets current session's user information
+     * @param view IRegisterView interface implementation
+     */
     public SetupPresenter(IRegisterView view) {
         this.view = view;
         getUserData();
@@ -23,6 +31,10 @@ public class SetupPresenter implements IRegisterPresenter {
         init();
     }
 
+    /**
+     * Performs back button action and changes scene to login screen
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void backButtonAction(ActionEvent actionEvent) {
         UserAccountHolder holder = UserAccountHolder.getInstance();
@@ -30,6 +42,10 @@ public class SetupPresenter implements IRegisterPresenter {
         ComponentFactory.getInstance().createLoggedOutComponent(actionEvent, "login.fxml");
     }
 
+    /**
+     * Performs register button action and displays result of action
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void registerButtonAction(ActionEvent actionEvent) {
         clearResultText();
@@ -39,6 +55,11 @@ public class SetupPresenter implements IRegisterPresenter {
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
     }
 
+    /**
+     * Sets the result of the action given status
+     * @param resultText String object describing the result
+     * @param status String object representing the status of the controller method call
+     */
     @Override
     public void setResultText(String resultText, String status) {
         if (status.equals("error") || status.equals("warning")) {
@@ -58,6 +79,9 @@ public class SetupPresenter implements IRegisterPresenter {
         TextResultUtil.getInstance().addPseudoClass(status, this.view.getResultTextControl());
     }
 
+    /**
+     * Init method which sets all the button actions
+     */
     @Override
     public void init() {
         this.view.setUsername(this.sessionUsername);
@@ -66,6 +90,9 @@ public class SetupPresenter implements IRegisterPresenter {
         this.view.setRegisterButtonAction(this::registerButtonAction);
     }
 
+    /**
+     * Helper method to get and set current user's information to the view class variable
+     */
     private void getUserData() {
         UserAccountHolder holder = UserAccountHolder.getInstance();
         UserAccount account = holder.getUserAccount();
@@ -73,6 +100,10 @@ public class SetupPresenter implements IRegisterPresenter {
         this.sessionUserType = account.getUserType();
     }
 
+    /**
+     * Helper method to encode JSON object for registering a user
+     * @return JSONObject object representing a user's registration form
+     */
     @SuppressWarnings("unchecked")
     private JSONObject constructRegisterJson() {
         JSONObject queryJson = new JSONObject();
@@ -89,6 +120,9 @@ public class SetupPresenter implements IRegisterPresenter {
         return queryJson;
     }
 
+    /**
+     * Helper method to clear all result text and affected form fields
+     */
     private void clearResultText() {
         this.view.setResultText("");
         TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl());
