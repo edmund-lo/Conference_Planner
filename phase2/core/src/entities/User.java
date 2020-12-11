@@ -74,10 +74,16 @@ public abstract class User implements Serializable {
         return lastName;
     }
 
+    /**
+     * Setter for user's first name.
+     */
     public void setFirstName(String fn) {
         this.firstName = fn;
     }
 
+    /**
+     * Setter for user's last name.
+     */
     public void setLastName(String ln) {
         this.lastName = ln;
     }
