@@ -97,7 +97,7 @@ public class RegisterPresenter implements IRegisterPresenter {
         queryJson.put("securityAnswer1", this.view.getSecurityAnswer(1));
         queryJson.put("securityQuestion2", this.view.getSecurityQuestion(2));
         queryJson.put("securityAnswer2", this.view.getSecurityAnswer(2));
-        queryJson.put("setup", Boolean.FALSE);
+        queryJson.put("setup", Boolean.TRUE);
         return queryJson;
     }
 

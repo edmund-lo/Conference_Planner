@@ -6,7 +6,7 @@
 <?import java.net.URL?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0" minWidth="0" prefWidth="1600" prefHeight="900"
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="organizer.impl.ScheduleSpeakerView">
     <padding>
@@ -48,7 +48,6 @@
                 <Text fx:id="summaryCurrentSpeakers" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
                 <Label text="Available Speakers" GridPane.columnIndex="0" GridPane.rowIndex="10"/>
                 <ChoiceBox fx:id="availableSpeakers" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
-                <Label text="Current Speakers:" GridPane.columnIndex="0" GridPane.rowIndex="11"/>
                 <Text fx:id="resultText" GridPane.columnIndex="1" GridPane.rowIndex="11"/>
 
                 <HBox spacing="10" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="13"
