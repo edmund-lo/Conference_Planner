@@ -182,29 +182,6 @@ public abstract class UserController {
     }
 
     /**
-     *Returns list of users that the user can send messages to.
-     *
-     *@return list of speakers and attendees in a string format
-     */
-    public JSONObject getAllMessageableUsers(){
-        this.deserializeData();
-
-        JSONObject json = new JSONObject();
-        JSONArray array = new JSONArray();
-        JSONObject item = new JSONObject();
-
-        for (String username: um.getAllMessageableUsers(this.username)){
-            item.put(username, um.getUserJson(username));
-        }
-
-        array.add(item);
-
-        json.put("data", array);
-
-        return json;
-    }
-
-    /**
      * Gets all of current user's JSON primary messages.
      *
      * @return List of Strings representing all of the user's primary messages.
@@ -281,20 +258,14 @@ public abstract class UserController {
     public JSONObject getUnreadMessages() {
         int numUnread = 0;
         for(boolean read : um.getAllUsers().get(this.username).getPrimaryInbox().values()){
-            if(!read){
-                numUnread += 1;
-            }
+            if(!read){ numUnread += 1; }
         }
-//        for(boolean read : um.getAllUsers().get(this.username).getArchivedInbox().values()){
-//            if(!read){
-//                numUnread += 1;
-//            }
-//        }
-//        for(boolean read : um.getAllUsers().get(this.username).getTrashInbox().values()){
-//            if(!read){
-//                numUnread += 1;
-//            }
-//        }
+        for(boolean read : um.getAllUsers().get(this.username).getArchivedInbox().values()){
+            if(!read){ numUnread += 1; }
+        }
+        for(boolean read : um.getAllUsers().get(this.username).getTrashInbox().values()){
+            if(!read){ numUnread += 1; }
+        }
         return up.numberUnreadMessages(numUnread);
     }
 
@@ -504,6 +475,6 @@ public abstract class UserController {
      */
     public JSONObject getUser() {
         this.deserializeData();
-        return up.greeting(um.getUserInfo(this.username)[1], um.getUserInfo(this.username)[2]);
+        return up.greeting(um.getUserInfo(this.username)[0], um.getUserInfo(this.username)[1]);
     }
 }

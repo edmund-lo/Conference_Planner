@@ -87,7 +87,7 @@ public abstract class User implements Serializable {
      * @return An arraylist containing messageThread IDs of all primary messageThreads
      */
     public HashMap<String, Boolean> getPrimaryInbox() {
-        return (HashMap<String, Boolean>) primaryInbox.keySet();
+        return primaryInbox;
     }
 
     /**
@@ -96,7 +96,7 @@ public abstract class User implements Serializable {
      * @return An arraylist containing messageThread IDs of all archived messageThreads
      */
     public HashMap<String, Boolean> getArchivedInbox() {
-        return (HashMap<String, Boolean>) archivedInbox.keySet();
+        return archivedInbox;
     }
 
 
@@ -106,7 +106,7 @@ public abstract class User implements Serializable {
      * @return An arraylist containing messageThread IDs of all trash messageThreads
      */
     public HashMap<String, Boolean> getTrashInbox() {
-        return (HashMap<String, Boolean>) trashInbox.keySet();
+        return trashInbox;
     }
 
     /**
