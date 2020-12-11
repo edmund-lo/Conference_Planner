@@ -26,15 +26,6 @@ public class AttendeeController extends UserController {
     }
 
     /**
-     * Lists all Vip Events
-     *
-     * @return a JSON object containing the status and description of the action and a list of all vip events
-     */
-    public JSONObject viewAllVipEvents() {
-        return ap.listVipEvents(em.getAllVipEvents());
-    }
-
-    /**
      * Signs up an attendee for a vip event
      *
      * @param eventID the vip event

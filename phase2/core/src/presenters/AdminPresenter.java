@@ -2,8 +2,6 @@ package presenters;
 
 import org.json.simple.JSONObject;
 
-import java.util.ArrayList;
-
 /**
  * A Presenter class representing an AdminPresenter which inherits from UserPresenter
  *
@@ -49,15 +47,6 @@ public class AdminPresenter extends UserPresenter {
      */
     public JSONObject invalidUserTypeError() {
         return pu.createJSON("warning", "User type does not exist");
-    }
-
-    /**
-     * Lists all vips
-     *
-     * @param allVipNames all the names of vips
-     */
-    public JSONObject listVips(ArrayList<String> allVipNames) {
-        return pu.createJSON("success", "VIPS have been listed", "List of VIPS", allVipNames);
     }
 
     /**

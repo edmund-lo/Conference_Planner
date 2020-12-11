@@ -78,7 +78,7 @@ public class LoginPresenter {
     }
 
     /**
-     * Notifies the user that their username cannot contain whitespcaes
+     * Notifies the user that their username cannot contain whitespaces
      */
     public JSONObject noWhiteSpace() {
         return pu.createJSON("warning", "Username cannot contain whitespaces");
@@ -99,7 +99,7 @@ public class LoginPresenter {
     }
 
     /**
-     * Notifies the user that their answer to the security qustion was correct
+     * Notifies the user that their answer to the security question was correct
      */
     public JSONObject correctAnswers() {
         return pu.createJSON("success", "The answers to the security questions are correct");

@@ -1,7 +1,7 @@
 package presenters;
-import org.json.simple.*;
 
-import java.util.ArrayList;
+import org.json.simple.JSONObject;
+
 import java.util.List;
 
 /**
@@ -58,13 +58,5 @@ public class SpeakerPresenter extends UserPresenter {
      */
     public JSONObject messageEventAttendeesError(String event) {
         return pu.createJSON("error", "Unable to message attendees of " + event + "!");
-    }
-
-    /**
-     * Method for sending a list of speaker events to the presentation module
-     * @param events list of events in string format
-     */
-    public JSONObject getSpeakerEventsOutput(List<String> events){
-        return pu.createJSON("success", "returning speaker events", "events", events);
     }
 }
