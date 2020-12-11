@@ -61,6 +61,7 @@ public class UserAccount implements Serializable {
         this.password = password;
         this.userType = userType;
         this.locked = false;
+        this.setSecurity = false;
     }
 
     /**
