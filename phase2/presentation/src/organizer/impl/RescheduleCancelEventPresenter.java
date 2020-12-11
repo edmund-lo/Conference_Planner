@@ -82,7 +82,7 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
             this.view.getSummaryVipChoiceBox().setDisable(true);
             this.view.getSummaryRoomsChoiceBox().setDisable(true);
         }
-        return this.view.getToggleSwitch().toggleOnClick();
+        return this.view.getToggleSwitch().toggleOnClick(event);
     }
 
     @Override
@@ -135,7 +135,7 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
         this.view.setRescheduleButtonAction(this::rescheduleButtonAction);
         updateDuration(this.view.getSummaryStart());
         updateDuration(this.view.getSummaryEnd());
-        toggleSwitchListener();
+        //toggleSwitchListener();
         List<ScheduleEntry> allEvents = getEvents();
         displayEvents(allEvents);
     }
