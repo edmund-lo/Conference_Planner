@@ -10,7 +10,6 @@ import java.util.ArrayList;
  * @version 1.0
  */
 public class LoginLog implements Serializable {
-    private final ArrayList  logs = new ArrayList<>();
     public boolean condition;
     public String username = "";
     public LocalDateTime time;
@@ -27,18 +26,6 @@ public class LoginLog implements Serializable {
         this.condition = condition;
         this.username = username;
         this.time = time;
-        logs.add(condition);
-        logs.add(username);
-        logs.add(time);
-    }
-
-    /**
-     * getter for login logs
-     *
-     * @return The login logs as an ArrayList
-     */
-    public ArrayList getLoginLogs() {
-        return logs;
     }
 
     /**
@@ -84,7 +71,7 @@ public class LoginLog implements Serializable {
 
         item.put("condition", this.getCondition());
         item.put("username", this.getUsername());
-        item.put("time", this.getTime());
+        item.put("loginTime", this.getTime());
 
         return item;
     }
