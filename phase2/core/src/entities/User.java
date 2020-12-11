@@ -25,7 +25,7 @@ public abstract class User implements Serializable {
     private HashMap<String, Boolean> primaryInbox;
     private HashMap<String, Boolean> archivedInbox;
     private HashMap<String, Boolean> trashInbox;
-
+    private boolean vip;
     /**
      * Constructor for User object. Initializes an empty hashmap for a user's schedule and
      * an empty arraylist for a user's sent message IDs and an empty arraylist for a user's received message IDs.
@@ -45,6 +45,7 @@ public abstract class User implements Serializable {
         this.primaryInbox = new HashMap<>();
         this.archivedInbox = new HashMap<>();
         this.trashInbox = new HashMap<>();
+        this.vip = true;
     }
 
     /**
@@ -341,6 +342,10 @@ public abstract class User implements Serializable {
      */
     public List<String> getSentRequest() {
         return sentRequest;
+    }
+
+    public boolean isVip() {
+        return vip;
     }
 
     /**

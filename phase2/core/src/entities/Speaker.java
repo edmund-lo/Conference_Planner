@@ -98,6 +98,7 @@ public class Speaker extends User implements Serializable {
         item.put("archived inbox", getArchivedInbox());
         item.put("trash inbox", getTrashInbox());
         item.put("speaker schedule", speakerSchedule);
+        item.put("vip", isVip());
 
         return item;
     }
