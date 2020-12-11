@@ -3,7 +3,6 @@ package adapter;
 import model.ScheduleEntry;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import util.DateTimeUtil;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -49,21 +48,29 @@ public class ScheduleAdapter {
      * @return ScheduleEntry model with mapped attributes
      */
     private ScheduleEntry mapScheduleEntry(JSONObject jsonObject) {
-        LocalDateTime start = DateTimeUtil.getInstance().parse(String.valueOf(jsonObject.get("start")));
-        LocalDateTime end = DateTimeUtil.getInstance().parse(String.valueOf(jsonObject.get("end")));
+        LocalDateTime start = (LocalDateTime) jsonObject.get("start");
+        LocalDateTime end = (LocalDateTime) jsonObject.get("end");
         Duration duration = Duration.between(start, end);
         String eventId = String.valueOf(jsonObject.get("id"));
         String eventName = String.valueOf(jsonObject.get("eventName"));
         String roomName = String.valueOf(jsonObject.get("roomName"));
         String amenities = getAmenities(jsonObject);
-        String attendees = convertListToString((JSONArray) jsonObject.get("users"));
-        String speakers = convertListToString((JSONArray) jsonObject.get("speakers"));
+        String attendees = convertListToString(convertArrayListToJsonArray((ArrayList<String>) jsonObject.get("users")));
+        String speakers = convertListToString(convertArrayListToJsonArray((ArrayList<String>) jsonObject.get("speakers")));
         int remainingSpots = parseInt(String.valueOf(jsonObject.get("remainingSpots")));
         int capacity = parseInt(String.valueOf(jsonObject.get("capacity")));
         boolean vip = jsonObject.get("vip").equals(true);
 
         return new ScheduleEntry(start, end, eventId, eventName, roomName, amenities, attendees, speakers, duration,
                 remainingSpots, capacity, vip);
+    }
+
+    public JSONArray convertArrayListToJsonArray(ArrayList<String> arraylist){
+        JSONArray array = new JSONArray();
+        for(String element: arraylist){
+            array.add(element);
+        }
+        return array;
     }
 
     /**

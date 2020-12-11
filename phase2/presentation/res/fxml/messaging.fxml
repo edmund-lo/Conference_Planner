@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity"  minHeight="0" minWidth="0" prefWidth="1600" prefHeight="900"
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity"  minHeight="0" minWidth="0"
             xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="attendee.impl.MessagingView">
     <padding>
@@ -33,7 +33,7 @@
                             <TableColumn text="Unread" fx:id="primaryUnreadColumn"/>
                         </columns>
                     </TableView>
-                    <BorderPane BorderPane.alignment="CENTER">
+                    <BorderPane prefWidth="1600" prefHeight="900">
                         <top>
                             <GridPane alignment="CENTER" hgap="10" vgap="10">
                                 <Label text="From:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
@@ -83,7 +83,7 @@
                             <TableColumn text="Unread" fx:id="archivedUnreadColumn"/>
                         </columns>
                     </TableView>
-                    <BorderPane>
+                    <BorderPane prefWidth="1600" prefHeight="900">
                         <top>
                             <GridPane alignment="CENTER" hgap="10" vgap="10">
                                 <Label text="From:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
@@ -119,7 +119,7 @@
                             <TableColumn text="Unread" fx:id="trashUnreadColumn"/>
                         </columns>
                     </TableView>
-                    <BorderPane>
+                    <BorderPane prefWidth="1600" prefHeight="900">
                         <top>
                             <GridPane alignment="CENTER" hgap="10" vgap="10">
                                 <Label text="From:" GridPane.columnIndex="0" GridPane.rowIndex="0" />

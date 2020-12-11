@@ -206,9 +206,11 @@ public class OrganizerController extends UserController {
         LocalDateTime startTime = (LocalDateTime) eventInfo.get("start");
         LocalDateTime endTime = (LocalDateTime) eventInfo.get("end");
         boolean vipEvent = (boolean) eventInfo.get("vip");
+        if(eventInfo.get("roomName") == null | eventInfo.get("eventName") == null){
+            return op.emptyFieldError();
+        }
         String roomName = eventInfo.get("roomName").toString();
         String eventName = eventInfo.get("eventName").toString();
-
         List<String> possibleRooms = rm.getAllRoomsWith(constraints, eventCap);
         if (eventName.equals("") | roomName.equals("")) { //ensures that the event name/times are not empty
             return op.emptyFieldError();
@@ -216,12 +218,13 @@ public class OrganizerController extends UserController {
             return op.selectionNotValid();
         } else if (eventCap < 1){ // checks if capacity input is valid
             return op.invalidCapacityError();
-        } else if (startTime.isAfter(endTime)) { // checks if date/time input is valid (start time before end time
+        } else if (startTime.isAfter(endTime) && !startTime.equals(endTime)) { // checks if date/time input is valid (start time before end time
             return op.invalidDateError();
         }
         if (createEvent(eventName, startTime, endTime, roomName, constraints.get(0), constraints.get(1),
                 constraints.get(2), constraints.get(3), eventCap, vipEvent)) {
             this.saveData();
+            System.out.println("created event "+startTime.equals(endTime));
             return op.eventCreationResult();
         } else {
             return op.eventFailedCreationError();

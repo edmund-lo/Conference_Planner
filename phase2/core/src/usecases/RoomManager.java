@@ -33,7 +33,7 @@ public class RoomManager implements Serializable {
      */
     public boolean createRoom(String name, int capacity, boolean hasChairs, boolean hasTables, boolean hasProjector,
                               boolean hasSoundSystem) {
-        if (!this.allRooms.containsKey(name)){
+        if (!this.allRooms.containsKey(name) && !name.equals("")){
             this.allRooms.put(name, new Room(name, capacity, hasChairs, hasTables, hasProjector, hasSoundSystem));
             return true;
         }

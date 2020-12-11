@@ -3,7 +3,6 @@ package adapter;
 import model.Message;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import util.DateTimeUtil;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -48,7 +47,7 @@ public class MessageAdapter {
     private Message mapMessage(JSONObject jsonObject) {
         String senderName = String.valueOf(jsonObject.get("sender"));
         String content = String.valueOf(jsonObject.get("content"));
-        LocalDateTime messageTime = DateTimeUtil.getInstance().parse(String.valueOf(jsonObject.get("time")));
+        LocalDateTime messageTime = (LocalDateTime) jsonObject.get("time");
 
         return new Message(senderName, content, messageTime);
     }
