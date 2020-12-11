@@ -199,9 +199,7 @@ public class Room implements Serializable {
         for (Map.Entry<LocalDateTime[], String> times : this.schedule.entrySet()) {
             LocalDateTime startTime = times.getKey()[0];
             LocalDateTime endTime = times.getKey()[1];
-            if ((startTime.isEqual(time) | startTime.isAfter(time)) && // if the event starts on/after the time
-                    (endTime.isBefore(time.plusDays(3)) | endTime.isEqual(time.plusDays(3)))){
-                // if the event ends within a 3 day period after the specified time
+            if ((startTime.isEqual(time) | time.isAfter(startTime))){
                 events.add(times.getValue());
             }
         }
