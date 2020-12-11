@@ -3,7 +3,6 @@ package adapter;
 import model.LoginLog;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import util.DateTimeUtil;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -47,7 +46,7 @@ public class LoginLogAdapter {
      */
     private LoginLog mapLoginLog(JSONObject jsonObject) {
         String username = String.valueOf(jsonObject.get("username"));
-        LocalDateTime loginTime = DateTimeUtil.getInstance().parse(String.valueOf(jsonObject.get("time")));
+        LocalDateTime loginTime = (LocalDateTime) jsonObject.get("time");
         boolean success = jsonObject.get("condition").equals(true);
 
         return new LoginLog(username, loginTime, success);
