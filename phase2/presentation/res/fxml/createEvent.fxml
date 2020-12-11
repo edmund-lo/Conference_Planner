@@ -52,8 +52,7 @@
                         <Text text="Choose room and enter start/end" GridPane.columnIndex="0"
                               GridPane.rowIndex="0" GridPane.columnSpan="2"/>
                         <Label text="Suggested Rooms:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-                        <ComboBox fx:id="roomName" value="Attendee" GridPane.columnIndex="1" GridPane.rowIndex="2"
-                                  editable="true"/>
+                        <ComboBox fx:id="roomName" GridPane.columnIndex="1" GridPane.rowIndex="2" editable="true"/>
                         <Label text="Start:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
                         <DateTimePicker fx:id="eventStart" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
                         <Label text="End:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
