@@ -185,7 +185,6 @@ public class OrganizerController extends UserController {
         for (String roomID: rm.getAllRoomsWith(constraints, eventCap)){
             array.add(rm.getRoomJson(roomID).get("name"));
         }
-        System.out.println(op.listPossibleRooms(array));
         return op.listPossibleRooms(array);
     }
 

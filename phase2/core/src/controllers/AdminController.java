@@ -214,7 +214,7 @@ public class AdminController extends UserController{
     public JSONObject getAllUserLogs() {
         this.deserializeData();
         this.llm = llg.deserializeData();
-        return llm.getAllLogsJson();
+        return ap.getAllUserLogs(llm.getAllLogsJson());
     }
 
     /**
@@ -236,7 +236,7 @@ public class AdminController extends UserController{
      */
     public JSONObject getAllAccounts() {
         this.deserializeData();
-        return uam.getAllAccountsJSON();
+        return ap.getAllAccounts(uam.getAllAccountsJSON());
     }
 
     /**
