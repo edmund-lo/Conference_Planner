@@ -1,5 +1,6 @@
 package presenters;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
@@ -215,4 +216,12 @@ public class OrganizerPresenter extends UserPresenter {
         return pu.createJSON("success", "The event has been cancelled successfully");
     }
 
+    /**
+     * Lists all available speakers
+     * @param availableSpeakers available speakers
+     * @return a JSONObject containing all available speakers
+     */
+    public JSONObject listSpeakers(JSONArray availableSpeakers) {
+        return pu.createJSON("success", "List of all available speakers: ", availableSpeakers);
+    }
 }

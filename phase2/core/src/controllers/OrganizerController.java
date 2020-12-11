@@ -100,25 +100,24 @@ public class OrganizerController extends UserController {
         }
     }
 
-//    /**
-//     * Lists the speakers that are available to speak at a given event.
-//     *
-//     * @param eventID the ID of the event that the speakers can or cannot speak at
-//     * @return a JSONObject containing the list of speakers that are available to speak at this event.
-//     */
-//
-//    public JSONObject listAvailableSpeakers(String eventID) {
-//        this.deserializeData();
-//
-//        List<String> allSpeakers = um.getAllSpeakerNames();
-//        JSONArray availableSpeakers = new JSONArray();
-//        for (String speaker : allSpeakers) {
-//            if (um.canAddSpeakerEvent(speaker, eventID, em.getEventStartTime(eventID), em.getEventEndTime(eventID))) {
-//                availableSpeakers.add(um.getUserJson(speaker));
-//            }
-//        }
-//        return op.listSpeakers(availableSpeakers);
-//    }
+    /**
+     * Lists the speakers that are available to speak at a given event.
+     *
+     * @param eventID the ID of the event that the speakers can or cannot speak at
+     * @return a JSONObject containing the list of speakers that are available to speak at this event.
+     */
+    public JSONObject listAvailableSpeakers(String eventID) {
+        this.deserializeData();
+
+        List<String> allSpeakers = um.getAllSpeakerNames();
+        JSONArray availableSpeakers = new JSONArray();
+        for (String speaker : allSpeakers) {
+            if (um.canAddSpeakerEvent(speaker, eventID, em.getEventStartTime(eventID), em.getEventEndTime(eventID))) {
+                availableSpeakers.add(um.getUserJson(speaker));
+            }
+        }
+        return op.listSpeakers(availableSpeakers);
+    }
 
     /**
      * Schedules a speaker to an event.
