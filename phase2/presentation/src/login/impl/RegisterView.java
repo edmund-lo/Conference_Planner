@@ -7,7 +7,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import login.IRegisterView;
 
 public class RegisterView implements IRegisterView {
@@ -49,7 +48,6 @@ public class RegisterView implements IRegisterView {
 
     private EventHandler<ActionEvent> registerButtonAction;
     private EventHandler<ActionEvent> backButtonAction;
-    private Stage stage;
 
     @Override
     public String getUserType() {
@@ -168,28 +166,7 @@ public class RegisterView implements IRegisterView {
     }
 
     @Override
-    public Stage getStage() {
-        return this.stage;
-    }
-
-    @Override
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
-    @Override
     public Text getResultTextControl() {
         return this.resultText;
     }
-
-    @Override
-    public String getSessionUsername() { return null; }
-
-    @Override
-    public void setSessionUsername(String username) { }
-    @Override
-    public String getSessionUserType() { return null; }
-
-    @Override
-    public void setSessionUserType(String userType) { }
 }

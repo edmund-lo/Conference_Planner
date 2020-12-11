@@ -7,7 +7,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import login.IForgotView;
 
 public class ForgotView implements IForgotView {
@@ -73,7 +72,6 @@ public class ForgotView implements IForgotView {
     private EventHandler<ActionEvent> confirmButtonAction;
     private EventHandler<ActionEvent> previousButtonAction;
     private EventHandler<ActionEvent> securityButtonAction;
-    private Stage stage;
 
     @Override
     public String getUsername() {
@@ -188,16 +186,6 @@ public class ForgotView implements IForgotView {
     @Override
     public void setResetButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.resetButtonAction = eventHandler;
-    }
-
-    @Override
-    public Stage getStage() {
-        return this.stage;
-    }
-
-    @Override
-    public void setStage(Stage stage) {
-        this.stage = stage;
     }
 
     @Override

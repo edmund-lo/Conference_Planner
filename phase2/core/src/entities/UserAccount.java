@@ -191,7 +191,7 @@ public class UserAccount implements Serializable {
         JSONArray array = new JSONArray();
 
         json.put("Username", username);
-        json.put("AccountType", userType);
+        json.put("AccountType", userType.substring(0,1).toUpperCase() + userType.substring(1));
         json.put("Locked", locked);
         json.put("Security", setSecurity);
         json.put("Security Q1", SecurityQ1);

@@ -1,7 +1,6 @@
 package login.impl;
 
 import controllers.LoginController;
-import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import login.IRegisterPresenter;
 import login.IRegisterView;
@@ -21,8 +20,7 @@ public class RegisterPresenter implements IRegisterPresenter {
 
     @Override
     public void backButtonAction(ActionEvent actionEvent) {
-        Stage stage = this.view.getStage();
-        ComponentFactory.getInstance().createLoggedOutComponent(stage, "login.fxml");
+        ComponentFactory.getInstance().createLoggedOutComponent(actionEvent, "login.fxml");
     }
 
     @Override

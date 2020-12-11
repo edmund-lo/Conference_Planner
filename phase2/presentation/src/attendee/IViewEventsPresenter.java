@@ -1,11 +1,11 @@
 package attendee;
 
-import common.IPresenter;
+import common.ILoggedInPresenter;
 import javafx.event.ActionEvent;
 import model.ScheduleEntry;
 import java.util.List;
 
-public interface IViewEventsPresenter extends IPresenter {
+public interface IViewEventsPresenter extends ILoggedInPresenter {
     void pressButtonAction(ActionEvent actionEvent);
     void setResultText(String resultText, String status);
     List<ScheduleEntry> getEvents();

@@ -1,6 +1,7 @@
 package speaker.impl;
 
 import adapter.ScheduleAdapter;
+import common.UserAccountHolder;
 import controllers.SpeakerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,6 +11,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import model.ScheduleEntry;
+import model.UserAccount;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import speaker.ISpeakerEventsPresenter;
@@ -25,6 +27,7 @@ public class SpeakerEventsPresenter implements ISpeakerEventsPresenter {
 
     public SpeakerEventsPresenter(ISpeakerEventsView view) {
         this.view = view;
+        getUserData();
         this.sc = new SpeakerController(this.view.getSessionUsername());
         init();
     }
@@ -108,6 +111,14 @@ public class SpeakerEventsPresenter implements ISpeakerEventsPresenter {
         this.view.setSender(this.view.getSessionUsername());
         List<ScheduleEntry> speakerEvents = getAllSpeakerEvents();
         displaySpeakerEvents(speakerEvents);
+    }
+
+    @Override
+    public void getUserData() {
+        UserAccountHolder holder = UserAccountHolder.getInstance();
+        UserAccount account = holder.getUserAccount();
+        this.view.setSessionUsername(account.getUsername());
+        this.view.setSessionUserType(account.getUserType());
     }
 
     @SuppressWarnings("unchecked")

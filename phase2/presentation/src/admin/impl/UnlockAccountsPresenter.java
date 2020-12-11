@@ -4,6 +4,7 @@ import adapter.LoginLogAdapter;
 import adapter.UserAccountAdapter;
 import admin.IUnlockAccountsPresenter;
 import admin.IUnlockAccountsView;
+import common.UserAccountHolder;
 import controllers.AdminController;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -23,6 +24,7 @@ public class UnlockAccountsPresenter implements IUnlockAccountsPresenter {
 
     public UnlockAccountsPresenter(IUnlockAccountsView view) {
         this.view = view;
+        getUserData();
         this.ac = new AdminController(this.view.getSessionUsername());
         init();
     }
@@ -63,6 +65,8 @@ public class UnlockAccountsPresenter implements IUnlockAccountsPresenter {
         this.selectedAccount = account;
         this.view.setUsername(account.getUsername());
         this.view.setUserType(account.getUserType());
+        List<LoginLog> logs = getUserLoginLogs(account.getUsername());
+        displayUserLoginLogs(logs);
     }
 
     @Override
@@ -84,6 +88,14 @@ public class UnlockAccountsPresenter implements IUnlockAccountsPresenter {
         this.view.setUnlockButtonAction(this::unlockButtonAction);
         List<UserAccount> accounts = getUserAccounts();
         displayUserAccounts(accounts);
+    }
+
+    @Override
+    public void getUserData() {
+        UserAccountHolder holder = UserAccountHolder.getInstance();
+        UserAccount account = holder.getUserAccount();
+        this.view.setSessionUsername(account.getUsername());
+        this.view.setSessionUserType(account.getUserType());
     }
 
     private void clearResultText() {

@@ -1,12 +1,12 @@
 package attendee;
 
-import common.IPresenter;
+import common.ILoggedInPresenter;
 import javafx.event.ActionEvent;
 import model.MessageThread;
 
 import java.util.List;
 
-public interface IMessagingPresenter extends IPresenter {
+public interface IMessagingPresenter extends ILoggedInPresenter {
     void replyButtonAction(ActionEvent actionEvent);
     void sendButtonAction(ActionEvent actionEvent);
     void newMessageButtonAction(ActionEvent actionEvent);

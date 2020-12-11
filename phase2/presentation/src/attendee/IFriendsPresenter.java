@@ -1,5 +1,6 @@
 package attendee;
 
+import common.ILoggedInPresenter;
 import common.IPresenter;
 import javafx.event.ActionEvent;
 import model.ScheduleEntry;
@@ -7,7 +8,7 @@ import model.User;
 
 import java.util.List;
 
-public interface IFriendsPresenter extends IPresenter {
+public interface IFriendsPresenter extends ILoggedInPresenter {
     void removeFriendButtonAction(ActionEvent actionEvent);
     void removeRequestButtonAction(ActionEvent actionEvent);
     void addFriendButtonAction(ActionEvent actionEvent);

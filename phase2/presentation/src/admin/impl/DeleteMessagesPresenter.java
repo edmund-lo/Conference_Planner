@@ -3,6 +3,7 @@ package admin.impl;
 import adapter.MessageThreadAdapter;
 import admin.IDeleteMessagesPresenter;
 import admin.IDeleteMessagesView;
+import common.UserAccountHolder;
 import controllers.AdminController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -15,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import model.Message;
 import model.MessageThread;
+import model.UserAccount;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import util.DateTimeUtil;
@@ -28,6 +30,7 @@ public class DeleteMessagesPresenter implements IDeleteMessagesPresenter {
 
     public DeleteMessagesPresenter(IDeleteMessagesView view) {
         this.view = view;
+        getUserData();
         this.ac = new AdminController(this.view.getSessionUsername());
         init();
     }
@@ -71,6 +74,14 @@ public class DeleteMessagesPresenter implements IDeleteMessagesPresenter {
         this.view.setDeleteButtonAction(this::deleteButtonAction);
         List<MessageThread> deleteInbox = getAllMessages();
         displayInbox(deleteInbox);
+    }
+
+    @Override
+    public void getUserData() {
+        UserAccountHolder holder = UserAccountHolder.getInstance();
+        UserAccount account = holder.getUserAccount();
+        this.view.setSessionUsername(account.getUsername());
+        this.view.setSessionUserType(account.getUserType());
     }
 
     private void displayMessageHistory(MessageThread messageThread, ScrollPane pane) {

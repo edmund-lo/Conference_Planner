@@ -1,6 +1,7 @@
 package organizer.impl;
 
 import adapter.ScheduleAdapter;
+import common.UserAccountHolder;
 import controllers.OrganizerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,6 +10,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.ScheduleEntry;
+import model.UserAccount;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import organizer.IRescheduleCancelEventPresenter;
@@ -28,6 +30,7 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
 
     public RescheduleCancelEventPresenter(IRescheduleCancelEventView view) {
         this.view = view;
+        getUserData();
         this.oc = new OrganizerController(this.view.getSessionUsername());
         init();
     }
@@ -135,6 +138,14 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
         toggleSwitchListener();
         List<ScheduleEntry> allEvents = getEvents();
         displayEvents(allEvents);
+    }
+
+    @Override
+    public void getUserData() {
+        UserAccountHolder holder = UserAccountHolder.getInstance();
+        UserAccount account = holder.getUserAccount();
+        this.view.setSessionUsername(account.getUsername());
+        this.view.setSessionUserType(account.getUserType());
     }
 
     private void updateDuration(DateTimePicker picker) {

@@ -16,8 +16,8 @@ public class UserAccount {
     /**
      * Initialises a UserAccount object with default attributes
      */
-    public UserAccount() {
-        this(null, null, false, false, null, null);
+    public UserAccount(String username, String userType) {
+        this(username, userType, false, false, null, null);
     }
 
     /**

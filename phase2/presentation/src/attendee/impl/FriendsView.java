@@ -324,16 +324,6 @@ public class FriendsView implements IFriendsView {
     }
 
     @Override
-    public Stage getStage() {
-        return this.stage;
-    }
-
-    @Override
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
-    @Override
     public Text getResultTextControl() {
         return null;
     }

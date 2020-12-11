@@ -1,6 +1,7 @@
 package login.impl;
 
 import adapter.UserAccountAdapter;
+import common.UserAccountHolder;
 import controllers.LoginController;
 import javafx.event.ActionEvent;
 import login.ILoginPresenter;
@@ -37,15 +38,16 @@ public class LoginPresenter implements ILoginPresenter {
         clearResultText();
 
         JSONObject responseJson = lc.login(this.view.getUsername(), this.view.getPassword());
-        if (responseJson.get("status").equals("success")) {
+        if (String.valueOf(responseJson.get("status")).equals("success")) {
             UserAccount userAccount = UserAccountAdapter.getInstance()
                     .adaptData((JSONArray) responseJson.get("data")).get(0);
+            UserAccount account = new UserAccount(userAccount.getUsername(), userAccount.getUserType());
+            UserAccountHolder holder = UserAccountHolder.getInstance();
+            holder.setUserAccount(account);
             if (userAccount.isSetSecurity())
-                ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "setup.fxml",
-                        userAccount.getUsername(), userAccount.getUserType());
+                ComponentFactory.getInstance().createLoggedInComponent(actionEvent, "setup.fxml");
             else
-                ComponentFactory.getInstance().createLoggedInComponent(this.view.getStage(), "home.fxml",
-                    userAccount.getUsername(), userAccount.getUserType());
+                ComponentFactory.getInstance().createLoggedInComponent(actionEvent, "home.fxml");
         } else
             setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
     }
@@ -56,7 +58,7 @@ public class LoginPresenter implements ILoginPresenter {
      */
     @Override
     public void registerButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedOutComponent(this.view.getStage(), "register.fxml");
+        ComponentFactory.getInstance().createLoggedOutComponent(actionEvent, "register.fxml");
     }
 
     /**
@@ -65,7 +67,7 @@ public class LoginPresenter implements ILoginPresenter {
      */
     @Override
     public void forgotPasswordButtonAction(ActionEvent actionEvent) {
-        ComponentFactory.getInstance().createLoggedOutComponent(this.view.getStage(), "forgot.fxml");
+        ComponentFactory.getInstance().createLoggedOutComponent(actionEvent, "forgot.fxml");
     }
 
     /**

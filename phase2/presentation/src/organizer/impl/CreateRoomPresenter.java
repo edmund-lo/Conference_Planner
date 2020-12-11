@@ -1,10 +1,12 @@
 package organizer.impl;
 
+import common.UserAccountHolder;
 import controllers.OrganizerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.scene.control.CheckBox;
+import model.UserAccount;
 import org.json.simple.JSONObject;
 import organizer.ICreateRoomPresenter;
 import organizer.ICreateRoomView;
@@ -17,6 +19,7 @@ public class CreateRoomPresenter implements ICreateRoomPresenter {
 
     public CreateRoomPresenter(ICreateRoomView view) {
         this.view = view;
+        getUserData();
         this.oc = new OrganizerController(this.view.getSessionUsername());
         init();
     }
@@ -52,6 +55,14 @@ public class CreateRoomPresenter implements ICreateRoomPresenter {
     public void init() {
         observeAmenities();
         this.view.setCreateRoomButtonAction(this::createRoomButtonAction);
+    }
+
+    @Override
+    public void getUserData() {
+        UserAccountHolder holder = UserAccountHolder.getInstance();
+        UserAccount account = holder.getUserAccount();
+        this.view.setSessionUsername(account.getUsername());
+        this.view.setSessionUserType(account.getUserType());
     }
 
     private void configureCheckBox(CheckBox checkBox) {

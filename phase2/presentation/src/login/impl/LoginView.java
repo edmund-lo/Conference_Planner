@@ -37,18 +37,6 @@ public class LoginView implements ILoginView {
     private EventHandler<ActionEvent> registerButtonAction;
     private EventHandler<ActionEvent> loginButtonAction;
     private EventHandler<ActionEvent> forgotPasswordButtonAction;
-    private Stage stage;
-
-    @Override
-    public Stage getStage() {
-        return this.stage;
-    }
-
-    @Override
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
     @Override
     public TextField getUsernameField() {
         return this.username;

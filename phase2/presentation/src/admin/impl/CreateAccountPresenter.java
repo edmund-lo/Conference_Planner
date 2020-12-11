@@ -1,9 +1,11 @@
 package admin.impl;
 
+import common.UserAccountHolder;
 import controllers.AdminController;
 import javafx.event.ActionEvent;
 import admin.ICreateAccountPresenter;
 import admin.ICreateAccountView;
+import model.UserAccount;
 import org.json.simple.JSONObject;
 import util.TextResultUtil;
 
@@ -13,6 +15,7 @@ public class CreateAccountPresenter implements ICreateAccountPresenter {
 
     public CreateAccountPresenter(ICreateAccountView view) {
         this.view = view;
+        getUserData();
         this.ac = new AdminController(this.view.getSessionUsername());
         init();
     }
@@ -41,6 +44,14 @@ public class CreateAccountPresenter implements ICreateAccountPresenter {
     @Override
     public void init() {
         this.view.setCreateAccountButtonAction(this::createAccountButtonAction);
+    }
+
+    @Override
+    public void getUserData() {
+        UserAccountHolder holder = UserAccountHolder.getInstance();
+        UserAccount account = holder.getUserAccount();
+        this.view.setSessionUsername(account.getUsername());
+        this.view.setSessionUserType(account.getUserType());
     }
 
     @SuppressWarnings("unchecked")

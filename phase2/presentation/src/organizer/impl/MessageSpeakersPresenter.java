@@ -1,12 +1,14 @@
 package organizer.impl;
 
 import adapter.UserAdapter;
+import common.UserAccountHolder;
 import controllers.OrganizerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.User;
+import model.UserAccount;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import organizer.IMessageUsersPresenter;
@@ -22,6 +24,7 @@ public class MessageSpeakersPresenter implements IMessageUsersPresenter {
 
     public MessageSpeakersPresenter(IMessageUsersView view) {
         this.view = view;
+        getUserData();
         this.oc = new OrganizerController(this.view.getSessionUsername());
         init();
     }
@@ -95,6 +98,14 @@ public class MessageSpeakersPresenter implements IMessageUsersPresenter {
         displayUserList(users);
         this.view.setSendButtonAction(this::sendButtonAction);
         this.view.setSelectAllAction(this::selectAllAction);
+    }
+
+    @Override
+    public void getUserData() {
+        UserAccountHolder holder = UserAccountHolder.getInstance();
+        UserAccount account = holder.getUserAccount();
+        this.view.setSessionUsername(account.getUsername());
+        this.view.setSessionUserType(account.getUserType());
     }
 
     @SuppressWarnings("unchecked")

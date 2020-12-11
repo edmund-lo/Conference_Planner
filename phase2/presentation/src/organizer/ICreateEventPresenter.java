@@ -1,12 +1,12 @@
 package organizer;
 
-import common.IPresenter;
+import common.ILoggedInPresenter;
 import javafx.event.ActionEvent;
 import model.ScheduleEntry;
 
 import java.util.List;
 
-public interface ICreateEventPresenter extends IPresenter {
+public interface ICreateEventPresenter extends ILoggedInPresenter {
     void createEventButtonAction(ActionEvent actionEvent);
     void previousFirstButtonAction(ActionEvent actionEvent);
     void previousSecondButtonAction(ActionEvent actionEvent);

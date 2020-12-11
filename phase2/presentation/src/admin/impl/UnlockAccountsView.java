@@ -135,16 +135,6 @@ public class UnlockAccountsView implements IUnlockAccountsView {
     }
 
     @Override
-    public Stage getStage() {
-        return this.stage;
-    }
-
-    @Override
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
-    @Override
     public Text getResultTextControl() {
         return this.resultText;
     }

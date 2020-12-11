@@ -3,7 +3,6 @@ package login.impl;
 import adapter.UserAccountAdapter;
 import controllers.LoginController;
 import javafx.event.ActionEvent;
-import javafx.stage.Stage;
 import login.IForgotPresenter;
 import login.IForgotView;
 import model.UserAccount;
@@ -18,14 +17,13 @@ public class ForgotPresenter implements IForgotPresenter {
 
     public ForgotPresenter(IForgotView view) {
         this.view = view;
-        this.lc = new LoginController();
         init();
+        this.lc = new LoginController();
     }
 
     @Override
     public void backButtonAction(ActionEvent actionEvent) {
-        Stage stage = this.view.getStage();
-        ComponentFactory.getInstance().createLoggedOutComponent(stage, "login.fxml");
+        ComponentFactory.getInstance().createLoggedOutComponent(actionEvent, "login.fxml");
     }
 
     @Override

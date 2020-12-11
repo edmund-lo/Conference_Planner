@@ -4,6 +4,7 @@ import adapter.ScheduleAdapter;
 import adapter.UserAdapter;
 import attendee.IFriendsPresenter;
 import attendee.IFriendsView;
+import common.UserAccountHolder;
 import controllers.AttendeeController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import model.ScheduleEntry;
 import model.User;
+import model.UserAccount;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import util.DateTimeUtil;
@@ -31,6 +33,7 @@ public class FriendsPresenter implements IFriendsPresenter {
 
     public FriendsPresenter(IFriendsView view) {
         this.view = view;
+        getUserData();
         this.ac = new AttendeeController(this.view.getSessionUsername());
         init();
     }
@@ -203,6 +206,10 @@ public class FriendsPresenter implements IFriendsPresenter {
     public void init() {
         this.view.setAddFriendButtonAction(this::addFriendButtonAction);
         this.view.setRemoveFriendButtonAction(this::removeFriendButtonAction);
+        this.view.setRemoveRequestButtonAction(this::removeRequestButtonAction);
+        this.view.setAcceptButtonAction(this::acceptButtonAction);
+        this.view.setDeclineButtonAction(this::declineButtonAction);
+
         List<User> pendingSent = getUsers("sent");
         for (User user : pendingSent)
             user.setChecked(true);
@@ -213,6 +220,14 @@ public class FriendsPresenter implements IFriendsPresenter {
         displayUserList(pendingSent, "nonFriends");
         displayUserList(friends, "friends");
         displayUserList(pendingReceived, "pending");
+    }
+
+    @Override
+    public void getUserData() {
+        UserAccountHolder holder = UserAccountHolder.getInstance();
+        UserAccount account = holder.getUserAccount();
+        this.view.setSessionUsername(account.getUsername());
+        this.view.setSessionUserType(account.getUserType());
     }
 
     private void clearResultText(int index) {
