@@ -51,6 +51,8 @@ public class ScheduleAdapter {
     private ScheduleEntry mapScheduleEntry(JSONObject jsonObject) {
         LocalDateTime start = DateTimeUtil.getInstance().parse(String.valueOf(jsonObject.get("start")));
         LocalDateTime end = DateTimeUtil.getInstance().parse(String.valueOf(jsonObject.get("end")));
+        System.out.println("start: "+ start);
+        System.out.println("end: "+ end);
         Duration duration = Duration.between(start, end);
         String eventId = String.valueOf(jsonObject.get("id"));
         String eventName = String.valueOf(jsonObject.get("eventName"));
