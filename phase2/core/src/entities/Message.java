@@ -101,20 +101,12 @@ public class Message implements Serializable {
      */
     @SuppressWarnings("unchecked")
     public JSONObject convertToJSON() {
-        JSONObject json = new JSONObject();
-        JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
-
-        json.put("type", "Message");
 
         item.put("sender", getSenderName());
         item.put("time", getMessageTime());
         item.put("content", getContent());
 
-        array.add(item);
-
-        json.put("data", array);
-
-        return json;
+        return item;
     }
 }

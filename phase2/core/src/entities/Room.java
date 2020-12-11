@@ -213,11 +213,7 @@ public class Room implements Serializable {
      */
     @SuppressWarnings("unchecked")
     public JSONObject convertToJSON() {
-        JSONObject json = new JSONObject();
-        JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
-
-        json.put("type", "Room");
 
         item.put("name", name);
         item.put("capacity", capacity);
@@ -227,10 +223,6 @@ public class Room implements Serializable {
         item.put("SoundSystem", hasSoundSystem);
         item.put("schedule", schedule);
 
-        array.add(item);
-
-        json.put("data", array);
-
-        return json;
+        return item;
     }
 }

@@ -1,6 +1,7 @@
 package controllers;
 
 import gateways.LoginLogGateway;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import presenters.AdminPresenter;
 import usecases.LoginLogManager;
@@ -187,7 +188,7 @@ public class AdminController extends UserController{
      */
     public JSONObject getAllMessageThreads() {
         this.deserializeData();
-        return mm.getAllMessageThreadToJson();
+        return ap.getAllMessageThreads(mm.getAllMessageThreadToJson());
     }
 
     /**
@@ -225,7 +226,7 @@ public class AdminController extends UserController{
     public JSONObject getLoginLogs(String username) {
         this.deserializeData();
         this.llm = llg.deserializeData();
-        return llm.getLoginLogJSON(username);
+        return ap.getLoginLogs(llm.getLoginLogJSON(username));
     }
 
     /**

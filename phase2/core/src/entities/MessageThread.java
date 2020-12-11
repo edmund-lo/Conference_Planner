@@ -75,11 +75,7 @@ public class MessageThread implements Serializable {
      */
     @SuppressWarnings("unchecked")
     public JSONObject convertToJSON() {
-        JSONObject json = new JSONObject();
-        JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
-
-        json.put("type", "MessageThread");
 
         item.put("sender", getSender());
         item.put("receivers", getReceivers());
@@ -87,10 +83,6 @@ public class MessageThread implements Serializable {
         item.put("messageThreadId", getMessageThreadId());
         item.put("messages", getMessages());
 
-        array.add(item);
-
-        json.put("data", array);
-
-        return json;
+        return item;
     }
 }

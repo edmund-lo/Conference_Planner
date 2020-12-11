@@ -224,4 +224,8 @@ public class OrganizerPresenter extends UserPresenter {
     public JSONObject listSpeakers(JSONArray availableSpeakers) {
         return pu.createJSON("success", "List of all available speakers: ", availableSpeakers);
     }
+
+    public JSONObject listPossibleRooms(JSONArray possibleRooms){
+        return pu.createJSON("success", "List of possible rooms: ", possibleRooms);
+    }
 }

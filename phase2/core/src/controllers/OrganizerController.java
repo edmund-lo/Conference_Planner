@@ -176,19 +176,12 @@ public class OrganizerController extends UserController {
         List<Boolean> constraints = getConstraints(eventInfo);
         int eventCap = (int) eventInfo.get("capacity");
 
-        JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
-        JSONObject item = new JSONObject();
 
         for (String roomID: rm.getAllRoomsWith(constraints, eventCap)){
-            item.put(roomID, rm.getRoomJson(roomID));
+            array.add(rm.getRoomJson(roomID).get("name"));
         }
-
-        array.add(item);
-
-        json.put("data", array);
-
-        return json;
+        return op.listPossibleRooms(array);
     }
 
     /**
@@ -213,14 +206,13 @@ public class OrganizerController extends UserController {
         String eventName = eventInfo.get("eventName").toString();
 
         List<String> possibleRooms = rm.getAllRoomsWith(constraints, eventCap);
-
         if (eventName.equals("") | roomName.equals("")) { //ensures that the event name/times are not empty
             return op.emptyFieldError();
         } else if (!possibleRooms.contains(roomName)){ // check if room can accommodate the event
             return op.selectionNotValid();
         } else if (eventCap < 1){ // checks if capacity input is valid
             return op.invalidCapacityError();
-        } else if (startTime.isAfter(endTime)){ // checks if date/time input is valid (start time before end time
+        } else if (startTime.isAfter(endTime)) { // checks if date/time input is valid (start time before end time
             return op.invalidDateError();
         }
         if (createEvent(eventName, startTime, endTime, roomName, constraints.get(0), constraints.get(1),

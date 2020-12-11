@@ -278,11 +278,7 @@ public class Event implements Serializable {
      */
     @SuppressWarnings("unchecked")
     public JSONObject convertToJSON() {
-        JSONObject json = new JSONObject();
-        JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
-
-        json.put("type", "Event");
 
         item.put("eventName", eventName);
         item.put("id", eventID);
@@ -299,10 +295,6 @@ public class Event implements Serializable {
         item.put("SoundSystem", needsSoundSystem);
         item.put("vip", vipEvent);
 
-        array.add(item);
-
-        json.put("data", array);
-
-        return json;
+        return item;
     }
 }

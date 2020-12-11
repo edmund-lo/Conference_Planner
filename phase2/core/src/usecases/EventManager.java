@@ -319,21 +319,15 @@ public class EventManager implements Serializable {
     }
 
     /**
-     * @return A JSONObject that contains the JSON representation of this class
+     * @return A JSONArray that contains the JSON representation of this class
      */
     @SuppressWarnings("unchecked")
-    public JSONObject getAllEventsJson(){
-        JSONObject json = new JSONObject();
+    public JSONArray getAllEventsJson(){
         JSONArray array = new JSONArray();
-        JSONObject item = new JSONObject();
 
         for(String eventID: allEvents.keySet())
-            item.put(eventID, allEvents.get(eventID).convertToJSON());
+            array.add(allEvents.get(eventID).convertToJSON());
 
-        array.add(item);
-
-        json.put("Events", array);
-
-        return json;
+        return array;
     }
 }

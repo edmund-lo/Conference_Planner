@@ -80,21 +80,12 @@ public class LoginLog implements Serializable {
      */
     @SuppressWarnings("unchecked")
     public JSONObject convertToJSON() {
-        JSONObject json = new JSONObject();
-        JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
-
-        json.put("type", "LoginLog");
 
         item.put("condition", this.getCondition());
         item.put("username", this.getUsername());
         item.put("time", this.getTime());
 
-
-        array.add(item);
-
-        json.put("data", array);
-
-        return json;
+        return item;
     }
 }

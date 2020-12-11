@@ -119,7 +119,7 @@ public class RoomManager implements Serializable {
                     && thisRoom.hasTables() == constraints.get(1)
                     && thisRoom.hasProjector() == constraints.get(2)
                     && thisRoom.hasSoundSystem() == constraints.get(3)
-                    && thisRoom.getCapacity() <= eventCap){
+                    && thisRoom.getCapacity() >= eventCap){
                 possibleRooms.add(room.getKey());
             }
         }
@@ -164,18 +164,14 @@ public class RoomManager implements Serializable {
      * @return A JSONObject that contains the JSON representation of this class
      */
     @SuppressWarnings("unchecked")
-    public JSONObject getAllRoomsJson(){
+    public JSONArray getAllRoomsJson(){
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
 
         for(String ID: allRooms.keySet())
-            item.put(ID, allRooms.get(ID).convertToJSON());
+            array.add(allRooms.get(ID).convertToJSON());
 
-        array.add(item);
-
-        json.put("Rooms", array);
-
-        return json;
+        return array;
     }
 }

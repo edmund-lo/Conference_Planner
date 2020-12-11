@@ -47,11 +47,7 @@ public class Attendee extends User implements Serializable {
      */
     @SuppressWarnings("unchecked")
     public JSONObject convertToJSON() {
-        JSONObject json = new JSONObject();
-        JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
-
-        json.put("type", "Attendee");
 
         item.put("username", getUsername());
         item.put("firstName", getFirstName());
@@ -65,10 +61,6 @@ public class Attendee extends User implements Serializable {
         item.put("trash inbox", getTrashInbox());
         item.put("vip", vip);
 
-        array.add(item);
-
-        json.put("data", array);
-
-        return json;
+        return item;
     }
 }

@@ -29,11 +29,7 @@ public class Organizer extends User implements Serializable {
      */
     @SuppressWarnings("unchecked")
     public JSONObject convertToJSON() {
-        JSONObject json = new JSONObject();
-        JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
-
-        json.put("type", "Organizer");
 
         item.put("username", getUsername());
         item.put("firstName", getFirstName());
@@ -46,10 +42,6 @@ public class Organizer extends User implements Serializable {
         item.put("archived inbox", getArchivedInbox());
         item.put("trash inbox", getTrashInbox());
 
-        array.add(item);
-
-        json.put("data", array);
-
-        return json;
+        return item;
     }
 }

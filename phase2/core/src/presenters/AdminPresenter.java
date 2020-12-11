@@ -1,5 +1,6 @@
 package presenters;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
@@ -112,5 +113,11 @@ public class AdminPresenter extends UserPresenter {
         return pu.createJSON("success", "Account has been unlocked");
     }
 
+    public JSONObject getAllMessageThreads(JSONArray data){
+        return pu.createJSON("success", "returning all message threads", data);
+    }
 
+    public JSONObject getLoginLogs(JSONArray data){
+        return pu.createJSON("success", "returning all login logs", data);
+    }
 }

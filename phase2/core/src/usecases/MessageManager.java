@@ -143,18 +143,12 @@ public class MessageManager implements Serializable {
      * @return a JSONObject of all message threads
      */
     @SuppressWarnings("unchecked")
-    public JSONObject getAllMessageThreadToJson(){
-        JSONObject json = new JSONObject();
+    public JSONArray getAllMessageThreadToJson(){
         JSONArray array = new JSONArray();
-        JSONObject item = new JSONObject();
 
         for(String ID: getAllMessageThreads().keySet())
-            item.put(ID, getAllMessageThreads().get(ID).convertToJSON());
+            array.add(getAllMessageThreads().get(ID).convertToJSON());
 
-        array.add(item);
-
-        json.put("MessageThreads", array);
-
-        return json;
+        return array;
     }
 }
