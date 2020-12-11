@@ -179,18 +179,13 @@ public class UserAccountManager implements Serializable {
      * @return a JSONObject containing all user accounts
      */
     @SuppressWarnings("unchecked")
-    public JSONObject getAllAccountsJSON() {
-        JSONObject json = new JSONObject();
+    public JSONArray getAllAccountsJSON() {
         JSONArray array = new JSONArray();
-        JSONObject item = new JSONObject();
 
         for(String ID: allUserAccounts.keySet()) {
-            item.put(ID, allUserAccounts.get(ID).convertToJSON());
+            array.add(allUserAccounts.get(ID).convertToJSON());
         }
-        array.add(item);
 
-        json.put("User Accounts", array);
-
-        return json;
+        return array;
     }
 }

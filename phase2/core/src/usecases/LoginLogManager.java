@@ -88,28 +88,16 @@ public class LoginLogManager implements Serializable {
      * @return A JSONObject that contains the JSON representation of this class
      */
     @SuppressWarnings("unchecked")
-    public JSONObject getAllLogsJson(){
-        JSONObject json = new JSONObject();
+    public JSONArray getAllLogsJson(){
         JSONArray array = new JSONArray();
-        JSONArray array2 = new JSONArray();
-        JSONObject item = new JSONObject();
 
-        for(String ID: allLogs.keySet()) {
-            int num = 0;
-            JSONObject item2 = new JSONObject();
+        for(String ID: allLogs.keySet()){
             for(LoginLog l: allLogs.get(ID)){
-                item2.put(num, l.convertToJSON());
-                num++;
+                array.add(l.convertToJSON());
             }
-            array2.add(item2);
-            item.put(ID, array2);
         }
 
-        array.add(item);
-
-        json.put("LoginLogs", array);
-
-        return json;
+        return array;
     }
 
     /**

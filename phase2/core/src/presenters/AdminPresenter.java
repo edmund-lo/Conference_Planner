@@ -113,11 +113,30 @@ public class AdminPresenter extends UserPresenter {
         return pu.createJSON("success", "Account has been unlocked");
     }
 
+    /**
+     * for getting all message threads in JSON format
+     * @param data the message threads
+     * @return a JSONObject detailing the status, result and data
+     */
     public JSONObject getAllMessageThreads(JSONArray data){
         return pu.createJSON("success", "returning all message threads", data);
     }
 
+    /**
+     * for getting all login logs in JSON format
+     * @param data the login logs
+     * @return a JSONObject detailing the status, result and data
+     */
     public JSONObject getLoginLogs(JSONArray data){
         return pu.createJSON("success", "returning all login logs", data);
     }
+
+    public JSONObject getAllAccounts(JSONArray data){
+        return pu.createJSON("success", "returning all accounts", data);
+    }
+
+    public JSONObject getAllUserLogs(JSONArray data){
+        return pu.createJSON("success", "returning all user logs", data);
+    }
 }
+
