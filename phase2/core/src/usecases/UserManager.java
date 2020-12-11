@@ -793,6 +793,27 @@ public class UserManager implements Serializable {
         return ret.toString();
     }
 
+//    //return a schedule of all the events at a given room name
+//    //Events handle the room name
+//    public String requestScheduleByRoom(String username, EventManager em, Event e, String name) {
+//
+//        StringBuilder ret = new StringBuilder("Schedule by Room  " + name + ":" + "\n");
+//        DateTimeFormatter dayTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+//        DateTimeFormatter hourMin = DateTimeFormatter.ofPattern("HH:mm");
+//        for (Map.Entry<String, Event> event : em. entrySet()) {
+//            String eventStartTime = dayTime.format(event.getValue()[0]);
+//            String eventName = event.getKey();
+//            ret.append(eventStartTime);
+//            ret.append("-");
+//            ret.append(hourMin.format(event.getValue()[1]));
+//            ret.append(" -- ");
+//            ret.append(eventName);
+//            ret.append("\n");
+//        }
+//        return ret.toString();
+//
+//    }
+
     /**
      * Gets a user Json
      *
