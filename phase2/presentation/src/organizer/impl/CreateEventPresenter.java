@@ -101,7 +101,7 @@ public class CreateEventPresenter implements ICreateEventPresenter {
 
         JSONObject queryJson = constructEventJson();
         JSONObject responseJson = oc.createEventCmd(queryJson);
-        setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 1);
+        setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 3);
         if (String.valueOf(responseJson.get("status")).equals("success")) {
             this.view.getTitledPane(1).setDisable(false);
             this.view.getTitledPane(3).setDisable(true);

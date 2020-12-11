@@ -144,4 +144,13 @@ public class LoginPresenter {
     public JSONObject usernameDoesntExist() {
         return pu.createJSON("warning", "The username you entered does not exist.");
     }
+
+    public JSONObject noSecurity() {
+        return pu.createJSON("warning", "You don't have security set for this account. Register your" +
+                " account to set your security.");
+    }
+
+    public JSONObject AccountUpdated() {
+        return pu.createJSON("success", "Your account has updated");
+    }
 }
