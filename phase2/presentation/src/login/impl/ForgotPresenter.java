@@ -78,9 +78,22 @@ public class ForgotPresenter implements IForgotPresenter {
 
     @Override
     public void setResultText(String resultText, String status, int index) {
-        if (status.equals("error") || status.equals("warning")) {
-            TextResultUtil.getInstance().addPseudoClass(status, this.view.getSecurityAnswerField(1));
-            TextResultUtil.getInstance().addPseudoClass(status, this.view.getSecurityAnswerField(2));
+        switch (index) {
+            case 1:
+                if (status.equals("error") || status.equals("warning"))
+                    TextResultUtil.getInstance().addPseudoClass(status, this.view.getUsernameField());
+                break;
+            case 2:
+                if (status.equals("error") || status.equals("warning")) {
+                    TextResultUtil.getInstance().addPseudoClass(status, this.view.getSecurityAnswerField(1));
+                    TextResultUtil.getInstance().addPseudoClass(status, this.view.getSecurityAnswerField(2));
+                }
+                break;
+            case 3:
+                if (status.equals("error") || status.equals("warning")) {
+                    TextResultUtil.getInstance().addPseudoClass(status, this.view.getPasswordField());
+                    TextResultUtil.getInstance().addPseudoClass(status, this.view.getConfirmPasswordField());
+                }
         }
         this.view.setResultText(resultText, index);
         TextResultUtil.getInstance().addPseudoClass(status, this.view.getResultTextControl());
@@ -98,7 +111,10 @@ public class ForgotPresenter implements IForgotPresenter {
 
     private void clearResultText(int index) {
         this.view.setResultText("", index);
-        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl());
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl(index));
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getPasswordField());
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getConfirmPasswordField());
+        TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getUsernameField());
         TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getSecurityAnswerField(1));
         TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getSecurityAnswerField(2));
     }

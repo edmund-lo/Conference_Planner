@@ -4,6 +4,7 @@ import common.IView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.text.Text;
 
@@ -20,7 +21,10 @@ public interface IForgotView extends IView {
     void setConfirmPassword(String password);
     void setResultText(String resultText, int index);
 
+    TextField getUsernameField();
     PasswordField getSecurityAnswerField(int index);
+    PasswordField getPasswordField();
+    PasswordField getConfirmPasswordField();
     Text getResultTextControl(int index);
     TitledPane getTitledPane(int index);
 

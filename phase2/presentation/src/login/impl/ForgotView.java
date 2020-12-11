@@ -133,11 +133,26 @@ public class ForgotView implements IForgotView {
     }
 
     @Override
+    public TextField getUsernameField() {
+        return this.username;
+    }
+
+    @Override
     public PasswordField getSecurityAnswerField(int index) {
         PasswordField securityAnswer = new PasswordField();
         if (index == 1) securityAnswer = this.securityAnswer1;
         else if (index == 2) securityAnswer = this.securityAnswer2;
         return securityAnswer;
+    }
+
+    @Override
+    public PasswordField getPasswordField() {
+        return this.password;
+    }
+
+    @Override
+    public PasswordField getConfirmPasswordField() {
+        return this.confirmPassword;
     }
 
     @Override

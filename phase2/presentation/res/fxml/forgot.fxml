@@ -25,8 +25,8 @@
                               GridPane.columnSpan="2"/>
                         <Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
                         <TextField fx:id="username" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                        <Text fx:id="resultText1" GridPane.columnIndex="0" GridPane.rowIndex="7" GridPane.columnSpan="2"/>
-                        <HBox spacing="10" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="4"
+                        <Text fx:id="resultText1" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2"/>
+                        <HBox spacing="10" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="5"
                               GridPane.columnSpan="2">
                             <Button text="Go Back To Log In" fx:id="backButton1" onAction="#executeAddFirstGoBack"/>
                             <Button text="Next Step" fx:id="securityButton" onAction="#executeAddDisplaySecurity"/>
