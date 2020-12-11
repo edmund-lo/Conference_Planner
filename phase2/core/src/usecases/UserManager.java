@@ -29,6 +29,24 @@ public class UserManager implements Serializable {
     }
 
     /**
+     * Gets the User attribute given the username of this user.
+     *
+     * @return the user attribute
+     */
+    public User getUser(String username) {
+        return this.allUsers.get(username);
+    }
+
+    /**
+     * Gets all the Users.
+     *
+     * @return a hash map of all users with usernames as keys and User attribute as values
+     */
+    public HashMap<String, User> getAllUsers() {
+        return this.allUsers;
+    }
+
+    /**
      * Creates new attendee with username and password.
      *
      * @param username the username

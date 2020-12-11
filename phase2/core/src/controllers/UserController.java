@@ -273,14 +273,30 @@ public abstract class UserController {
         return json;
     }
 
-//    /**
-//     * Gets number of user's unread messages
-//     *
-//     * @return JSONObject of number of unread messages
-//     */
-//    public JSONObject getUnreadMessages() {
-//        return up.numberUnreadMessages(numUnread);
-//    }
+    /**
+     * Gets number of user's unread messages
+     *
+     * @return JSONObject of number of unread messages
+     */
+    public JSONObject getUnreadMessages() {
+        int numUnread = 0;
+        for(boolean read : um.getAllUsers().get(this.username).getPrimaryInbox().values()){
+            if(!read){
+                numUnread += 1;
+            }
+        }
+//        for(boolean read : um.getAllUsers().get(this.username).getArchivedInbox().values()){
+//            if(!read){
+//                numUnread += 1;
+//            }
+//        }
+//        for(boolean read : um.getAllUsers().get(this.username).getTrashInbox().values()){
+//            if(!read){
+//                numUnread += 1;
+//            }
+//        }
+        return up.numberUnreadMessages(numUnread);
+    }
 
     /**
      *Calls the user manager to add a messageId to a user's list
