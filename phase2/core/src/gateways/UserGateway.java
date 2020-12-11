@@ -5,6 +5,7 @@ import usecases.UserManager;
 import java.io.*;
 /**
  * A Gateway class that serializes and deserializes the User Manager class
+ * This class implements print schedule method that outputs desired Strings into a text file
  */
 public class UserGateway implements GatewayInterface<UserManager>, Serializable {
 
@@ -14,6 +15,7 @@ public class UserGateway implements GatewayInterface<UserManager>, Serializable 
      */
 
     public String fileName = "ugt_save.ser";
+    public String txtSchedule = "print_schedule.txt";
 
     /**
      * This method serializes an inputted Entities.User Manager's data
@@ -76,5 +78,35 @@ public class UserGateway implements GatewayInterface<UserManager>, Serializable 
             System.out.println("UserManager Class was not found");
         }
         return um;
+    }
+
+    /**
+     * This method writes a passed in UserManager's schedule into a saved text file
+     * @param ret this is the String builder toString output that is to be produced in the text file
+     * @catch FileNotFound exception
+     * @catch IOException
+     */
+    public void outputToTxtFile(String ret) {
+        try {
+            //create new file
+            File txt1 = new File(txtSchedule);
+            FileOutputStream fos1 = new FileOutputStream(txt1);
+            //write the passed in string ret into the txt file
+            PrintWriter out = new PrintWriter(fos1);
+            out.println(ret);
+            //close files
+            fos1.close();
+            out.close();
+        }
+        //catch FileNotFoundException
+        catch (FileNotFoundException e) {
+            System.out.println("Generating new file: " + txtSchedule);
+        }
+        //Silently catch IO exception
+        catch (IOException ignored){}
+//        //Catch ClassNotFoundException
+//        catch (ClassNotFoundException e) {
+//            System.out.println("UserManager Class was not found");
+//        }
     }
 }
