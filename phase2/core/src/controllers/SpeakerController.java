@@ -31,17 +31,14 @@ public class SpeakerController extends UserController {
     /**
      * Called when user chooses to message one or more events' attendees.
      */
-    public JSONObject messageEventsAttendeesCmd(JSONArray eventIds, String message, String subject) {
+    public JSONObject messageEventsAttendeesCmd(JSONObject register) {
         this.deserializeData();
 
-        List<String> eventIDsString = new ArrayList<>();
-        if(eventIds.isEmpty()){
-            return sp.noSpeakerEventsError();
-        }
-        for(Object ID: eventIds){
-            eventIDsString.add(ID.toString());
-        }
-        messageEventsAttendees(eventIDsString, message, subject); //message all attendees at each event in eventIds
+//        String sender = String.valueOf(register.get("sender"));
+//        ArrayList recipientNames = (ArrayList)(register.get("recipients"));
+//        String content = String.valueOf(register.get("content"));
+//        String subject = String.valueOf(register.get("subject"));
+        this.sendMessage(register);
         this.saveData();
         return sp.messageEventAttendeesMultiEventsResult();
     }

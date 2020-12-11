@@ -90,8 +90,8 @@ public class MessageManager implements Serializable {
     public String reply(String messageThreadId, String content){
         MessageThread newMessageThread = this.allMessageThreads.get(messageThreadId);
         Message newMessage = new Message(newMessageThread.getSender(), LocalDateTime.now(), content);
-        newMessageThread.addMessages(newMessage);
         Message newMessage2 = (Message) newMessageThread.getMessages().get(newMessageThread.getMessages().size()-1);
+        newMessageThread.addMessages(newMessage);
         return newMessage2.getSenderName();
     }
 
