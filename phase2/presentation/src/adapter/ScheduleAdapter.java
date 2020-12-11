@@ -65,6 +65,11 @@ public class ScheduleAdapter {
                 remainingSpots, capacity, vip);
     }
 
+    /**
+     * Converts an arraylist of strings to a jsonarray
+     * @param arraylist an arraylist of strings
+     * @return the JSONArray version of arraylist
+     */
     public JSONArray convertArrayListToJsonArray(ArrayList<String> arraylist){
         JSONArray array = new JSONArray();
         for(String element: arraylist){
