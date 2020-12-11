@@ -121,25 +121,25 @@ public class MessagingPresenter implements IMessagingPresenter {
 
     @Override
     public void moveToTrashButtonAction(ActionEvent actionEvent) {
-        //ac.moveToTrash(this.selectedPrimaryMessageThread.getMessageThreadId());
+        ac.moveToTrash(this.selectedPrimaryMessageThread.getMessageThreadId());
         refreshAllInboxes();
     }
 
     @Override
     public void moveToArchivedButtonAction(ActionEvent actionEvent) {
-        //ac.moveToArchive(this.selectedPrimaryMessageThread.getMessageThreadId());
+        ac.moveToArchive(this.selectedPrimaryMessageThread.getMessageThreadId());
         refreshAllInboxes();
     }
 
     @Override
     public void moveToPrimaryFirstButtonAction(ActionEvent actionEvent) {
-        //ac.moveToPrimary(this.selectedArchivedMessageThread.getMessageThreadId());
+        ac.moveToPrimary(this.selectedArchivedMessageThread.getMessageThreadId());
         refreshAllInboxes();
     }
 
     @Override
     public void moveToPrimarySecondButtonAction(ActionEvent actionEvent) {
-        //ac.moveToPrimary(this.selectedTrashMessageThread.getMessageThreadId());
+        ac.moveToPrimary(this.selectedTrashMessageThread.getMessageThreadId());
         refreshAllInboxes();
     }
 
