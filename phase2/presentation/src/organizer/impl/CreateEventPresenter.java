@@ -62,6 +62,7 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         JSONObject responseJson = oc.listPossibleRooms(queryJson);
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 1);
         if (String.valueOf(responseJson.get("status")).equals("success")) {
+            displayPossibleRooms((JSONArray) responseJson.get("data"));
             this.view.getTitledPane(1).setDisable(true);
             this.view.getTitledPane(2).setDisable(false);
             this.view.getTitledPane(1).setExpanded(false);
@@ -197,6 +198,11 @@ public class CreateEventPresenter implements ICreateEventPresenter {
             }
         }
         return sb.toString();
+    }
+
+    private void displayPossibleRooms(JSONArray jsonArray) {
+        for (Object o : jsonArray)
+            this.view.getRoomComboBox().getItems().add(String.valueOf(o));
     }
 
     @SuppressWarnings("unchecked")
