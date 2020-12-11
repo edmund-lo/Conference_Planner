@@ -72,12 +72,12 @@ public class ScheduleSpeakerPresenter implements IScheduleSpeakerPresenter {
     @Override
     public void displayEventDetails(ScheduleEntry event) {
         this.view.setSummaryEventName(event.getEventName());
-        this.view.setSummaryRoomName(event.getEventName());
-        this.view.setSummaryAmenities(event.getEventName());
+        this.view.setSummaryRoomName(event.getRoomName());
+        this.view.setSummaryAmenities(event.getAmenities());
         this.view.setSummaryDuration(event.getDuration());
         this.view.setSummaryStart(event.getStart());
         this.view.setSummaryEnd(event.getEnd());
-        this.view.setSummarySpeakers(event.getEventName());
+        this.view.setSummarySpeakers(event.getSpeakers());
         this.view.setSummaryCapacity(event.getCapacity());
     }
 

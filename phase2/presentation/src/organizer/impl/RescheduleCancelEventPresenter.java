@@ -117,13 +117,13 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
     public void displayEventDetails(ScheduleEntry event) {
         this.selectedEvent = event;
         this.view.setSummaryEventName(event.getEventName());
-        this.view.setSummaryRoomName(event.getEventName());
-        this.view.setSummaryAttendees(event.getEventName());
-        this.view.setSummaryAmenities(event.getEventName());
+        this.view.setSummaryRoomName(event.getRoomName());
+        this.view.setSummaryAttendees(event.getAttendees());
+        this.view.setSummaryAmenities(event.getAmenities());
         this.view.setSummaryDuration(event.getDuration());
         this.view.setSummaryStart(event.getStart());
         this.view.setSummaryEnd(event.getEnd());
-        this.view.setSummarySpeakers(event.getEventName());
+        this.view.setSummarySpeakers(event.getSpeakers());
         this.view.setSummaryCapacity(event.getCapacity());
         this.view.setSummaryRemainingSpots(event.getRemainingSpots());
         this.view.setSummaryVip(event.isVip() ? "Yes" : "No");
