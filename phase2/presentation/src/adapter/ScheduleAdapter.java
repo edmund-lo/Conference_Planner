@@ -55,14 +55,27 @@ public class ScheduleAdapter {
         String eventName = String.valueOf(jsonObject.get("eventName"));
         String roomName = String.valueOf(jsonObject.get("roomName"));
         String amenities = getAmenities(jsonObject);
-        String attendees = convertListToString((JSONArray) jsonObject.get("users"));
-        String speakers = convertListToString((JSONArray) jsonObject.get("speakers"));
+        String attendees = convertListToString(convertArrayListToJsonArray((ArrayList<String>) jsonObject.get("users")));
+        String speakers = convertListToString(convertArrayListToJsonArray((ArrayList<String>) jsonObject.get("speakers")));
         int remainingSpots = parseInt(String.valueOf(jsonObject.get("remainingSpots")));
         int capacity = parseInt(String.valueOf(jsonObject.get("capacity")));
         boolean vip = jsonObject.get("vip").equals(true);
 
         return new ScheduleEntry(start, end, eventId, eventName, roomName, amenities, attendees, speakers, duration,
                 remainingSpots, capacity, vip);
+    }
+
+    /**
+     * Converts an arraylist of strings to a jsonarray
+     * @param arraylist an arraylist of strings
+     * @return the JSONArray version of arraylist
+     */
+    public JSONArray convertArrayListToJsonArray(ArrayList<String> arraylist){
+        JSONArray array = new JSONArray();
+        for(String element: arraylist){
+            array.add(element);
+        }
+        return array;
     }
 
     /**
