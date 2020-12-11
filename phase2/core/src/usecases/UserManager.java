@@ -588,82 +588,61 @@ public class UserManager implements Serializable {
      * @return A JSONObject that contains the JSON representation of this class
      */
     @SuppressWarnings("unchecked")
-    public JSONObject getAllFriendsJson(String username){
-        JSONObject json = new JSONObject();
+    public JSONArray getAllFriendsJson(String username){
         JSONArray array = new JSONArray();
-        JSONObject item = new JSONObject();
 
-        for(String ID: allUsers.get(username).getFriendsList())
-            item.put(ID, allUsers.get(ID).convertToJSON());
+        for(String user: allUsers.get(username).getFriendsList())
+            array.add(allUsers.get(user).convertToJSON());
 
-        array.add(item);
-
-        json.put("Users", array);
-
-        return json;
+        return array;
     }
 
     /**
      * @return A JSONObject that contains the JSON representation of this class
      */
     @SuppressWarnings("unchecked")
-    public JSONObject getAllNonFriendsJson(String username){
-        JSONObject json = new JSONObject();
-        JSONArray array = new JSONArray();
-        JSONObject item = new JSONObject();
-
+    public JSONArray getAllNonFriendsJson(String username){
         List<String> friends = allUsers.get(username).getFriendsList();
         List<String> sent = allUsers.get(username).getSentRequest();
         List<String> received = allUsers.get(username).getFriendRequest();
 
-        for(String ID: allUsers.keySet()) {
-            if(!friends.contains(ID) && !ID.equals(allUsers.get(username).getUsername()))
-                if(!sent.contains(ID) && !received.contains(ID))
-                    item.put(ID, allUsers.get(ID).convertToJSON());
+        JSONArray array = new JSONArray();
+
+        for(String user: allUsers.keySet()) {
+            if (!friends.contains(user) && !user.equals(allUsers.get(username).getUsername())){
+                if (!sent.contains(user) && !received.contains(user)){
+                    array.add(allUsers.get(user).convertToJSON());
+                }
+            }
         }
-        array.add(item);
 
-        json.put("Users", array);
-
-        return json;
+        return array;
     }
 
     /**
      * @return A JSONObject that contains the JSON representation of this class
      */
     @SuppressWarnings("unchecked")
-    public JSONObject getAllSentRequestsJson(String username){
-        JSONObject json = new JSONObject();
+    public JSONArray getAllSentRequestsJson(String username){
         JSONArray array = new JSONArray();
-        JSONObject item = new JSONObject();
 
-        for(String ID: allUsers.get(username).getSentRequest())
-            item.put(ID, allUsers.get(ID).convertToJSON());
+        for(String user: allUsers.get(username).getSentRequest())
+            array.add(allUsers.get(user).convertToJSON());
 
-        array.add(item);
-
-        json.put("Users", array);
-
-        return json;
+        return array;
     }
 
     /**
      * @return A JSONObject that contains the JSON representation of this class
      */
     @SuppressWarnings("unchecked")
-    public JSONObject getAllFriendsRequestsJson(String username){
-        JSONObject json = new JSONObject();
+    public JSONArray getAllFriendsRequestsJson(String username){
         JSONArray array = new JSONArray();
-        JSONObject item = new JSONObject();
 
-        for(String ID: allUsers.get(username).getFriendRequest())
-            item.put(ID, allUsers.get(ID).convertToJSON());
+        for(String user: allUsers.get(username).getFriendRequest())
+            array.add(allUsers.get(user).convertToJSON());
 
-        array.add(item);
-
-        json.put("Users", array);
-
-        return json;
+        return array;
     }
 
     /**
@@ -807,60 +786,42 @@ public class UserManager implements Serializable {
      * @return A JSONObject that contains the JSON representation of this class
      */
     @SuppressWarnings("unchecked")
-    public JSONObject getAllUsersJson(){
-        JSONObject json = new JSONObject();
+    public JSONArray getAllUsersJson(){
         JSONArray array = new JSONArray();
-        JSONObject item = new JSONObject();
 
-        for(String ID: allUsers.keySet()) {
-            item.put(ID, allUsers.get(ID).convertToJSON());
-        }
-        array.add(item);
+        for(String username: allUsers.keySet())
+            array.add(allUsers.get(username).convertToJSON());
 
-        json.put("Users", array);
-
-        return json;
+        return array;
     }
 
     /**
      * @return A JSONObject that contains the JSON representation of this class
      */
     @SuppressWarnings("unchecked")
-    public JSONObject getAllAttendeesJson(){
-        JSONObject json = new JSONObject();
+    public JSONArray getAllAttendeesJson(){
         JSONArray array = new JSONArray();
-        JSONObject item = new JSONObject();
 
-        for(String ID: allUsers.keySet()) {
-            if (isAttendee(ID)) {
-                item.put(ID, allUsers.get(ID).convertToJSON());
+        for(String username: allUsers.keySet())
+            if(isAttendee(username)) {
+                array.add(allUsers.get(username).convertToJSON());
             }
-        }
-        array.add(item);
 
-        json.put("Attendees", array);
-
-        return json;
+        return array;
     }
 
     /**
      * @return A JSONObject that contains the JSON representation of this class
      */
     @SuppressWarnings("unchecked")
-    public JSONObject getAllSpeakersJson(){
-        JSONObject json = new JSONObject();
+    public JSONArray getAllSpeakersJson(){
         JSONArray array = new JSONArray();
-        JSONObject item = new JSONObject();
 
-        for(String ID: allUsers.keySet()) {
-            if (isSpeaker(ID)) {
-                item.put(ID, allUsers.get(ID).convertToJSON());
+        for(String username: allUsers.keySet())
+            if(isSpeaker(username)) {
+                array.add(allUsers.get(username).convertToJSON());
             }
-        }
-        array.add(item);
 
-        json.put("Speakers", array);
-
-        return json;
+        return array;
     }
 }
