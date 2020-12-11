@@ -759,7 +759,14 @@ public class UserManager implements Serializable {
         }
         return ret.toString();
     }
-
+    /**
+     * Requests schedule by Day
+     * Assumes a valid eventDay is passed
+     * @param username
+     * @param eventDay Specified Day constraint on schedule
+     * @author dylan, @version 1.0
+     * @return formatted schedule of all events that Speaker is present at
+     */
     public String requestScheduleByDay(String username, LocalDateTime[] eventDay) {
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
         String formatted_day = sdf.format(eventDay);
