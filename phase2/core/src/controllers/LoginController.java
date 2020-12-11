@@ -240,7 +240,7 @@ public class LoginController {
         String[] answers = uam.getSecurityAns(User);
 
         //Check if answers to security questions match.
-        if (a1.equals(answers[1]) && a2.equals(answers[2]))
+        if (a1.equals(answers[0]) && a2.equals(answers[1]))
             return lp.correctAnswers();
         else
             return lp.incorrectAnswers();
