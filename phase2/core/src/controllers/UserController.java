@@ -182,29 +182,6 @@ public abstract class UserController {
     }
 
     /**
-     *Returns list of users that the user can send messages to.
-     *
-     *@return list of speakers and attendees in a string format
-     */
-    public JSONObject getAllMessageableUsers(){
-        this.deserializeData();
-
-        JSONObject json = new JSONObject();
-        JSONArray array = new JSONArray();
-        JSONObject item = new JSONObject();
-
-        for (String username: um.getAllMessageableUsers(this.username)){
-            item.put(username, um.getUserJson(username));
-        }
-
-        array.add(item);
-
-        json.put("data", array);
-
-        return json;
-    }
-
-    /**
      * Gets all of current user's JSON primary messages.
      *
      * @return List of Strings representing all of the user's primary messages.
@@ -216,7 +193,7 @@ public abstract class UserController {
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
 
-        for (String id: um.getPrimaryMessages(this.username)){
+        for (String id: um.getPrimaryMessages(this.username).keySet()){
             item.put(id, mm.getOneMessageThreadToJson(id));
         }
 
@@ -239,7 +216,7 @@ public abstract class UserController {
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
 
-        for (String id: um.getArchivedMessages(this.username)){
+        for (String id: um.getArchivedMessages(this.username).keySet()){
             item.put(id, mm.getOneMessageThreadToJson(id));
         }
 
@@ -262,7 +239,7 @@ public abstract class UserController {
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
 
-        for (String id: um.getTrashMessages(this.username)){
+        for (String id: um.getTrashMessages(this.username).keySet()){
             item.put(id, mm.getOneMessageThreadToJson(id));
         }
 
@@ -273,14 +250,24 @@ public abstract class UserController {
         return json;
     }
 
-//    /**
-//     * Gets number of user's unread messages
-//     *
-//     * @return JSONObject of number of unread messages
-//     */
-//    public JSONObject getUnreadMessages() {
-//        return up.numberUnreadMessages(numUnread);
-//    }
+    /**
+     * Gets number of user's unread messages
+     *
+     * @return JSONObject of number of unread messages
+     */
+    public JSONObject getUnreadMessages() {
+        int numUnread = 0;
+        for(boolean read : um.getAllUsers().get(this.username).getPrimaryInbox().values()){
+            if(!read){ numUnread += 1; }
+        }
+        for(boolean read : um.getAllUsers().get(this.username).getArchivedInbox().values()){
+            if(!read){ numUnread += 1; }
+        }
+        for(boolean read : um.getAllUsers().get(this.username).getTrashInbox().values()){
+            if(!read){ numUnread += 1; }
+        }
+        return up.numberUnreadMessages(numUnread);
+    }
 
     /**
      *Calls the user manager to add a messageId to a user's list
@@ -307,11 +294,7 @@ public abstract class UserController {
     public void changeMessageStatus(String messageThreadId){
         this.deserializeData();
 
-        if (mm.checkMessageStatus(messageThreadId)){
-            mm.unreadMessage(messageThreadId);
-        } else {
-            mm.readMessage(messageThreadId);
-        }
+        um.changeReadForMes(username, messageThreadId);
         this.saveData();
     }
 
@@ -492,6 +475,6 @@ public abstract class UserController {
      */
     public JSONObject getUser() {
         this.deserializeData();
-        return up.greeting(um.getUserInfo(this.username)[1], um.getUserInfo(this.username)[2]);
+        return up.greeting(um.getUserInfo(this.username)[0], um.getUserInfo(this.username)[1]);
     }
 }

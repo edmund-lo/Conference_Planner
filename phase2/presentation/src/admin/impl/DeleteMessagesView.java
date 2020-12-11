@@ -8,7 +8,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import model.MessageThread;
 
 import java.time.LocalDateTime;
@@ -43,7 +42,6 @@ public class DeleteMessagesView implements IDeleteMessagesView {
     }
 
     private EventHandler<ActionEvent> deleteButtonAction;
-    private Stage stage;
     private String sessionUsername;
     private String sessionUserType;
 
@@ -110,16 +108,6 @@ public class DeleteMessagesView implements IDeleteMessagesView {
     @Override
     public void setSessionUserType(String userType) {
         this.sessionUserType = userType;
-    }
-
-    @Override
-    public Stage getStage() {
-        return this.stage;
-    }
-
-    @Override
-    public void setStage(Stage stage) {
-        this.stage = stage;
     }
 
     @Override

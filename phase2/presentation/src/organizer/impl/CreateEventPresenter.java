@@ -1,6 +1,7 @@
 package organizer.impl;
 
 import adapter.ScheduleAdapter;
+import common.UserAccountHolder;
 import controllers.OrganizerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import model.ScheduleEntry;
+import model.UserAccount;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import organizer.ICreateEventPresenter;
@@ -160,10 +162,18 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         this.view.setCreateEventButtonAction(this::createEventButtonAction);
         this.view.setFindRoomsButtonAction(this::findRoomsButtonAction);
         this.view.setPreviewRoomButtonAction(this::previewRoomButtonAction);
-        this.view.setPreviousFirstButtonAction(this::previousSecondButtonAction);
+        this.view.setPreviousFirstButtonAction(this::previousFirstButtonAction);
         this.view.setPreviousSecondButtonAction(this::previousSecondButtonAction);
         this.view.setSummaryButtonAction(this::summaryButtonAction);
         this.view.getTitledPane(1).setExpanded(true);
+    }
+
+    @Override
+    public void getUserData() {
+        UserAccountHolder holder = UserAccountHolder.getInstance();
+        UserAccount account = holder.getUserAccount();
+        this.view.setSessionUsername(account.getUsername());
+        this.view.setSessionUserType(account.getUserType());
     }
 
     private void configureCheckBox(CheckBox checkBox) {

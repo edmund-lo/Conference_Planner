@@ -9,7 +9,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import model.User;
 
 public class SetVipView implements ISetVipView {
@@ -44,7 +43,6 @@ public class SetVipView implements ISetVipView {
     }
 
     private EventHandler<ActionEvent> changeVipButtonAction;
-    private Stage stage;
     private String sessionUsername;
     private String sessionUserType;
 
@@ -131,16 +129,6 @@ public class SetVipView implements ISetVipView {
     @Override
     public void setSessionUserType(String userType) {
         this.sessionUserType = userType;
-    }
-
-    @Override
-    public Stage getStage() {
-        return this.stage;
-    }
-
-    @Override
-    public void setStage(Stage stage) {
-        this.stage = stage;
     }
 
     @Override

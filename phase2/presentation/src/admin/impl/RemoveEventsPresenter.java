@@ -3,12 +3,14 @@ package admin.impl;
 import adapter.ScheduleAdapter;
 import admin.IRemoveEventsPresenter;
 import admin.IRemoveEventsView;
+import common.UserAccountHolder;
 import controllers.AdminController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.ScheduleEntry;
+import model.UserAccount;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import util.DateTimeUtil;
@@ -22,6 +24,7 @@ public class RemoveEventsPresenter implements IRemoveEventsPresenter {
 
     public RemoveEventsPresenter(IRemoveEventsView view) {
         this.view = view;
+        getUserData();
         this.ac = new AdminController(this.view.getSessionUsername());
         init();
     }
@@ -81,6 +84,14 @@ public class RemoveEventsPresenter implements IRemoveEventsPresenter {
         this.view.setRemoveButtonAction(this::removeButtonAction);
         List<ScheduleEntry> allEvents = getEvents();
         displayEvents(allEvents);
+    }
+
+    @Override
+    public void getUserData() {
+        UserAccountHolder holder = UserAccountHolder.getInstance();
+        UserAccount account = holder.getUserAccount();
+        this.view.setSessionUsername(account.getUsername());
+        this.view.setSessionUserType(account.getUserType());
     }
 
     private void clearResultText() {

@@ -48,7 +48,7 @@ public class LoginLogAdapter {
     private LoginLog mapLoginLog(JSONObject jsonObject) {
         String username = String.valueOf(jsonObject.get("username"));
         LocalDateTime loginTime = DateTimeUtil.getInstance().parse(String.valueOf(jsonObject.get("firstName")));
-        boolean success = String.valueOf(jsonObject.get("condition")).equals("true");
+        boolean success = jsonObject.get("condition").equals(true);
 
         return new LoginLog(username, loginTime, success);
     }

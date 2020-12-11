@@ -1,12 +1,12 @@
 package admin;
 
-import common.IPresenter;
+import common.ILoggedInPresenter;
 import javafx.event.ActionEvent;
 import model.LoginLog;
 import model.UserAccount;
 import java.util.List;
 
-public interface IUnlockAccountsPresenter extends IPresenter {
+public interface IUnlockAccountsPresenter extends ILoggedInPresenter {
     void unlockButtonAction(ActionEvent actionEvent);
     void setResultText(String resultText, String status);
     List<UserAccount> getUserAccounts();

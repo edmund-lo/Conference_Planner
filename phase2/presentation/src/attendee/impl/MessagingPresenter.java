@@ -4,6 +4,7 @@ import adapter.MessageThreadAdapter;
 import adapter.UserAdapter;
 import attendee.IMessagingPresenter;
 import attendee.IMessagingView;
+import common.UserAccountHolder;
 import controllers.AttendeeController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -19,6 +20,7 @@ import javafx.scene.text.Text;
 import model.Message;
 import model.MessageThread;
 import model.User;
+import model.UserAccount;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import util.DateTimeUtil;
@@ -41,6 +43,7 @@ public class MessagingPresenter implements IMessagingPresenter {
 
     public MessagingPresenter(IMessagingView view) {
         this.view = view;
+        getUserData();
         this.ac = new AttendeeController(this.view.getSessionUsername());
         init();
     }
@@ -256,6 +259,14 @@ public class MessagingPresenter implements IMessagingPresenter {
         this.view.setReplyButtonAction(this::replyButtonAction);
         this.view.setNewMessageButtonAction(this::newMessageButtonAction);
         refreshAllInboxes();
+    }
+
+    @Override
+    public void getUserData() {
+        UserAccountHolder holder = UserAccountHolder.getInstance();
+        UserAccount account = holder.getUserAccount();
+        this.view.setSessionUsername(account.getUsername());
+        this.view.setSessionUserType(account.getUserType());
     }
 
     private void refreshAllInboxes() {

@@ -1,12 +1,12 @@
 package login;
 
-import common.ILoggedInView;
+import common.IView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public interface IRegisterView extends ILoggedInView {
+public interface IRegisterView extends IView {
     String getUserType();
     void setUserType(String userType);
     String getUsername();

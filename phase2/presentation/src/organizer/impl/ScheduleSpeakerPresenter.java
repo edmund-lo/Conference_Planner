@@ -2,6 +2,7 @@ package organizer.impl;
 
 import adapter.ScheduleAdapter;
 import adapter.UserAdapter;
+import common.UserAccountHolder;
 import controllers.OrganizerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.ScheduleEntry;
 import model.User;
+import model.UserAccount;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import organizer.IScheduleSpeakerPresenter;
@@ -24,6 +26,7 @@ public class ScheduleSpeakerPresenter implements IScheduleSpeakerPresenter {
 
     public ScheduleSpeakerPresenter(IScheduleSpeakerView view) {
         this.view = view;
+        getUserData();
         this.oc = new OrganizerController(this.view.getSessionUsername());
         init();
     }
@@ -95,6 +98,14 @@ public class ScheduleSpeakerPresenter implements IScheduleSpeakerPresenter {
         this.view.setScheduleSpeakerButtonAction(this::scheduleSpeakerButtonAction);
         List<ScheduleEntry> schedule = getAllEvents();
         displayEvents(schedule);
+    }
+
+    @Override
+    public void getUserData() {
+        UserAccountHolder holder = UserAccountHolder.getInstance();
+        UserAccount account = holder.getUserAccount();
+        this.view.setSessionUsername(account.getUsername());
+        this.view.setSessionUserType(account.getUserType());
     }
 
     private void handleSelect(ScheduleEntry event) {

@@ -106,7 +106,6 @@ public class OrganizerController extends UserController {
      * @param eventID the ID of the event that the speakers can or cannot speak at
      * @return a JSONObject containing the list of speakers that are available to speak at this event.
      */
-
     public JSONObject listAvailableSpeakers(String eventID) {
         this.deserializeData();
 

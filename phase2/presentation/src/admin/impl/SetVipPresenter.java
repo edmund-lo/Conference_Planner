@@ -3,11 +3,13 @@ package admin.impl;
 import adapter.UserAdapter;
 import admin.ISetVipPresenter;
 import admin.ISetVipView;
+import common.UserAccountHolder;
 import controllers.AdminController;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.User;
+import model.UserAccount;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import util.TextResultUtil;
@@ -20,6 +22,7 @@ public class SetVipPresenter implements ISetVipPresenter {
 
     public SetVipPresenter(ISetVipView view) {
         this.view = view;
+        getUserData();
         this.ac = new AdminController(this.view.getSessionUsername());
         init();
     }
@@ -75,6 +78,14 @@ public class SetVipPresenter implements ISetVipPresenter {
         this.view.setChangeVipButtonAction(this::changeVipButtonAction);
         List<User> attendees = getAttendeeUsers();
         displayUsers(attendees);
+    }
+
+    @Override
+    public void getUserData() {
+        UserAccountHolder holder = UserAccountHolder.getInstance();
+        UserAccount account = holder.getUserAccount();
+        this.view.setSessionUsername(account.getUsername());
+        this.view.setSessionUserType(account.getUserType());
     }
 
     private void clearResultText() {

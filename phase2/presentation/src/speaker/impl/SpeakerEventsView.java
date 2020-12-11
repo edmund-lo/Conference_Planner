@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import model.ScheduleEntry;
 import speaker.ISpeakerEventsView;
 import util.DateTimeUtil;
@@ -62,7 +61,6 @@ public class SpeakerEventsView implements ISpeakerEventsView {
     public void initialize() { new SpeakerEventsPresenter(this); }
 
     private EventHandler<ActionEvent> sendButtonAction;
-    private Stage stage;
     private String sessionUsername;
     private String sessionUserType;
 
@@ -211,16 +209,6 @@ public class SpeakerEventsView implements ISpeakerEventsView {
     @Override
     public void setSessionUserType(String userType) {
         this.sessionUserType = userType;
-    }
-
-    @Override
-    public Stage getStage() {
-        return this.stage;
-    }
-
-    @Override
-    public void setStage(Stage stage) {
-        this.stage = stage;
     }
 
     @Override

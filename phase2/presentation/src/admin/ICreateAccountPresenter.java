@@ -1,9 +1,9 @@
 package admin;
 
-import common.IPresenter;
+import common.ILoggedInPresenter;
 import javafx.event.ActionEvent;
 
-public interface ICreateAccountPresenter extends IPresenter {
+public interface ICreateAccountPresenter extends ILoggedInPresenter {
     void createAccountButtonAction(ActionEvent actionEvent);
     void setResultText(String resultText, String status);
 }

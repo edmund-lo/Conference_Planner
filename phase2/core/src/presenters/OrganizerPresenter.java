@@ -1,9 +1,9 @@
 package presenters;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -73,23 +73,14 @@ public class OrganizerPresenter extends UserPresenter {
         return pu.createJSON("error", "This speaker is already speaking at another event.");
     }
 
-    /**
-     * Outputs a list of all speaker names in numbered order
-     *
-     * @param speakerNames the list of all speaker names
-     */
-    public JSONObject listSpeakers(List<String> speakerNames){
-        return pu.createJSON("success", "Speakers have been listed", "List of Speakers", speakerNames);
-    }
-
-    /**
-     * Outputs a list of all the rooms
-     *
-     * @param allRooms A set of strings of all rooms
-     */
-    public JSONObject listRooms(List<String> allRooms) {
-        return pu.createJSON("success", "Rooms have been listed", "List of Rooms", allRooms);
-    }
+//    /**
+//     * Outputs a list of all speaker names in numbered order
+//     *
+//     * @param speakerNames the list of all speaker names
+//     */
+//    public JSONObject listSpeakers(List<String> speakerNames){
+//        return pu.createJSON("success", "Speakers have been listed", "List of Speakers", speakerNames);
+//    }
 
     /**
      * Outputs the label that indicates there are no rooms created
@@ -226,18 +217,11 @@ public class OrganizerPresenter extends UserPresenter {
     }
 
     /**
-     * Method for delivering a list of event Ids to the presentation module
-     * @param eventIDs a list of eventIDs in string format
+     * Lists all available speakers
+     * @param availableSpeakers available speakers
+     * @return a JSONObject containing all available speakers
      */
-    public JSONObject listRoomSchedule(List<String> eventIDs){
-        return pu.createJSON("success", "Room schedule has been listed", "Room Schedule", eventIDs);
-    }
-
-    /**
-     * Method for delivering a list of users to the presentation module
-     * @param speakerNames list of speaker names in string format
-     */
-    public JSONObject listUsers(List<String> speakerNames){
-        return pu.createJSON("success", "Users have been listed", "List of Users", speakerNames);
+    public JSONObject listSpeakers(JSONArray availableSpeakers) {
+        return pu.createJSON("success", "List of all available speakers: ", availableSpeakers);
     }
 }

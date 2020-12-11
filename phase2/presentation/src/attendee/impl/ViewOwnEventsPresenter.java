@@ -3,12 +3,14 @@ package attendee.impl;
 import adapter.ScheduleAdapter;
 import attendee.IViewEventsPresenter;
 import attendee.IViewEventsView;
+import common.UserAccountHolder;
 import controllers.AttendeeController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.ScheduleEntry;
+import model.UserAccount;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import util.DateTimeUtil;
@@ -22,6 +24,7 @@ public class ViewOwnEventsPresenter implements IViewEventsPresenter {
 
     public ViewOwnEventsPresenter(IViewEventsView view) {
         this.view = view;
+        getUserData();
         this.ac = new AttendeeController(this.view.getSessionUsername());
         init();
     }
@@ -85,6 +88,14 @@ public class ViewOwnEventsPresenter implements IViewEventsPresenter {
         this.view.setPressButtonAction(this::pressButtonAction);
         List<ScheduleEntry> allEvents = getEvents();
         displayEvents(allEvents);
+    }
+
+    @Override
+    public void getUserData() {
+        UserAccountHolder holder = UserAccountHolder.getInstance();
+        UserAccount account = holder.getUserAccount();
+        this.view.setSessionUsername(account.getUsername());
+        this.view.setSessionUserType(account.getUserType());
     }
 
     private void clearResultText() {

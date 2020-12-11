@@ -1,8 +1,8 @@
 package home;
 
-import common.IPresenter;
+import common.ILoggedInPresenter;
 
-public interface IHomePresenter extends IPresenter {
+public interface IHomePresenter extends ILoggedInPresenter {
     void setGreeting();
     void setUnreadMessages();
     void setAttendingEvents();

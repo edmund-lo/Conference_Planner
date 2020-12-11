@@ -10,7 +10,6 @@ public class MessageThread implements Serializable {
     private ArrayList receivers;
     private String messageThreadId;
     private String subject;
-    private boolean read;
     private ArrayList messages;
 
     /**
@@ -26,7 +25,6 @@ public class MessageThread implements Serializable {
         this.receivers = receivers;
         this.messageThreadId = messageThreadId;
         this.subject = subject;
-        this.read = false;
         this.messages = new ArrayList<>();
     }
 
@@ -59,20 +57,6 @@ public class MessageThread implements Serializable {
     public String getSubject() { return this.subject; }
 
     /**
-     * getter for these messages were read or not, return true if read, false otherwise
-     *
-     * @return The read bool variable
-     */
-    public boolean getRead() { return this.read; }
-
-    /**
-     * @param newRead The update checker, which tells the messages are read or not
-     *
-     * setter for these messages were read or not
-     */
-    public void setRead(boolean newRead) { this.read = newRead;}
-
-    /**
      * getter for all the messages stored in this thread
      *
      * @return List of Messages
@@ -102,7 +86,6 @@ public class MessageThread implements Serializable {
         item.put("subject", getSubject());
         item.put("messageThreadId", getMessageThreadId());
         item.put("messages", getMessages());
-        item.put("read", getRead());
 
         array.add(item);
 

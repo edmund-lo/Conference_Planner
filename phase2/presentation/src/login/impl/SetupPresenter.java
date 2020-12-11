@@ -1,10 +1,11 @@
 package login.impl;
 
+import common.UserAccountHolder;
 import controllers.LoginController;
-import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import login.IRegisterPresenter;
 import login.IRegisterView;
+import model.UserAccount;
 import org.json.simple.JSONObject;
 import util.ComponentFactory;
 import util.TextResultUtil;
@@ -12,17 +13,21 @@ import util.TextResultUtil;
 public class SetupPresenter implements IRegisterPresenter {
     private final IRegisterView view;
     private final LoginController lc;
+    private String sessionUsername;
+    private String sessionUserType;
 
     public SetupPresenter(IRegisterView view) {
         this.view = view;
+        getUserData();
         this.lc = new LoginController();
         init();
     }
 
     @Override
     public void backButtonAction(ActionEvent actionEvent) {
-        Stage stage = this.view.getStage();
-        ComponentFactory.getInstance().createLoggedOutComponent(stage, "login.fxml");
+        UserAccountHolder holder = UserAccountHolder.getInstance();
+        holder.setUserAccount(null);
+        ComponentFactory.getInstance().createLoggedOutComponent(actionEvent, "login.fxml");
     }
 
     @Override
@@ -55,8 +60,17 @@ public class SetupPresenter implements IRegisterPresenter {
 
     @Override
     public void init() {
+        this.view.setUsername(this.sessionUsername);
+        this.view.setUserType(this.sessionUserType);
         this.view.setBackButtonAction(this::backButtonAction);
         this.view.setRegisterButtonAction(this::registerButtonAction);
+    }
+
+    private void getUserData() {
+        UserAccountHolder holder = UserAccountHolder.getInstance();
+        UserAccount account = holder.getUserAccount();
+        this.sessionUsername = account.getUsername();
+        this.sessionUserType = account.getUserType();
     }
 
     @SuppressWarnings("unchecked")

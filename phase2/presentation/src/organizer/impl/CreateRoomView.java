@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import organizer.ICreateRoomView;
 import util.NumberTextField;
 
@@ -38,7 +37,6 @@ public class CreateRoomView implements ICreateRoomView {
     }
 
     private EventHandler<ActionEvent> createRoomButtonAction;
-    private Stage stage;
     private String sessionUsername;
     private String sessionUserType;
 
@@ -102,16 +100,6 @@ public class CreateRoomView implements ICreateRoomView {
     @Override
     public void setCreateRoomButtonAction(EventHandler<ActionEvent> eventHandler) {
         this.createRoomButtonAction = eventHandler;
-    }
-
-    @Override
-    public Stage getStage() {
-        return this.stage;
-    }
-
-    @Override
-    public void setStage(Stage stage) {
-        this.stage = stage;
     }
 
     @Override

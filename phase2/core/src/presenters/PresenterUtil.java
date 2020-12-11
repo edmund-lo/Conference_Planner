@@ -12,22 +12,14 @@ public class PresenterUtil<T> {
      * method for creating JSONObject of the format {"status":_, "result":_, "data":_}
      * @param status status of the action. One of "success", "warning" or "error"
      * @param result The result of the action
-     * @param dtype type of the data
-     * @param data the data itself
      * @return a JSONObject of the format specified above
      */
     @SuppressWarnings("unchecked")
-    public JSONObject createJSON(String status, String result, String dtype, List<T> data) {
+    public JSONObject createJSON(String status, String result, JSONArray array) {
         JSONObject json = new JSONObject();
-        JSONArray array = new JSONArray();
-        JSONObject item = new JSONObject();
 
         json.put("status", status);
         json.put("result", result);
-
-        item.put(dtype, data);
-
-        array.add(item);
 
         json.put("data", array);
 

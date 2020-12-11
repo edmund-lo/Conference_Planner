@@ -7,7 +7,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import model.ScheduleEntry;
 import organizer.IRescheduleCancelEventView;
 import util.DateTimePicker;
@@ -73,7 +72,6 @@ public class RescheduleCancelEventView implements IRescheduleCancelEventView {
 
     private EventHandler<ActionEvent> cancelButtonAction;
     private EventHandler<ActionEvent> rescheduleButtonAction;
-    private Stage stage;
     private String sessionUsername;
     private String sessionUserType;
 
@@ -225,16 +223,6 @@ public class RescheduleCancelEventView implements IRescheduleCancelEventView {
     @Override
     public void setSessionUserType(String userType) {
         this.sessionUserType = userType;
-    }
-
-    @Override
-    public Stage getStage() {
-        return this.stage;
-    }
-
-    @Override
-    public void setStage(Stage stage) {
-        this.stage = stage;
     }
 
     @Override

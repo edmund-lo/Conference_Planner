@@ -1,9 +1,9 @@
 package toolbar;
 
-import common.IPresenter;
+import common.ILoggedInPresenter;
 import javafx.event.ActionEvent;
 
-public interface IToolbarPresenter extends IPresenter {
+public interface IToolbarPresenter extends ILoggedInPresenter {
     void homeButtonAction(ActionEvent actionEvent);
     void viewScheduleButtonAction(ActionEvent actionEvent);
     void viewEventsButtonAction(ActionEvent actionEvent);

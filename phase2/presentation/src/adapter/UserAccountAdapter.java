@@ -44,9 +44,9 @@ public class UserAccountAdapter {
      */
     private UserAccount mapUserAccount(JSONObject jsonObject) {
         String username = String.valueOf(jsonObject.get("Username"));
-        boolean locked = String.valueOf(jsonObject.get("Locked")).equals("true");
+        boolean locked = jsonObject.get("Locked").equals(true);
         String accountType = String.valueOf(jsonObject.get("AccountType"));
-        boolean setSecurity = String.valueOf(jsonObject.get("Security")).equals("true");
+        boolean setSecurity = jsonObject.get("Security").equals(true);
         String question1 = String.valueOf(jsonObject.get("Security Q1"));
         String question2 = String.valueOf(jsonObject.get("Security Q2"));
 

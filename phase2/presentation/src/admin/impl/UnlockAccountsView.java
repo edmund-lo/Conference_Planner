@@ -45,7 +45,6 @@ public class UnlockAccountsView implements IUnlockAccountsView {
     }
 
     private EventHandler<ActionEvent> unlockButtonAction;
-    private Stage stage;
     private String sessionUsername;
     private String sessionUserType;
 
@@ -132,16 +131,6 @@ public class UnlockAccountsView implements IUnlockAccountsView {
     @Override
     public void setSessionUserType(String userType) {
         this.sessionUserType = userType;
-    }
-
-    @Override
-    public Stage getStage() {
-        return this.stage;
-    }
-
-    @Override
-    public void setStage(Stage stage) {
-        this.stage = stage;
     }
 
     @Override

@@ -1,8 +1,10 @@
 package home.impl;
 
+import common.UserAccountHolder;
 import controllers.AttendeeController;
 import home.IHomePresenter;
 import home.IHomeView;
+import model.UserAccount;
 import org.json.simple.JSONObject;
 
 /**
@@ -18,6 +20,7 @@ public class HomePresenter implements IHomePresenter {
      */
     public HomePresenter(IHomeView view) {
         this.view = view;
+        getUserData();
         this.ac = new AttendeeController(this.view.getSessionUsername());
         init();
     }
@@ -36,8 +39,7 @@ public class HomePresenter implements IHomePresenter {
      */
     @Override
     public void setUnreadMessages() {
-        //JSONObject responseJson = ac.getUnreadMessages();
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = ac.getUnreadMessages();
         this.view.setUnreadButtonText(String.valueOf(responseJson.get("result")));
     }
 
@@ -58,5 +60,13 @@ public class HomePresenter implements IHomePresenter {
         setGreeting();
         setUnreadMessages();
         setAttendingEvents();
+    }
+
+    @Override
+    public void getUserData() {
+        UserAccountHolder holder = UserAccountHolder.getInstance();
+        UserAccount account = holder.getUserAccount();
+        this.view.setSessionUsername(account.getUsername());
+        this.view.setSessionUserType(account.getUserType());
     }
 }
