@@ -20,8 +20,8 @@ public class LoginPresenter implements ILoginPresenter {
     private final LoginController lc;
 
     /**
-     * Constructs a LoginPresenter object with given view and new LoginController
-     * @param view ILoginView implement
+     * Initialises a LoginPresenter object with given view and new LoginController
+     * @param view ILoginView interface implementation
      */
     public LoginPresenter(ILoginView view) {
         this.view = view;

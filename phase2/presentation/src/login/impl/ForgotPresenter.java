@@ -11,21 +11,36 @@ import org.json.simple.JSONObject;
 import util.ComponentFactory;
 import util.TextResultUtil;
 
+/**
+ * Presenter class for the forgot password screen
+ */
 public class ForgotPresenter implements IForgotPresenter {
     private final IForgotView view;
     private final LoginController lc;
 
+    /**
+     * Initialises a ForgotPresenter object with given view and new LoginController
+     * @param view IForgotView interface implementation
+     */
     public ForgotPresenter(IForgotView view) {
         this.view = view;
-        init();
         this.lc = new LoginController();
+        init();
     }
 
+    /**
+     * Performs back button action to go back to the login scene
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void backButtonAction(ActionEvent actionEvent) {
         ComponentFactory.getInstance().createLoggedOutComponent(actionEvent, "login.fxml");
     }
 
+    /**
+     * Performs previous button action to go back to Step 1
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void previousButtonAction(ActionEvent actionEvent) {
         this.view.getTitledPane(1).setDisable(false);
@@ -34,6 +49,10 @@ public class ForgotPresenter implements IForgotPresenter {
         this.view.getTitledPane(2).setExpanded(false);
     }
 
+    /**
+     * Performs reset button action to reset password
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void resetButtonAction(ActionEvent actionEvent) {
         clearResultText(3);
@@ -43,6 +62,10 @@ public class ForgotPresenter implements IForgotPresenter {
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 3);
     }
 
+    /**
+     * Performs button action to confirm security answers and change to Step 3 if correct
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void confirmButtonAction(ActionEvent actionEvent) {
         clearResultText(2);
@@ -58,6 +81,10 @@ public class ForgotPresenter implements IForgotPresenter {
             setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 2);
     }
 
+    /**
+     * Performs button action to check if user exists and if yes, display their security questions
+     * @param actionEvent
+     */
     @Override
     public void displaySecurityButtonAction(ActionEvent actionEvent) {
         clearResultText(1);
@@ -76,6 +103,11 @@ public class ForgotPresenter implements IForgotPresenter {
             setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 1);
     }
 
+    /**
+     * Sets the result of the action given status
+     * @param resultText String object describing the result
+     * @param status String object representing the status of the controller method call
+     */
     @Override
     public void setResultText(String resultText, String status, int index) {
         switch (index) {
@@ -99,6 +131,9 @@ public class ForgotPresenter implements IForgotPresenter {
         TextResultUtil.getInstance().addPseudoClass(status, this.view.getResultTextControl());
     }
 
+    /**
+     * Init method which sets all the button actions
+     */
     @Override
     public void init() {
         this.view.setFirstBackButtonAction(this::backButtonAction);
@@ -109,6 +144,9 @@ public class ForgotPresenter implements IForgotPresenter {
         this.view.setSecurityButtonAction(this::displaySecurityButtonAction);
     }
 
+    /**
+     * Helper method to clear all result text and affected form fields
+     */
     private void clearResultText(int index) {
         this.view.setResultText("", index);
         TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl(index));
