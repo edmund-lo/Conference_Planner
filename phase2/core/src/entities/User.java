@@ -26,6 +26,7 @@ public abstract class User implements Serializable {
     private HashMap<String, Boolean> archivedInbox;
     private HashMap<String, Boolean> trashInbox;
     private boolean vip;
+
     /**
      * Constructor for User object. Initializes an empty hashmap for a user's schedule and
      * an empty arraylist for a user's sent message IDs and an empty arraylist for a user's received message IDs.
@@ -80,6 +81,24 @@ public abstract class User implements Serializable {
      */
     public HashMap<String, LocalDateTime[]> getSchedule() {
         return schedule;
+    }
+
+    /**
+     * Sets the vip status of the attendee
+     *
+     * @param vip the vip status to be set
+     */
+    public void setVipStatus(boolean vip) {
+        this.vip = vip;
+    }
+
+    /**
+     * Checks whether attendee is a vip
+     *
+     * @return true iff the attendee is a vip
+     */
+    public boolean isVip() {
+        return vip;
     }
 
     /**
@@ -342,10 +361,6 @@ public abstract class User implements Serializable {
      */
     public List<String> getSentRequest() {
         return sentRequest;
-    }
-
-    public boolean isVip() {
-        return vip;
     }
 
     /**
