@@ -60,6 +60,7 @@ public class UserAccount implements Serializable {
         this.username = username;
         this.password = password;
         this.userType = userType;
+        this.locked = false;
     }
 
     /**
