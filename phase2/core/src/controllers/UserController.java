@@ -174,7 +174,7 @@ public abstract class UserController {
         JSONArray array = new JSONArray();
 
         for (String id: um.getPrimaryMessages(this.username).keySet()){
-            array.add(mm.getOneMessageThreadToJson(id));
+            array.add(mm.getMessageThreadJson(id));
         }
 
         return up.getAllPrimaryMessages(array);
@@ -191,7 +191,7 @@ public abstract class UserController {
         JSONArray array = new JSONArray();
 
         for (String id: um.getArchivedMessages(this.username).keySet()){
-            array.add(mm.getOneMessageThreadToJson(id));
+            array.add(mm.getMessageThreadJson(id));
         }
 
         return up.getAllArchivedMessages(array);
@@ -208,7 +208,7 @@ public abstract class UserController {
         JSONArray array = new JSONArray();
 
         for (String id: um.getTrashMessages(this.username).keySet()){
-            array.add(mm.getOneMessageThreadToJson(id));
+            array.add(mm.getMessageThreadJson(id));
         }
 
         return up.getAllTrashMessages(array);
@@ -378,7 +378,7 @@ public abstract class UserController {
      */
     public JSONObject getFriends(){
         this.deserializeData();
-        return um.getAllFriendsJson(username);
+        return up.getFriends(um.getAllFriendsJson(username));
     }
 
     /**

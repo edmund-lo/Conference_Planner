@@ -138,5 +138,9 @@ public class AdminPresenter extends UserPresenter {
     public JSONObject getAllUserLogs(JSONArray data){
         return pu.createJSON("success", "returning all user logs", data);
     }
+
+    public JSONObject viewAllAttendees(JSONArray data){
+        return pu.createJSON("success", "returning all attendees", data);
+    }
 }
 

@@ -89,7 +89,7 @@ public class SpeakerController extends UserController {
      * Gets all events that current speaker is speaking at.
      * @return List of Strings representing the events the current speaker is speaking at.
      */
-    public JSONArray getSpeakerEvents() {
+    public JSONObject getSpeakerEvents() {
         this.deserializeData();
 
         JSONArray array = new JSONArray();
@@ -98,6 +98,6 @@ public class SpeakerController extends UserController {
             array.add(em.getEventJson(eventID));
         }
 
-        return array;
+        return sp.getSpeakerEvents(array);
     }
 }
