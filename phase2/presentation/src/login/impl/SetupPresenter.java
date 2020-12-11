@@ -108,6 +108,7 @@ public class SetupPresenter implements IRegisterPresenter {
     private JSONObject constructRegisterJson() {
         JSONObject queryJson = new JSONObject();
         queryJson.put("username", this.view.getUsername());
+        queryJson.put("userType", this.view.getUserType().toLowerCase());
         queryJson.put("firstName", this.view.getFirstName());
         queryJson.put("lastName", this.view.getLastName());
         queryJson.put("password", this.view.getPassword());

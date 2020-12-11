@@ -1,7 +1,5 @@
 package util;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -11,9 +9,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
-/**
- * Utility class for a toggle switch between on and off
- */
 public class ToggleSwitch extends StackPane {
     private final Rectangle back = new Rectangle(30, 10, Color.RED);
     private final Button button = new Button();
@@ -21,20 +16,13 @@ public class ToggleSwitch extends StackPane {
             "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 0.2, 0.0, 0.0, 2); -fx-background-color: WHITE;";
     private final String buttonStyleOn =
             "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 0.2, 0.0, 0.0, 2); -fx-background-color: #00893d;";
-    private final BooleanProperty state;
+    private boolean state;
 
-    /**
-     * ToggleSwitch constructor with default settings
-     */
     public ToggleSwitch() {
-        this.state = new SimpleBooleanProperty(false);
         init();
         button.setFocusTraversable(false);
     }
 
-    /**
-     * Applies initial setting and transforms a JavaFX StackPane into a toggle switch
-     */
     private void init() {
         getChildren().addAll(back, button);
         setMinSize(30, 15);
@@ -53,45 +41,29 @@ public class ToggleSwitch extends StackPane {
         button.setStyle(buttonStyleOff);
     }
 
-    /**
-     * Event handler when the switch is clicked on
-     * @return EventHandler of Event object representing the event handler
-     */
-    public EventHandler<Event> toggleOnClick() {
+    public EventHandler<Event> toggleOnClick(Event event) {
         return e -> {
-            if (state.getValue()) {
+            if (state) {
                 button.setStyle(buttonStyleOff);
                 back.setFill(Color.valueOf("#ced5da"));
                 setAlignment(button, Pos.CENTER_LEFT);
-                //state.setValue(false);
+                state = false;
             } else {
                 button.setStyle(buttonStyleOn);
                 back.setFill(Color.valueOf("#80C49E"));
                 setAlignment(button, Pos.CENTER_RIGHT);
-                //state.setValue(true);
+                state = true;
             }
         };
     }
 
-    /**
-     * Gets current toggle state
-     * @return boolean representing whether switch is on or off
-     */
     public boolean getToggleState() {
-        return this.state.getValue();
+        return this.state;
     }
 
-    /**
-     * Sets the toggle state to state
-     * @param state boolean representing new state
-     */
     public void setToggleState(boolean state) {
-        this.state.setValue(state);
+        this.state = state;
     }
 
-    /**
-     * Gets the button associated with the toggle switch
-     * @return JavaFX Button object representing button class variable
-     */
     public Button getToggleButton() { return this.button; }
 }

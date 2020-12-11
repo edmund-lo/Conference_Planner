@@ -44,7 +44,7 @@ public class LoginPresenter implements ILoginPresenter {
             UserAccount account = new UserAccount(userAccount.getUsername(), userAccount.getUserType());
             UserAccountHolder holder = UserAccountHolder.getInstance();
             holder.setUserAccount(account);
-            if (userAccount.isSetSecurity())
+            if (!userAccount.isSetSecurity())
                 ComponentFactory.getInstance().createLoggedInComponent(actionEvent, "setup.fxml");
             else
                 ComponentFactory.getInstance().createLoggedInComponent(actionEvent, "home.fxml");

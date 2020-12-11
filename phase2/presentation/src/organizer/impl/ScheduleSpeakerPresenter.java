@@ -72,12 +72,12 @@ public class ScheduleSpeakerPresenter implements IScheduleSpeakerPresenter {
     @Override
     public void displayEventDetails(ScheduleEntry event) {
         this.view.setSummaryEventName(event.getEventName());
-        this.view.setSummaryRoomName(event.getEventName());
-        this.view.setSummaryAmenities(event.getEventName());
+        this.view.setSummaryRoomName(event.getRoomName());
+        this.view.setSummaryAmenities(event.getAmenities());
         this.view.setSummaryDuration(event.getDuration());
         this.view.setSummaryStart(event.getStart());
         this.view.setSummaryEnd(event.getEnd());
-        this.view.setSummarySpeakers(event.getEventName());
+        this.view.setSummarySpeakers(event.getSpeakers());
         this.view.setSummaryCapacity(event.getCapacity());
     }
 
@@ -87,11 +87,14 @@ public class ScheduleSpeakerPresenter implements IScheduleSpeakerPresenter {
 
         JSONObject responseJson = oc.listAvailableSpeakers(this.selectedEvent.getEventId());
         List<User> speakerList = UserAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
+        System.out.println(speakerList);
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
         this.view.getAvailableSpeakerChoiceBox().getItems().clear();
-        for (User speaker : speakerList)
+        for (User speaker : speakerList){
             this.view.getAvailableSpeakerChoiceBox().getItems().add(speaker.getUsername());
+        }
     }
+
 
     @Override
     public void init() {

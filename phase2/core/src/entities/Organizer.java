@@ -41,6 +41,7 @@ public class Organizer extends User implements Serializable {
         item.put("primary inbox", getPrimaryInbox());
         item.put("archived inbox", getArchivedInbox());
         item.put("trash inbox", getTrashInbox());
+        item.put("vip", isVip());
 
         return item;
     }
