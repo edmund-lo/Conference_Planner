@@ -92,7 +92,11 @@ public class OrganizerController extends UserController {
 
         if (roomName.length() < 1) {  //ensure that the room name is not empty
             return op.emptyFieldError();
-        } else if (rm.createRoom(roomName, capacity, hasChairs, hasTables, hasProjector, hasSoundSystem)) {
+        }
+        else if (capacity < 1){
+            return op.invalidCapacity();
+        }
+        else if (rm.createRoom(roomName, capacity, hasChairs, hasTables, hasProjector, hasSoundSystem)) {
             this.saveData();
             return op.roomCreationResult();
         } else {
@@ -181,6 +185,7 @@ public class OrganizerController extends UserController {
         for (String roomID: rm.getAllRoomsWith(constraints, eventCap)){
             array.add(rm.getRoomJson(roomID).get("name"));
         }
+        System.out.println(op.listPossibleRooms(array));
         return op.listPossibleRooms(array);
     }
 

@@ -115,6 +115,7 @@ public class RoomManager implements Serializable {
         List<String> possibleRooms = new ArrayList<>();
         for (Map.Entry<String, Room> room : this.allRooms.entrySet()){
             Room thisRoom = room.getValue();
+            System.out.println(thisRoom.getCapacity() >= eventCap);
             if (thisRoom.hasChairs() == constraints.get(0)
                     && thisRoom.hasTables() == constraints.get(1)
                     && thisRoom.hasProjector() == constraints.get(2)
