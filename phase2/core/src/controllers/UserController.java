@@ -126,6 +126,14 @@ public abstract class UserController {
         return up.getAttendingEvents(array);
     }
 
+    public JSONObject getAllEventsIncludingCancelled(){
+        JSONArray array = new JSONArray();
+        for(String eventID: em.getAllEventIds()){
+            array.add(em.getEventJson(eventID));
+        }
+        return up.getAllEvents(array);
+    }
+
     /**
      *Returns list of all events desc in the conference that user with username can sign up to
      *
@@ -138,7 +146,7 @@ public abstract class UserController {
 
         for (String eventID: em.getAllEventIds()){
             LocalDateTime startTime = em.getEventStartTime(eventID);
-            if(em.getEventStartTime(eventID) != null && startTime.isAfter(LocalDateTime.now())){
+            if(!em.isEventCancelled(eventID) && startTime.isAfter(LocalDateTime.now())){
                 if(um.canSignUp(username, eventID, startTime, em.getEventEndTime(eventID))) {
                     array.add(em.getEventJson(eventID));
                 }
@@ -160,7 +168,7 @@ public abstract class UserController {
 
         for (String eventID: em.getAllEventIds()){
             LocalDateTime startTime = em.getEventStartTime(eventID);
-            if(startTime != null && startTime.isAfter(LocalDateTime.now())) {
+            if(!em.isEventCancelled(eventID) && startTime.isAfter(LocalDateTime.now())) {
                 array.add(em.getEventJson(eventID));
             }
         }
