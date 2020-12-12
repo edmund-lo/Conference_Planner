@@ -69,6 +69,13 @@ public class MessageThread implements Serializable {
         this.messages.add(message);
     }
 
+    public JSONArray messagesToJSON(){
+        JSONArray a = new JSONArray();
+        for (Message m: messages)
+            a.add(m.convertToJSON());
+
+        return a;
+    }
     /**
      * For converting this class to a JSON format
      * @return a JSONObject that describes this entity
@@ -81,8 +88,8 @@ public class MessageThread implements Serializable {
         item.put("receivers", getReceivers());
         item.put("subject", getSubject());
         item.put("messageThreadId", getMessageThreadId());
-        item.put("messages", getMessages());
-
+        item.put("messages", messagesToJSON());
+        item.put("read", false);
         return item;
     }
 }
