@@ -1,6 +1,5 @@
 package entities;
 
-import org.json.simple.*;
 import java.io.Serializable;
 
 /**

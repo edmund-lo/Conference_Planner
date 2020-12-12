@@ -1,8 +1,9 @@
 package entities;
-import org.json.simple.*;
+
+import org.json.simple.JSONObject;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 /**
  * An Entity class for a Login Log.
@@ -11,7 +12,7 @@ import java.util.ArrayList;
  */
 public class LoginLog implements Serializable {
     public boolean condition;
-    public String username = "";
+    public String username;
     public LocalDateTime time;
 
     /**

@@ -393,11 +393,6 @@ public abstract class User implements Serializable {
     }
 
     /**
-     * Abstract method for converting this entity class to JSONObject format
-     *
-     * @return the JSONObject version of this class
-     */
-    /**
      * @return A JSONObject that contains the JSON representation of this class
      */
     @SuppressWarnings("unchecked")

@@ -192,7 +192,7 @@ public class Room implements Serializable {
     /**
      * getter for the events on a specific time
      * @param time which day
-     * @return a list of strings of the event IDs occuring on time
+     * @return a list of strings of the event IDs occurring on time
      */
     public List<String> eventsOnDay(LocalDateTime time) {
         List<String> events = new ArrayList<>();
