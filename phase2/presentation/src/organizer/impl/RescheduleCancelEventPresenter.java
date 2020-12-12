@@ -59,26 +59,6 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
     }
 
     @Override
-    public void toggleEditModeListener() {
-        this.view.getEditMode().valueProperty().addListener(
-                (observable, oldValue, newValue) -> {
-                    if (newValue.equals("On")) { // toggled on edit mode
-                        this.view.getSummaryStart().setDisable(false);
-                        this.view.getSummaryEnd().setDisable(false);
-                        this.view.getSummaryCapacityField().setDisable(false);
-                        this.view.getSummaryVipChoiceBox().setDisable(false);
-                        this.view.getSummaryRoomsChoiceBox().setDisable(false);
-                    } else { // toggled off edit mode
-                        this.view.getSummaryStart().setDisable(true);
-                        this.view.getSummaryEnd().setDisable(true);
-                        this.view.getSummaryCapacityField().setDisable(true);
-                        this.view.getSummaryVipChoiceBox().setDisable(true);
-                        this.view.getSummaryRoomsChoiceBox().setDisable(true);
-                    }
-                });
-    }
-
-    @Override
     public void setResultText(String resultText, String status) {
         this.view.setResultText(resultText);
         TextResultUtil.getInstance().addPseudoClass(status, this.view.getResultTextControl());
@@ -128,8 +108,7 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
         this.view.setSummaryRemainingSpots(event.getRemainingSpots());
         this.view.setSummaryVip(event.isVip() ? "Yes" : "No");
         System.out.println("Event cancelled: "+event.isCancelled());
-        this.view.getRescheduleButton().setDisable(!event.isCancelled());
-        this.view.getCancelButton().setDisable(event.isCancelled());
+        setEditableFields(event.isCancelled());
     }
 
     @Override
@@ -138,7 +117,6 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
         this.view.setRescheduleButtonAction(this::rescheduleButtonAction);
         updateDuration(this.view.getSummaryStart());
         updateDuration(this.view.getSummaryEnd());
-        toggleEditModeListener();
         List<ScheduleEntry> allEvents = getEvents();
         displayEvents(allEvents);
     }
@@ -172,6 +150,24 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
     private void displayPossibleRooms(JSONArray jsonArray) {
         for (Object o : jsonArray)
             this.view.getSummaryRoomsChoiceBox().getItems().add(String.valueOf(o));
+    }
+
+    private void setEditableFields(boolean cancelled) {
+        this.view.getRescheduleButton().setDisable(cancelled);
+        this.view.getCancelButton().setDisable(!cancelled);
+        if (cancelled) { // cancelled event
+            this.view.getSummaryStart().setDisable(false);
+            this.view.getSummaryEnd().setDisable(false);
+            this.view.getSummaryCapacityField().setDisable(false);
+            this.view.getSummaryVipChoiceBox().setDisable(false);
+            this.view.getSummaryRoomsChoiceBox().setDisable(false);
+        } else { // not cancelled event
+            this.view.getSummaryStart().setDisable(true);
+            this.view.getSummaryEnd().setDisable(true);
+            this.view.getSummaryCapacityField().setDisable(true);
+            this.view.getSummaryVipChoiceBox().setDisable(true);
+            this.view.getSummaryRoomsChoiceBox().setDisable(true);
+        }
     }
 
     @SuppressWarnings("unchecked")

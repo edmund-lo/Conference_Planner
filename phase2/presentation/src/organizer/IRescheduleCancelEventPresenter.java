@@ -10,7 +10,6 @@ import java.util.List;
 public interface IRescheduleCancelEventPresenter extends ILoggedInPresenter {
     void cancelButtonAction(ActionEvent actionEvent);
     void rescheduleButtonAction(ActionEvent actionEvent);
-    void toggleEditModeListener();
     void setResultText(String resultText, String status);
     List<ScheduleEntry> getEvents();
     void displayEvents(List<ScheduleEntry> schedule);

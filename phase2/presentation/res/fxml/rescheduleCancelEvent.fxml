@@ -38,15 +38,6 @@
                     <center>
                         <Text text="Event Information"/>
                     </center>
-                    <right>
-                        <HBox>
-                            <Label text="Edit:"/>
-                            <ChoiceBox value="Off" fx:id="editMode">
-                                <String fx:value="On"/>
-                                <String fx:value="Off"/>
-                            </ChoiceBox>
-                        </HBox>
-                    </right>
                 </BorderPane>
 
                 <Label text="Event Name:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
