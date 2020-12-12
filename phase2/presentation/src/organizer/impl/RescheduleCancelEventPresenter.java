@@ -125,6 +125,7 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
         this.view.setSummaryRemainingSpots(event.getRemainingSpots());
         this.view.setSummaryVip(event.isVip() ? "Yes" : "No");
         this.view.getRescheduleButton().setDisable(!event.isCancelled());
+        this.view.getCancelButton().setDisable(event.isCancelled());
     }
 
     @Override

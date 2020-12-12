@@ -60,6 +60,8 @@ public class RescheduleCancelEventView implements IRescheduleCancelEventView {
     private Text resultText;
     @FXML
     private Button rescheduleButton;
+    @FXML
+    private Button cancelButton;
 
     @FXML
     public void executeAddCancel(ActionEvent event) {
@@ -147,6 +149,11 @@ public class RescheduleCancelEventView implements IRescheduleCancelEventView {
     @Override
     public Button getRescheduleButton() {
         return this.rescheduleButton;
+    }
+
+    @Override
+    public Button getCancelButton() {
+        return this.cancelButton;
     }
 
     @Override

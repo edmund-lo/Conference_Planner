@@ -3,8 +3,9 @@ package util;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;
+import model.User;
 
-public class BooleanCell<T> extends TableCell<T, Boolean> {
+public class BooleanCell extends TableCell<User, Boolean> {
     private final CheckBox checkBox;
     public BooleanCell() {
         checkBox = new CheckBox();

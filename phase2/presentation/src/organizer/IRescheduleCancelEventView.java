@@ -29,6 +29,7 @@ public interface IRescheduleCancelEventView extends ILoggedInView {
     DateTimePicker getSummaryEnd();
     ChoiceBox<String> getSummaryVipChoiceBox();
     Button getRescheduleButton();
+    Button getCancelButton();
 
     void setSummaryEventName(String eventName);
     void setSummaryCapacity(int capacity);

@@ -77,7 +77,7 @@ public class MessagingPresenter implements IMessagingPresenter {
         this.selectAll = new CheckBox();
         this.selectAll.setOnAction(this::selectAllAction);
         TableColumn<User, Boolean> checkedColumn = new TableColumn<>();
-        Callback<TableColumn<User, Boolean>, TableCell<User, Boolean>> booleanCellFactory = p -> new BooleanCell<>();
+        Callback<TableColumn<User, Boolean>, TableCell<User, Boolean>> booleanCellFactory = p -> new BooleanCell();
         checkedColumn.setGraphic(this.selectAll);
         checkedColumn.setCellFactory(booleanCellFactory);
         TableColumn<User, String> firstNameColumn = new TableColumn<>("First Name");
