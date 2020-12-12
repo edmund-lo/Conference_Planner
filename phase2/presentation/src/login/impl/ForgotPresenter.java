@@ -83,7 +83,7 @@ public class ForgotPresenter implements IForgotPresenter {
 
     /**
      * Performs button action to check if user exists and if yes, display their security questions
-     * @param actionEvent
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
      */
     @Override
     public void displaySecurityButtonAction(ActionEvent actionEvent) {

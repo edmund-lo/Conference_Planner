@@ -9,7 +9,6 @@ import javafx.scene.control.TableView;
 import model.ScheduleEntry;
 import util.DateTimePicker;
 import util.NumberTextField;
-import util.ToggleSwitch;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -21,7 +20,7 @@ public interface IRescheduleCancelEventView extends ILoggedInView {
     TableColumn<ScheduleEntry, LocalDateTime> getEventStartColumn();
     TableColumn<ScheduleEntry, LocalDateTime> getEventEndColumn();
     TableColumn<ScheduleEntry, Integer> getRemainingSpotsColumn();
-    ToggleSwitch getToggleSwitch();
+    ChoiceBox<String> getEditMode();
     NumberTextField getSummaryCapacityField();
     ChoiceBox<String> getSummaryRoomsChoiceBox();
     DateTimePicker getSummaryStart();

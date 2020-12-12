@@ -12,7 +12,6 @@ import organizer.IRescheduleCancelEventView;
 import util.DateTimePicker;
 import util.DateTimeUtil;
 import util.NumberTextField;
-import util.ToggleSwitch;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -31,7 +30,7 @@ public class RescheduleCancelEventView implements IRescheduleCancelEventView {
     @FXML
     private TableColumn<ScheduleEntry, Integer> remainingSpotsColumn;
     @FXML
-    private ToggleSwitch toggleSwitch;
+    private ChoiceBox<String> editMode;
     @FXML
     private Text summaryEventName;
     @FXML
@@ -106,8 +105,8 @@ public class RescheduleCancelEventView implements IRescheduleCancelEventView {
     }
 
     @Override
-    public ToggleSwitch getToggleSwitch() {
-        return this.toggleSwitch;
+    public ChoiceBox<String> getEditMode() {
+        return this.editMode;
     }
 
     @Override
