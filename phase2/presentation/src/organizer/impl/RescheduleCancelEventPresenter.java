@@ -6,8 +6,6 @@ import controllers.OrganizerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.ScheduleEntry;
 import model.UserAccount;
@@ -127,8 +125,7 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
         this.view.setSummaryCapacity(event.getCapacity());
         this.view.setSummaryRemainingSpots(event.getRemainingSpots());
         this.view.setSummaryVip(event.isVip() ? "Yes" : "No");
-        if (event.isCancelled()) this.view.getRescheduleButton().setDisable(false);
-        else this.view.getRescheduleButton().setDisable(true);
+        this.view.getRescheduleButton().setDisable(!event.isCancelled());
     }
 
     @Override

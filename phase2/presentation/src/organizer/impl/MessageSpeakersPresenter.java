@@ -47,6 +47,7 @@ public class MessageSpeakersPresenter implements IMessageUsersPresenter {
         boolean checked = this.view.getSelectAll().isSelected();
         for (User u : this.users)
             u.setChecked(checked);
+        updateRecipientList();
     }
 
     @Override
@@ -102,6 +103,7 @@ public class MessageSpeakersPresenter implements IMessageUsersPresenter {
     public void init() {
         List<User> users = getAllUsers();
         displayUserList(users);
+        this.view.setSender(this.view.getSessionUsername());
         this.view.setSendButtonAction(this::sendButtonAction);
         this.view.setSelectAllAction(this::selectAllAction);
     }

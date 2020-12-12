@@ -312,6 +312,7 @@ public class MessagingPresenter implements IMessagingPresenter {
         boolean checked = this.selectAll.isSelected();
         for (User u : this.users)
             u.setChecked(checked);
+        updateRecipientList(this.recipientsField);
     }
 
     private void updateRecipientList(TextField recipientField) {

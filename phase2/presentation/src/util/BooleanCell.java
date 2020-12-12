@@ -8,7 +8,7 @@ public class BooleanCell<T> extends TableCell<T, Boolean> {
     private final CheckBox checkBox;
     public BooleanCell() {
         checkBox = new CheckBox();
-        checkBox.setDisable(true);
+        checkBox.setDisable(false);
         checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if(isEditing()) commitEdit(newValue != null && newValue);
         });
