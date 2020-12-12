@@ -40,6 +40,7 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
         JSONObject responseJson = oc.cancelEvent(this.selectedEvent.getEventId());
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
         if (String.valueOf(responseJson.get("status")).equals("success")) {
+            clearForm();
             List<ScheduleEntry> allEvents = getEvents();
             displayEvents(allEvents);
         }
@@ -144,6 +145,16 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
     private void clearResultText() {
         this.view.setResultText("");
         TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl());
+    }
+
+    private void clearForm() {
+        this.view.setSummaryStart(null);
+        this.view.setSummaryEnd(null);
+        this.view.setSummaryCapacity(0);
+        this.view.setSummaryDuration(Duration.ZERO);
+        this.view.setSummaryAttendees("");
+        this.view.setSummarySpeakers("");
+        this.view.setSummaryRemainingSpots(0);
     }
 
     private void displayPossibleRooms(JSONArray jsonArray) {
