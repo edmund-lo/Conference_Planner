@@ -29,6 +29,7 @@
                         <TableColumn fx:id="eventStartColumn" text="Start"/>
                         <TableColumn fx:id="eventEndColumn" text="End"/>
                         <TableColumn fx:id="remainingSpotsColumn" text="Remaining Spots"/>
+                        <TableColumn fx:id="cancelled" text="Cancelled"/>
                     </columns>
                 </TableView>
             </VBox>

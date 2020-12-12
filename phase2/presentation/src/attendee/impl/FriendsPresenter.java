@@ -56,6 +56,7 @@ public class FriendsPresenter implements IFriendsPresenter {
 
         JSONObject responseJson = ac.removeFriend(selectedFriend.getUsername());
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 1);
+        init();
     }
 
     /**
@@ -68,6 +69,7 @@ public class FriendsPresenter implements IFriendsPresenter {
 
         JSONObject responseJson = ac.removeFriendRequest(selectedUser.getUsername());
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 1);
+        init();
     }
 
     /**
@@ -80,6 +82,7 @@ public class FriendsPresenter implements IFriendsPresenter {
 
         JSONObject responseJson = ac.sendFriendRequest(selectedUser.getUsername());
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 2);
+        init();
     }
 
     /**
@@ -92,6 +95,7 @@ public class FriendsPresenter implements IFriendsPresenter {
 
         JSONObject responseJson = ac.addFriend(selectedPending.getUsername());
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 1);
+        init();
     }
 
     /**
@@ -104,6 +108,7 @@ public class FriendsPresenter implements IFriendsPresenter {
 
         JSONObject responseJson = ac.declineRequest(selectedPending.getUsername());
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")), 1);
+        init();
     }
 
     /**

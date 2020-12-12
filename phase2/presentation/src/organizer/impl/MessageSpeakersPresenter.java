@@ -59,7 +59,8 @@ public class MessageSpeakersPresenter implements IMessageUsersPresenter {
     @Override
     public List<User> getAllUsers() {
         JSONObject responseJson = oc.getAllSpeakers();
-        setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
+        if (!String.valueOf(responseJson.get("status")).equals("success"))
+            setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
         return UserAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
