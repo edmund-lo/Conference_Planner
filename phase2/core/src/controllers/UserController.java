@@ -297,8 +297,8 @@ public abstract class UserController {
         String sender = String.valueOf(register.get("sender"));
         if (mm.messageCheck(content, username, recipientNames)) {
             String messageThreadId = mm.createMessage(content, sender, recipientNames, subject);
-            addMessagesToUser(recipientNames, messageThreadId);
             this.saveData();
+            addMessagesToUser(recipientNames, messageThreadId);
             return mp.messageSent(recipientNames);
         } else {
             return mp.invalidMessageError();
@@ -321,6 +321,7 @@ public abstract class UserController {
         } else {
             return mp.invalidMessageIdError();
         }
+
     }
 
     /**
