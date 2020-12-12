@@ -256,16 +256,21 @@ public class OrganizerController extends UserController {
      */
     public JSONObject cancelEvent(String eventId) {
         this.deserializeData();
-
-        rm.removeFromRoomSchedule(em.getEventStartTime(eventId),
-                em.getEventEndTime(eventId), em.getEventRoom(eventId), eventId);
-        um.cancelAll(em.getAttendingUsers(eventId), eventId);
-        for(String speakerName: em.getSpeakers(eventId)){
-            um.cancelSpeakerEvent(speakerName, eventId);
+        if(!em.isEventCancelled(eventId)){
+            rm.removeFromRoomSchedule(em.getEventStartTime(eventId),
+                    em.getEventEndTime(eventId), em.getEventRoom(eventId), eventId);
+            um.cancelAll(em.getAttendingUsers(eventId), eventId);
+            for(String speakerName: em.getSpeakers(eventId)){
+                um.cancelSpeakerEvent(speakerName, eventId);
+            }
+            em.cancelEvent(eventId);
+            this.saveData();
+            return op.cancelResult();
         }
-        em.cancelEvent(eventId);
-        this.saveData();
-        return op.cancelResult();
+        else{
+            return op.alreadyCancelled();
+        }
+
     }
 
     /**
@@ -282,11 +287,10 @@ public class OrganizerController extends UserController {
         LocalDateTime newStart = null;
         LocalDateTime newEnd = null;
         boolean isVipEvent = (boolean) info.get("vip");
-        int capacity = 0;
+        int capacity = (int) info.get("capacity");
         try{
             newStart = (LocalDateTime) info.get("start");
             newEnd = (LocalDateTime) info.get("end");
-            capacity = (int) info.get("capacity");
         }catch(ClassCastException ignored){}
 
         if(roomName == null){

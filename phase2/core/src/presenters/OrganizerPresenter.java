@@ -257,4 +257,8 @@ public class OrganizerPresenter extends UserPresenter {
     public JSONObject roomIsNull(){
         return pu.createJSON("warning", "Can't leave room empty!");
     }
+
+    public JSONObject alreadyCancelled(){
+        return pu.createJSON("warning", "Event is already cancelled");
+    }
 }
