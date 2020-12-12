@@ -14,6 +14,9 @@ import util.NumberTextField;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * View class for creating new events scene
+ */
 public class CreateEventView implements ICreateEventView {
     @FXML
     private TextField eventName;

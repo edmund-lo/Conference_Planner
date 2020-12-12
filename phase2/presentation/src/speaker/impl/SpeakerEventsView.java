@@ -13,6 +13,9 @@ import util.DateTimeUtil;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+/**
+ * View class for viewing speaker's own events plus messaging events' attendees screen
+ */
 public class SpeakerEventsView implements ISpeakerEventsView {
     @FXML
     private TableView<ScheduleEntry> eventTable;

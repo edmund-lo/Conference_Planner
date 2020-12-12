@@ -9,6 +9,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
+/**
+ * View class for create new account screen
+ */
 public class CreateAccountView implements ICreateAccountView {
     @FXML
     private ChoiceBox<String> userType;

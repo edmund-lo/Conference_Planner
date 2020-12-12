@@ -17,6 +17,9 @@ import util.NumberTextField;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+/**
+ * View class for rescheduling and cancelling events scene
+ */
 public class RescheduleCancelEventView implements IRescheduleCancelEventView {
     @FXML
     private TableView<ScheduleEntry> eventTable;

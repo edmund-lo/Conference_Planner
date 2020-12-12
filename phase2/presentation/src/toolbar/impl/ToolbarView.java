@@ -8,6 +8,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import toolbar.IToolbarView;
 
+/**
+ * View class for the toolbar
+ */
 public class ToolbarView implements IToolbarView {
     @FXML
     private HBox organizerGroup;
