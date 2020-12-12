@@ -60,12 +60,12 @@ public class OrganizerController extends UserController {
         this.deserializeData();
 
         String content = String.valueOf(register.get("content"));
+        ArrayList recipientNames = (ArrayList)(register.get("recipients"));
         String subject = String.valueOf(register.get("subject"));
         String sender = String.valueOf(register.get("sender"));
-        List<String> attendeeNames = um.getAllUsernames();
-        if (mm.messageCheck(content, sender, attendeeNames)) { //ensure the message is valid
-            String messageId = mm.createMessage(content, sender, attendeeNames, subject);
-            addMessagesToUser((ArrayList<String>) attendeeNames, messageId);
+        if (mm.messageCheck(content, sender, recipientNames)) { //ensure the message is valid
+            String messageId = mm.createMessage(content, sender, recipientNames, subject);
+            addMessagesToUser((ArrayList<String>) recipientNames, messageId);
             this.saveData();
             return op.messagedAllAttendeesResult();
         } else {

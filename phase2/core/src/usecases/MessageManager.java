@@ -89,12 +89,23 @@ public class MessageManager implements Serializable {
         return messageThreadId;
     }
 
+    /**
+     * Reply to a MessageThread, add on the replied message to it and return the sender of this messageThread
+     *
+     * Precondition: the messageThread exist in allMessageThreads
+     *
+     * @param content The text of this message
+     * @param username The username of the sender for this message
+     * @param messageThreadId The list of usernames for the receivers of this message
+     *
+     * return the username for sender of this messageThreadId
+     */
+
     public String reply(String username, String messageThreadId, String content){
         MessageThread newMessageThread = this.allMessageThreads.get(messageThreadId);
         Message newMessage = new Message(username, LocalDateTime.now(), content);
-        Message newMessage2 = (Message) newMessageThread.getMessages().get(newMessageThread.getMessages().size()-1);
         newMessageThread.addMessages(newMessage);
-        return newMessage2.getSenderName();
+        return newMessageThread.getSender();
     }
 
     /**
