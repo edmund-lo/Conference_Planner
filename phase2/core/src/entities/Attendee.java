@@ -22,26 +22,4 @@ public class Attendee extends User implements Serializable {
         super(username, firstName, lastName);
         setVipStatus(vip);
     }
-
-    /**
-     * @return A JSONObject that contains the JSON representation of this class
-     */
-    @SuppressWarnings("unchecked")
-    public JSONObject convertToJSON() {
-        JSONObject item = new JSONObject();
-
-        item.put("username", getUsername());
-        item.put("firstName", getFirstName());
-        item.put("lastName", getLastName());
-        item.put("schedule", getSchedule());
-        item.put("sent requests", getSentRequest());
-        item.put("friend requests", getFriendRequest());
-        item.put("friends list", getFriendsList());
-        item.put("primary inbox", getPrimaryInbox());
-        item.put("archived inbox", getArchivedInbox());
-        item.put("trash inbox", getTrashInbox());
-        item.put("vip", isVip());
-
-        return item;
-    }
 }

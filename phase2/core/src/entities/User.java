@@ -18,6 +18,7 @@ public abstract class User implements Serializable {
     private final String username;
     private String firstName;
     private String lastName;
+    private String userType;
     private HashMap<String, LocalDateTime[]> schedule;
     private List<String> sentRequest;
     private List<String> friendRequest;
@@ -47,6 +48,7 @@ public abstract class User implements Serializable {
         this.archivedInbox = new HashMap<>();
         this.trashInbox = new HashMap<>();
         this.vip = true;
+        this.userType = this.getClass().getSimpleName();
     }
 
     /**
@@ -395,6 +397,19 @@ public abstract class User implements Serializable {
      *
      * @return the JSONObject version of this class
      */
-    public abstract JSONObject convertToJSON();
+    /**
+     * @return A JSONObject that contains the JSON representation of this class
+     */
+    @SuppressWarnings("unchecked")
+    public JSONObject convertToJSON() {
+        JSONObject item = new JSONObject();
+
+        item.put("username", getUsername());
+        item.put("firstName", getFirstName());
+        item.put("lastName", getLastName());
+        item.put("vip", isVip());
+        item.put("type", userType);
+        return item;
+    }
 
 }
