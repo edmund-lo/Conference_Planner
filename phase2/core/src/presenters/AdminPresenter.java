@@ -96,7 +96,7 @@ public class AdminPresenter extends UserPresenter {
      * Prints message that event is not empty
      */
     public JSONObject eventNotEmptyError() {
-        return pu.createJSON("error", "Event is not empty");
+        return pu.createJSON("error", "Event is not cancelled!");
     }
 
     /**

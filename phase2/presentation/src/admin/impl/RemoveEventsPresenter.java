@@ -67,7 +67,7 @@ public class RemoveEventsPresenter implements IRemoveEventsPresenter {
      */
     @Override
     public List<ScheduleEntry> getEvents() {
-        JSONObject responseJson = ac.getAllEvents();
+        JSONObject responseJson = ac.getAllEventsIncludingCancelled();
         return ScheduleAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 

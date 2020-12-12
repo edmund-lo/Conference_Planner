@@ -212,6 +212,7 @@ public class OrganizerController extends UserController {
         }
         String roomName = eventInfo.get("roomName").toString();
         String eventName = eventInfo.get("eventName").toString();
+        System.out.println("cap: "+eventCap+" constr: "+constraints);
         List<String> possibleRooms = rm.getAllRoomsWith(constraints, eventCap);
         if (eventName.equals("") | roomName.equals("")) { //ensures that the event name/times are not empty
             return op.emptyFieldError();

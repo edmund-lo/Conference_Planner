@@ -116,8 +116,6 @@ public class RoomManager implements Serializable {
         for (Map.Entry<String, Room> room : this.allRooms.entrySet()){
             boolean roomHasConstraints = true;
             Room thisRoom = room.getValue();
-            System.out.println(thisRoom.getCapacity() >= eventCap);
-
             List<Boolean> roomAmenities = getRoomAmenities(thisRoom);
             for (int i = 0; i < constraints.size(); i ++) {
                 if (constraints.get(i)) {
@@ -126,7 +124,7 @@ public class RoomManager implements Serializable {
                     }
                 }
             }
-            if (roomHasConstraints) {
+            if (roomHasConstraints && room.getValue().getCapacity() >= eventCap) {
                 possibleRooms.add(room.getKey());
             }
         }
