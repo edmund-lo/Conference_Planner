@@ -88,8 +88,8 @@ public class AdminPresenter extends UserPresenter {
     /**
      * Confirms empty event has been removed
      */
-    public JSONObject removeEventResult() {
-        return pu.createJSON("success", "Empty event has been removed");
+    public JSONObject removeEventResult(String eventName) {
+        return pu.createJSON("success", eventName+" has been removed");
     }
 
     /**

@@ -84,7 +84,7 @@ public class EventManager implements Serializable {
     public boolean isEventEmpty(String eventID){
         Event event = allEvents.get(eventID);
         return event.getAttendingUsers().size() == 0 &&
-                event.getSpeakerNames().size() == 0 && event.getRoomName() == null;
+                event.getSpeakerNames().size() == 0 && event.getRoomName().equals("Unassigned");
     }
 
     /**

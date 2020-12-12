@@ -252,9 +252,10 @@ public class AdminController extends UserController{
         this.deserializeData();
 
         if(em.isEventEmpty(eventID)) {
+            String name = em.getEventName(eventID);
             em.removeEvent(eventID);
             this.saveData();
-            return ap.removeEventResult();
+            return ap.removeEventResult(name);
         } else {
             return ap.eventNotEmptyError();
         }

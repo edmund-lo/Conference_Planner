@@ -215,7 +215,7 @@ public class OrganizerController extends UserController {
         }
         String roomName = eventInfo.get("roomName").toString();
         String eventName = eventInfo.get("eventName").toString();
-        System.out.println("cap: "+eventCap+" constr: "+constraints);
+        System.out.println(rm.getRoomSchedule(roomName));
         List<String> possibleRooms = rm.getAllRoomsWith(constraints, eventCap);
         if (eventName.equals("") | roomName.equals("")) { //ensures that the event name/times are not empty
             return op.emptyFieldError();
@@ -340,7 +340,6 @@ public class OrganizerController extends UserController {
         JSONArray array = new JSONArray();
 
         for (String eventName: rm.getEventsInRoomAfter(roomName, time)){
-            System.out.println(em.getEventIDByName(eventName));
             array.add(em.getEventJson(em.getEventIDByName(eventName)));
         }
         System.out.println(array);
