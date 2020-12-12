@@ -76,7 +76,6 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
                         this.view.getSummaryRoomsChoiceBox().setDisable(true);
                     }
                 });
-
     }
 
     @Override

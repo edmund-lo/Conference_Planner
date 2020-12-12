@@ -87,6 +87,7 @@ public class MessagingPresenter implements IMessagingPresenter {
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
+        userTable.getColumns().add(checkedColumn);
         userTable.getColumns().add(firstNameColumn);
         userTable.getColumns().add(lastNameColumn);
         userTable.getColumns().add(usernameColumn);
