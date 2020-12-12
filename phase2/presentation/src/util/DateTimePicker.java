@@ -2,8 +2,6 @@ package util;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.DatePicker;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -63,13 +61,11 @@ public class DateTimePicker extends DatePicker {
         });
 
         // Synchronize changes to dateTimeValue back to the underlying date value
-        dateTimeValue.addListener((observable, oldValue, newValue) -> {
-            setValue(newValue == null ? null : newValue.toLocalDate());
-        });
+        dateTimeValue.addListener((observable, oldValue, newValue) ->
+                setValue(newValue == null ? null : newValue.toLocalDate()));
 
         // Persist changes on blur
-        this.focusedProperty().addListener((observableValue, oldValue, newValue) -> simulateEnterPressed());
-
+        getEditor().focusedProperty().addListener((observableValue, oldValue, newValue) -> simulateEnterPressed());
     }
 
     /**
@@ -96,20 +92,12 @@ public class DateTimePicker extends DatePicker {
         this.dateTimeValue.set(dateTimeValue);
     }
 
-    public ObjectProperty<LocalDateTime> dateTimeValueProperty() {
-        return dateTimeValue;
-    }
-
     /**
      * Gets the value of the format class variable
      * @return String object representing format
      */
     public String getFormat() {
         return format.get();
-    }
-
-    public ObjectProperty<String> formatProperty() {
-        return format;
     }
 
     /**

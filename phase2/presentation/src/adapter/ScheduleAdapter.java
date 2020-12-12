@@ -48,9 +48,16 @@ public class ScheduleAdapter {
      * @return ScheduleEntry model with mapped attributes
      */
     private ScheduleEntry mapScheduleEntry(JSONObject jsonObject) {
+        boolean cancelled = jsonObject.get("cancelled").equals(true);
+        Duration duration;
         LocalDateTime start = (LocalDateTime) jsonObject.get("start");
         LocalDateTime end = (LocalDateTime) jsonObject.get("end");
-        Duration duration = Duration.between(start, end);
+        if(!cancelled){
+            duration = Duration.between(start, end);
+        }
+        else{
+            duration = null;
+        }
         String eventId = String.valueOf(jsonObject.get("id"));
         String eventName = String.valueOf(jsonObject.get("eventName"));
         String roomName = String.valueOf(jsonObject.get("roomName"));
@@ -61,8 +68,9 @@ public class ScheduleAdapter {
         int capacity = parseInt(String.valueOf(jsonObject.get("capacity")));
         boolean vip = jsonObject.get("vip").equals(true);
 
+
         return new ScheduleEntry(start, end, eventId, eventName, roomName, amenities, attendees, speakers, duration,
-                remainingSpots, capacity, vip);
+                remainingSpots, capacity, vip, cancelled);
     }
 
     /**
@@ -70,11 +78,9 @@ public class ScheduleAdapter {
      * @param arraylist an arraylist of strings
      * @return the JSONArray version of arraylist
      */
-    public JSONArray convertArrayListToJsonArray(ArrayList<String> arraylist){
+    public JSONArray convertArrayListToJsonArray(List<String> arraylist){
         JSONArray array = new JSONArray();
-        for(String element: arraylist){
-            array.add(element);
-        }
+        array.addAll(arraylist);
         return array;
     }
 

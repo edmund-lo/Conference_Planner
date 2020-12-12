@@ -20,13 +20,14 @@ public class ScheduleEntry {
     private final IntegerProperty remainingSpots;
     private final IntegerProperty capacity;
     private final BooleanProperty vip;
+    private final BooleanProperty cancelled;
 
     /**
      * Initialises a ScheduleEntry object with default attributes
      */
     public ScheduleEntry() {
         this(null, null, null,null, null, null,
-                null, null, null, 0, 0, false);
+                null, null, null, 0, 0, false, false);
     }
 
     /**
@@ -43,10 +44,11 @@ public class ScheduleEntry {
      * @param remainingSpots int representing remaining spots for the event
      * @param capacity int representing event's maximum capacity
      * @param vip boolean representing whether event has VIP status or not
+     * @param cancelled boolean representing whether event has been cancelled or not
      */
     public ScheduleEntry(LocalDateTime start, LocalDateTime end, String eventId, String eventName, String roomName,
                          String amenities, String attendees, String speakers, Duration duration, int remainingSpots,
-                         int capacity, boolean vip) {
+                         int capacity, boolean vip, boolean cancelled) {
         this.start = new SimpleObjectProperty<>(start);
         this.end = new SimpleObjectProperty<>(end);
         this.eventId = new SimpleStringProperty(eventId);
@@ -59,6 +61,7 @@ public class ScheduleEntry {
         this.remainingSpots = new SimpleIntegerProperty(remainingSpots);
         this.capacity = new SimpleIntegerProperty(capacity);
         this.vip = new SimpleBooleanProperty(vip);
+        this.cancelled = new SimpleBooleanProperty(cancelled);
     }
 
     //region Getters and Setters
@@ -156,6 +159,18 @@ public class ScheduleEntry {
 
     public void setVip(boolean vip) {
         this.vip.set(vip);
+    }
+
+    public boolean isCancelled() {
+        return cancelled.get();
+    }
+
+    public BooleanProperty cancelledProperty() {
+        return cancelled;
+    }
+
+    public void setCancelled(boolean cancelled) {
+        this.cancelled.set(cancelled);
     }
     //endregion
 }
