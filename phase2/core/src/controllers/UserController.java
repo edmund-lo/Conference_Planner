@@ -495,4 +495,11 @@ public abstract class UserController {
         this.deserializeData();
         return up.greeting(um.getUserInfo(this.username)[0], um.getUserInfo(this.username)[1]);
     }
+
+    public JSONObject getMessageThreadJSON(String ms){
+        this.deserializeData();
+        JSONArray a = new JSONArray();
+        a.add(mm.getMessageThreadJson(ms));
+        return up.getMessageThread(a);
+    }
 }

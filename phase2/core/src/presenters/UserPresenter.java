@@ -199,4 +199,8 @@ public class UserPresenter {
     public JSONObject getCommonEvents(JSONArray data){
         return pu.createJSON("success", "returning common events", data);
     }
+
+    public JSONObject getMessageThread(JSONArray data) {
+        return pu.createJSON("success", "returning message thread", data);
+    }
 }
