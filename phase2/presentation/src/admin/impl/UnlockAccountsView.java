@@ -13,6 +13,9 @@ import model.LoginLog;
 import model.UserAccount;
 import java.time.LocalDateTime;
 
+/**
+ * View class for unlocking user accounts screen
+ */
 public class UnlockAccountsView implements IUnlockAccountsView {
     @FXML
     private TableView<UserAccount> userTable;

@@ -8,6 +8,9 @@ import javafx.scene.text.Text;
 import model.User;
 import organizer.IMessageUsersView;
 
+/**
+ * View class for messaging speakers scene
+ */
 public class MessageSpeakersView implements IMessageUsersView {
     @FXML
     private TableView<User> userTable;

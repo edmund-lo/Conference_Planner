@@ -11,6 +11,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import model.User;
 
+/**
+ * View class for setting attendees' VIP status screen
+ */
 public class SetVipView implements ISetVipView {
     @FXML
     private TableView<User> userTable;

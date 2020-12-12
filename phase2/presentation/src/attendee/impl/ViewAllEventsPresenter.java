@@ -33,7 +33,9 @@ public class ViewAllEventsPresenter implements IViewEventsPresenter {
     @Override
     public void pressButtonAction(ActionEvent actionEvent) {
         clearResultText();
-
+        if(this.selectedEvent == null){
+            return;
+        }
         JSONObject responseJson = ac.signUpEventAttendance(this.selectedEvent.getEventId());
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
         if (String.valueOf(responseJson.get("status")).equals("success")) init();
@@ -71,6 +73,9 @@ public class ViewAllEventsPresenter implements IViewEventsPresenter {
     @Override
     public void displayEventDetails(ScheduleEntry event) {
         this.selectedEvent = event;
+        if(event == null){
+            return;
+        }
         this.view.setSummaryEventName(event.getEventName());
         this.view.setSummaryRoomName(event.getRoomName());
         this.view.setSummaryAttendees(event.getAttendees());

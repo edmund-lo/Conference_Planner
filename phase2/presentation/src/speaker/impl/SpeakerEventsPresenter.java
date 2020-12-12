@@ -21,7 +21,7 @@ import util.TextResultUtil;
 import java.util.List;
 
 /**
- * Presenter class for viewing speaker events plus messaging events' attendees screen
+ * Presenter class for viewing speaker's own events plus messaging events' attendees screen
  */
 public class SpeakerEventsPresenter implements ISpeakerEventsPresenter {
     private final ISpeakerEventsView view;

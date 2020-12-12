@@ -11,6 +11,9 @@ import util.NumberTextField;
 
 import java.math.BigDecimal;
 
+/**
+ * View class for creating a new room scene
+ */
 public class CreateRoomView implements ICreateRoomView {
     @FXML
     private TextField roomName;

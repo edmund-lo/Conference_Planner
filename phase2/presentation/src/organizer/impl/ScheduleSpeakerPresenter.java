@@ -46,7 +46,9 @@ public class ScheduleSpeakerPresenter implements IScheduleSpeakerPresenter {
     @Override
     public void scheduleSpeakerButtonAction(ActionEvent actionEvent) {
         clearResultText();
-
+        if(selectedEvent == null){
+            return;
+        }
         String speaker = this.view.getAvailableSpeakerChoiceBox().getValue();
         JSONObject responseJson = oc.scheduleSpeaker(selectedEvent.getEventId(), speaker);
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));

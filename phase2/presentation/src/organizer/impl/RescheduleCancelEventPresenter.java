@@ -49,7 +49,9 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
     @Override
     public void cancelButtonAction(ActionEvent actionEvent) {
         clearResultText();
-
+        if(selectedEvent == null){
+            return;
+        }
         JSONObject responseJson = oc.cancelEvent(this.selectedEvent.getEventId());
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
         if (String.valueOf(responseJson.get("status")).equals("success")) {
@@ -66,7 +68,9 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
     @Override
     public void rescheduleButtonAction(ActionEvent actionEvent) {
         clearResultText();
-
+        if(this.selectedEvent == null){
+            return;
+        }
         JSONObject queryJson = constructEventJson();
         JSONObject responseJson = oc.rescheduleEvent(queryJson);
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));

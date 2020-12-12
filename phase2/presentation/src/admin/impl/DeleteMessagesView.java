@@ -13,6 +13,9 @@ import model.MessageThread;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * View class for delete message threads screen
+ */
 public class DeleteMessagesView implements IDeleteMessagesView {
     @FXML
     private TableView<MessageThread> deleteInbox;

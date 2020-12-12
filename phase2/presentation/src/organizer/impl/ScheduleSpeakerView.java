@@ -14,6 +14,9 @@ import util.DateTimeUtil;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+/**
+ * View class for scheduling speakers scene
+ */
 public class ScheduleSpeakerView implements IScheduleSpeakerView {
     @FXML
     private TableView<ScheduleEntry> eventTable;

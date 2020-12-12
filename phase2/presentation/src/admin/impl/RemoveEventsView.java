@@ -13,6 +13,9 @@ import util.DateTimeUtil;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+/**
+ * View class for removing events screen
+ */
 public class RemoveEventsView implements IRemoveEventsView {
     @FXML
     private TableView<ScheduleEntry> eventTable;
