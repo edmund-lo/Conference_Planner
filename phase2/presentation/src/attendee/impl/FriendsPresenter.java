@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import model.ScheduleEntry;
@@ -171,6 +172,8 @@ public class FriendsPresenter implements IFriendsPresenter {
                 this.view.getUsernameUserColumn().setCellValueFactory(new PropertyValueFactory<>("username"));
                 this.view.getUserTypeUserColumn().setCellValueFactory(new PropertyValueFactory<>("userType"));
                 this.view.getPendingUserColumn().setCellValueFactory(param -> param.getValue().getSelected());
+                this.view.getPendingUserColumn()
+                        .setCellFactory(CheckBoxTableCell.forTableColumn(this.view.getPendingUserColumn()));
                 this.view.getUserTable().setItems(observableUsers);
                 this.view.getUserTable().getSelectionModel().selectedItemProperty().addListener(
                         (observable, oldValue, newValue) -> displayUserDetails(newValue, type));
@@ -266,7 +269,7 @@ public class FriendsPresenter implements IFriendsPresenter {
     }
 
     /**
-     * Init method which sets all the button actions
+     * Init method which sets all the button actions, loads all friend related information
      */
     @Override
     public void init() {

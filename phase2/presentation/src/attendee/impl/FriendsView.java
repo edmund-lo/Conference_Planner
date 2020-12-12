@@ -11,6 +11,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import model.User;
 
+/**
+ * View class for friends functionality screen
+ */
 public class FriendsView implements IFriendsView {
     @FXML
     private TableView<User> friendTable;

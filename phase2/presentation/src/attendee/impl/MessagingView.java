@@ -10,6 +10,9 @@ import model.MessageThread;
 
 import java.util.List;
 
+/**
+ * View class for messaging functionality screen
+ */
 public class MessagingView implements IMessagingView {
     @FXML
     private TabPane tabPane;

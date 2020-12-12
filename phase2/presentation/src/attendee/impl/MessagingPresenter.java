@@ -31,6 +31,9 @@ import util.TextResultUtil;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Presenter class for messaging functionality screen
+ */
 public class MessagingPresenter implements IMessagingPresenter {
     private final IMessagingView view;
     private final AttendeeController ac;
@@ -44,6 +47,11 @@ public class MessagingPresenter implements IMessagingPresenter {
     private TextField subjectField;
     private TextArea contentArea;
 
+    /**
+     * Initialises a MessagingPresenter object with given view and new AttendeeController,
+     * gets and sets current session's user information
+     * @param view IMessagingView interface implementation
+     */
     public MessagingPresenter(IMessagingView view) {
         this.view = view;
         getUserData();
@@ -51,6 +59,10 @@ public class MessagingPresenter implements IMessagingPresenter {
         init();
     }
 
+    /**
+     * Performs reply to message button action and displays the result, refreshes message thread
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void replyButtonAction(ActionEvent actionEvent) {
         clearResultText();
@@ -59,7 +71,6 @@ public class MessagingPresenter implements IMessagingPresenter {
                 this.view.getContent());
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
         if (responseJson.get("status").equals("success")) {
-            refreshAllInboxes();
             JSONObject updatedJson = ac.getMessageThreadJSON(this.selectedPrimaryMessageThread.getMessageThreadId());
             MessageThread messageThread = MessageThreadAdapter.getInstance()
                     .adaptData((JSONArray) updatedJson.get("data")).get(0);
@@ -67,6 +78,10 @@ public class MessagingPresenter implements IMessagingPresenter {
         }
     }
 
+    /**
+     * Performs send new message button action and displays the result
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void sendButtonAction(ActionEvent actionEvent) {
         JSONObject queryJson = constructMessageJson();
@@ -74,6 +89,10 @@ public class MessagingPresenter implements IMessagingPresenter {
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
     }
 
+    /**
+     * Performs write new message button action and creates a new tab with message draft layout
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void newMessageButtonAction(ActionEvent actionEvent) {
         SplitPane splitPane = new SplitPane();
@@ -141,54 +160,92 @@ public class MessagingPresenter implements IMessagingPresenter {
         this.view.getTabPane().getSelectionModel().selectLast();
     }
 
+    /**
+     * Performs move primary message to trash button action and refreshes all inboxes
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void moveToTrashButtonAction(ActionEvent actionEvent) {
         ac.moveToTrash(this.selectedPrimaryMessageThread.getMessageThreadId());
         refreshAllInboxes();
     }
 
+    /**
+     * Performs move primary message to archived button action and refreshes all inboxes
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void moveToArchivedButtonAction(ActionEvent actionEvent) {
         ac.moveToArchive(this.selectedPrimaryMessageThread.getMessageThreadId());
         refreshAllInboxes();
     }
 
+    /**
+     * Performs move archived message to primary button action and refreshes all inboxes
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void moveToPrimaryFirstButtonAction(ActionEvent actionEvent) {
         ac.moveToPrimary(this.selectedArchivedMessageThread.getMessageThreadId());
         refreshAllInboxes();
     }
 
+    /**
+     * Performs move trash message to primary button action and refreshes all inboxes
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void moveToPrimarySecondButtonAction(ActionEvent actionEvent) {
         ac.moveToPrimary(this.selectedTrashMessageThread.getMessageThreadId());
         refreshAllInboxes();
     }
 
+    /**
+     * Performs mark unread primary message button action and refreshes all inboxes
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void unreadPrimaryButtonAction(ActionEvent actionEvent) {
         ac.changeMessageStatus(this.selectedPrimaryMessageThread.getMessageThreadId());
         refreshAllInboxes();
     }
 
+    /**
+     * Performs mark archived primary message button action and refreshes all inboxes
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void unreadArchivedButtonAction(ActionEvent actionEvent) {
         ac.changeMessageStatus(this.selectedArchivedMessageThread.getMessageThreadId());
         refreshAllInboxes();
     }
 
+    /**
+     * Performs mark trash primary message button action and refreshes all inboxes
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void unreadTrashButtonAction(ActionEvent actionEvent) {
         ac.changeMessageStatus(this.selectedTrashMessageThread.getMessageThreadId());
         refreshAllInboxes();
     }
 
+    /**
+     * Sets the result of the action given status
+     * @param resultText String object describing the result
+     * @param status String object representing the status of the controller method call
+     */
     @Override
     public void setResultText(String resultText, String status) {
         this.view.setResultText(resultText);
         TextResultUtil.getInstance().addPseudoClass(status, this.view.getResultTextControl());
     }
 
+    /**
+     * Gets list of MessageThread entities based on type and adapts them to MessageThread models
+     * @param type String object representing which type of inbox to get
+     * @return List of MessageThread models
+     */
     @Override
     public List<MessageThread> getInbox(String type) {
         JSONObject responseJson = new JSONObject();
@@ -206,6 +263,11 @@ public class MessagingPresenter implements IMessagingPresenter {
         return MessageThreadAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
+    /**
+     * Displays a list of MessageThread models in the TableView corresponding to type along with setting listeners
+     * @param messageThreads List of MessageThread models
+     * @param type String object representing which TableView to display in
+     */
     @Override
     public void displayInbox(List<MessageThread> messageThreads, String type) {
         ObservableList<MessageThread> observableInbox = FXCollections.observableArrayList(messageThreads);
@@ -216,6 +278,8 @@ public class MessagingPresenter implements IMessagingPresenter {
                         new SimpleStringProperty(getMessageMembers(cdf.getValue().getRecipientNames())));
                 this.view.getPrimarySubjectColumn().setCellValueFactory(new PropertyValueFactory<>("subject"));
                 this.view.getPrimaryUnreadColumn().setCellValueFactory(param -> param.getValue().readProperty());
+                this.view.getPrimaryUnreadColumn()
+                        .setCellFactory(CheckBoxTableCell.forTableColumn(this.view.getPrimaryUnreadColumn()));
                 this.view.getPrimaryInbox().setItems(observableInbox);
                 this.view.getPrimaryInbox().getSelectionModel().selectedItemProperty().addListener(
                         (observable, oldValue, newValue) -> displayMessageThread(newValue, type));
@@ -225,6 +289,8 @@ public class MessagingPresenter implements IMessagingPresenter {
                         new SimpleStringProperty(getMessageMembers(cdf.getValue().getRecipientNames())));
                 this.view.getArchivedSubjectColumn().setCellValueFactory(new PropertyValueFactory<>("subject"));
                 this.view.getArchivedUnreadColumn().setCellValueFactory(param -> param.getValue().readProperty());
+                this.view.getArchivedUnreadColumn()
+                        .setCellFactory(CheckBoxTableCell.forTableColumn(this.view.getArchivedUnreadColumn()));
                 this.view.getArchivedInbox().setItems(observableInbox);
                 this.view.getArchivedInbox().getSelectionModel().selectedItemProperty().addListener(
                         (observable, oldValue, newValue) -> displayMessageThread(newValue, type));
@@ -234,6 +300,8 @@ public class MessagingPresenter implements IMessagingPresenter {
                         new SimpleStringProperty(getMessageMembers(cdf.getValue().getRecipientNames())));
                 this.view.getTrashSubjectColumn().setCellValueFactory(new PropertyValueFactory<>("subject"));
                 this.view.getTrashUnreadColumn().setCellValueFactory(param -> param.getValue().readProperty());
+                this.view.getTrashUnreadColumn()
+                        .setCellFactory(CheckBoxTableCell.forTableColumn(this.view.getTrashUnreadColumn()));
                 this.view.getTrashInbox().setItems(observableInbox);
                 this.view.getTrashInbox().getSelectionModel().selectedItemProperty().addListener(
                         (observable, oldValue, newValue) -> displayMessageThread(newValue, type));
@@ -241,6 +309,11 @@ public class MessagingPresenter implements IMessagingPresenter {
         }
     }
 
+    /**
+     * Displays a MessageThread model's attributes in the tab corresponding to type
+     * @param messageThread User model that has been selected
+     * @param type String object representing which tab to display in
+     */
     @Override
     public void displayMessageThread(MessageThread messageThread, String type) {
         if (!messageThread.isRead()) ac.changeMessageStatus(messageThread.getMessageThreadId());
@@ -269,6 +342,9 @@ public class MessagingPresenter implements IMessagingPresenter {
         }
     }
 
+    /**
+     * Init method which sets all the button actions, displays all inboxes
+     */
     @Override
     public void init() {
         this.view.setMoveToArchivedButtonAction(this::moveToArchivedButtonAction);
@@ -283,6 +359,9 @@ public class MessagingPresenter implements IMessagingPresenter {
         refreshAllInboxes();
     }
 
+    /**
+     * Helper method to get and set current user's information to the view class variable
+     */
     @Override
     public void getUserData() {
         UserAccountHolder holder = UserAccountHolder.getInstance();
@@ -291,6 +370,9 @@ public class MessagingPresenter implements IMessagingPresenter {
         this.view.setSessionUserType(account.getUserType());
     }
 
+    /**
+     * Helper method to refresh all three inboxes
+     */
     private void refreshAllInboxes() {
         List<MessageThread> primaryInbox = getInbox("primary");
         displayInbox(primaryInbox, "primary");
@@ -300,6 +382,11 @@ public class MessagingPresenter implements IMessagingPresenter {
         displayInbox(trashInbox, "trash");
     }
 
+    /**
+     * Gets a string that represents the list of participants in the message thread
+     * @param recipients List of String objects representing recipients' usernames
+     * @return String object representing members' string
+     */
     private String getMessageMembers(List<String> recipients) {
         StringBuilder sb = new StringBuilder();
         for (String name : recipients) {
@@ -324,6 +411,10 @@ public class MessagingPresenter implements IMessagingPresenter {
         pane.setVvalue(1D);
     }
 
+    /**
+     * Helper method that performs select all checkbox action and updates the recipient list
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     private void selectAllAction(ActionEvent actionEvent) {
         boolean checked = this.selectAll.isSelected();
         for (User u : this.users)
@@ -331,6 +422,10 @@ public class MessagingPresenter implements IMessagingPresenter {
         updateRecipientList(this.recipientsField);
     }
 
+    /**
+     * Updates recipientField with the checked rows in the user table
+     * @param recipientField JavaFX TextField object where recipient list is shown
+     */
     private void updateRecipientList(TextField recipientField) {
         StringBuilder sb = new StringBuilder();
         String prefix = "";
@@ -344,6 +439,10 @@ public class MessagingPresenter implements IMessagingPresenter {
         recipientField.setText(sb.toString());
     }
 
+    /**
+     * Helper method to encode a JSONObject for a message form
+     * @return JSONObject object representing a message form
+     */
     @SuppressWarnings("unchecked")
     private JSONObject constructMessageJson() {
         JSONObject queryJson = new JSONObject();
@@ -356,6 +455,9 @@ public class MessagingPresenter implements IMessagingPresenter {
         return queryJson;
     }
 
+    /**
+     * Helper method to clear all result text and affected form fields
+     */
     private void clearResultText() {
         this.view.setResultText("");
         TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl());

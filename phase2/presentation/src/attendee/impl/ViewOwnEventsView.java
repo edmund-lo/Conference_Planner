@@ -13,6 +13,9 @@ import util.DateTimeUtil;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+/**
+ * View class for viewing own schedule screen
+ */
 public class ViewOwnEventsView implements IViewEventsView {
     @FXML
     private TableView<ScheduleEntry> eventTable;
