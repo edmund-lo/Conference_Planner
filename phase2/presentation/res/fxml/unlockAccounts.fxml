@@ -43,7 +43,7 @@
 
                     <HBox spacing="10" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="4"
                           GridPane.columnSpan="2">
-                        <Button text="Unlock Account" fx:id="unlockButton" onAction="#executeAddUnlock"/>
+                        <Button text="Unlock Account" fx:id="unlockButton" onAction="#executeAddUnlock" disable="true"/>
                     </HBox>
                 </GridPane>
             </SplitPane>

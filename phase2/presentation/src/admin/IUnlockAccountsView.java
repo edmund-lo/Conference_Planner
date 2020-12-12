@@ -3,6 +3,7 @@ package admin;
 import common.ILoggedInView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import model.LoginLog;
@@ -18,6 +19,7 @@ public interface IUnlockAccountsView extends ILoggedInView {
     TableView<LoginLog> getLogsTable();
     TableColumn<LoginLog, LocalDateTime> getLoginTimeColumn();
     TableColumn<LoginLog, Boolean> getSuccessColumn();
+    Button getUnlockButton();
 
     String getUsername();
     void setUsername(String username);

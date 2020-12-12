@@ -96,6 +96,7 @@ public class UnlockAccountsPresenter implements IUnlockAccountsPresenter {
         this.selectedAccount = account;
         this.view.setUsername(account.getUsername());
         this.view.setUserType(account.getUserType());
+        this.view.getUnlockButton().setDisable(!account.isLocked());
         List<LoginLog> logs = getUserLoginLogs(account.getUsername());
         displayUserLoginLogs(logs);
     }
