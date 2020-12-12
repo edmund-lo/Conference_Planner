@@ -142,7 +142,7 @@ public class LoginPresenter {
     }
 
     public JSONObject usernameDoesntExist() {
-        return pu.createJSON("warning", "The username you entered does not exist.");
+        return pu.createJSON("error", "The username you entered does not exist.");
     }
 
     public JSONObject noSecurity() {
