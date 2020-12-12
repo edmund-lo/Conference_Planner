@@ -78,7 +78,7 @@
 
                 <HBox spacing="10" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="15"
                       GridPane.columnSpan="2">
-                    <Button text="Reschedule" fx:id="rescheduleButton" onAction="#executeAddReschedule"/>
+                    <Button text="Reschedule" fx:id="rescheduleButton" onAction="#executeAddReschedule" disable="true"/>
                     <Button text="Cancel" fx:id="cancelButton" onAction="#executeAddCancel"/>
                 </HBox>
             </GridPane>

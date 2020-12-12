@@ -3,6 +3,7 @@ package organizer;
 import common.ILoggedInView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -27,6 +28,7 @@ public interface IRescheduleCancelEventView extends ILoggedInView {
     DateTimePicker getSummaryStart();
     DateTimePicker getSummaryEnd();
     ChoiceBox<String> getSummaryVipChoiceBox();
+    Button getRescheduleButton();
 
     void setSummaryEventName(String eventName);
     void setSummaryCapacity(int capacity);

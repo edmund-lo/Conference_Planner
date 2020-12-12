@@ -113,6 +113,9 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
     @Override
     public void displayEventDetails(ScheduleEntry event) {
         this.selectedEvent = event;
+        JSONObject queryJson = constructRoomRequestJson(event);
+        JSONObject responseJson = oc.listPossibleRooms(queryJson);
+        displayPossibleRooms((JSONArray) responseJson.get("data"));
         this.view.setSummaryEventName(event.getEventName());
         this.view.setSummaryRoomName(event.getRoomName());
         this.view.setSummaryAttendees(event.getAttendees());
@@ -124,6 +127,8 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
         this.view.setSummaryCapacity(event.getCapacity());
         this.view.setSummaryRemainingSpots(event.getRemainingSpots());
         this.view.setSummaryVip(event.isVip() ? "Yes" : "No");
+        if (event.isCancelled()) this.view.getRescheduleButton().setDisable(false);
+        else this.view.getRescheduleButton().setDisable(true);
     }
 
     @Override
@@ -156,6 +161,22 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
     private void clearResultText() {
         this.view.setResultText("");
         TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl());
+    }
+
+    private void displayPossibleRooms(JSONArray jsonArray) {
+        for (Object o : jsonArray)
+            this.view.getSummaryRoomsChoiceBox().getItems().add(String.valueOf(o));
+    }
+
+    @SuppressWarnings("unchecked")
+    private JSONObject constructRoomRequestJson(ScheduleEntry event) {
+        JSONObject queryJson = new JSONObject();
+        queryJson.put("capacity", event.getCapacity());
+        queryJson.put("chairs", event.getAmenities().contains("Chairs"));
+        queryJson.put("tables", event.getAmenities().contains("Tables"));
+        queryJson.put("projector", event.getAmenities().contains("Projector"));
+        queryJson.put("sound", event.getAmenities().contains("Sound"));
+        return queryJson;
     }
 
     @SuppressWarnings("unchecked")

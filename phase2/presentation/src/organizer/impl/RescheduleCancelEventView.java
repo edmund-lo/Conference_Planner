@@ -3,6 +3,7 @@ package organizer.impl;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -57,6 +58,8 @@ public class RescheduleCancelEventView implements IRescheduleCancelEventView {
     private ChoiceBox<String> summaryVip;
     @FXML
     private Text resultText;
+    @FXML
+    private Button rescheduleButton;
 
     @FXML
     public void executeAddCancel(ActionEvent event) {
@@ -139,6 +142,11 @@ public class RescheduleCancelEventView implements IRescheduleCancelEventView {
     @Override
     public ChoiceBox<String> getSummaryVipChoiceBox() {
         return this.summaryVip;
+    }
+
+    @Override
+    public Button getRescheduleButton() {
+        return this.rescheduleButton;
     }
 
     @Override
