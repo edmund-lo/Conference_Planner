@@ -253,4 +253,8 @@ public class OrganizerPresenter extends UserPresenter {
     public JSONObject getAllSpeakers(JSONArray data){
         return pu.createJSON("success", "returning all speakers", data);
     }
+
+    public JSONObject roomIsNull(){
+        return pu.createJSON("warning", "Can't leave room empty!");
+    }
 }

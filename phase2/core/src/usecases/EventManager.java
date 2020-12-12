@@ -139,7 +139,7 @@ public class EventManager implements Serializable {
         event.removeAllUsersAndSpeakersFromEvent();
         event.changeTime(null, null);
         event.setCancelled(true);
-        changeEventRoom(eventID, null);
+        changeEventRoom(eventID, "Unassigned");
     }
 
     public boolean isEventCancelled(String evenyID){

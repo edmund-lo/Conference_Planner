@@ -277,16 +277,30 @@ public class OrganizerController extends UserController {
      */
     public JSONObject rescheduleEvent(JSONObject info) {
         this.deserializeData();
-
         String eventID = info.get("eventId").toString();
         String roomName = info.get("roomName").toString();
-        LocalDateTime newStart = (LocalDateTime) info.get("start");
-        LocalDateTime newEnd = (LocalDateTime) info.get("end");
+        LocalDateTime newStart = null;
+        LocalDateTime newEnd = null;
         boolean isVipEvent = (boolean) info.get("vip");
-        if(rm.addToRoomSchedule(newStart, newEnd, roomName, eventID)){
+        int capacity = 0;
+        try{
+            newStart = (LocalDateTime) info.get("start");
+            newEnd = (LocalDateTime) info.get("end");
+            capacity = (int) info.get("capacity");
+        }catch(ClassCastException ignored){}
+
+        if(roomName == null){
+            return op.roomIsNull();
+        }else if(capacity <= 0){
+            return op.invalidCapacityError();
+        }else if(newStart == null | newEnd == null){
+            return op.invalidDateError();
+        }
+        else if(rm.addToRoomSchedule(newStart, newEnd, roomName, eventID)){
             em.changeEventTime(eventID, newStart, newEnd);
             em.changeEventRoom(eventID, roomName);
             em.changeVipStatus(eventID, isVipEvent);
+            em.changeEventCap(eventID, capacity);
             em.rescheduleEvent(eventID);
             this.saveData();
             return op.rescheduleSuccess();
