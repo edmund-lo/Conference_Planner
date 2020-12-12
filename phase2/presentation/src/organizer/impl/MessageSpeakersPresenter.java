@@ -6,13 +6,17 @@ import controllers.OrganizerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import model.User;
 import model.UserAccount;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import organizer.IMessageUsersPresenter;
 import organizer.IMessageUsersView;
+import util.BooleanCell;
 import util.TextResultUtil;
 import java.util.Arrays;
 import java.util.List;
@@ -67,9 +71,10 @@ public class MessageSpeakersPresenter implements IMessageUsersPresenter {
     @Override
     public void displayUserList(List<User> users) {
         this.users = FXCollections.observableArrayList(users);
+        Callback<TableColumn<User, Boolean>, TableCell<User, Boolean>> booleanCellFactory =  p -> new BooleanCell<>();
+        this.view.getCheckedColumn().setCellFactory(booleanCellFactory);
         //This callback tell the cell how to bind the user model 'selected' property to the cell, itself
-        this.view.getCheckedColumn().setCellValueFactory(
-                param -> param.getValue().getSelected());
+        this.view.getCheckedColumn().setCellValueFactory(param -> param.getValue().getSelected());
         this.view.getFirstNameColumn().setCellValueFactory(new PropertyValueFactory<>("firstName"));
         this.view.getLastNameColumn().setCellValueFactory(new PropertyValueFactory<>("lastName"));
         this.view.getUsernameColumn().setCellValueFactory(new PropertyValueFactory<>("username"));

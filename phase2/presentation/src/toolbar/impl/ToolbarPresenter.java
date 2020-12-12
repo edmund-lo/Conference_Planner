@@ -11,9 +11,16 @@ import toolbar.IToolbarPresenter;
 import toolbar.IToolbarView;
 import util.ComponentFactory;
 
+/**
+ * Presenter class for the toolbar
+ */
 public class ToolbarPresenter implements IToolbarPresenter {
     private final IToolbarView view;
 
+    /**
+     * Initialises a ToolbarPresenter object with given view
+     * @param view IToolbarView interface implementation
+     */
     public ToolbarPresenter(IToolbarView view) {
         this.view = view;
         getUserData();
@@ -105,6 +112,10 @@ public class ToolbarPresenter implements IToolbarPresenter {
         ComponentFactory.getInstance().createLoggedInComponent(this.view.getToolBar(), "removeEvents.fxml");
     }
 
+    /**
+     * Performs log out button action and removes user account information for the static holder
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @SuppressWarnings("OptionalGetWithoutIsPresent")
     @Override
     public void logoutButtonAction(ActionEvent actionEvent) {
@@ -119,6 +130,9 @@ public class ToolbarPresenter implements IToolbarPresenter {
 
     }
 
+    /**
+     * Removes access to button options based on user type
+     */
     @Override
     public void filterAccess() {
         switch (this.view.getSessionUserType()) {
@@ -142,6 +156,9 @@ public class ToolbarPresenter implements IToolbarPresenter {
         }
     }
 
+    /**
+     * Init method which limits access and sets all the button actions
+     */
     @Override
     public void init() {
         filterAccess();
@@ -166,6 +183,9 @@ public class ToolbarPresenter implements IToolbarPresenter {
         this.view.setLogoutButtonAction(this::logoutButtonAction);
     }
 
+    /**
+     * Helper method to get and set current user's information to the view class variable
+     */
     @Override
     public void getUserData() {
         UserAccountHolder holder = UserAccountHolder.getInstance();
