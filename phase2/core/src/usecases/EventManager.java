@@ -138,7 +138,17 @@ public class EventManager implements Serializable {
         Event event = allEvents.get(eventID);
         event.removeAllUsersAndSpeakersFromEvent();
         event.changeTime(null, null);
+        event.setCancelled(true);
         changeEventRoom(eventID, null);
+    }
+
+    /**
+     * changes the status of the cancellation of the event. Note that this should be
+     * called in Organizer controller's rescheduleEvent
+     * @param eventID ID of the event
+     */
+    public void rescheduleEvent(String eventID){
+        allEvents.get(eventID).setCancelled(false);
     }
 
     /**
