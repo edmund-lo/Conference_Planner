@@ -87,7 +87,6 @@ public class ScheduleSpeakerPresenter implements IScheduleSpeakerPresenter {
 
         JSONObject responseJson = oc.listAvailableSpeakers(this.selectedEvent.getEventId());
         List<User> speakerList = UserAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
-        System.out.println(speakerList);
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
         this.view.getAvailableSpeakerChoiceBox().getItems().clear();
         for (User speaker : speakerList){
