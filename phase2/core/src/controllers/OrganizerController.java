@@ -3,6 +3,7 @@ package controllers;
 import org.json.simple.*;
 import presenters.OrganizerPresenter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -288,13 +289,12 @@ public class OrganizerController extends UserController {
         LocalDateTime newStart = null;
         LocalDateTime newEnd = null;
         boolean isVipEvent = (boolean) info.get("vip");
-        int capacity = (int) info.get("capacity");
+        int capacity = Integer.parseInt(info.get("capacity").toString());
         try{
             newStart = (LocalDateTime) info.get("start");
             newEnd = (LocalDateTime) info.get("end");
         }catch(ClassCastException ignored){}
-
-        if(roomName == null){
+        if(roomName.equals("Unassigned")){
             return op.roomIsNull();
         }else if(capacity <= 0){
             return op.invalidCapacityError();

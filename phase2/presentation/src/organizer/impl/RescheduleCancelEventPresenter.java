@@ -107,7 +107,6 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
         this.view.setSummaryCapacity(event.getCapacity());
         this.view.setSummaryRemainingSpots(event.getRemainingSpots());
         this.view.setSummaryVip(event.isVip() ? "Yes" : "No");
-        System.out.println("Event cancelled: "+event.isCancelled());
         setEditableFields(event.isCancelled());
     }
 
@@ -153,8 +152,8 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
     }
 
     private void setEditableFields(boolean cancelled) {
-        this.view.getRescheduleButton().setDisable(cancelled);
-        this.view.getCancelButton().setDisable(!cancelled);
+        this.view.getRescheduleButton().setDisable(!cancelled);
+        this.view.getCancelButton().setDisable(cancelled);
         if (cancelled) { // cancelled event
             this.view.getSummaryStart().setDisable(false);
             this.view.getSummaryEnd().setDisable(false);
