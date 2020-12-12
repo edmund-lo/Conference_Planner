@@ -28,9 +28,13 @@ public class Room implements Serializable {
     private TreeMap<LocalDateTime[], String> schedule;
 
     /**
-     * Constructor for a Room object
-     *
-     * @param name  the name of the room
+     * The constructor for Room
+     * @param name name of the room
+     * @param capacity capacity of the room
+     * @param hasChairs whether the room has chairs
+     * @param hasTables whether the room has talbes
+     * @param hasProjector whether the room has a projector
+     * @param hasSoundSystem whether the room has a sound system
      */
     public Room(String name, int capacity, boolean hasChairs, boolean hasTables, boolean hasProjector,
                 boolean hasSoundSystem){

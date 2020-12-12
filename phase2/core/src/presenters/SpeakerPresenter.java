@@ -61,9 +61,19 @@ public class SpeakerPresenter extends UserPresenter {
         return pu.createJSON("error", "Unable to message attendees of " + event + "!");
     }
 
+    /**
+     * Notifies the user that they entered no events
+     * @return JSONObject properly formatted for the presentation module containing the notice
+     */
     public JSONObject noEventsGivenError(){
         return pu.createJSON("warning", "No events entered");
     }
+
+    /**
+     * getter for all the speaker events in the system and formats it properly for the presentation module
+     * @param data all the speaker events
+     * @return JSONObject properly formatted for the presentation module containing the data
+     */
     public JSONObject getSpeakerEvents(JSONArray data){
         return pu.createJSON("success", "returning speaker events", data);
     }

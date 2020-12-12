@@ -157,7 +157,6 @@ public class OrganizerController extends UserController {
      * @param constraints the list of amenities that are needed for an event.
      * @return a list of constraints for an event.
      */
-
     private List<Boolean> getConstraints(JSONObject constraints){
         boolean hasChairs = (boolean) constraints.get("chairs");
         boolean hasTables = (boolean) constraints.get("tables");
@@ -215,7 +214,7 @@ public class OrganizerController extends UserController {
         }
         String roomName = eventInfo.get("roomName").toString();
         String eventName = eventInfo.get("eventName").toString();
-        System.out.println("cap: "+eventCap+" constr: "+constraints);
+        System.out.println(rm.getRoomSchedule(roomName));
         List<String> possibleRooms = rm.getAllRoomsWith(constraints, eventCap);
         if (eventName.equals("") | roomName.equals("")) { //ensures that the event name/times are not empty
             return op.emptyFieldError();
@@ -298,8 +297,8 @@ public class OrganizerController extends UserController {
         }catch(ClassCastException ignored){}
         if(roomName.equals("Unassigned")){
             return op.roomIsNull();
-        }else if(changeEventCapacity(roomName, capacity, eventID).get("status").toString().equals("warning")){
-            return changeEventCapacity(roomName, capacity, eventID);
+        }else if(canChangeEventCapacity(roomName, capacity, eventID).get("status").toString().equals("warning")){
+            return canChangeEventCapacity(roomName, capacity, eventID);
         }else if(newStart == null | newEnd == null){
             return op.invalidDateError();
         }
@@ -316,12 +315,13 @@ public class OrganizerController extends UserController {
     }
 
     /**
-     * Changes the capacity of a given Event.
-     *
-     *
-     * @return a JSONObject containing whether the capacity was changed successfully or not.
+     * helper method for checking if the specified capacity is a valid capacity for the event
+     * @param roomName name of the room that the event is held in
+     * @param capacity new capacity
+     * @param eventID ID of the event
+     * @return JSONObject detailing the outcome/error
      */
-    private JSONObject changeEventCapacity(String roomName, int capacity, String eventID){
+    private JSONObject canChangeEventCapacity(String roomName, int capacity, String eventID){
         this.deserializeData();
 
         if (capacity < 1){
@@ -334,29 +334,46 @@ public class OrganizerController extends UserController {
         }
     }
 
+    /**
+     * getter for the schedule after a certain time of a specified room
+     * @param roomName name of the room
+     * @param time time at which you wish to get the schedule starting from
+     * @return JSONObject containing the schedule
+     */
     public JSONObject listRoomSchedule(String roomName, LocalDateTime time) {
         this.deserializeData();
 
         JSONArray array = new JSONArray();
 
         for (String eventName: rm.getEventsInRoomAfter(roomName, time)){
-            System.out.println(em.getEventIDByName(eventName));
             array.add(em.getEventJson(em.getEventIDByName(eventName)));
         }
         System.out.println(array);
         return op.listRoomSchedule(array);
     }
 
+    /**
+     * getter for all users
+     * @return JSONObject containing all users
+     */
     public JSONObject getAllUsers(){
         this.deserializeData();
         return op.getAllUsers(um.getAllUsersJson());
     }
 
+    /**
+     * getter for all users not including this user
+     * @return JSONObject containing all the users
+     */
     public JSONObject getAllUsersNotSelf(){
         this.deserializeData();
         return op.getAllUsers(um.getAllUsersNotSelfJson(username));
     }
 
+    /**
+     * getter for all speakers in the system
+     * @return JSONObject containing the speakers
+     */
     public JSONObject getAllSpeakers(){
         this.deserializeData();
         return op.getAllSpeakers(um.getAllSpeakersJson());

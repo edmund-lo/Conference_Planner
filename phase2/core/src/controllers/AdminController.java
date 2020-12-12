@@ -118,6 +118,11 @@ public class AdminController extends UserController{
         }*/
     }
 
+    /**
+     * checks if username already exists
+     * @param username the username
+     * @return True iff username exists
+     */
     public boolean usernameExists(String username){
         ArrayList<String[]> accounts = uam.getAccountInfo();
         UserAccountGateway uag = new UserAccountGateway();
@@ -252,9 +257,10 @@ public class AdminController extends UserController{
         this.deserializeData();
 
         if(em.isEventEmpty(eventID)) {
+            String name = em.getEventName(eventID);
             em.removeEvent(eventID);
             this.saveData();
-            return ap.removeEventResult();
+            return ap.removeEventResult(name);
         } else {
             return ap.eventNotEmptyError();
         }

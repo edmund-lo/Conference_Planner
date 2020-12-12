@@ -4,6 +4,7 @@ import admin.IUnlockAccountsView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -33,6 +34,8 @@ public class UnlockAccountsView implements IUnlockAccountsView {
     private TextField userType;
     @FXML
     private Text resultText;
+    @FXML
+    private Button unlockButton;
 
     @FXML
     public void executeAddUnlock(ActionEvent event) {
@@ -80,6 +83,11 @@ public class UnlockAccountsView implements IUnlockAccountsView {
     @Override
     public TableColumn<LoginLog, Boolean> getSuccessColumn() {
         return this.successColumn;
+    }
+
+    @Override
+    public Button getUnlockButton() {
+        return this.unlockButton;
     }
 
     @Override

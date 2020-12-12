@@ -242,22 +242,45 @@ public class OrganizerPresenter extends UserPresenter {
         return pu.createJSON("warning", "Your capacity must be greater than 0");
     }
 
+    /**
+     * getter for the room schedules that formats it for the presentation module
+     * @param data the room schedules
+     * @return JSONObject properly formatted for the presentation module containing the data
+     */
     public JSONObject listRoomSchedule(JSONArray data){
         return pu.createJSON("success", "returning room schedule", data);
     }
 
+    /**
+     * getter for all users that formats it for the presentation module
+     * @param data all the users
+     * @return JSONObject properly formatted for the presentation module containing the data
+     */
     public JSONObject getAllUsers(JSONArray data){
         return pu.createJSON("success", "returning all users", data);
     }
 
+    /**
+     * getter for all the speakers that formats it for the presentation module
+     * @param data all the speakers
+     * @return JSONObject properly formatted for the presentation module containing the data
+     */
     public JSONObject getAllSpeakers(JSONArray data){
         return pu.createJSON("success", "returning all speakers", data);
     }
 
+    /**
+     * Notifies th euser that they cannot leave the room field empty
+     * @return JSONObject properly formatted for the presentation module containing the notice
+     */
     public JSONObject roomIsNull(){
         return pu.createJSON("warning", "Can't leave room empty!");
     }
 
+    /**
+     * Notifies the user that that the event is already cancelled
+     * @return JSONObject properly formatted for the presentation module containing the notice
+     */
     public JSONObject alreadyCancelled(){
         return pu.createJSON("warning", "Event is already cancelled");
     }

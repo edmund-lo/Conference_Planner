@@ -84,7 +84,6 @@ public class AttendeeController extends UserController {
                 numEvents += 1;
             }
         }
-
         return ap.numberNextDayEvents(numEvents);
     }
 
