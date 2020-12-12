@@ -158,6 +158,7 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
     }
 
     private void displayPossibleRooms(JSONArray jsonArray) {
+        this.view.getSummaryRoomsChoiceBox().getItems().clear();
         for (Object o : jsonArray)
             this.view.getSummaryRoomsChoiceBox().getItems().add(String.valueOf(o));
     }
