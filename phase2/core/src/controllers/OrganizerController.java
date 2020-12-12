@@ -278,11 +278,11 @@ public class OrganizerController extends UserController {
     public JSONObject rescheduleEvent(JSONObject info) {
         this.deserializeData();
 
-        String eventID = info.get("eventID").toString();
+        String eventID = info.get("eventId").toString();
         String roomName = info.get("roomName").toString();
-        LocalDateTime newStart = (LocalDateTime) info.get("startTime");
-        LocalDateTime newEnd = (LocalDateTime) info.get("endTime");
-        boolean isVipEvent = (boolean) info.get("isVip");
+        LocalDateTime newStart = (LocalDateTime) info.get("start");
+        LocalDateTime newEnd = (LocalDateTime) info.get("end");
+        boolean isVipEvent = (boolean) info.get("vip");
         if(rm.addToRoomSchedule(newStart, newEnd, roomName, eventID)){
             em.changeEventTime(eventID, newStart, newEnd);
             em.changeEventRoom(eventID, roomName);
