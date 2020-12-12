@@ -35,12 +35,17 @@ public class EventManager implements Serializable {
     }
 
     /**
-     * Creator for a new event
-     *
-     * @param eventName the name of the event
-     * @param startTime the start time of the event
-     * @param endTime the end time of the event
-     * @param roomName the name of the room the event is in
+     * For creating a new event
+     * @param eventName name of the event
+     * @param startTime start time of the event
+     * @param endTime end time of the event
+     * @param roomName name of the room
+     * @param chairs whether the event needs chairs
+     * @param tables whether the event needs tables
+     * @param projector whether the event needs a projector
+     * @param speakers the speakers speaking at the event
+     * @param capacity the capacity of the event
+     * @param vipEvent whether the vent is a VIP event or not
      */
     public void createNewEvent(String eventName, LocalDateTime startTime, LocalDateTime endTime, String roomName,
                                boolean chairs, boolean tables, boolean projector, boolean speakers, int capacity,
@@ -337,9 +342,6 @@ public class EventManager implements Serializable {
      * @return a StringBuilder's toString (a string) formatted
      * schedule that shows all events that are present in the Room
      */
-
-    //return a schedule of all the events at a given room name
-    //Events handle the room name
     public String requestScheduleByRoom(String username, String roomName) {
 
         StringBuilder ret = new StringBuilder("Schedule by Room  " + roomName + ":" + "\n");

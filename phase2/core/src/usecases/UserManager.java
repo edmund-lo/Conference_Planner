@@ -824,6 +824,12 @@ public class UserManager implements Serializable {
         return array;
     }
 
+    /**
+     * for checking if the user can be friends with another user
+     * @param friend the friend
+     * @param user the user
+     * @return True iff the user can be friends with the other user
+     */
     public boolean canBeFriends(String friend, String user) {
         if (allUsers.get(friend).getFriendsList().contains(user))
             return false;
@@ -832,6 +838,11 @@ public class UserManager implements Serializable {
         return true;
     }
 
+    /**
+     * getter for all users not including self in JSON format
+     * @param self the user requesting this
+     * @return JSONArray where each entry is the JSON representation of each user
+     */
     public JSONArray getAllUsersNotSelfJson(String self) {
         JSONArray array = new JSONArray();
 

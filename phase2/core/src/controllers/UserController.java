@@ -127,6 +127,10 @@ public abstract class UserController {
         return up.getAttendingEvents(array);
     }
 
+    /**
+     * getter for all events including the cancelled events
+     * @return JSONObject containing all of the events
+     */
     public JSONObject getAllEventsIncludingCancelled(){
         JSONArray array = new JSONArray();
         for(String eventID: em.getAllEventIds()){
@@ -483,7 +487,6 @@ public abstract class UserController {
                 }
             }
         }
-
         return up.getCommonEvents(array);
     }
 

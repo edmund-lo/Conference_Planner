@@ -65,10 +65,18 @@ public class MessageThread implements Serializable {
         return this.messages;
     }
 
+    /**
+     * adds message to this threads messages
+     * @param message the message
+     */
     public void addMessages(Message message) {
         this.messages.add(message);
     }
 
+    /**
+     * converts all of this thread's messages to JSON
+     * @return a JSONArray where each entry is a message in JSON format
+     */
     public JSONArray messagesToJSON(){
         JSONArray a = new JSONArray();
         for (Message m: messages)

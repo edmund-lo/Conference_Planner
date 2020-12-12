@@ -131,14 +131,29 @@ public class AdminPresenter extends UserPresenter {
         return pu.createJSON("success", "returning all login logs", data);
     }
 
+    /**
+     * formatter for getter for all accounts in the system
+     * @param data all the accounts
+     * @return JSONObject properly formatted for the presentation module containing the data
+     */
     public JSONObject getAllAccounts(JSONArray data){
         return pu.createJSON("success", "returning all accounts", data);
     }
 
+    /**
+     * formatter for getter for all of the user logs in the system
+     * @param data all the user logs
+     * @return JSONObject properly formatted for the presentation module containing the data
+     */
     public JSONObject getAllUserLogs(JSONArray data){
         return pu.createJSON("success", "returning all user logs", data);
     }
 
+    /**
+     * formatter for getter for all attendees in the system
+     * @param data all of the attendees
+     * @return JSONObject properly formatted for the presentation module containing the data
+     */
     public JSONObject viewAllAttendees(JSONArray data){
         return pu.createJSON("success", "returning all attendees", data);
     }

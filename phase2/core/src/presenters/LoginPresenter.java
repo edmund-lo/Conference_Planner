@@ -141,19 +141,35 @@ public class LoginPresenter {
         return pu.createJSON("warning", "Security answers cannot be empty.");
     }
 
+    /**
+     * Notifies the user that the username does not exist
+     * @return JSONObject properly formatted for the presentation module containing the notice
+     */
     public JSONObject usernameDoesntExist() {
         return pu.createJSON("error", "The username you entered does not exist.");
     }
 
+    /**
+     * Notifies the user that they don't have security set for this account
+     * @return JSONObject properly formatted for the presentation module containing the notice
+     */
     public JSONObject noSecurity() {
         return pu.createJSON("warning", "You don't have security set for this account. Register your" +
                 " account to set your security.");
     }
 
+    /**
+     * Notifies the user that their account has been updated
+     * @return JSONObject properly formatted for the presentation module containing the notice
+     */
     public JSONObject AccountUpdated() {
         return pu.createJSON("success", "Your account has updated");
     }
 
+    /**
+     * Notifies the user that their first or last name cannot be empty
+     * @return JSONObject properly formatted for the presentation module containing the notice
+     */
     public JSONObject emptyName() {
         return pu.createJSON("warning", "First or last name cannot be empty.");
     }

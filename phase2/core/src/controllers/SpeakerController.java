@@ -94,7 +94,6 @@ public class SpeakerController extends UserController {
         for (String eventID: um.getSpeakerSchedule(this.username).keySet()){
             array.add(em.getEventJson(eventID));
         }
-
         return sp.getSpeakerEvents(array);
     }
 }

@@ -160,42 +160,92 @@ public class UserPresenter {
         return pu.createJSON("success", "You have " + numUnread + " unread messages");
     }
 
+    /**
+     * getter for all attending events and formats it properly for the presentation module
+     * @param data all the attending events
+     * @return JSONObject properly formatted for the presentation module containing the data
+     */
     public JSONObject getAttendingEvents(JSONArray data){
         return pu.createJSON("success", "returning attending events", data);
     }
 
+    /**
+     * getter for all the events user can sign up for and formats it properly for the presentation module
+     * @param data all of the events user can sign up for
+     * @return JSONObject properly formatted for the presentation module containing the data
+     */
     public JSONObject getAllEventsCanSignUp(JSONArray data){
         return pu.createJSON("success", "returning all events can sign up", data);
     }
 
+    /**
+     * getter for all of the events and formats it properly for the presentation module
+     * @param data all of the events
+     * @return JSONObject properly formatted for the presentation module containing the data
+     */
     public JSONObject getAllEvents(JSONArray data){
         return pu.createJSON("success", "returning all events", data);
     }
 
+    /**
+     * getter for all of the primary messages and formats it properly for the presentation module
+     * @param data all of the primary messages
+     * @return JSONObject properly formatted for the presentation module containing the data
+     */
     public JSONObject getAllPrimaryMessages(JSONArray data){
         return pu.createJSON("success", "returning all primary messages", data);
     }
 
+    /**
+     * getter for all of the archived messages and formats it properly for the presentation module
+     * @param data all of the archived messages
+     * @return JSONObject properly formatted for the presentation module containing the data
+     */
     public JSONObject getAllArchivedMessages(JSONArray data){
         return pu.createJSON("success", "returning all archived messages", data);
     }
 
+    /**
+     * getter for all of the trash messages and formats it properly for the presentation module
+     * @param data all of the trash messages
+     * @return JSONObject properly formatted for the presentation module containing the data
+     */
     public JSONObject getAllTrashMessages(JSONArray data){
         return pu.createJSON("success", "returning all trash messages", data);
     }
 
+    /**
+     * getter for the friends of the user and formats it properly for the presentation module
+     * @param data user's friends
+     * @return JSONObject properly formatted for the presentation module containing the data
+     */
     public JSONObject getFriends(JSONArray data){
         return pu.createJSON("success", "returning all friends", data);
     }
 
+    /**
+     * getter for non friends of the user and formats it properly for the presentation module
+     * @param data the non friends of the user
+     * @return JSONObject properly formatted for the presentation module containing the data
+     */
     public JSONObject getNonFriends(JSONArray data){
         return pu.createJSON("success", "returning all non friends", data);
     }
 
+    /**
+     * getter for the sent requests of the user and formats it properly for the presentation module
+     * @param data the sent requests of the user
+     * @return JSONObject properly formatted for the presentation module containing the data
+     */
     public JSONObject getSentRequests(JSONArray data){
         return pu.createJSON("success", "return all sent requests", data);
     }
 
+    /**
+     * getter for all of the common events and formats it properly for the presentation module
+     * @param data all of the common events
+     * @return JSONObject properly formatted for the presentation module containing the data
+     */
     public JSONObject getCommonEvents(JSONArray data){
         return pu.createJSON("success", "returning common events", data);
     }

@@ -115,6 +115,12 @@ public class RoomManager implements Serializable {
         return possibleRooms;
     }
 
+    /**
+     * helper method for getting the amenities of the room
+     * @param thisRoom the room
+     * @return a list of booleans where each corresponds to whether the event needs the amenity or not. The order is
+     * chairs, tables, projector and sound system.
+     */
     private List<Boolean> getRoomAmenities(Room thisRoom) {
         List<Boolean> roomAmenities = new ArrayList<>();
         roomAmenities.add(thisRoom.hasChairs());

@@ -118,6 +118,11 @@ public class AdminController extends UserController{
         }*/
     }
 
+    /**
+     * checks if username already exists
+     * @param username the username
+     * @return True iff username exists
+     */
     public boolean usernameExists(String username){
         ArrayList<String[]> accounts = uam.getAccountInfo();
         UserAccountGateway uag = new UserAccountGateway();
