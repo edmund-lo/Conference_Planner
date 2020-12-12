@@ -70,6 +70,8 @@ public class MessagingPresenter implements IMessagingPresenter {
     @Override
     public void newMessageButtonAction(ActionEvent actionEvent) {
         SplitPane splitPane = new SplitPane();
+        splitPane.prefHeight(900);
+        splitPane.prefWidth(1600);
 
         TableView<User> userTable = new TableView<>();
         this.selectAll = new CheckBox();
