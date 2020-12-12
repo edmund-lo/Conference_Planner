@@ -260,7 +260,7 @@ public class LoginController {
         if (!usernameExists(user))
             return lp.usernameDoesntExist();
 
-        if (uam.getSecurity(user))
+        if (!uam.getSecurity(user))
             return lp.noSecurity();
 
         return accountJson(user);
