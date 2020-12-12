@@ -157,7 +157,7 @@ public class UserPresenter {
      * @return the method description in JSONObject format
      */
     public JSONObject numberUnreadMessages(int numUnread) {
-        return pu.createJSON("success", "You have " + numUnread + " unread messages");
+        return pu.createJSON("success", "You have " + numUnread + " unread message threads");
     }
 
     /**
