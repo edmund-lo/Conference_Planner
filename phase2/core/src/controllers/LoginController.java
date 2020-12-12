@@ -239,16 +239,10 @@ public class LoginController {
     }
 
     /**
-     * Lets user change password if they can answer 3 security questions correctly which were set when making an account.
+     * Verify that user can answer security questions in order to let them change their password.
      */
     public JSONObject verifySecurityAnswers(String User, String a1, String a2){
         uam = uag.deserializeData();
-
-        if (!usernameExists(User))
-            return lp.usernameDoesntExist();
-
-        if (uam.getSecurity(User))
-            return lp.noSecurity();
 
         String[] answers = uam.getSecurityAns(User);
 
@@ -259,6 +253,22 @@ public class LoginController {
             return lp.incorrectAnswers();
     }
 
+    /**
+     * Validate if username is eligible to change password.
+     */
+    public JSONObject validateUsername (String user){
+        if (!usernameExists(user))
+            return lp.usernameDoesntExist();
+
+        if (uam.getSecurity(user))
+            return lp.noSecurity();
+
+        return accountJson(user);
+    }
+
+    /**
+     * Lets user change password.
+     */
     public JSONObject resetPassword(String user, String newPassword, String confirmPassword){
 
         if (newPassword.length() == 0)
@@ -289,6 +299,9 @@ public class LoginController {
         llg.serializeData(llm);
     }
 
+    /**
+     * return JSONObject of a user.
+     */
     public JSONObject accountJson(String username){
         return lp.accountLogs(uam.getAccountJSON(username));
     }
