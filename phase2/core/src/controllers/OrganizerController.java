@@ -42,8 +42,9 @@ public class OrganizerController extends UserController {
         List<String> recipientNames = (ArrayList<String>) register.get("recipients");
         if (mm.messageCheck(content, sender, recipientNames)) { //ensure that message is valid
             String messageId = mm.createMessage(content, sender, recipientNames, subject);
-            addMessagesToUser(recipientNames, messageId);
             this.saveData();
+            addMessagesToUser(recipientNames, messageId);
+
             return op.messagedAllSpeakersResult();
         } else {
             return mp.invalidMessageError();
@@ -66,9 +67,10 @@ public class OrganizerController extends UserController {
         String sender = String.valueOf(register.get("sender"));
         if (mm.messageCheck(content, sender, recipientNames)) { //ensure the message is valid
             String messageId = mm.createMessage(content, sender, recipientNames, subject);
+            this.saveData();
             System.out.println(messageId);
             addMessagesToUser(recipientNames, messageId);
-            this.saveData();
+
             return op.messagedAllAttendeesResult();
         } else {
             return mp.invalidMessageError();
