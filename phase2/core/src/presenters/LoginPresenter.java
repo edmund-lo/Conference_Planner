@@ -154,4 +154,7 @@ public class LoginPresenter {
         return pu.createJSON("success", "Your account has updated");
     }
 
+    public JSONObject emptyName() {
+        return pu.createJSON("warning", "First or last name cannot be empty.");
+    }
 }

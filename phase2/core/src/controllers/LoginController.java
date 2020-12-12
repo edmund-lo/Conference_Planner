@@ -86,6 +86,9 @@ public class LoginController {
         if (ans1.length() == 0 || ans2.length() == 0)
             return lp.emptyAnswer();
 
+        if (firstName.length() == 0 || lastName.length() == 0)
+            return lp.emptyName();
+
         UserGateway ug = new UserGateway();
         UserManager um = ug.deserializeData();
         //Add account to the user manager and update the Accounts Arraylist
