@@ -128,7 +128,7 @@ public class ForgotPresenter implements IForgotPresenter {
                 }
         }
         this.view.setResultText(resultText, index);
-        TextResultUtil.getInstance().addPseudoClass(status, this.view.getResultTextControl());
+        TextResultUtil.getInstance().addPseudoClass(status, this.view.getResultTextControl(index));
     }
 
     /**
