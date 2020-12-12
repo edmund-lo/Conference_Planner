@@ -7,7 +7,7 @@ import java.util.List;
 
 public class MessageThread implements Serializable {
     private String sender;
-    private ArrayList receivers;
+    private List<String> receivers;
     private String messageThreadId;
     private String subject;
     private ArrayList messages;
@@ -20,7 +20,7 @@ public class MessageThread implements Serializable {
      * @param subject The subject line of this collection of messages
      */
 
-    public MessageThread(String sender, ArrayList receivers, String messageThreadId, String subject){
+    public MessageThread(String sender, List<String> receivers, String messageThreadId, String subject){
         this.sender = sender;
         this.receivers = receivers;
         this.messageThreadId = messageThreadId;
@@ -40,7 +40,7 @@ public class MessageThread implements Serializable {
      *
      * @return The a list of receivers' usernames
      */
-    public ArrayList getReceivers() { return this.receivers; }
+    public List<String> getReceivers() { return this.receivers; }
 
     /**
      * getter for messageThreadId of these messages

@@ -344,8 +344,10 @@ public class UserManager implements Serializable {
      *
      * @return A set containing all usernames.
      */
-    public Set<String> getAllUsernames() {
-        return allUsers.keySet();
+    public List<String> getAllUsernames() {
+        List<String> usernames = new ArrayList<>();
+        usernames.addAll(allUsers.keySet());
+        return usernames;
     }
 
     /**

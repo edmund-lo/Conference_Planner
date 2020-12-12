@@ -5,9 +5,11 @@ import entities.MessageThread;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.awt.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -73,7 +75,7 @@ public class MessageManager implements Serializable {
      *
      * return the created messageThreadId
      */
-    public String createMessage(String content, String sender, ArrayList receivers, String subject) {
+    public String createMessage(String content, String sender, List<String> receivers, String subject) {
         String messageThreadId;
         do {
             messageThreadId = UUID.randomUUID().toString();
@@ -106,7 +108,7 @@ public class MessageManager implements Serializable {
      *
      * @return boolean value that signifies the result of the check.
      */
-    public boolean messageCheck(String content, String sender, ArrayList<String> receivers) {
+    public boolean messageCheck(String content, String sender, List<String> receivers) {
         if (content.equals("")){return false;}
         for(String receiver : receivers) {
             if (receiver.equals(sender)) {
