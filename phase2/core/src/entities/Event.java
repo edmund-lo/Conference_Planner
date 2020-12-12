@@ -189,6 +189,14 @@ public class Event implements Serializable {
     }
 
     /**
+     * removes all users and speakers from event
+     */
+    public void removeAllUsersAndSpeakersFromEvent(){
+        this.attendingUsers.clear();
+        this.speakerNames.clear();
+    }
+
+    /**
      * Changes the time of when the event occurs. That is, changing the start and end time of the event.
      *
      * @param startTime the new start time of the event

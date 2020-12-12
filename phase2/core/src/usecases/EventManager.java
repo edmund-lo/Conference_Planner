@@ -136,12 +136,7 @@ public class EventManager implements Serializable {
      */
     public void cancelEvent(String eventID){
         Event event = allEvents.get(eventID);
-        for(String user: event.getAttendingUsers()){
-           removeUserFromEvent(eventID, user);
-        }
-        for(String speaker: event.getSpeakerNames()){
-            event.removeSpeaker(speaker);
-        }
+        event.removeAllUsersAndSpeakersFromEvent();
         event.changeTime(null, null);
         changeEventRoom(eventID, null);
     }
