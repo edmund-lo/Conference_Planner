@@ -6,10 +6,9 @@
 <?import java.net.URL?>
 <?import javafx.scene.text.Text?>
 <?import util.NumberTextField?>
-
 <?import util.DateTimePicker?>
-<?import util.ToggleSwitch?>
 <?import java.lang.String?>
+
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0" minWidth="0" prefWidth="1600" prefHeight="900"
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="organizer.impl.RescheduleCancelEventView">
@@ -40,8 +39,11 @@
                     </center>
                     <right>
                         <HBox>
-                            <Text text="Edit"/>
-                            <ToggleSwitch />
+                            <Label text="Edit:"/>
+                            <ChoiceBox value="Off" fx:id="editMode">
+                                <String fx:value="On"/>
+                                <String fx:value="Off"/>
+                            </ChoiceBox>
                         </HBox>
                     </right>
                 </BorderPane>
@@ -49,15 +51,15 @@
                 <Label text="Event Name:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
                 <Text fx:id="summaryEventName" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
                 <Label text="Capacity:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-                <NumberTextField fx:id="summaryCapacity" GridPane.columnIndex="1" GridPane.rowIndex="3" editable="false"/>
+                <NumberTextField fx:id="summaryCapacity" GridPane.columnIndex="1" GridPane.rowIndex="3" disable="true"/>
                 <Label text="Remaining Spots:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
                 <Text fx:id="summaryRemainingSpots" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
                 <Label text="Room Name:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
                 <ChoiceBox fx:id="summaryRoomName" GridPane.columnIndex="1" GridPane.rowIndex="5" disable="true"/>
                 <Label text="Start:" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
-                <DateTimePicker fx:id="summaryStart" GridPane.columnIndex="1" GridPane.rowIndex="6" editable="false"/>
+                <DateTimePicker fx:id="summaryStart" GridPane.columnIndex="1" GridPane.rowIndex="6" disable="true"/>
                 <Label text="End:" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
-                <DateTimePicker fx:id="summaryEnd" GridPane.columnIndex="1" GridPane.rowIndex="7" editable="false"/>
+                <DateTimePicker fx:id="summaryEnd" GridPane.columnIndex="1" GridPane.rowIndex="7" disable="true"/>
                 <Label text="Duration:" GridPane.columnIndex="0" GridPane.rowIndex="8"/>
                 <Text fx:id="summaryDuration" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
                 <Label text="Required Amenities:" GridPane.columnIndex="0" GridPane.rowIndex="9"/>

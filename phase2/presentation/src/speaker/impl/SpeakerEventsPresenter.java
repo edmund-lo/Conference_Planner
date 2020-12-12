@@ -49,8 +49,7 @@ public class SpeakerEventsPresenter implements ISpeakerEventsPresenter {
         clearResultText();
 
         JSONObject queryJson = constructMessageJson();
-        //JSONObject responseJson = sc.messageEventsAttendeesCmd(queryJson);
-        JSONObject responseJson = new JSONObject();
+        JSONObject responseJson = sc.messageEventsAttendeesCmd(queryJson);
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
     }
 
