@@ -68,6 +68,7 @@ public class UnlockAccountsPresenter implements IUnlockAccountsPresenter {
     @Override
     public List<UserAccount> getUserAccounts() {
         JSONObject responseJson = ac.getAllAccounts();
+        System.out.println(responseJson.toJSONString());
         return UserAccountAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
