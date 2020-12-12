@@ -58,7 +58,13 @@ public class MessagingPresenter implements IMessagingPresenter {
         JSONObject responseJson = ac.replyMessage(this.selectedPrimaryMessageThread.getMessageThreadId(),
                 this.view.getContent());
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
-        if (responseJson.get("status").equals("success")) refreshAllInboxes();
+        if (responseJson.get("status").equals("success")) {
+            refreshAllInboxes();
+            JSONObject updatedJson = ac.getMessageThreadJSON(this.selectedPrimaryMessageThread.getMessageThreadId());
+            MessageThread messageThread = MessageThreadAdapter.getInstance()
+                    .adaptData((JSONArray) updatedJson.get("data")).get(0);
+            displayMessageThread(messageThread, "primary");
+        }
     }
 
     @Override
@@ -315,6 +321,7 @@ public class MessagingPresenter implements IMessagingPresenter {
             messageTiles.getChildren().add(tile);
         }
         pane.setContent(messageTiles);
+        pane.setVvalue(1D);
     }
 
     private void selectAllAction(ActionEvent actionEvent) {

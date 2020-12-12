@@ -23,17 +23,29 @@ import util.TextResultUtil;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Presenter class for creating new events scene
+ */
 public class CreateEventPresenter implements ICreateEventPresenter {
     private final ICreateEventView view;
     private final OrganizerController oc;
     private final ObservableSet<CheckBox> selectedAmenities = FXCollections.observableSet();
 
+    /**
+     * Initialises a CreateEventPresenter object with given view and new OrganizerController,
+     * gets and sets current session's user information
+     * @param view IRescheduleCancelEventView interface implementation
+     */
     public CreateEventPresenter(ICreateEventView view) {
         this.view = view;
         this.oc = new OrganizerController(this.view.getSessionUsername());
         init();
     }
 
+    /**
+     * Performs first previous button action and displays the correct step accordion
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void previousFirstButtonAction(ActionEvent actionEvent) {
         this.view.getTitledPane(1).setDisable(false);
@@ -42,6 +54,10 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         this.view.getTitledPane(2).setExpanded(false);
     }
 
+    /**
+     * Performs second previous button action and displays the correct step accordion
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void previousSecondButtonAction(ActionEvent actionEvent) {
         this.view.getTitledPane(2).setDisable(false);
@@ -50,6 +66,10 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         this.view.getTitledPane(3).setExpanded(false);
     }
 
+    /**
+     * Performs find rooms button action and displays the result
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void findRoomsButtonAction(ActionEvent actionEvent) {
         clearResultText(1);
@@ -70,6 +90,10 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         }
     }
 
+    /**
+     * Performs preview room schedule button action and gets and displays the result in a table
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void previewRoomButtonAction(ActionEvent actionEvent) {
         clearResultText(2);
@@ -79,6 +103,10 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         displayRoomSchedule(roomSchedule);
     }
 
+    /**
+     * Performs view summary button action and displays the correct step accordion
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void summaryButtonAction(ActionEvent actionEvent) {
         this.view.setSummaryEventName(this.view.getEventName());
@@ -95,6 +123,10 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         this.view.getTitledPane(3).setExpanded(true);
     }
 
+    /**
+     * Performs create new event button action and displays the result
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void createEventButtonAction(ActionEvent actionEvent) {
         clearResultText(3);
@@ -110,12 +142,20 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         }
     }
 
+    /**
+     * Sets the result of the action given status
+     * @param resultText String object describing the result
+     * @param status String object representing the status of the controller method call
+     */
     @Override
     public void setResultText(String resultText, String status, int index) {
         this.view.setResultText(resultText, index);
         TextResultUtil.getInstance().addPseudoClass(status, this.view.getResultTextControl(index));
     }
 
+    /**
+     * Configures all four amenity checkboxes
+     */
     @Override
     public void observeAmenities() {
         configureCheckBox(this.view.getAmenityBox(1));
@@ -124,6 +164,10 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         configureCheckBox(this.view.getAmenityBox(4));
     }
 
+    /**
+     * Gets all Event entities that is scheduled in the room and converts them into ScheduleEntry models
+     * @return List of ScheduleEntry models
+     */
     @Override
     public List<ScheduleEntry> getRoomSchedule() {
         String roomName = this.view.getRoomName();
@@ -133,6 +177,10 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         return ScheduleAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
+    /**
+     * Displays schedule in the TableView and adds listeners
+     * @param schedule List of ScheduleEntry models
+     */
     @Override
     public void displayRoomSchedule(List<ScheduleEntry> schedule) {
         Text tableHeader = new Text("Room Schedule");
@@ -157,6 +205,9 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         this.view.getTableContainer().getChildren().add(scheduleTable);
     }
 
+    /**
+     * Init method which sets all the button actions, observe all amenity checkboxes
+     */
     @Override
     public void init() {
         observeAmenities();
@@ -169,6 +220,9 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         this.view.getTitledPane(1).setExpanded(true);
     }
 
+    /**
+     * Helper method to get and set current user's information to the view class variable
+     */
     @Override
     public void getUserData() {
         UserAccountHolder holder = UserAccountHolder.getInstance();
@@ -177,6 +231,10 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         this.view.setSessionUserType(account.getUserType());
     }
 
+    /**
+     * Helper method to add checkbox listeners
+     * @param checkBox JavaFX Checkbox object
+     */
     private void configureCheckBox(CheckBox checkBox) {
         if (checkBox.isSelected())
             selectedAmenities.add(checkBox);
@@ -187,6 +245,10 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         });
     }
 
+    /**
+     * Helper method that converts the checked amenities to a string
+     * @return String object representing checked amenities
+     */
     private String amenitiesToString() {
         StringBuilder sb = new StringBuilder();
         String prefix = "";
@@ -205,6 +267,10 @@ public class CreateEventPresenter implements ICreateEventPresenter {
             this.view.getRoomComboBox().getItems().add(String.valueOf(o));
     }
 
+    /**
+     * Helper method to encode a JSONObject for a new event form
+     * @return JSONObject object representing a new event form
+     */
     @SuppressWarnings("unchecked")
     private JSONObject constructEventJson() {
         JSONObject queryJson = new JSONObject();
@@ -221,6 +287,10 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         return queryJson;
     }
 
+    /**
+     * Helper method to encode a JSONObject for a message form
+     * @return JSONObject object representing a message form
+     */
     @SuppressWarnings("unchecked")
     private JSONObject constructRoomRequestJson() {
         JSONObject queryJson = new JSONObject();
@@ -232,6 +302,9 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         return queryJson;
     }
 
+    /**
+     * Helper method to clear all result text and affected form fields
+     */
     private void clearResultText(int index) {
         this.view.setResultText("", index);
         TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl(index));

@@ -21,11 +21,19 @@ import util.TextResultUtil;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Presenter class for messaging attendees scene
+ */
 public class MessageAttendeesPresenter implements IMessageUsersPresenter {
     private final IMessageUsersView view;
     private final OrganizerController oc;
     private ObservableList<User> users;
 
+    /**
+     * Initialises a MessageAttendeesPresenter object with given view and new OrganizerController,
+     * gets and sets current session's user information
+     * @param view IMessageUsersView interface implementation
+     */
     public MessageAttendeesPresenter(IMessageUsersView view) {
         this.view = view;
         getUserData();
@@ -33,6 +41,10 @@ public class MessageAttendeesPresenter implements IMessageUsersPresenter {
         init();
     }
 
+    /**
+     * Performs send message button action and displays the result
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void sendButtonAction(ActionEvent actionEvent) {
         clearResultText();
@@ -42,6 +54,10 @@ public class MessageAttendeesPresenter implements IMessageUsersPresenter {
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
     }
 
+    /**
+     * Performs select all checkbox action and updates the recipient list
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void selectAllAction(ActionEvent actionEvent) {
         boolean checked = this.view.getSelectAll().isSelected();
@@ -50,6 +66,11 @@ public class MessageAttendeesPresenter implements IMessageUsersPresenter {
         updateRecipientList();
     }
 
+    /**
+     * Sets the result of the action given status
+     * @param resultText String object describing the result
+     * @param status String object representing the status of the controller method call
+     */
     @Override
     public void setResultText(String resultText, String status) {
         this.view.setResultText(resultText);
@@ -61,6 +82,10 @@ public class MessageAttendeesPresenter implements IMessageUsersPresenter {
         }
     }
 
+    /**
+     * Gets all Speaker entities stored in the database and converts them into User models
+     * @return List of User models
+     */
     @Override
     public List<User> getAllUsers() {
         JSONObject responseJson = oc.getAllUsersNotSelf();
@@ -69,6 +94,10 @@ public class MessageAttendeesPresenter implements IMessageUsersPresenter {
         return UserAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
+    /**
+     * Displays users in the TableView and adds listeners
+     * @param users List of User models
+     */
     @Override
     public void displayUserList(List<User> users) {
         this.users = FXCollections.observableArrayList(
@@ -91,7 +120,9 @@ public class MessageAttendeesPresenter implements IMessageUsersPresenter {
         this.view.getUserTable().setEditable(true);
     }
 
-
+    /**
+     * Updates the recipient field with the checked rows in the user table
+     */
     @Override
     public void updateRecipientList() {
         StringBuilder sb = new StringBuilder();
@@ -106,6 +137,9 @@ public class MessageAttendeesPresenter implements IMessageUsersPresenter {
         this.view.setRecipients(sb.toString());
     }
 
+    /**
+     * Init method which sets all the button actions, gets and displays all attendees
+     */
     @Override
     public void init() {
         List<User> users = getAllUsers();
@@ -115,6 +149,9 @@ public class MessageAttendeesPresenter implements IMessageUsersPresenter {
         this.view.setSelectAllAction(this::selectAllAction);
     }
 
+    /**
+     * Helper method to get and set current user's information to the view class variable
+     */
     @Override
     public void getUserData() {
         UserAccountHolder holder = UserAccountHolder.getInstance();
@@ -123,6 +160,10 @@ public class MessageAttendeesPresenter implements IMessageUsersPresenter {
         this.view.setSessionUserType(account.getUserType());
     }
 
+    /**
+     * Helper method to encode a JSONObject for a message form
+     * @return JSONObject object representing a message form
+     */
     @SuppressWarnings("unchecked")
     private JSONObject constructMessageJson() {
         JSONObject queryJson = new JSONObject();
@@ -135,6 +176,9 @@ public class MessageAttendeesPresenter implements IMessageUsersPresenter {
         return queryJson;
     }
 
+    /**
+     * Helper method to clear all result text and affected form fields
+     */
     private void clearResultText() {
         this.view.setResultText("");
         TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl());
