@@ -27,6 +27,7 @@ public class ToolbarPresenter implements IToolbarPresenter {
         init();
     }
 
+    //region Button Actions that redirect the user to specified scene
     @Override
     public void homeButtonAction(ActionEvent actionEvent) {
         ComponentFactory.getInstance().createLoggedInComponent(actionEvent, "home.fxml");
@@ -111,6 +112,7 @@ public class ToolbarPresenter implements IToolbarPresenter {
     public void removeEventsButtonAction(ActionEvent actionEvent) {
         ComponentFactory.getInstance().createLoggedInComponent(this.view.getToolBar(), "removeEvents.fxml");
     }
+    //endregion
 
     /**
      * Performs log out button action and removes user account information for the static holder

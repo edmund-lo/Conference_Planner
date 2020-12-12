@@ -58,13 +58,7 @@ public class UserAccount {
         return locked.get();
     }
 
-    public BooleanProperty lockedProperty() {
-        return locked;
-    }
-
-    public void setLocked(boolean locked) {
-        this.locked.set(locked);
-    }
+    public BooleanProperty lockedProperty() { return locked; }
 
     public boolean isSetSecurity() {
         return setSecurity.get();
@@ -74,16 +68,8 @@ public class UserAccount {
         return securityQuestion1.get();
     }
 
-    public void setSecurityQuestion1(String securityQuestion1) {
-        this.securityQuestion1.set(securityQuestion1);
-    }
-
     public String getSecurityQuestion2() {
         return securityQuestion2.get();
-    }
-
-    public void setSecurityQuestion2(String securityQuestion2) {
-        this.securityQuestion2.set(securityQuestion2);
     }
     //endregion
 }

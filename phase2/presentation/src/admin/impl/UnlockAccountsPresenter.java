@@ -8,6 +8,7 @@ import common.UserAccountHolder;
 import controllers.AdminController;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.LoginLog;
 import model.UserAccount;
@@ -80,9 +81,10 @@ public class UnlockAccountsPresenter implements IUnlockAccountsPresenter {
         this.view.getUsernameColumn().setCellValueFactory(new PropertyValueFactory<>("username"));
         this.view.getUserTypeColumn().setCellValueFactory(new PropertyValueFactory<>("userType"));
         this.view.getLockedColumn().setCellValueFactory(param -> param.getValue().lockedProperty());
+        this.view.getLockedColumn().setCellFactory(CheckBoxTableCell.forTableColumn(this.view.getLockedColumn()));
         this.view.getUserTable().setItems(FXCollections.observableList(accounts));
         this.view.getUserTable().getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> handleSelect(newValue));
+                (observable, oldValue, newValue) -> displayUserAccountDetails(newValue));
     }
 
     /**
@@ -118,6 +120,7 @@ public class UnlockAccountsPresenter implements IUnlockAccountsPresenter {
         DateTimeUtil.getInstance().setLoginDateTimeCellFactory(this.view.getLoginTimeColumn());
         this.view.getLoginTimeColumn().setCellValueFactory(new PropertyValueFactory<>("loginTime"));
         this.view.getSuccessColumn().setCellValueFactory(param -> param.getValue().successProperty());
+        this.view.getSuccessColumn().setCellFactory(CheckBoxTableCell.forTableColumn(this.view.getSuccessColumn()));
         this.view.getLogsTable().setItems(FXCollections.observableList(logs));
     }
 
@@ -148,14 +151,5 @@ public class UnlockAccountsPresenter implements IUnlockAccountsPresenter {
     private void clearResultText() {
         this.view.setResultText("");
         TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl());
-    }
-
-    /**
-     * Helper method to handle select event
-     * @param account UserAccount model that has been selected
-     */
-    private void handleSelect(UserAccount account) {
-        getUserLoginLogs(account.getUsername());
-        displayUserAccountDetails(account);
     }
 }

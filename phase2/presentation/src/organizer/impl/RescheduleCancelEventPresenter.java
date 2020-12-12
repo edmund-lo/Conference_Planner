@@ -6,6 +6,7 @@ import controllers.OrganizerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.ScheduleEntry;
 import model.UserAccount;
@@ -21,11 +22,19 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Presenter class for rescheduling and cancelling events scene
+ */
 public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPresenter {
     private final IRescheduleCancelEventView view;
     private final OrganizerController oc;
     private ScheduleEntry selectedEvent;
 
+    /**
+     * Initialises a RescheduleCancelEventPresenter object with given view and new OrganizerController,
+     * gets and sets current session's user information
+     * @param view IRescheduleCancelEventView interface implementation
+     */
     public RescheduleCancelEventPresenter(IRescheduleCancelEventView view) {
         this.view = view;
         getUserData();
@@ -33,6 +42,10 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
         init();
     }
 
+    /**
+     * Performs cancel event button action and displays the result
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void cancelButtonAction(ActionEvent actionEvent) {
         clearResultText();
@@ -46,6 +59,10 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
         }
     }
 
+    /**
+     * Performs reschedule event button action and displays the result
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void rescheduleButtonAction(ActionEvent actionEvent) {
         clearResultText();
@@ -59,18 +76,31 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
         }
     }
 
+    /**
+     * Sets the result of the action given status
+     * @param resultText String object describing the result
+     * @param status String object representing the status of the controller method call
+     */
     @Override
     public void setResultText(String resultText, String status) {
         this.view.setResultText(resultText);
         TextResultUtil.getInstance().addPseudoClass(status, this.view.getResultTextControl());
     }
 
+    /**
+     * Gets all Event entities that can be rescheduled and converts them into ScheduleEntry models
+     * @return List of ScheduleEntry models
+     */
     @Override
     public List<ScheduleEntry> getEvents() {
         JSONObject responseJson = oc.getAllEventsIncludingCancelled();
         return ScheduleAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
+    /**
+     * Displays schedule in the TableView and adds listeners
+     * @param schedule List of ScheduleEntry models
+     */
     @Override
     public void displayEvents(List<ScheduleEntry> schedule) {
         DateTimeUtil.getInstance().setScheduleDateTimeCellFactory(this.view.getEventStartColumn());
@@ -81,6 +111,7 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
         this.view.getEventEndColumn().setCellValueFactory(new PropertyValueFactory<>("end"));
         this.view.getRemainingSpotsColumn().setCellValueFactory(new PropertyValueFactory<>("remainingSpots"));
         this.view.getCancelledColumn().setCellValueFactory(param -> param.getValue().cancelledProperty());
+        this.view.getCancelledColumn().setCellFactory(CheckBoxTableCell.forTableColumn(this.view.getCancelledColumn()));
 
         ObservableList<ScheduleEntry> observableSchedule = FXCollections.observableArrayList(schedule);
         this.view.getEventsTable().setItems(observableSchedule);
@@ -88,12 +119,14 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
                 (observable, oldValue, newValue) -> displayEventDetails(newValue));
     }
 
+    /**
+     * Displays event's attributes and sets certain fields to editable based on whether event is cancelled or not
+     * @param event ScheduleEntry model that has been selected
+     */
     @Override
     public void displayEventDetails(ScheduleEntry event) {
         this.selectedEvent = event;
-        if(event == null){
-            return;
-        }
+        if (event == null) return;
         JSONObject queryJson = constructRoomRequestJson(event);
         JSONObject responseJson = oc.listPossibleRooms(queryJson);
         displayPossibleRooms((JSONArray) responseJson.get("data"));
@@ -111,6 +144,9 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
         setEditableFields(event.isCancelled());
     }
 
+    /**
+     * Init method which sets all the button actions, gets and displays all events
+     */
     @Override
     public void init() {
         this.view.setCancelButtonAction(this::cancelButtonAction);
@@ -121,6 +157,9 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
         displayEvents(allEvents);
     }
 
+    /**
+     * Helper method to get and set current user's information to the view class variable
+     */
     @Override
     public void getUserData() {
         UserAccountHolder holder = UserAccountHolder.getInstance();
@@ -129,24 +168,32 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
         this.view.setSessionUserType(account.getUserType());
     }
 
+    /**
+     * Helper method to update the duration of an event when rescheduling start and end date/time
+     * @param picker JavaFX DateTimePicker utility object
+     */
     private void updateDuration(DateTimePicker picker) {
         picker.valueProperty().addListener(((observableValue, oldValue, newValue) -> {
             LocalDateTime start = this.view.getSummaryStart().getDateTimeValue();
             LocalDateTime end = this.view.getSummaryEnd().getDateTimeValue();
-            if(start == null | end == null){
+            if (start == null || end == null)
                 this.view.setSummaryDuration(Duration.ZERO);
-            }
-            else{
+            else
                 this.view.setSummaryDuration(Duration.between(start, end));
-            }
         }));
     }
 
+    /**
+     * Helper method to clear all result text and affected form fields
+     */
     private void clearResultText() {
         this.view.setResultText("");
         TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl());
     }
 
+    /**
+     * Helper method to clear all form fields affected by cancelling an event
+     */
     private void clearForm() {
         this.view.setSummaryStart(null);
         this.view.setSummaryEnd(null);
@@ -157,12 +204,20 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
         this.view.setSummaryRemainingSpots(0);
     }
 
+    /**
+     * Helper method to display all suggested rooms for rescheduling in a choice box
+     * @param jsonArray JSONArray object of possible room names
+     */
     private void displayPossibleRooms(JSONArray jsonArray) {
         this.view.getSummaryRoomsChoiceBox().getItems().clear();
         for (Object o : jsonArray)
             this.view.getSummaryRoomsChoiceBox().getItems().add(String.valueOf(o));
     }
 
+    /**
+     * Helper method to set editable fields to disabled or not based on cancelled
+     * @param cancelled boolean representing whether event is cancelled or not
+     */
     private void setEditableFields(boolean cancelled) {
         this.view.getRescheduleButton().setDisable(!cancelled);
         this.view.getCancelButton().setDisable(cancelled);
@@ -181,6 +236,11 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
         }
     }
 
+    /**
+     * Helper method to encode a JSONObject for a room request form
+     * @param event ScheduleEntry model that has been selected for rescheduling
+     * @return JSONObject object representing a room request form
+     */
     @SuppressWarnings("unchecked")
     private JSONObject constructRoomRequestJson(ScheduleEntry event) {
         JSONObject queryJson = new JSONObject();
@@ -192,6 +252,10 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
         return queryJson;
     }
 
+    /**
+     * Helper method to encode a JSONObject for an event rescheduling form
+     * @return JSONObject object representing an event rescheduling form
+     */
     @SuppressWarnings("unchecked")
     private JSONObject constructEventJson() {
         JSONObject queryJson = new JSONObject();
