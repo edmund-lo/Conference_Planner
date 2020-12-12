@@ -39,10 +39,10 @@ public class OrganizerController extends UserController {
         String content = String.valueOf(register.get("content"));
         String subject = String.valueOf(register.get("subject"));
         String sender = String.valueOf(register.get("sender"));
-        List<String> speakerNames = um.getAllSpeakerNames();
-        if (mm.messageCheck(content, sender, (ArrayList<String>) speakerNames)) { //ensure that message is valid
-            String messageId = mm.createMessage(content, sender, (ArrayList) speakerNames, subject);
-            addMessagesToUser((ArrayList<String>) speakerNames, messageId);
+        ArrayList<String> speakerNames = um.getAllSpeakerNames();
+        if (mm.messageCheck(content, sender, speakerNames)) { //ensure that message is valid
+            String messageId = mm.createMessage(content, sender, speakerNames, subject);
+            addMessagesToUser(speakerNames, messageId);
             this.saveData();
             return op.messagedAllSpeakersResult();
         } else {
@@ -62,12 +62,12 @@ public class OrganizerController extends UserController {
         String content = String.valueOf(register.get("content"));
         String subject = String.valueOf(register.get("subject"));
         String sender = String.valueOf(register.get("sender"));
-        Set<String> attendeeNames = um.getAllUsernames();
-        if (mm.messageCheck(content, sender, (ArrayList<String>) attendeeNames)) { //ensure the message is valid
-            String messageId = mm.createMessage(content, sender, (ArrayList) attendeeNames, subject);
+        List<String> attendeeNames = um.getAllUsernames();
+        if (mm.messageCheck(content, sender, attendeeNames)) { //ensure the message is valid
+            String messageId = mm.createMessage(content, sender, attendeeNames, subject);
             addMessagesToUser((ArrayList<String>) attendeeNames, messageId);
             this.saveData();
-            return op.messagedAllSpeakersResult();
+            return op.messagedAllAttendeesResult();
         } else {
             return mp.invalidMessageError();
         }

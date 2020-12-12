@@ -36,7 +36,7 @@ public class MessageAttendeesPresenter implements IMessageUsersPresenter {
         clearResultText();
 
         JSONObject queryJson = constructMessageJson();
-        JSONObject responseJson = oc.messageAllSpeakers(queryJson);
+        JSONObject responseJson = oc.messageAllAttendees(queryJson);
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
     }
 
