@@ -52,6 +52,10 @@ public class MessageManager implements Serializable {
         return this.allMessageThreads.get(messageThreadId);
     }
 
+    public List<String> getReceivers(String messageThreadID){
+        return this.allMessageThreads.get(messageThreadID).getReceivers();
+    }
+
     /**
      * Delete a message
      *

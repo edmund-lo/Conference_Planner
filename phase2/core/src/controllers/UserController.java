@@ -320,6 +320,10 @@ public abstract class UserController {
 
         if (mm.messageThreadExists(messageThreadId)) {
             String sender = mm.reply(this.username, messageThreadId, content);
+            List<String> recipients = mm.getReceivers(messageThreadId);
+            for (String recipient : recipients){
+                um.unreadForMes(recipient, messageThreadId);
+            }
             this.saveData();
             return mp.messageReplied(sender);
         } else {
