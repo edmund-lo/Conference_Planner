@@ -6,25 +6,26 @@ import attendee.IMessagingPresenter;
 import attendee.IMessagingView;
 import common.UserAccountHolder;
 import controllers.AttendeeController;
+import javafx.beans.Observable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.util.Callback;
 import model.Message;
 import model.MessageThread;
 import model.User;
 import model.UserAccount;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import util.BooleanCell;
 import util.DateTimeUtil;
 import util.TextResultUtil;
 import java.util.Arrays;
@@ -77,9 +78,7 @@ public class MessagingPresenter implements IMessagingPresenter {
         this.selectAll = new CheckBox();
         this.selectAll.setOnAction(this::selectAllAction);
         TableColumn<User, Boolean> checkedColumn = new TableColumn<>();
-        Callback<TableColumn<User, Boolean>, TableCell<User, Boolean>> booleanCellFactory = p -> new BooleanCell();
         checkedColumn.setGraphic(this.selectAll);
-        checkedColumn.setCellFactory(booleanCellFactory);
         TableColumn<User, String> firstNameColumn = new TableColumn<>("First Name");
         TableColumn<User, String> lastNameColumn = new TableColumn<>("Last Name");
         TableColumn<User, String> usernameColumn = new TableColumn<>("Username");
@@ -87,6 +86,8 @@ public class MessagingPresenter implements IMessagingPresenter {
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
+        checkedColumn.setCellFactory(CheckBoxTableCell.forTableColumn(checkedColumn));
+        checkedColumn.setEditable(true);
         userTable.getColumns().add(checkedColumn);
         userTable.getColumns().add(firstNameColumn);
         userTable.getColumns().add(lastNameColumn);
@@ -108,10 +109,17 @@ public class MessagingPresenter implements IMessagingPresenter {
 
         JSONObject responseJson = ac.getFriends();
         List<User> users = UserAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
-        this.users = FXCollections.observableArrayList(users);
+        this.users = FXCollections.observableArrayList(
+                user -> new Observable[]{user.getSelected()}
+        );
+        this.users.addAll(users);
+        this.users.addListener((ListChangeListener<User>) change -> {
+            while (change.next()) {
+                if (change.wasUpdated()) updateRecipientList(this.recipientsField);
+            }
+        });
         userTable.setItems(this.users);
-        userTable.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> updateRecipientList(this.recipientsField));
+        userTable.setEditable(true);
 
         gridPane.setAlignment(Pos.CENTER);
         gridPane.addRow(0, senderLabel, this.senderField);

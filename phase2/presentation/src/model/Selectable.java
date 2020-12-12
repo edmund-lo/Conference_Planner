@@ -12,8 +12,8 @@ public abstract class Selectable {
     /**
      * Constructor that sets default selected attribute to false
      */
-    protected Selectable() {
-        this.selected = new SimpleBooleanProperty(false);
+    protected Selectable(boolean selected) {
+        this.selected = new SimpleBooleanProperty(selected);
     }
 
     //region Getters and Setters

@@ -51,50 +51,6 @@ public class Message implements Serializable {
         return this.content;
     }
 
-//    /**
-//     * the toString method for sent message
-//     *
-//     * @return a String representation of Entities.Message that contains the senderId, receiverIds, the content in this
-//     * message and the time when it is sent and received
-//     */
-//    public String toStringSent(){
-//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-//        return "To: " + this.receiverId + "\n" +
-//                "Time: "+(dtf.format(this.messageTime)) + "\n"
-//                + "Message: " + this.content + "\n";
-//    }
-//
-//    /**
-//     * the toString method for received message
-//     *
-//     * @return a String representation of Entities.Message that contains the senderId, receiverIds, the content in this
-//     * message and the time when it is sent and received
-//     */
-//
-//    public String toStringReceived(){
-//        String x;
-//        if(this.read){ x = "Read."; }
-//        else{ x = "Unread."; }
-//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-//        return "From: " + this.senderId + "\n" +
-//                "Time: " + (dtf.format(this.messageTime)) + "\n" +
-//                "Message: " + this.content + "\n";
-//    }
-//
-//    /**
-//     * the toString method for inbox message
-//     *
-//     * @return a String representation of Entities.Message that contains the senderId, receiverIds, the content in this
-//     * message and the time when it is sent and received
-//     */
-//
-//    public String toStringInbox(){
-//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-//        return "From: " + this.senderId + "\n" +
-//                "Time: " + (dtf.format(this.messageTime)) + "\n" +
-//                "Message: " + this.content + "\n";
-//    }
-
     /**
      * For converting this class to a JSON format
      * @return a JSONObject that describes this entity

@@ -3,20 +3,19 @@ package organizer.impl;
 import adapter.UserAdapter;
 import common.UserAccountHolder;
 import controllers.OrganizerController;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
 import model.User;
 import model.UserAccount;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import organizer.IMessageUsersPresenter;
 import organizer.IMessageUsersView;
-import util.BooleanCell;
 import util.TextResultUtil;
 import java.util.Arrays;
 import java.util.List;
@@ -71,17 +70,24 @@ public class MessageSpeakersPresenter implements IMessageUsersPresenter {
 
     @Override
     public void displayUserList(List<User> users) {
-        this.users = FXCollections.observableArrayList(users);
-        Callback<TableColumn<User, Boolean>, TableCell<User, Boolean>> booleanCellFactory =  p -> new BooleanCell();
-        this.view.getCheckedColumn().setCellFactory(booleanCellFactory);
+        this.users = FXCollections.observableArrayList(
+                user -> new Observable[]{user.getSelected()}
+        );
+        this.users.addAll(users);
+        this.users.addListener((ListChangeListener<User>) change -> {
+            while (change.next()) {
+                if (change.wasUpdated()) updateRecipientList();
+            }
+        });
         //This callback tell the cell how to bind the user model 'selected' property to the cell, itself
         this.view.getCheckedColumn().setCellValueFactory(param -> param.getValue().getSelected());
         this.view.getFirstNameColumn().setCellValueFactory(new PropertyValueFactory<>("firstName"));
         this.view.getLastNameColumn().setCellValueFactory(new PropertyValueFactory<>("lastName"));
         this.view.getUsernameColumn().setCellValueFactory(new PropertyValueFactory<>("username"));
+        this.view.getCheckedColumn().setCellFactory(CheckBoxTableCell.forTableColumn(this.view.getCheckedColumn()));
+        this.view.getCheckedColumn().setEditable(true);
         this.view.getUserTable().setItems(this.users);
-        this.view.getUserTable().getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> updateRecipientList());
+        this.view.getUserTable().setEditable(true);
     }
 
 

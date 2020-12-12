@@ -28,7 +28,7 @@ public class User extends Selectable {
      * @param vip boolean representing whether user is VIP or not
      */
     public User(String username, String firstName, String lastName, String userType, boolean vip) {
-        super();
+        super(false);
         this.username = new SimpleStringProperty(username);
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
