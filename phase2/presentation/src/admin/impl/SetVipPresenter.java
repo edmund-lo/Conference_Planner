@@ -86,7 +86,7 @@ public class SetVipPresenter implements ISetVipPresenter {
         this.view.getLastNameColumn().setCellValueFactory(new PropertyValueFactory<>("lastName"));
         this.view.getVipColumn().setCellValueFactory(param -> param.getValue().vipProperty());
         this.view.getVipColumn().setCellFactory(CheckBoxTableCell.forTableColumn(this.view.getVipColumn()));
-        this.view.getUserTable().setItems(FXCollections.observableList(attendees));
+        this.view.getUserTable().setItems(FXCollections.observableArrayList(attendees));
         this.view.getUserTable().getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> displayUserDetails(newValue));
     }

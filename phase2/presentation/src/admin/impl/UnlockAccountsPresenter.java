@@ -82,7 +82,7 @@ public class UnlockAccountsPresenter implements IUnlockAccountsPresenter {
         this.view.getUserTypeColumn().setCellValueFactory(new PropertyValueFactory<>("userType"));
         this.view.getLockedColumn().setCellValueFactory(param -> param.getValue().lockedProperty());
         this.view.getLockedColumn().setCellFactory(CheckBoxTableCell.forTableColumn(this.view.getLockedColumn()));
-        this.view.getUserTable().setItems(FXCollections.observableList(accounts));
+        this.view.getUserTable().setItems(FXCollections.observableArrayList(accounts));
         this.view.getUserTable().getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> displayUserAccountDetails(newValue));
     }
