@@ -10,7 +10,7 @@ public class MessageThread implements Serializable {
     private List<String> receivers;
     private String messageThreadId;
     private String subject;
-    private ArrayList<Message> messages;
+    private List<Message> messages;
 
     /**
      * Constructor for Entities.MessageThread
@@ -61,7 +61,7 @@ public class MessageThread implements Serializable {
      *
      * @return List of Messages
      */
-    public ArrayList<Message> getMessages() {
+    public List<Message> getMessages() {
         return this.messages;
     }
 

@@ -3,7 +3,6 @@ package controllers;
 import org.json.simple.*;
 import presenters.OrganizerPresenter;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -40,10 +39,10 @@ public class OrganizerController extends UserController {
         String content = String.valueOf(register.get("content"));
         String subject = String.valueOf(register.get("subject"));
         String sender = String.valueOf(register.get("sender"));
-        ArrayList<String> speakerNames = um.getAllSpeakerNames();
-        if (mm.messageCheck(content, sender, speakerNames)) { //ensure that message is valid
-            String messageId = mm.createMessage(content, sender, speakerNames, subject);
-            addMessagesToUser(speakerNames, messageId);
+        List<String> recipientNames = (ArrayList<String>) register.get("recipients");
+        if (mm.messageCheck(content, sender, recipientNames)) { //ensure that message is valid
+            String messageId = mm.createMessage(content, sender, recipientNames, subject);
+            addMessagesToUser(recipientNames, messageId);
             this.saveData();
             return op.messagedAllSpeakersResult();
         } else {
@@ -67,7 +66,7 @@ public class OrganizerController extends UserController {
         String sender = String.valueOf(register.get("sender"));
         if (mm.messageCheck(content, sender, recipientNames)) { //ensure the message is valid
             String messageId = mm.createMessage(content, sender, recipientNames, subject);
-            addMessagesToUser((ArrayList<String>) recipientNames, messageId);
+            addMessagesToUser(recipientNames, messageId);
             this.saveData();
             return op.messagedAllAttendeesResult();
         } else {

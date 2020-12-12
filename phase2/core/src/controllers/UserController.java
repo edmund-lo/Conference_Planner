@@ -9,6 +9,7 @@ import usecases.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -259,7 +260,7 @@ public abstract class UserController {
      * @param  recipientNames usernames of the user the message is for.
      * @param  messageThreadId id of the message user is adding.
      */
-    public void addMessagesToUser(ArrayList<String> recipientNames, String messageThreadId) {
+    public void addMessagesToUser(List<String> recipientNames, String messageThreadId) {
         this.deserializeData();
 
         um.sendMessage(this.username, messageThreadId);
@@ -291,7 +292,7 @@ public abstract class UserController {
         this.deserializeData();
 
         String content = String.valueOf(register.get("content"));
-        ArrayList recipientNames = (ArrayList)(register.get("recipients"));
+        List<String> recipientNames = (ArrayList<String>) (register.get("recipients"));
         String subject = String.valueOf(register.get("subject"));
         String sender = String.valueOf(register.get("sender"));
         if (mm.messageCheck(content, username, recipientNames)) {
