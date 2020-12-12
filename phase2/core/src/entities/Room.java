@@ -93,8 +93,8 @@ public class Room implements Serializable {
      * @return true if this event is scheduled in this room, false otherwise
      */
     public boolean hasEvent(String eventID){
-        for (Map.Entry<LocalDateTime[], String> times : this.schedule.entrySet()){
-            if (times.getValue().equals(eventID)){
+        for (Map.Entry<LocalDateTime[], String> event : this.schedule.entrySet()){
+            if (event.getValue().equals(eventID)){
                 return true;
             }
         }
@@ -104,12 +104,14 @@ public class Room implements Serializable {
     /**
      * Removes an event at a certain time from the schedule of this Room.
      *
-     * @param startTime  the time the event starts.
-     * @param endTime    the time the event ends.
+     * @param eventID the ID of the event
      */
-    public void removeEvent(LocalDateTime startTime, LocalDateTime endTime){
-        LocalDateTime[] times = new LocalDateTime[]{startTime, endTime};
-        this.schedule.remove(times);
+    public void removeEvent(String eventID) {
+        for (Map.Entry<LocalDateTime[], String> event : this.schedule.entrySet()) {
+            if (event.getValue().equals(eventID)) {
+                this.schedule.remove(event.getKey());
+            }
+        }
     }
 
     /**

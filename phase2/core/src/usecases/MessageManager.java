@@ -118,7 +118,9 @@ public class MessageManager implements Serializable {
      * @return boolean value that signifies the result of the check.
      */
     public boolean messageCheck(String content, String sender, List<String> receivers) {
-        if (content.equals("")){return false;}
+        if (content.equals("")){
+            return false;
+        }
         for(String receiver : receivers) {
             if (receiver.equals(sender)) {
                 return false;

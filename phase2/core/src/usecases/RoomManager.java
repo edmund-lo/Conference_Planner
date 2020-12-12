@@ -39,19 +39,6 @@ public class RoomManager implements Serializable {
         }
         return false;
     }
-//      ***** Saving method for phase 2
-//    /**
-//     * Removes an existing Room object from this RoomManager.
-//     * @param name  the name of the room to be removed.
-//     * @return      a boolean value of true if the room was successfully removed, false otherwise.
-//     */
-//    public boolean removeRoom(String name) {
-//        if (this.allRooms.containsKey(name)){
-//            this.allRooms.remove(name);
-//            return true;
-//        }
-//        return false;
-//    }
 
     private Room getRoom(String roomName){
         return this.allRooms.get(roomName);
@@ -81,17 +68,14 @@ public class RoomManager implements Serializable {
     /**
      * Removes an event to the schedule of a given Room in this RoomManager.
      *
-     * @param startTime the start time of the event to be removed to the schedule of a room.
-     * @param endTime   the end time of the event to be removed from the schedule of a room.
      * @param roomName  the name of the room to remove the event from.
      * @param eventID   the ID of the event to be removed
      * @return          a boolean value of true if the event was successfully removed from the room, false otherwise.
      */
-    public boolean removeFromRoomSchedule(LocalDateTime startTime, LocalDateTime endTime, String roomName,
-                                          String eventID){
+    public boolean removeFromRoomSchedule(String roomName, String eventID){
         Room room = getRoom(roomName);
         if (room.hasEvent(eventID)) {
-            room.removeEvent(startTime, endTime);
+            room.removeEvent(eventID);
             return true;
         }
         return false;

@@ -66,6 +66,7 @@ public class OrganizerController extends UserController {
         String sender = String.valueOf(register.get("sender"));
         if (mm.messageCheck(content, sender, recipientNames)) { //ensure the message is valid
             String messageId = mm.createMessage(content, sender, recipientNames, subject);
+            System.out.println(messageId);
             addMessagesToUser(recipientNames, messageId);
             this.saveData();
             return op.messagedAllAttendeesResult();
@@ -259,8 +260,7 @@ public class OrganizerController extends UserController {
     public JSONObject cancelEvent(String eventId) {
         this.deserializeData();
         if(!em.isEventCancelled(eventId)){
-            rm.removeFromRoomSchedule(em.getEventStartTime(eventId),
-                    em.getEventEndTime(eventId), em.getEventRoom(eventId), eventId);
+            rm.removeFromRoomSchedule(em.getEventRoom(eventId), eventId);
             um.cancelAll(em.getAttendingUsers(eventId), eventId);
             for(String speakerName: em.getSpeakers(eventId)){
                 um.cancelSpeakerEvent(speakerName, eventId);
