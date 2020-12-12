@@ -216,6 +216,16 @@ public class UserManager implements Serializable {
     }
 
     /**
+     * Change the current status of a messageThread for a specific user to false.
+     *
+     * @param username the username of the receiver
+     * @param messageThreadId the message ID
+     */
+    public void unreadForMes(String username, String messageThreadId) {
+        allUsers.get(username).unread(messageThreadId);
+    }
+
+    /**
      * Getter of the current status of a messageThread for a specific user.
      *
      * @param username the username of the receiver

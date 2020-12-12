@@ -193,6 +193,19 @@ public abstract class User implements Serializable {
     }
 
     /**
+     * Setter for the current status of a messageThread given its id.
+     * Change to false for all users.
+     *
+     * @param messageThreadId the id of this messageThread.
+     *
+     */
+
+    public void unread(String messageThreadId){
+        HashMap<String, Boolean> inbox = this.getInboxOfMessage(messageThreadId);
+        inbox.replace(messageThreadId, false);
+    }
+
+    /**
      * removes messageThread from user's inbox
      *
      * @param messageThreadId id of the message thread

@@ -296,7 +296,7 @@ public abstract class UserController {
         this.deserializeData();
 
         if (mm.messageThreadExists(messageThreadId)) {
-            String sender = mm.reply(messageThreadId, content);
+            String sender = mm.reply(this.username, messageThreadId, content);
             this.saveData();
             return mp.messageReplied(sender);
         } else {
