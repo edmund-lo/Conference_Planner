@@ -287,6 +287,7 @@ public class OrganizerController extends UserController {
             em.changeEventTime(eventID, newStart, newEnd);
             em.changeEventRoom(eventID, roomName);
             em.changeVipStatus(eventID, isVipEvent);
+            em.rescheduleEvent(eventID);
             this.saveData();
             return op.rescheduleSuccess();
         }

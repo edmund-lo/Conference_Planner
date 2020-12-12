@@ -9,6 +9,7 @@ import usecases.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -125,6 +126,14 @@ public abstract class UserController {
         return up.getAttendingEvents(array);
     }
 
+    public JSONObject getAllEventsIncludingCancelled(){
+        JSONArray array = new JSONArray();
+        for(String eventID: em.getAllEventIds()){
+            array.add(em.getEventJson(eventID));
+        }
+        return up.getAllEvents(array);
+    }
+
     /**
      *Returns list of all events desc in the conference that user with username can sign up to
      *
@@ -137,7 +146,7 @@ public abstract class UserController {
 
         for (String eventID: em.getAllEventIds()){
             LocalDateTime startTime = em.getEventStartTime(eventID);
-            if(em.getEventStartTime(eventID) != null && startTime.isAfter(LocalDateTime.now())){
+            if(!em.isEventCancelled(eventID) && startTime.isAfter(LocalDateTime.now())){
                 if(um.canSignUp(username, eventID, startTime, em.getEventEndTime(eventID))) {
                     array.add(em.getEventJson(eventID));
                 }
@@ -159,7 +168,7 @@ public abstract class UserController {
 
         for (String eventID: em.getAllEventIds()){
             LocalDateTime startTime = em.getEventStartTime(eventID);
-            if(startTime != null && startTime.isAfter(LocalDateTime.now())) {
+            if(!em.isEventCancelled(eventID) && startTime.isAfter(LocalDateTime.now())) {
                 array.add(em.getEventJson(eventID));
             }
         }
@@ -177,8 +186,10 @@ public abstract class UserController {
 
         JSONArray array = new JSONArray();
 
-        for (String id: um.getPrimaryMessages(this.username).keySet()){
-            array.add(mm.getMessageThreadJson(id));
+        for(Map.Entry<String, Boolean> entry : um.getPrimaryMessages(this.username).entrySet()) {
+            JSONObject messageThreadJson = mm.getMessageThreadJson(entry.getKey());
+            messageThreadJson.put("read", entry.getValue());
+            array.add(messageThreadJson);
         }
 
         return up.getAllPrimaryMessages(array);
@@ -194,10 +205,11 @@ public abstract class UserController {
 
         JSONArray array = new JSONArray();
 
-        for (String id: um.getArchivedMessages(this.username).keySet()){
-            array.add(mm.getMessageThreadJson(id));
+        for(Map.Entry<String, Boolean> entry : um.getArchivedMessages(this.username).entrySet()) {
+            JSONObject messageThreadJson = mm.getMessageThreadJson(entry.getKey());
+            messageThreadJson.put("read", entry.getValue());
+            array.add(messageThreadJson);
         }
-
         return up.getAllArchivedMessages(array);
     }
 
@@ -211,8 +223,10 @@ public abstract class UserController {
 
         JSONArray array = new JSONArray();
 
-        for (String id: um.getTrashMessages(this.username).keySet()){
-            array.add(mm.getMessageThreadJson(id));
+        for(Map.Entry<String, Boolean> entry : um.getTrashMessages(this.username).entrySet()) {
+            JSONObject messageThreadJson = mm.getMessageThreadJson(entry.getKey());
+            messageThreadJson.put("read", entry.getValue());
+            array.add(messageThreadJson);
         }
 
         return up.getAllTrashMessages(array);
@@ -351,7 +365,7 @@ public abstract class UserController {
      */
     public JSONObject addFriend(String username){
         this.deserializeData();
-        if (um.canBeFriend(this.username, username)){
+        if (um.canBeFriends(this.username, username)){
             um.addFriend(this.username, username);
             this.saveData();
             return up.friendAdded(username);
@@ -406,7 +420,7 @@ public abstract class UserController {
     public JSONObject sendFriendRequest(String username){
         this.deserializeData();
 
-        if (um.canBeFriend(this.username, username)){
+        if (um.canSendRequest(this.username, username)){
             um.sendFriendRequest(this.username, username);
             this.saveData();
             return up.friendRequestSent(username);

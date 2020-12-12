@@ -89,7 +89,7 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
 
     @Override
     public List<ScheduleEntry> getEvents() {
-        JSONObject responseJson = oc.getAllEvents();
+        JSONObject responseJson = oc.getAllEventsIncludingCancelled();
         return ScheduleAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 

@@ -27,6 +27,7 @@ public class Event implements Serializable {
     private boolean needsTables;
     private boolean needsProjector;
     private boolean needsSoundSystem;
+    private boolean cancelled;
 
     /**
      * constructor for the event entity
@@ -59,6 +60,7 @@ public class Event implements Serializable {
         this.needsProjector = needsProjector;
         this.needsSoundSystem = needsSoundSystem;
         this.vipEvent = vipEvent;
+        this.cancelled = false;
     }
 
     /**
@@ -121,6 +123,22 @@ public class Event implements Serializable {
      */
     public LocalDateTime getEndTime() {
         return endTime;
+    }
+
+    /**
+     * set if the event is cancelled or not
+     * @param isCancelled whether the event is cancelled or not
+     */
+    public void setCancelled(boolean isCancelled){
+        this.cancelled = isCancelled;
+    }
+
+    /**
+     * getter for whether the event is cancelled or not
+     * @return True iff this event has been cancelled
+     */
+    public boolean isCancelled(){
+        return this.cancelled;
     }
 
     public void changeRoomName(String roomName){
@@ -186,6 +204,14 @@ public class Event implements Serializable {
         else{
             return false;
         }
+    }
+
+    /**
+     * removes all users and speakers from event
+     */
+    public void removeAllUsersAndSpeakersFromEvent(){
+        this.attendingUsers.clear();
+        this.speakerNames.clear();
     }
 
     /**
@@ -294,6 +320,7 @@ public class Event implements Serializable {
         item.put("Projector", needsProjector);
         item.put("SoundSystem", needsSoundSystem);
         item.put("vip", vipEvent);
+        item.put("cancelled", cancelled);
 
         return item;
     }

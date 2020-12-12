@@ -22,6 +22,9 @@ Any data passed to the front-end will be transformed into front-end models by th
 ### Data Preservation
 The back-end will be storing all the information in `.ser` files, and each time a Controller is instantiated, the necessary Gateway classes are called to deserialize the associated files. Moreover, each time data within a Use Case class is manipulated, it will save the changes by serializing the associated files.
 
+### DateTime Picker plugin
+Due to a bug in the DateTimePicker utility plugin, when inputting a date/time, the user must press `RETURN` or `ENTER` after making any changes for the field to save your changes. This is especially pertinent when creating and rescheduling events. 
+
 ### Messaging
 Messaging is now a hybrid between email and direct messages found of social media platforms. Users will have three different types of inboxes containing message threads, but the actual content will be displayed as a scrollable conversation history.
 
