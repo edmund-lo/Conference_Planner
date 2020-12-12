@@ -532,7 +532,7 @@ public class UserManager implements Serializable {
      * @param friend the username of friend being added
      * @return boolean for whether the user can be added
      */
-    public boolean canBeFriend(String user, String friend){
+    public boolean canSendRequest(String user, String friend){
         if (allUsers.get(friend).getFriendRequest().contains(user))
             return false;
         if (allUsers.get(user).getFriendRequest().contains(friend))
@@ -836,5 +836,13 @@ public class UserManager implements Serializable {
             }
 
         return array;
+    }
+
+    public boolean canBeFriends(String friend, String user) {
+        if (allUsers.get(friend).getFriendsList().contains(user))
+            return false;
+        if (allUsers.get(user).getFriendsList().contains(friend))
+            return false;
+        return true;
     }
 }

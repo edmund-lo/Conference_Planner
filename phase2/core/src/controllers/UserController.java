@@ -351,7 +351,7 @@ public abstract class UserController {
      */
     public JSONObject addFriend(String username){
         this.deserializeData();
-        if (um.canBeFriend(this.username, username)){
+        if (um.canBeFriends(this.username, username)){
             um.addFriend(this.username, username);
             this.saveData();
             return up.friendAdded(username);
@@ -406,7 +406,7 @@ public abstract class UserController {
     public JSONObject sendFriendRequest(String username){
         this.deserializeData();
 
-        if (um.canBeFriend(this.username, username)){
+        if (um.canSendRequest(this.username, username)){
             um.sendFriendRequest(this.username, username);
             this.saveData();
             return up.friendRequestSent(username);
