@@ -142,6 +142,10 @@ public class EventManager implements Serializable {
         changeEventRoom(eventID, null);
     }
 
+    public boolean isEventCancelled(String evenyID){
+        return allEvents.get(evenyID).isCancelled();
+    }
+
     /**
      * changes the status of the cancellation of the event. Note that this should be
      * called in Organizer controller's rescheduleEvent

@@ -289,22 +289,6 @@ public class UserManager implements Serializable {
     }
 
     /**
-     * Returns all the users that they can message.
-     *
-     * @param username the username
-     * @return An arraylist with Strings of the usernames and roles of the users that they can message
-     */
-    public ArrayList<String> getAllMessageableUsers(String username) {
-        ArrayList<String> usernames = new ArrayList<>();
-        for (User user: allUsers.values()){
-            if ((user instanceof Speaker || user instanceof Attendee) && !user.getUsername().equals(username))
-                usernames.add(user.toString());
-        }
-
-        return usernames;
-    }
-
-    /**
      * Gets the user's primary inbox messages.
      *
      * @param username the username of the user

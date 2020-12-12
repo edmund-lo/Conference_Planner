@@ -89,7 +89,7 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
 
     @Override
     public List<ScheduleEntry> getEvents() {
-        JSONObject responseJson = oc.getAllEvents();
+        JSONObject responseJson = oc.getAllEventsIncludingCancelled();
         return ScheduleAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
@@ -102,6 +102,7 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
         this.view.getEventStartColumn().setCellValueFactory(new PropertyValueFactory<>("start"));
         this.view.getEventEndColumn().setCellValueFactory(new PropertyValueFactory<>("end"));
         this.view.getRemainingSpotsColumn().setCellValueFactory(new PropertyValueFactory<>("remainingSpots"));
+        this.view.getCancelledColumn().setCellValueFactory(param -> param.getValue().cancelledProperty());
 
         ObservableList<ScheduleEntry> observableSchedule = FXCollections.observableArrayList(schedule);
         this.view.getEventsTable().setItems(observableSchedule);

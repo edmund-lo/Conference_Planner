@@ -30,6 +30,8 @@ public class RescheduleCancelEventView implements IRescheduleCancelEventView {
     @FXML
     private TableColumn<ScheduleEntry, Integer> remainingSpotsColumn;
     @FXML
+    private TableColumn<ScheduleEntry, Boolean> cancelledColumn;
+    @FXML
     private ChoiceBox<String> editMode;
     @FXML
     private Text summaryEventName;
@@ -102,6 +104,11 @@ public class RescheduleCancelEventView implements IRescheduleCancelEventView {
     @Override
     public TableColumn<ScheduleEntry, Integer> getRemainingSpotsColumn() {
         return this.remainingSpotsColumn;
+    }
+
+    @Override
+    public TableColumn<ScheduleEntry, Boolean> getCancelledColumn() {
+        return this.cancelledColumn;
     }
 
     @Override

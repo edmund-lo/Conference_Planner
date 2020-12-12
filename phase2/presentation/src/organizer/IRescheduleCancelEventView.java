@@ -20,6 +20,7 @@ public interface IRescheduleCancelEventView extends ILoggedInView {
     TableColumn<ScheduleEntry, LocalDateTime> getEventStartColumn();
     TableColumn<ScheduleEntry, LocalDateTime> getEventEndColumn();
     TableColumn<ScheduleEntry, Integer> getRemainingSpotsColumn();
+    TableColumn<ScheduleEntry, Boolean> getCancelledColumn();
     ChoiceBox<String> getEditMode();
     NumberTextField getSummaryCapacityField();
     ChoiceBox<String> getSummaryRoomsChoiceBox();
