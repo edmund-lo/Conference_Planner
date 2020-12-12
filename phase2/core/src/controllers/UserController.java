@@ -9,6 +9,7 @@ import usecases.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -177,8 +178,10 @@ public abstract class UserController {
 
         JSONArray array = new JSONArray();
 
-        for (String id: um.getPrimaryMessages(this.username).keySet()){
-            array.add(mm.getMessageThreadJson(id));
+        for(Map.Entry<String, Boolean> entry : um.getPrimaryMessages(this.username).entrySet()) {
+            JSONObject messageThreadJson = mm.getMessageThreadJson(entry.getKey());
+            messageThreadJson.put("read", entry.getValue());
+            array.add(messageThreadJson);
         }
 
         return up.getAllPrimaryMessages(array);
@@ -194,10 +197,11 @@ public abstract class UserController {
 
         JSONArray array = new JSONArray();
 
-        for (String id: um.getArchivedMessages(this.username).keySet()){
-            array.add(mm.getMessageThreadJson(id));
+        for(Map.Entry<String, Boolean> entry : um.getArchivedMessages(this.username).entrySet()) {
+            JSONObject messageThreadJson = mm.getMessageThreadJson(entry.getKey());
+            messageThreadJson.put("read", entry.getValue());
+            array.add(messageThreadJson);
         }
-
         return up.getAllArchivedMessages(array);
     }
 
@@ -211,8 +215,10 @@ public abstract class UserController {
 
         JSONArray array = new JSONArray();
 
-        for (String id: um.getTrashMessages(this.username).keySet()){
-            array.add(mm.getMessageThreadJson(id));
+        for(Map.Entry<String, Boolean> entry : um.getTrashMessages(this.username).entrySet()) {
+            JSONObject messageThreadJson = mm.getMessageThreadJson(entry.getKey());
+            messageThreadJson.put("read", entry.getValue());
+            array.add(messageThreadJson);
         }
 
         return up.getAllTrashMessages(array);
