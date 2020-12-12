@@ -110,6 +110,9 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
     @Override
     public void displayEventDetails(ScheduleEntry event) {
         this.selectedEvent = event;
+        if(event == null){
+            return;
+        }
         JSONObject queryJson = constructRoomRequestJson(event);
         JSONObject responseJson = oc.listPossibleRooms(queryJson);
         displayPossibleRooms((JSONArray) responseJson.get("data"));
@@ -124,6 +127,7 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
         this.view.setSummaryCapacity(event.getCapacity());
         this.view.setSummaryRemainingSpots(event.getRemainingSpots());
         this.view.setSummaryVip(event.isVip() ? "Yes" : "No");
+        System.out.println("Event cancelled: "+event.isCancelled());
         this.view.getRescheduleButton().setDisable(!event.isCancelled());
         this.view.getCancelButton().setDisable(event.isCancelled());
     }
@@ -151,7 +155,12 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
         picker.valueProperty().addListener(((observableValue, oldValue, newValue) -> {
             LocalDateTime start = this.view.getSummaryStart().getDateTimeValue();
             LocalDateTime end = this.view.getSummaryEnd().getDateTimeValue();
-            this.view.setSummaryDuration(Duration.between(start, end));
+            if(start == null | end == null){
+                this.view.setSummaryDuration(Duration.ZERO);
+            }
+            else{
+                this.view.setSummaryDuration(Duration.between(start, end));
+            }
         }));
     }
 

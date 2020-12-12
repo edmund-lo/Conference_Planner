@@ -56,7 +56,7 @@ public class ScheduleAdapter {
             duration = Duration.between(start, end);
         }
         else{
-            duration = null;
+            duration = Duration.ZERO;
         }
         String eventId = String.valueOf(jsonObject.get("id"));
         String eventName = String.valueOf(jsonObject.get("eventName"));
