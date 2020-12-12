@@ -190,7 +190,7 @@ public class OrganizerPresenter extends UserPresenter {
      * Notifies the user that the capacity they entered is greater than what the room can accommodate
      */
     public JSONObject cannotAccommodate() {
-        return pu.createJSON("error", "The capacity you entered is greater than the room can " +
+        return pu.createJSON("warning", "The capacity you entered is greater than the room can " +
                 "accommodate.");
     }
 

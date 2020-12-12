@@ -296,8 +296,8 @@ public class OrganizerController extends UserController {
         }catch(ClassCastException ignored){}
         if(roomName.equals("Unassigned")){
             return op.roomIsNull();
-        }else if(capacity <= 0){
-            return op.invalidCapacityError();
+        }else if(changeEventCapacity(roomName, capacity, eventID).get("status").toString().equals("warning")){
+            return changeEventCapacity(roomName, capacity, eventID);
         }else if(newStart == null | newEnd == null){
             return op.invalidDateError();
         }
@@ -316,23 +316,17 @@ public class OrganizerController extends UserController {
     /**
      * Changes the capacity of a given Event.
      *
-     * @param eventInfo contains the information about the event who's capacity is attempting to be changed
+     *
      * @return a JSONObject containing whether the capacity was changed successfully or not.
      */
-    public JSONObject changeEventCapacity(JSONObject eventInfo){
+    private JSONObject changeEventCapacity(String roomName, int capacity, String eventID){
         this.deserializeData();
 
-        String eventID = eventInfo.get("eventID").toString();
-        int capacity = (int) eventInfo.get("capacity");
-        String roomName = eventInfo.get("roomName").toString();
         if (capacity < 1){
             return op.invalidCapacityError();
         } else if (rm.getRoomCapacity(roomName) < capacity){
             return op.cannotAccommodate();
-        } else if (em.getAttendingUsers(eventID).size() > capacity){
-            return op.cannotChangeCap(capacity);
         } else {
-            em.changeEventCap(eventID, capacity);
             this.saveData();
             return op.changeCapResult();
         }
