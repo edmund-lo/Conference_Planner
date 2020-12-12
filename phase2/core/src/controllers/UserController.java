@@ -136,8 +136,11 @@ public abstract class UserController {
         JSONArray array = new JSONArray();
 
         for (String eventID: em.getAllEventIds()){
-            if(um.canSignUp(username, eventID, em.getEventStartTime(eventID), em.getEventEndTime(eventID))) {
-                array.add(em.getEventJson(eventID));
+            LocalDateTime startTime = em.getEventStartTime(eventID);
+            if(em.getEventStartTime(eventID) != null && startTime.isAfter(LocalDateTime.now())){
+                if(um.canSignUp(username, eventID, startTime, em.getEventEndTime(eventID))) {
+                    array.add(em.getEventJson(eventID));
+                }
             }
         }
 
@@ -155,7 +158,8 @@ public abstract class UserController {
         JSONArray array = new JSONArray();
 
         for (String eventID: em.getAllEventIds()){
-            if(em.getEventStartTime(eventID).isAfter(LocalDateTime.now())) {
+            LocalDateTime startTime = em.getEventStartTime(eventID);
+            if(startTime != null && startTime.isAfter(LocalDateTime.now())) {
                 array.add(em.getEventJson(eventID));
             }
         }
