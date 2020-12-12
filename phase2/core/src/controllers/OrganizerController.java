@@ -60,7 +60,8 @@ public class OrganizerController extends UserController {
         this.deserializeData();
 
         String content = String.valueOf(register.get("content"));
-        ArrayList recipientNames = (ArrayList)(register.get("recipients"));
+        List<String> recipientNames = (ArrayList<String>) register.get("recipients");
+        recipientNames.remove(username);
         String subject = String.valueOf(register.get("subject"));
         String sender = String.valueOf(register.get("sender"));
         if (mm.messageCheck(content, sender, recipientNames)) { //ensure the message is valid
@@ -353,6 +354,11 @@ public class OrganizerController extends UserController {
     public JSONObject getAllUsers(){
         this.deserializeData();
         return op.getAllUsers(um.getAllUsersJson());
+    }
+
+    public JSONObject getAllUsersNotSelf(){
+        this.deserializeData();
+        return op.getAllUsers(um.getAllUsersNotSelfJson(username));
     }
 
     public JSONObject getAllSpeakers(){

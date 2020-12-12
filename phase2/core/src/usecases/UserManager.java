@@ -831,4 +831,14 @@ public class UserManager implements Serializable {
             return false;
         return true;
     }
+
+    public JSONArray getAllUsersNotSelfJson(String self) {
+        JSONArray array = new JSONArray();
+
+        for(String username: allUsers.keySet())
+            if(!allUsers.get(username).getUsername().equals(self)) {
+                array.add(allUsers.get(username).convertToJSON());
+            }
+        return array;
+    }
 }
