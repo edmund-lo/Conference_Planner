@@ -89,7 +89,7 @@ public class ForgotPresenter implements IForgotPresenter {
     public void displaySecurityButtonAction(ActionEvent actionEvent) {
         clearResultText(1);
 
-        JSONObject responseJson = lc.accountJson(this.view.getUsername());
+        JSONObject responseJson = lc.validateUsername(this.view.getUsername());
         if (String.valueOf(responseJson.get("status")).equals("success")) {
             UserAccount account = UserAccountAdapter.getInstance()
                     .adaptData((JSONArray) responseJson.get("data")).get(0);

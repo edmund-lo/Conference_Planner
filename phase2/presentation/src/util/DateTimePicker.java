@@ -2,7 +2,11 @@ package util;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.DatePicker;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.util.StringConverter;
 
 import java.time.LocalDate;
@@ -60,23 +64,11 @@ public class DateTimePicker extends DatePicker {
 
         // Synchronize changes to dateTimeValue back to the underlying date value
         dateTimeValue.addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                LocalDate dateValue = newValue.toLocalDate();
-                boolean forceUpdate = dateValue.equals(valueProperty().get());
-                // Make sure the display is updated even when the date itself wasn't changed
-                setValue(dateValue);
-                if (forceUpdate) setConverter(new InternalConverter());
-            } else {
-                setValue(null);
-            }
-
+            setValue(newValue == null ? null : newValue.toLocalDate());
         });
 
         // Persist changes on blur
-        getEditor().focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue)
-                simulateEnterPressed();
-        });
+        this.focusedProperty().addListener((observableValue, oldValue, newValue) -> simulateEnterPressed());
 
     }
 
@@ -84,7 +76,8 @@ public class DateTimePicker extends DatePicker {
      * Simulates the Enter key being pressed to commit the value
      */
     private void simulateEnterPressed() {
-        getEditor().commitValue();
+        getEditor().fireEvent(new KeyEvent(getEditor(), getEditor(), KeyEvent.KEY_PRESSED, null, null,
+                KeyCode.ENTER, false, false, false, false));
     }
 
     /**
@@ -103,12 +96,20 @@ public class DateTimePicker extends DatePicker {
         this.dateTimeValue.set(dateTimeValue);
     }
 
+    public ObjectProperty<LocalDateTime> dateTimeValueProperty() {
+        return dateTimeValue;
+    }
+
     /**
      * Gets the value of the format class variable
      * @return String object representing format
      */
     public String getFormat() {
         return format.get();
+    }
+
+    public ObjectProperty<String> formatProperty() {
+        return format;
     }
 
     /**
