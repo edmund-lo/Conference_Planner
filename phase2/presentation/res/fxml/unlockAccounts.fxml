@@ -6,7 +6,7 @@
 <?import java.net.URL?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0" minWidth="0" prefHeight="900" prefWidth="1600"
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="admin.impl.UnlockAccountsView">
     <top>
@@ -24,7 +24,7 @@
                     <TableColumn fx:id="lockedColumn" text="Locked"/>
                 </columns>
             </TableView>
-            <SplitPane>
+            <SplitPane orientation="VERTICAL">
                 <VBox>
                     <Text text="User Login Logs"/>
                     <TableView fx:id="logsTable">
