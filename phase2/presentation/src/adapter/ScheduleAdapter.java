@@ -60,9 +60,10 @@ public class ScheduleAdapter {
         int remainingSpots = parseInt(String.valueOf(jsonObject.get("remainingSpots")));
         int capacity = parseInt(String.valueOf(jsonObject.get("capacity")));
         boolean vip = jsonObject.get("vip").equals(true);
+        boolean cancelled = jsonObject.get("cancelled").equals(true);
 
         return new ScheduleEntry(start, end, eventId, eventName, roomName, amenities, attendees, speakers, duration,
-                remainingSpots, capacity, vip);
+                remainingSpots, capacity, vip, cancelled);
     }
 
     /**
@@ -70,11 +71,9 @@ public class ScheduleAdapter {
      * @param arraylist an arraylist of strings
      * @return the JSONArray version of arraylist
      */
-    public JSONArray convertArrayListToJsonArray(ArrayList<String> arraylist){
+    public JSONArray convertArrayListToJsonArray(List<String> arraylist){
         JSONArray array = new JSONArray();
-        for(String element: arraylist){
-            array.add(element);
-        }
+        array.addAll(arraylist);
         return array;
     }
 
