@@ -79,7 +79,6 @@ public class SpeakerEventsPresenter implements ISpeakerEventsPresenter {
         return ScheduleAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
-
     /**
      * Displays speakerSchedule in the TableView and adds listeners
      * @param speakerSchedule List of ScheduleEntry models

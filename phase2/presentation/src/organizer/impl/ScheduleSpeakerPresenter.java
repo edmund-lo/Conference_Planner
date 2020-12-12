@@ -19,11 +19,19 @@ import util.DateTimeUtil;
 import util.TextResultUtil;
 import java.util.List;
 
+/**
+ * Presenter class for scheduling speakers scene
+ */
 public class ScheduleSpeakerPresenter implements IScheduleSpeakerPresenter {
     private final OrganizerController oc;
     private final IScheduleSpeakerView view;
     private ScheduleEntry selectedEvent;
 
+    /**
+     * Initialises a ScheduleSpeakerPresenter object with given view and new OrganizerController,
+     * gets and sets current session's user information
+     * @param view IScheduleSpeakerView interface implementation
+     */
     public ScheduleSpeakerPresenter(IScheduleSpeakerView view) {
         this.view = view;
         getUserData();
@@ -31,6 +39,10 @@ public class ScheduleSpeakerPresenter implements IScheduleSpeakerPresenter {
         init();
     }
 
+    /**
+     * Performs schedule speaker button action and displays the result
+     * @param actionEvent JavaFX ActionEvent object representing the event of the button press
+     */
     @Override
     public void scheduleSpeakerButtonAction(ActionEvent actionEvent) {
         clearResultText();
@@ -42,18 +54,31 @@ public class ScheduleSpeakerPresenter implements IScheduleSpeakerPresenter {
             handleSelect(this.selectedEvent);
     }
 
+    /**
+     * Sets the result of the action given status
+     * @param resultText String object describing the result
+     * @param status String object representing the status of the controller method call
+     */
     @Override
     public void setResultText(String resultText, String status) {
         this.view.setResultText(resultText);
         TextResultUtil.getInstance().addPseudoClass(status, this.view.getResultTextControl());
     }
 
+    /**
+     * Gets all Event entities occurring in the future and converts them into ScheduleEntry models
+     * @return List of ScheduleEntry models
+     */
     @Override
     public List<ScheduleEntry> getAllEvents() {
         JSONObject responseJson = oc.getAllEvents();
         return ScheduleAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
+    /**
+     * Displays schedule in the TableView and adds listeners
+     * @param schedule List of ScheduleEntry models
+     */
     @Override
     public void displayEvents(List<ScheduleEntry> schedule) {
         DateTimeUtil.getInstance().setScheduleDateTimeCellFactory(this.view.getEventStartColumn());
@@ -69,6 +94,10 @@ public class ScheduleSpeakerPresenter implements IScheduleSpeakerPresenter {
                 (observable, oldValue, newValue) -> handleSelect(newValue));
     }
 
+    /**
+     * Displays event's attributes
+     * @param event ScheduleEntry model that has been selected
+     */
     @Override
     public void displayEventDetails(ScheduleEntry event) {
         this.view.setSummaryEventName(event.getEventName());
@@ -81,6 +110,10 @@ public class ScheduleSpeakerPresenter implements IScheduleSpeakerPresenter {
         this.view.setSummaryCapacity(event.getCapacity());
     }
 
+    /**
+     * Displays event's available speakers list in a dropdown choice box to choose from
+     * @param event ScheduleEntry model
+     */
     @Override
     public void displayAvailableSpeakers(ScheduleEntry event) {
         clearResultText();
@@ -94,7 +127,9 @@ public class ScheduleSpeakerPresenter implements IScheduleSpeakerPresenter {
         }
     }
 
-
+    /**
+     * Init method which sets all the button actions, gets and displays all events
+     */
     @Override
     public void init() {
         this.view.setScheduleSpeakerButtonAction(this::scheduleSpeakerButtonAction);
@@ -102,6 +137,9 @@ public class ScheduleSpeakerPresenter implements IScheduleSpeakerPresenter {
         displayEvents(schedule);
     }
 
+    /**
+     * Helper method to get and set current user's information to the view class variable
+     */
     @Override
     public void getUserData() {
         UserAccountHolder holder = UserAccountHolder.getInstance();
@@ -110,12 +148,19 @@ public class ScheduleSpeakerPresenter implements IScheduleSpeakerPresenter {
         this.view.setSessionUserType(account.getUserType());
     }
 
+    /**
+     * Helper method to handle select event
+     * @param event ScheduleEntry model that has been selected
+     */
     private void handleSelect(ScheduleEntry event) {
         this.selectedEvent = event;
         displayEventDetails(event);
         displayAvailableSpeakers(event);
     }
 
+    /**
+     * Helper method to clear all result text and affected form fields
+     */
     private void clearResultText() {
         this.view.setResultText("");
         TextResultUtil.getInstance().removeAllPseudoClasses(this.view.getResultTextControl());

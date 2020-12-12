@@ -7,6 +7,7 @@ import common.UserAccountHolder;
 import controllers.AdminController;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.User;
 import model.UserAccount;
@@ -84,7 +85,8 @@ public class SetVipPresenter implements ISetVipPresenter {
         this.view.getFirstNameColumn().setCellValueFactory(new PropertyValueFactory<>("firstName"));
         this.view.getLastNameColumn().setCellValueFactory(new PropertyValueFactory<>("lastName"));
         this.view.getVipColumn().setCellValueFactory(param -> param.getValue().vipProperty());
-        this.view.getUserTable().setItems(FXCollections.observableList(attendees));
+        this.view.getVipColumn().setCellFactory(CheckBoxTableCell.forTableColumn(this.view.getVipColumn()));
+        this.view.getUserTable().setItems(FXCollections.observableArrayList(attendees));
         this.view.getUserTable().getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> displayUserDetails(newValue));
     }
