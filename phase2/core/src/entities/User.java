@@ -298,8 +298,7 @@ public abstract class User implements Serializable {
      * @param messageThreadId the messageThreadId to be archived
      */
     public void archiveToInbox(String messageThreadId) {
-        this.archivedInbox.put(messageThreadId, primaryInbox.get(messageThreadId));
-        this.primaryInbox.remove(messageThreadId);
+        this.archivedInbox.put(messageThreadId, this.primaryInbox.remove(messageThreadId));
     }
 
     /**
@@ -310,8 +309,7 @@ public abstract class User implements Serializable {
      * @param messageThreadId the messageThreadId of the messageThread they want to move to trash bin
      */
     public void moveToTrash(String messageThreadId) {
-        this.trashInbox.put(messageThreadId, primaryInbox.get(messageThreadId));
-        this.primaryInbox.remove(messageThreadId);
+        this.trashInbox.put(messageThreadId, this.primaryInbox.remove(messageThreadId));
     }
 
     /**
@@ -322,8 +320,7 @@ public abstract class User implements Serializable {
      * @param messageThreadId the messageThreadId to be move back
      */
     public void archivedBackToPrimary(String messageThreadId) {
-        this.primaryInbox.put(messageThreadId, archivedInbox.get(messageThreadId));
-        this.archivedInbox.remove(messageThreadId);
+        this.primaryInbox.put(messageThreadId, this.archivedInbox.remove(messageThreadId));
     }
 
     /**
@@ -334,8 +331,7 @@ public abstract class User implements Serializable {
      * @param messageThreadId the messageThreadId of the messageThread they want to move back from the trash bin
      */
     public void trashBackToPrimary(String messageThreadId) {
-        this.primaryInbox.put(messageThreadId, trashInbox.get(messageThreadId));
-        this.trashInbox.remove(messageThreadId);
+        this.primaryInbox.put(messageThreadId, this.trashInbox.remove(messageThreadId));
     }
 
     /**
