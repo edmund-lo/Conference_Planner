@@ -13,7 +13,7 @@ public class MessageThread {
     private final StringProperty senderName;
     private final ListProperty<String> recipientNames;
     private final StringProperty subject;
-    private final BooleanProperty read;
+    private final BooleanProperty unread;
     private final ListProperty<Message> messageHistory;
 
     /**
@@ -29,16 +29,16 @@ public class MessageThread {
      * @param senderName String object representing message thread's original sender's username
      * @param recipientNames List of String objects representing message thread's recipients' usernames
      * @param subject String object representing message thread's subject topic
-     * @param read boolean representing whether message thread has been read or not
+     * @param unread boolean representing whether message thread has been read or not
      * @param messageHistory List of Message objects representing the message thread's conversation history
      */
     public MessageThread(String messageThreadId, String senderName, List<String> recipientNames, String subject,
-                         boolean read, List<Message> messageHistory) {
+                         boolean unread, List<Message> messageHistory) {
         this.messageThreadId = new SimpleStringProperty(messageThreadId);
         this.senderName = new SimpleStringProperty(senderName);
         this.recipientNames = new SimpleListProperty<>(FXCollections.observableArrayList(recipientNames));
         this.subject = new SimpleStringProperty(subject);
-        this.read = new SimpleBooleanProperty(read);
+        this.unread = new SimpleBooleanProperty(unread);
         this.messageHistory = new SimpleListProperty<>(FXCollections.observableArrayList(messageHistory));
     }
 
@@ -55,10 +55,6 @@ public class MessageThread {
         return recipientNames.get();
     }
 
-    public void setRecipientNames(ObservableList<String> recipientNames) {
-        this.recipientNames.set(recipientNames);
-    }
-
     public String getSubject() {
         return subject.get();
     }
@@ -67,13 +63,11 @@ public class MessageThread {
         this.subject.set(subject);
     }
 
-    public boolean isRead() {
-        return read.get();
+    public boolean isUnread() {
+        return unread.get();
     }
 
-    public BooleanProperty readProperty() {
-        return read;
-    }
+    public BooleanProperty unreadProperty() { return unread; }
 
     public ObservableList<Message> getMessageHistory() {
         return messageHistory.get();
