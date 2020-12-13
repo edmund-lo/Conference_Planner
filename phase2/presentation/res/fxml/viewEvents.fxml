@@ -50,7 +50,7 @@
                 <Text fx:id="summaryAmenities" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
                 <Label text="Attendees:" GridPane.columnIndex="0" GridPane.rowIndex="10"/>
                 <Text fx:id="summaryAttendees" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
-                <Label text="Other Speakers:" GridPane.columnIndex="0" GridPane.rowIndex="11"/>
+                <Label text="Speakers:" GridPane.columnIndex="0" GridPane.rowIndex="11"/>
                 <Text fx:id="summarySpeakers" GridPane.columnIndex="1" GridPane.rowIndex="11"/>
                 <Label text="VIP Event:" GridPane.columnIndex="0" GridPane.rowIndex="12"/>
                 <Text fx:id="summaryVip" GridPane.columnIndex="1" GridPane.rowIndex="12"/>

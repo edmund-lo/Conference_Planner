@@ -18,6 +18,7 @@ import util.DateTimePicker;
 import util.DateTimeUtil;
 import util.TextResultUtil;
 
+import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -49,9 +50,7 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
     @Override
     public void cancelButtonAction(ActionEvent actionEvent) {
         clearResultText();
-        if(selectedEvent == null){
-            return;
-        }
+        if (selectedEvent == null) return;
         JSONObject responseJson = oc.cancelEvent(this.selectedEvent.getEventId());
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
         if (String.valueOf(responseJson.get("status")).equals("success")) {
@@ -68,9 +67,7 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
     @Override
     public void rescheduleButtonAction(ActionEvent actionEvent) {
         clearResultText();
-        if(this.selectedEvent == null){
-            return;
-        }
+        if (this.selectedEvent == null) return;
         JSONObject queryJson = constructEventJson();
         JSONObject responseJson = oc.rescheduleEvent(queryJson);
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
@@ -129,8 +126,8 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
      */
     @Override
     public void displayEventDetails(ScheduleEntry event) {
-        this.selectedEvent = event;
         if (event == null) return;
+        this.selectedEvent = event;
         JSONObject queryJson = constructRoomRequestJson(event);
         JSONObject responseJson = oc.listPossibleRooms(queryJson);
         displayPossibleRooms((JSONArray) responseJson.get("data"));
@@ -201,7 +198,7 @@ public class RescheduleCancelEventPresenter implements IRescheduleCancelEventPre
     private void clearForm() {
         this.view.setSummaryStart(null);
         this.view.setSummaryEnd(null);
-        this.view.setSummaryCapacity(0);
+        this.view.getSummaryCapacityField().setNumber(BigDecimal.ZERO);
         this.view.setSummaryDuration(Duration.ZERO);
         this.view.setSummaryAttendees("");
         this.view.setSummarySpeakers("");

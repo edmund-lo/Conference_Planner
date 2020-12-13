@@ -75,7 +75,8 @@ public class SpeakerEventsPresenter implements ISpeakerEventsPresenter {
     @Override
     public List<ScheduleEntry> getAllSpeakerEvents() {
         JSONObject responseJson = sc.getSpeakerEvents();
-        setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
+        if (!String.valueOf(responseJson.get("status")).equals("success"))
+            setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
         return ScheduleAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
