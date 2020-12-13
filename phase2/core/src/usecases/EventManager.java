@@ -136,8 +136,8 @@ public class EventManager implements Serializable {
 
     /**
      * cancels event with ID eventID. This removes all users and speakers from attending in the event and changes
-     * the time and room to null. Note that this method is not enough to entirely cancel the event in the system. To do
-     * so, call cancelEvent in OrganizerController.
+     * the time and room to null and sets capacity to 0. Note that this method is not enough to entirely cancel
+     * the event in the system. To do so, call cancelEvent in OrganizerController.
      * @param eventID the ID of the event you wish to cancel.
      */
     public void cancelEvent(String eventID){
@@ -145,6 +145,7 @@ public class EventManager implements Serializable {
         event.removeAllUsersAndSpeakersFromEvent();
         event.changeTime(null, null);
         event.setCancelled(true);
+        event.setCapacity(0);
         changeEventRoom(eventID, "Unassigned");
     }
 

@@ -114,6 +114,7 @@ public class Room implements Serializable {
         for (Map.Entry<LocalDateTime[], String> event : this.schedule.entrySet()) {
             if (event.getValue().equals(eventID)) {
                 this.schedule.remove(event.getKey());
+                break;
             }
         }
     }
