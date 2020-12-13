@@ -7,6 +7,7 @@ import presenters.MessagePresenter;
 import presenters.UserPresenter;
 import usecases.*;
 
+import javax.swing.*;
 import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -333,10 +334,17 @@ public abstract class UserController {
         if (mm.messageThreadExists(messageThreadId)) {
             String sender = mm.reply(this.username, messageThreadId, content);
             List<String> recipients = mm.getReceivers(messageThreadId);
+            if (this.username.equals(recipients.get(0))){
+                recipients.remove(this.username);
+                recipients.add(sender);
+            }
             for (String recipient : recipients){
                 um.unreadForMes(recipient, messageThreadId);
             }
             this.saveData();
+            if (sender.equals(this.username)) {
+                return mp.messageReplied(recipients.get(0));
+            }
             return mp.messageReplied(sender);
         } else {
             return mp.invalidMessageIdError();
