@@ -262,7 +262,12 @@ public class CreateEventPresenter implements ICreateEventPresenter {
         return sb.toString();
     }
 
+    /**
+     * Helper method to display suggested rooms in a combo box
+     * @param jsonArray JSONArray object representing a List of String room names
+     */
     private void displayPossibleRooms(JSONArray jsonArray) {
+        this.view.getRoomComboBox().getItems().clear();
         for (Object o : jsonArray)
             this.view.getRoomComboBox().getItems().add(String.valueOf(o));
     }
