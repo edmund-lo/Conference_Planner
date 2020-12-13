@@ -8,6 +8,7 @@ import controllers.AttendeeController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.ScheduleEntry;
 import model.UserAccount;
@@ -85,6 +86,7 @@ public class ViewAllEventsPresenter implements IViewEventsPresenter {
         this.view.getEventStartColumn().setCellValueFactory(new PropertyValueFactory<>("start"));
         this.view.getEventEndColumn().setCellValueFactory(new PropertyValueFactory<>("end"));
         this.view.getVipColumn().setCellValueFactory(param -> param.getValue().vipProperty());
+        this.view.getVipColumn().setCellFactory(CheckBoxTableCell.forTableColumn(this.view.getVipColumn()));
         this.view.getRemainingSpotsColumn().setCellValueFactory(new PropertyValueFactory<>("remainingSpots"));
 
         ObservableList<ScheduleEntry> observableSchedule = FXCollections.observableArrayList(schedule);

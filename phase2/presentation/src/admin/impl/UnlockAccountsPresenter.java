@@ -48,7 +48,11 @@ public class UnlockAccountsPresenter implements IUnlockAccountsPresenter {
 
         JSONObject responseJson = ac.unlockAccount(selectedAccount.getUsername());
         setResultText(String.valueOf(responseJson.get("result")), String.valueOf(responseJson.get("status")));
-        if (String.valueOf(responseJson.get("status")).equals("success")) init();
+        if (String.valueOf(responseJson.get("status")).equals("success")) {
+            this.view.getUnlockButton().setDisable(true);
+            List<UserAccount> accounts = getUserAccounts();
+            displayUserAccounts(accounts);
+        }
     }
 
     /**
@@ -69,6 +73,7 @@ public class UnlockAccountsPresenter implements IUnlockAccountsPresenter {
     @Override
     public List<UserAccount> getUserAccounts() {
         JSONObject responseJson = ac.getAllAccounts();
+        System.out.println(responseJson.toJSONString());
         return UserAccountAdapter.getInstance().adaptData((JSONArray) responseJson.get("data"));
     }
 
@@ -93,6 +98,7 @@ public class UnlockAccountsPresenter implements IUnlockAccountsPresenter {
      */
     @Override
     public void displayUserAccountDetails(UserAccount account) {
+        if (account == null) return;
         this.selectedAccount = account;
         this.view.setUsername(account.getUsername());
         this.view.setUserType(account.getUserType());
