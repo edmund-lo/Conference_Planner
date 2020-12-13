@@ -141,17 +141,6 @@ public class RoomManager implements Serializable {
         return roomAmenities;
     }
 
-//      ***** Saving method for phase 2
-//    /**
-//     * Gets the string representation for a Room in this RoomManager.
-//     *
-//     * @param   roomName the name of the Room to get the String representation of.
-//     * @return  the String representation of a Room in this RoomManager
-//     */
-//    public String getRoomString(String roomName){
-//        return getRoom(roomName).toString();
-//    }
-
     /**
      * Gets the string representation for Room in this RoomManager.
      *
