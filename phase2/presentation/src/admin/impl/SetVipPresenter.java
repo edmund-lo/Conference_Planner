@@ -97,6 +97,7 @@ public class SetVipPresenter implements ISetVipPresenter {
      */
     @Override
     public void displayUserDetails(User attendee) {
+        if (attendee == null) return;
         this.selectedUser = attendee;
         this.view.setUsername(attendee.getUsername());
         this.view.setFirstName(attendee.getFirstName());
