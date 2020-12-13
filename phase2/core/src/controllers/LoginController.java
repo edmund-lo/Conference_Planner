@@ -221,7 +221,7 @@ public class LoginController {
         int UsernameCheck = 0;
         //Loops through all existing usernames.
         for (String[] users : accounts){
-            if (users[0].equals(username)){
+            if (users[0].toLowerCase().equals(username.toLowerCase())){
                 //If the Username the user entered already exists then UsernameCheck counter is increased.
                 UsernameCheck++;
             }
