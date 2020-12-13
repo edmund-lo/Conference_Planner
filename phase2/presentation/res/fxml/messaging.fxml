@@ -45,20 +45,22 @@
                             </GridPane>
                         </top>
                         <center>
-                            <BorderPane>
-                                <left>
-                                    <Text text="Message Thread"/>
-                                </left>
-                                <right>
-                                    <HBox>
-                                        <Button fx:id="unreadPrimaryButton" onAction="#executeAddUnreadPrimary"
-                                                text="Mark As Unread" />
-                                        <Button fx:id="archiveButton" onAction="#executeAddArchive" text="Archive" />
-                                        <Button fx:id="deleteButton" onAction="#executeAddDelete" text="Delete" />
-                                    </HBox>
-                                </right>
-                            </BorderPane>
-                            <ScrollPane fx:id="primaryThreadContainer" />
+                            <VBox>
+                                <BorderPane>
+                                    <left>
+                                        <Text text="Message Thread"/>
+                                    </left>
+                                    <right>
+                                        <HBox>
+                                            <Button fx:id="unreadPrimaryButton" onAction="#executeAddUnreadPrimary"
+                                                    text="Mark As Unread" />
+                                            <Button fx:id="archiveButton" onAction="#executeAddArchive" text="Archive" />
+                                            <Button fx:id="deleteButton" onAction="#executeAddDelete" text="Delete" />
+                                        </HBox>
+                                    </right>
+                                </BorderPane>
+                                <ScrollPane fx:id="primaryThreadContainer" />
+                            </VBox>
                         </center>
                         <bottom>
                             <GridPane alignment="CENTER" hgap="10" vgap="10">
@@ -95,17 +97,22 @@
                             </GridPane>
                         </top>
                         <center>
-                            <BorderPane>
-                                <left>
-                                    <Text text="Message Thread"/>
-                                </left>
-                                <right>
-                                    <Button fx:id="unreadArchivedButton" onAction="#executeAddUnreadArchived"
-                                            text="Mark As Unread" />
-                                    <Button fx:id="primaryButton1" onAction="#executeAddPrimaryFirst" text="Move Back"/>
-                                </right>
-                            </BorderPane>
-                            <ScrollPane fx:id="archivedThreadContainer" />
+                            <VBox>
+                                <BorderPane>
+                                    <left>
+                                        <Text text="Message Thread"/>
+                                    </left>
+                                    <right>
+                                        <HBox>
+                                            <Button fx:id="unreadArchivedButton" onAction="#executeAddUnreadArchived"
+                                                    text="Mark As Unread" />
+                                            <Button fx:id="primaryButton1" onAction="#executeAddPrimaryFirst"
+                                                    text="Move Back"/>
+                                        </HBox>
+                                    </right>
+                                </BorderPane>
+                                <ScrollPane fx:id="archivedThreadContainer" />
+                            </VBox>
                         </center>
                     </BorderPane>
                 </SplitPane>
@@ -131,18 +138,22 @@
                             </GridPane>
                         </top>
                         <center>
-                            <BorderPane>
-                                <left>
-                                    <Text text="Message Thread"/>
-                                </left>
-                                <right>
-                                    <Button fx:id="unreadTrashButton" onAction="#executeAddUnreadTrash"
-                                            text="Mark As Unread" />
-                                    <Button fx:id="primaryButton2" onAction="#executeAddPrimarySecond"
-                                            text="Move Back"/>
-                                </right>
-                            </BorderPane>
-                            <ScrollPane fx:id="trashThreadContainer" />
+                            <VBox>
+                                <BorderPane>
+                                    <left>
+                                        <Text text="Message Thread"/>
+                                    </left>
+                                    <right>
+                                        <HBox>
+                                            <Button fx:id="unreadTrashButton" onAction="#executeAddUnreadTrash"
+                                                    text="Mark As Unread" />
+                                            <Button fx:id="primaryButton2" onAction="#executeAddPrimarySecond"
+                                                    text="Move Back"/>
+                                        </HBox>
+                                    </right>
+                                </BorderPane>
+                                <ScrollPane fx:id="trashThreadContainer" />
+                            </VBox>
                         </center>
                     </BorderPane>
                 </SplitPane>

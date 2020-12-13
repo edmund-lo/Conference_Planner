@@ -40,15 +40,17 @@
                     </GridPane>
                 </top>
                 <center>
-                    <BorderPane>
-                        <left>
-                            <Text text="Message Thread"/>
-                        </left>
-                        <right>
-                            <Button fx:id="deleteButton" onAction="#executeAddDelete" text="Delete Permanently"/>
-                        </right>
-                    </BorderPane>
-                    <ScrollPane fx:id="deleteThreadContainer" />
+                    <VBox>
+                        <BorderPane>
+                            <left>
+                                <Text text="Message Thread"/>
+                            </left>
+                            <right>
+                                <Button fx:id="deleteButton" onAction="#executeAddDelete" text="Delete Permanently"/>
+                            </right>
+                        </BorderPane>
+                        <ScrollPane fx:id="deleteThreadContainer" />
+                    </VBox>
                 </center>
             </BorderPane>
         </SplitPane>
