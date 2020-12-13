@@ -338,34 +338,6 @@ public class EventManager implements Serializable {
     }
 
     /**
-     * Returns a requested schedule in string format, with username and the desired RoomName
-     * @param username User's username
-     * @param roomName Name of room that is specified
-     * @return a StringBuilder's toString (a string) formatted
-     * schedule that shows all events that are present in the Room
-     */
-    public String requestScheduleByRoom(String username, String roomName) {
-
-        StringBuilder ret = new StringBuilder("Schedule by Room  " + roomName + ":" + "\n");
-        DateTimeFormatter dayTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-
-        for (Map.Entry<String, Event> event : this.allEvents.entrySet()) {
-            if (event.getValue().getRoomName().equals(roomName)) {
-                String event_start = dayTime.format(event.getValue().getStartTime());
-                String event_end = dayTime.format(event.getValue().getEndTime());
-                String eventName = event.getValue().getEventName();
-                ret.append(event_start);
-                ret.append("-");
-                ret.append(event_end);
-                ret.append(" -- ");
-                ret.append(eventName);
-                ret.append("\n");
-            }
-        }
-        return ret.toString();
-
-    }
-    /**
      * getter for getting the JSON representation of an event
      * @param ID id of the event
      * @return the JSONObject representation of the event
