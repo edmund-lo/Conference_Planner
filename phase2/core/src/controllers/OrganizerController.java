@@ -341,10 +341,9 @@ public class OrganizerController extends UserController {
 
         JSONArray array = new JSONArray();
 
-        for (String eventName: rm.getEventsInRoomAfter(roomName, time)){
-            array.add(em.getEventJson(em.getEventIDByName(eventName)));
+        for (String eventID: rm.getEventsInRoomAfter(roomName, time)){
+            array.add(em.getEventJson(eventID));
         }
-        System.out.println(array);
         return op.listRoomSchedule(array);
     }
 
