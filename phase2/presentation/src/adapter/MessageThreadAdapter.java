@@ -50,9 +50,9 @@ public class MessageThreadAdapter {
         List<String> recipientNames = new ArrayList<>();
         for (Object o : recipientsArray) recipientNames.add(String.valueOf(o));
         String subject = String.valueOf(jsonObject.get("subject"));
-        boolean read = jsonObject.get("read").equals(true);
+        boolean unread = jsonObject.get("read").equals(false);
         List<Message> messageHistory = MessageAdapter.getInstance().adaptData((JSONArray) jsonObject.get("messages"));
 
-        return new MessageThread(messageId, senderName, recipientNames, subject, read, messageHistory);
+        return new MessageThread(messageId, senderName, recipientNames, subject, unread, messageHistory);
     }
 }

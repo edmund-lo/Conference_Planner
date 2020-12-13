@@ -277,7 +277,7 @@ public class MessagingPresenter implements IMessagingPresenter {
                 this.view.getPrimaryMembersColumn().setCellValueFactory(cdf ->
                         new SimpleStringProperty(getMessageMembers(cdf.getValue().getRecipientNames())));
                 this.view.getPrimarySubjectColumn().setCellValueFactory(new PropertyValueFactory<>("subject"));
-                this.view.getPrimaryUnreadColumn().setCellValueFactory(param -> param.getValue().readProperty());
+                this.view.getPrimaryUnreadColumn().setCellValueFactory(param -> param.getValue().unreadProperty());
                 this.view.getPrimaryUnreadColumn()
                         .setCellFactory(CheckBoxTableCell.forTableColumn(this.view.getPrimaryUnreadColumn()));
                 this.view.getPrimaryInbox().setItems(observableInbox);
@@ -288,7 +288,7 @@ public class MessagingPresenter implements IMessagingPresenter {
                 this.view.getArchivedMembersColumn().setCellValueFactory(cdf ->
                         new SimpleStringProperty(getMessageMembers(cdf.getValue().getRecipientNames())));
                 this.view.getArchivedSubjectColumn().setCellValueFactory(new PropertyValueFactory<>("subject"));
-                this.view.getArchivedUnreadColumn().setCellValueFactory(param -> param.getValue().readProperty());
+                this.view.getArchivedUnreadColumn().setCellValueFactory(param -> param.getValue().unreadProperty());
                 this.view.getArchivedUnreadColumn()
                         .setCellFactory(CheckBoxTableCell.forTableColumn(this.view.getArchivedUnreadColumn()));
                 this.view.getArchivedInbox().setItems(observableInbox);
@@ -299,7 +299,7 @@ public class MessagingPresenter implements IMessagingPresenter {
                 this.view.getTrashMembersColumn().setCellValueFactory(cdf ->
                         new SimpleStringProperty(getMessageMembers(cdf.getValue().getRecipientNames())));
                 this.view.getTrashSubjectColumn().setCellValueFactory(new PropertyValueFactory<>("subject"));
-                this.view.getTrashUnreadColumn().setCellValueFactory(param -> param.getValue().readProperty());
+                this.view.getTrashUnreadColumn().setCellValueFactory(param -> param.getValue().unreadProperty());
                 this.view.getTrashUnreadColumn()
                         .setCellFactory(CheckBoxTableCell.forTableColumn(this.view.getTrashUnreadColumn()));
                 this.view.getTrashInbox().setItems(observableInbox);
@@ -316,7 +316,8 @@ public class MessagingPresenter implements IMessagingPresenter {
      */
     @Override
     public void displayMessageThread(MessageThread messageThread, String type) {
-        if (!messageThread.isRead()) ac.changeMessageStatus(messageThread.getMessageThreadId());
+        if (messageThread == null) return;
+        if (messageThread.isUnread()) ac.changeMessageStatus(messageThread.getMessageThreadId());
         switch (type) {
             case "primary":
                 this.selectedPrimaryMessageThread = messageThread;
