@@ -7,6 +7,7 @@ import presenters.MessagePresenter;
 import presenters.UserPresenter;
 import usecases.*;
 
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -190,10 +191,21 @@ public abstract class UserController {
         this.deserializeData();
 
         JSONArray array = new JSONArray();
-
+        List<String> threadOrder = new ArrayList<>();
         for(Map.Entry<String, Boolean> entry : um.getPrimaryMessages(this.username).entrySet()) {
-            JSONObject messageThreadJson = mm.getMessageThreadJson(entry.getKey());
-            messageThreadJson.put("read", entry.getValue());
+            if (entry.getValue()) {
+                threadOrder.add(entry.getKey());
+            }
+        }
+        for(Map.Entry<String, Boolean> entry : um.getPrimaryMessages(this.username).entrySet()) {
+            if (!entry.getValue()) {
+                threadOrder.add(entry.getKey());
+            }
+        }
+        for(String thread : threadOrder) {
+
+            JSONObject messageThreadJson = mm.getMessageThreadJson(thread);
+            messageThreadJson.put("read", um.getPrimaryMessages(this.username).get(thread));
             array.add(messageThreadJson);
         }
 
