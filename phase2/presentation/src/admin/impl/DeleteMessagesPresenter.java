@@ -86,6 +86,7 @@ public class DeleteMessagesPresenter implements IDeleteMessagesPresenter {
      */
     @Override
     public void displayMessageThread(MessageThread messageThread) {
+        if (messageThread == null) return;
         this.selectedMessageThread = messageThread;
         this.view.setDeleteSender(messageThread.getSenderName());
         this.view.setDeleteRecipients(messageThread.getRecipientNames());
