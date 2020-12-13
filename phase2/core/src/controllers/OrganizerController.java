@@ -68,7 +68,6 @@ public class OrganizerController extends UserController {
         if (mm.messageCheck(content, sender, recipientNames)) { //ensure the message is valid
             String messageId = mm.createMessage(content, sender, recipientNames, subject);
             this.saveData();
-            System.out.println(messageId);
             addMessagesToUser(recipientNames, messageId);
 
             return op.messagedAllAttendeesResult();
@@ -227,7 +226,6 @@ public class OrganizerController extends UserController {
         if (createEvent(eventName, startTime, endTime, roomName, constraints.get(0), constraints.get(1),
                 constraints.get(2), constraints.get(3), eventCap, vipEvent)) {
             this.saveData();
-            System.out.println("created event "+startTime.equals(endTime));
             return op.eventCreationResult();
         } else {
             return op.eventFailedCreationError();
@@ -244,9 +242,9 @@ public class OrganizerController extends UserController {
     private boolean createEvent(String eventName, LocalDateTime start, LocalDateTime end, String roomName,
                                boolean chairs, boolean tables, boolean projector, boolean soundSystem, int capacity,
                                boolean vipEvent) {
-        if (rm.addToRoomSchedule(start, end, roomName, eventName)) {
-            em.createNewEvent(eventName, start, end, roomName, chairs, tables, projector, soundSystem, capacity,
-                    vipEvent);
+        if (rm.canBook(roomName, start, end)) {
+            rm.addToRoomSchedule(start, end, roomName, em.createNewEvent(eventName, start, end, roomName,
+                    chairs, tables, projector, soundSystem, capacity, vipEvent));
             return true;
         }
         return false;

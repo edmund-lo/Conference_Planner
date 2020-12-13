@@ -831,11 +831,8 @@ public class UserManager implements Serializable {
      * @return True iff the user can be friends with the other user
      */
     public boolean canBeFriends(String friend, String user) {
-        if (allUsers.get(friend).getFriendsList().contains(user))
-            return false;
-        if (allUsers.get(user).getFriendsList().contains(friend))
-            return false;
-        return true;
+        return !(allUsers.get(friend).getFriendsList().contains(user) |
+                allUsers.get(user).getFriendsList().contains(friend));
     }
 
     /**

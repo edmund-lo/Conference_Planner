@@ -47,12 +47,13 @@ public class EventManager implements Serializable {
      * @param capacity the capacity of the event
      * @param vipEvent whether the vent is a VIP event or not
      */
-    public void createNewEvent(String eventName, LocalDateTime startTime, LocalDateTime endTime, String roomName,
+    public String createNewEvent(String eventName, LocalDateTime startTime, LocalDateTime endTime, String roomName,
                                boolean chairs, boolean tables, boolean projector, boolean speakers, int capacity,
                                boolean vipEvent) {
         Event newEvent = new Event(UUID.randomUUID().toString(), eventName, startTime, endTime, roomName, chairs,
                 tables, projector, speakers, capacity, vipEvent);
         allEvents.put(newEvent.getEventID(), newEvent);
+        return newEvent.getEventID();
     }
 
     /**

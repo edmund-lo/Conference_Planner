@@ -66,6 +66,17 @@ public class RoomManager implements Serializable {
     }
 
     /**
+     * Checks to see if an event can be booked at the specified time
+     * @param roomName name of the room
+     * @param startTime start time
+     * @param endTime end time
+     * @return True iff the event can be booked at the specified time
+     */
+    public boolean canBook(String roomName, LocalDateTime startTime, LocalDateTime endTime){
+        return getRoom(roomName).canBook(startTime, endTime);
+    }
+
+    /**
      * Removes an event to the schedule of a given Room in this RoomManager.
      *
      * @param roomName  the name of the room to remove the event from.
