@@ -156,9 +156,12 @@ public class UserManager implements Serializable {
      * @return true iff the speaker is available to speak at the event
      */
     public boolean canAddSpeakerEvent(String username, String eventID, LocalDateTime startTime, LocalDateTime endTime) {
-        Speaker speaker = (Speaker) allUsers.get(username);
-        return speaker.canSignUp(eventID, startTime, endTime) &&
-                speaker.canAddSpeakerEvent(eventID, startTime, endTime);
+        if(allUsers.containsKey(username)){
+            Speaker speaker = (Speaker) allUsers.get(username);
+            return speaker.canSignUp(eventID, startTime, endTime) &&
+                    speaker.canAddSpeakerEvent(eventID, startTime, endTime);
+        }
+        return false;
     }
 
     /**
