@@ -1,15 +1,14 @@
 package usecases;
 
 import entities.*;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
+import org.json.simple.*;
 import java.io.Serializable;
+import java.time.DayOfWeek;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 /**
  *	A Use Case class that manages Users.
@@ -230,6 +229,17 @@ public class UserManager implements Serializable {
     }
 
     /**
+     * Getter of the current status of a messageThread for a specific user.
+     *
+     * @param username the username of the receiver
+     * @param messageThreadId the message ID
+     */
+    public boolean getReadForMes(String username, String messageThreadId) {
+        User newUser = allUsers.get(username);
+        return newUser.getRead(newUser.getInboxOfMessage(messageThreadId), messageThreadId);
+    }
+
+    /**
      * Archive messageThreadId of the message to user's inbox.
      *
      * @param username the username of the receiver
@@ -333,6 +343,17 @@ public class UserManager implements Serializable {
     }
 
     /**
+     * Gets all usernames of all users.
+     *
+     * @return A set containing all usernames.
+     */
+    public List<String> getAllUsernames() {
+        List<String> usernames = new ArrayList<>();
+        usernames.addAll(allUsers.keySet());
+        return usernames;
+    }
+
+    /**
      * Gets all usernames of all speakers.
      *
      * @return An arraylist containing all speaker names
@@ -357,6 +378,21 @@ public class UserManager implements Serializable {
     }
 
     /**
+     * Checks if username is unique.
+     *
+     * @param username the username
+     * @return true iff username is unique
+     */
+    public boolean checkUniqueUsername(String username) {
+        for (User user : allUsers.values()) {
+            if (username.equals(user.getUsername())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * Checks if user is an attendee.
      *
      * @param username the username
@@ -364,6 +400,16 @@ public class UserManager implements Serializable {
      */
     public boolean isAttendee(String username) {
         return allUsers.get(username) instanceof Attendee;
+    }
+
+    /**
+     * Checks if user is an organizer.
+     *
+     * @param username the username
+     * @return iff user is organizer
+     */
+    public boolean isOrganizer(String username) {
+        return allUsers.get(username) instanceof Organizer;
     }
 
     /**
@@ -377,6 +423,26 @@ public class UserManager implements Serializable {
     }
 
     /**
+     * Checks if user is an admin.
+     *
+     * @param username the username
+     * @return iff user is speaker
+     */
+    public boolean isAdmin(String username) {
+        return allUsers.get(username) instanceof Admin;
+    }
+
+    /**
+     * Checks if a user with that username exists.
+     *
+     * @param username the username
+     * @return true iff that user exists
+     */
+    public boolean userExists(String username) {
+        return allUsers.get(username) != null;
+    }
+
+    /**
      * Gets the usernames of all the vips.
      *
      * @return an arraylist containing the usernames of all vips
@@ -385,7 +451,7 @@ public class UserManager implements Serializable {
         ArrayList<String> vips = new ArrayList<>();
         for (User user : allUsers.values()) {
             if (user instanceof Attendee) {
-                if ((user).isVip()) {
+                if (((Attendee) user).isVip()) {
                     vips.add(user.getUsername());
                 }
             }
@@ -432,6 +498,20 @@ public class UserManager implements Serializable {
      */
     public String getUserRole(String username) {
         return allUsers.get(username).getClass().getSimpleName();
+    }
+
+    /**
+     * toString for the user's username and user's role
+     *
+     * @return an arraylist of strings of user's username and role
+     */
+    public ArrayList<String> userToString() {
+        ArrayList<String> usernames = new ArrayList<>();
+        for (User user: allUsers.values()){
+            usernames.add(user.toString());
+        }
+
+        return usernames;
     }
 
     /**
@@ -573,126 +653,6 @@ public class UserManager implements Serializable {
     public Set<String> getEvents(String username){
         return allUsers.get(username).getSchedule().keySet();
     }
-
-
-//    /** Not enough time to fully implement schedule download feature
-//     * Formats a schedule based on three types of requested schedules
-//     * @param day as type LocalDateTime for formatting
-//     *           input a day of which a user would like to see events on
-//     * This method should print all events at the specified day
-//     * @Overload Request by Day
-//     * @author dylan
-//     */
-//    public void requestSchedule(String username, LocalDateTime day) {
-////        String formatted_schedule = "";
-////        SimpleDateFormat dtx = new SimpleDateFormat();
-////        String
-////        upperDay = day.toUpperCase();
-////        formatted_day = upperDay.format()
-////        DayOfWeek requestedDay = upperDay.format()
-////        DayOfWeek requestedDay = day.getDayOfWeek();
-////
-////        day.getDayOfWeek().;
-//    }
-
-//    /**
-//     * Requests schedule by Speaker
-//     * Similar implementation to Room toString though key value pairs are assigned in reverse
-//     * Assumes a valid speaker is passed
-//     * @param username
-//     * @param speaker
-//     * @Overload request by Speaker
-//     * @author dylan, @version 1.0
-//     * @return formatted schedule of all events that Speaker is present at
-//     */
-//    //Potential Update could be avoiding passing in a username
-//    public String requestSchedule(String username, Speaker speaker) {
-//        if(speaker.getSpeakerSchedule().size() == 0) {
-//            return "This speaker has no talks currently";
-//        }
-//
-//        StringBuilder ret = new StringBuilder("Schedule of Speaker " + speaker.getUsername() + ":" + "\n");
-//        DateTimeFormatter dayTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-//        DateTimeFormatter hourMin = DateTimeFormatter.ofPattern("HH:mm");
-//        for (Map.Entry<String, LocalDateTime[]> event : speaker.getSpeakerSchedule().entrySet()) {
-//            String eventStartTime = dayTime.format(event.getValue()[0]);
-//            String eventName = event.getKey();
-//            ret.append(eventStartTime);
-//            ret.append("-");
-//            ret.append(hourMin.format(event.getValue()[1]));
-//            ret.append(" -- ");
-//            ret.append(eventName);
-//            ret.append("\n");
-//        }
-//        return ret.toString();
-//    }
-
-//    /**
-//     * Returns a formatted schedule with constraints based on timeframe
-//     * This method prints the events of the time constraints that only appear in the User's schedule
-//     * @param username Username of the user
-//     * @param event_time the time range requirement for events of interest
-//     * @author dylan
-//     * @return a formatted schedule (String) of the events by ID at the required time frame
-//     */
-//    //request schedule based on time constraint for the events that the username has in their schedule
-//    //Events can go for more than a day
-//    public String requestScheduleByTime(String username, LocalDateTime[] event_time) {
-//
-//        DateTimeFormatter dayTime = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-//        DateTimeFormatter hourMin = DateTimeFormatter.ofPattern("HH:mm");
-//        String eventStartTime = hourMin.format(event_time[0]);
-//        String endTime = hourMin.format(event_time[1]);
-//        StringBuilder ret = new StringBuilder("Here is your schedule of events by their IDs from time " + eventStartTime
-//                + "-" + endTime + ":" + "\n");
-//        for (Map.Entry<String, LocalDateTime[]> scheduleByTime: this.allUsers.get(username).getSchedule().entrySet()) {
-//            String userScheduleStartTime = hourMin.format(scheduleByTime.getValue()[0]);
-//            String userScheduleEndTime = hourMin.format(scheduleByTime.getValue()[1]);
-//            String eventName = scheduleByTime.getKey();
-//            if ((eventStartTime.equals(userScheduleStartTime)) && (endTime.equals(userScheduleEndTime))) {
-//                ret.append(dayTime.format(scheduleByTime.getValue()[0]));
-//                ret.append(" -- ");
-//                ret.append(eventName);
-//                ret.append("\n");
-//            }
-//        }
-//         return ret.toString();
-//    }
-//    /**
-//     * Requests schedule by Day
-//     * Assumes a valid eventDay is passed
-//     * @param username
-//     * @param eventDay Specified Day constraint on schedule
-//     * @author dylan, @version 1.0
-//     * @return formatted schedule of all events that Speaker is present at
-//     */
-//    //fix assumption that events can not go for longer than a day
-//    public String requestScheduleByDay(String username, LocalDateTime[] eventDay) {
-//        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
-//        String formatted_day = sdf.format(eventDay);
-//        DateTimeFormatter dayTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-//        //DateTimeFormatter hourMin = DateTimeFormatter.ofPattern("HH:mm");
-//
-//        StringBuilder ret = new StringBuilder("Here are the events in your schedule on "
-//                + formatted_day + "'s:" + "\n");
-//        for (Map.Entry<String, LocalDateTime[]> scheduleByDay: this.allUsers.get(username).getSchedule().entrySet()) {
-//            String formatted_sbd = sdf.format(scheduleByDay);
-//            String formatted_eventDay = sdf.format(eventDay);
-//
-//            if(formatted_sbd.equals(formatted_eventDay)) {
-//                String event_StartTime = dayTime.format(scheduleByDay.getValue()[0]);
-//                String eventName = scheduleByDay.getKey();
-//                ret.append(event_StartTime);
-//                ret.append("-");
-//                ret.append(dayTime.format(scheduleByDay.getValue()[1]));
-//                ret.append(" -- ");
-//                ret.append(eventName);
-//                ret.append("\n");
-//            }
-//        }
-//        return ret.toString();
-//    }
-
 
     /**
      * Gets a user Json

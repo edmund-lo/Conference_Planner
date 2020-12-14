@@ -32,6 +32,7 @@ public class LoginLogManager implements Serializable {
      * @param username the username of the login user
      * @param time the time of login for this user
      */
+    @SuppressWarnings("unchecked")
     public void addToLoginLogSet(boolean condition, String username, LocalDateTime time) {
 
         //important note: this does not handle changes to the condition
