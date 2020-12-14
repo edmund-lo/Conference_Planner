@@ -46,6 +46,7 @@ public class EventManager implements Serializable {
      * @param speakers the speakers speaking at the event
      * @param capacity the capacity of the event
      * @param vipEvent whether the vent is a VIP event or not
+     * @return the event ID
      */
     public String createNewEvent(String eventName, LocalDateTime startTime, LocalDateTime endTime, String roomName,
                                boolean chairs, boolean tables, boolean projector, boolean speakers, int capacity,

@@ -268,38 +268,6 @@ public class Event implements Serializable {
     }
 
     /**
-     * A check if this event needs chairs
-     * @return True iff this event needs chairs
-     */
-    public boolean needsChairs() {
-        return this.needsChairs;
-    }
-
-    /**
-     * A check if this event needs tables
-     * @return True iff this event needs tables
-     */
-    public boolean needsTables() {
-        return this.needsTables;
-    }
-
-    /**
-     * A check if this event needs a projector
-     * @return True iff this event needs a projector
-     */
-    public boolean needsProjector() {
-        return this.needsProjector;
-    }
-
-    /**
-     * A check if this event needs a sound system
-     * @return True iff this event needs a sound system
-     */
-    public boolean needsSoundSystem() {
-        return this.needsSoundSystem;
-    }
-
-    /**
      * @return A JSONObject that contains the JSON representation of this class
      */
     @SuppressWarnings("unchecked")

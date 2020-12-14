@@ -33,6 +33,7 @@ public class LoginLogManager implements Serializable {
      * @param time the time of login for this user
      * @return a boolean value of true if the login log was successfully created, false otherwise.
      */
+    @SuppressWarnings("unchecked")
     public void addToLoginLogSet(boolean condition, String username, LocalDateTime time) {
 
         //important note: this does not handle changes to the condition
