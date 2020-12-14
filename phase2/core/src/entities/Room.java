@@ -32,7 +32,7 @@ public class Room implements Serializable {
      * @param name name of the room
      * @param capacity capacity of the room
      * @param hasChairs whether the room has chairs
-     * @param hasTables whether the room has talbes
+     * @param hasTables whether the room has tables
      * @param hasProjector whether the room has a projector
      * @param hasSoundSystem whether the room has a sound system
      */

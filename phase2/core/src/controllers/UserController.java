@@ -7,8 +7,6 @@ import presenters.MessagePresenter;
 import presenters.UserPresenter;
 import usecases.*;
 
-import javax.swing.*;
-import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -304,6 +302,7 @@ public abstract class UserController {
      *Sends a message to an attendee.
      *
      * @param  register the JSON Object which stores info about the message going to send.
+     * @return a JSON Object with whether the message was sent or not.
      */
     public JSONObject sendMessage(JSONObject register) {
         this.deserializeData();
@@ -326,7 +325,8 @@ public abstract class UserController {
      * Replies a message to an attendee.
      *
      * @param  messageThreadId the messageThreadId that the user want to reply to.
-     * @param  content the
+     * @param  content the message's content
+     * @return a JSON Object with whether the message was sent or not.
      */
     public JSONObject replyMessage(String messageThreadId, String content) {
         this.deserializeData();

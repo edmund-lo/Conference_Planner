@@ -141,16 +141,6 @@ public class RoomManager implements Serializable {
         return roomAmenities;
     }
 
-    /**
-     * Gets the string representation for Room in this RoomManager.
-     *
-     * @param   roomName the name of the Room to get the String representation of the schedule.
-     * @return  the String representation of a Room's schedule in this RoomManager.
-     */
-    public String getRoomSchedule(String roomName){
-        return getRoom(roomName).roomScheduleToString();
-    }
-
     public List<String> getEventsInRoomAfter(String roomName, LocalDateTime time){
         return getRoom(roomName).eventsOnDay(time);
     }

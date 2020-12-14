@@ -16,13 +16,6 @@ public class AdminPresenter extends UserPresenter {
     }
 
     /**
-     * Prints message that attendee has been created
-     */
-    public JSONObject attendeeCreationResult() {
-        return pu.createJSON("success", "Attendee has been created");
-    }
-
-    /**
      * Prints message that organizer has been created
      */
     public JSONObject organizerCreationResult() {
@@ -34,20 +27,6 @@ public class AdminPresenter extends UserPresenter {
      */
     public JSONObject speakerCreationResult() {
         return pu.createJSON("success", "Speaker has been created");
-    }
-
-    /**
-     * Prints message that username is already being used
-     */
-    public JSONObject usedNameError() {
-        return pu.createJSON("error", "Username already being used");
-    }
-
-    /**
-     * Prints message that user type is invalid
-     */
-    public JSONObject invalidUserTypeError() {
-        return pu.createJSON("warning", "User type does not exist");
     }
 
     /**

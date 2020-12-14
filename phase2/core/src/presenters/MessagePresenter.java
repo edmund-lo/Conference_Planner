@@ -1,7 +1,6 @@
 package presenters;
 import org.json.simple.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,27 +12,6 @@ public class MessagePresenter {
 
     public MessagePresenter(){
         pu = new PresenterUtil<>();
-    }
-
-    /**
-     * Informs the user that there are no other users in the system that they can message.
-     */
-    public JSONObject noMessagableUsers(){
-        return pu.createJSON("error", "There are no users to message.");
-    }
-
-    /**
-     * Informs the user that their message was sent to the specified recipient.
-     */
-    public JSONObject messageResult(ArrayList recipients) {
-        return pu.createJSON("success", "Message sent to " + recipients);
-    }
-
-    /**
-     * Informs the user that the user that they tried to message was invalid.
-     */
-    public JSONObject invalidUserError() {
-        return pu.createJSON("warning", "The user you entered was invalid.");
     }
 
     /**

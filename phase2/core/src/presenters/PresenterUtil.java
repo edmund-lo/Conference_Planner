@@ -1,7 +1,7 @@
 package presenters;
 
-import org.json.simple.*;
-import java.util.List;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  * Class for formatting the sent JSONObjects to the presentation module
@@ -27,7 +27,7 @@ public class PresenterUtil<T> {
     }
 
     /**
-     * method for creating JSONObject of the format {"stauts":_, "result"}
+     * method for creating JSONObject of the format {"status":_, "result"}
      * @param status status of the action. One of "success", "warning" or "error"
      * @param result the result of the action
      * @return a JSONObject of the format specified above

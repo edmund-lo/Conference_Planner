@@ -80,33 +80,33 @@ public class UserGateway implements GatewayInterface<UserManager>, Serializable 
         return um;
     }
 
-    /**
-     * This method writes a passed in UserManager's schedule into a saved text file
-     * @param ret this is the String builder toString output that is to be produced in the text file
-     * @catch FileNotFound exception
-     * @catch IOException
-     */
-    public void outputToTxtFile(String ret) {
-        try {
-            //create new file
-            File txt1 = new File(txtSchedule);
-            FileOutputStream fos1 = new FileOutputStream(txt1);
-            //write the passed in string ret into the txt file
-            PrintWriter out = new PrintWriter(fos1);
-            out.println(ret);
-            //close files
-            fos1.close();
-            out.close();
-        }
-        //catch FileNotFoundException
-        catch (FileNotFoundException e) {
-            System.out.println("Generating new file: " + txtSchedule);
-        }
-        //Silently catch IO exception
-        catch (IOException ignored){}
-//        //Catch ClassNotFoundException
-//        catch (ClassNotFoundException e) {
-//            System.out.println("UserManager Class was not found");
+//    /** ** Didn't have time to fully implement functionality
+//     * This method writes a passed in UserManager's schedule into a saved text file
+//     * @param ret this is the String builder toString output that is to be produced in the text file
+//     * @catch FileNotFound exception
+//     * @catch IOException
+//     */
+//    public void outputToTxtFile(String ret) {
+//        try {
+//            //create new file
+//            File txt1 = new File(txtSchedule);
+//            FileOutputStream fos1 = new FileOutputStream(txt1);
+//            //write the passed in string ret into the txt file
+//            PrintWriter out = new PrintWriter(fos1);
+//            out.println(ret);
+//            //close files
+//            fos1.close();
+//            out.close();
 //        }
-    }
+//        //catch FileNotFoundException
+//        catch (FileNotFoundException e) {
+//            System.out.println("Generating new file: " + txtSchedule);
+//        }
+//        //Silently catch IO exception
+//        catch (IOException ignored){}
+////        //Catch ClassNotFoundException
+////        catch (ClassNotFoundException e) {
+////            System.out.println("UserManager Class was not found");
+////        }
+//    }
 }

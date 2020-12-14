@@ -1,12 +1,12 @@
 package usecases;
 
 import entities.LoginLog;
-import org.json.simple.*;
+import org.json.simple.JSONArray;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 
 /**
  * A Use Case class that stores the login logs with key as username and values
@@ -31,7 +31,6 @@ public class LoginLogManager implements Serializable {
      * @param condition  the condition of the login log, describes the success/failure of login.
      * @param username the username of the login user
      * @param time the time of login for this user
-     * @return a boolean value of true if the login log was successfully created, false otherwise.
      */
     public void addToLoginLogSet(boolean condition, String username, LocalDateTime time) {
 
@@ -40,7 +39,7 @@ public class LoginLogManager implements Serializable {
         LoginLog ll = new LoginLog(condition, username, time);
 
         if (!this.allLogs.containsKey(username)){
-            ArrayList logArray = new ArrayList();
+            ArrayList<LoginLog> logArray = new ArrayList<>();
             logArray.add(ll);
             this.allLogs.put(username, logArray);
         } else {

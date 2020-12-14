@@ -37,13 +37,6 @@ public class MessageManager implements Serializable {
     }
 
     /**
-     * getter for the primaryInbox
-     *
-     * @return The primaryInbox variable
-     */
-    public HashMap<String, MessageThread> getAllMessageThreads() { return this.allMessageThreads; }
-
-    /**
      * getter for one messageThread given it's Id
      *
      * @return The messageThread variable

@@ -3,7 +3,6 @@ package controllers;
 import gateways.LoginLogGateway;
 import gateways.UserAccountGateway;
 import gateways.UserGateway;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import presenters.AdminPresenter;
 import presenters.LoginPresenter;
@@ -102,20 +101,6 @@ public class AdminController extends UserController{
             default:
                 return lp.IncorrectCredentials();
         }
-
-
-        /*switch (userType) {
-            case "attendee":
-                return createAttendeeAccount(username, firstName, lastName, false, password, userType);
-            case "organizer":
-                return createOrganizerAccount(username, firstName, lastName, password, userType);
-            case "speaker":
-                return createSpeakerAccount(username, firstName, lastName, password, userType);
-            case "vip":
-                return createAttendeeAccount(username, firstName, lastName, true, password, userType);
-            default:
-                return ap.invalidUserTypeError();
-        }*/
     }
 
     /**
@@ -139,63 +124,6 @@ public class AdminController extends UserController{
             }
         }
         return UsernameCheck != 0;
-    }
-
-    /**
-     * Creates a new attendee account after performing necessary checks
-     *
-     * @param username the username
-     * @param firstName the first name
-     * @param lastName the last name
-     * @return a JSON object containing the status and description of the action
-     */
-    private JSONObject createAttendeeAccount(String username, String firstName, String lastName, boolean vip,
-                                             String password, String userType) {
-        if (um.checkUniqueUsername(username)) { //ensures the username is unique
-            um.createNewAttendee(username, firstName, lastName, vip); //create new attendee
-            uam.addAccount(username, password, userType);
-            this.saveData();
-            return ap.attendeeCreationResult();
-        }
-        return ap.usedNameError();
-    }
-
-    /**
-     * Creates a new organizer account after performing necessary checks
-     *
-     * @param username the username
-     * @param firstName the first name
-     * @param lastName the last name
-     * @return a JSON object containing the status and description of the action
-     */
-    private JSONObject createOrganizerAccount(String username, String firstName, String lastName,
-                                              String password, String userType) {
-        if (um.checkUniqueUsername(username)) { //ensures the username is unique
-            um.createNewOrganizer(username, firstName, lastName); //create new organizer
-            uam.addAccount(username, password, userType);
-            this.saveData();
-            return ap.organizerCreationResult();
-        }
-        return ap.usedNameError();
-    }
-
-    /**
-     * Creates a new speaker account after performing necessary checks
-     *
-     * @param username the username
-     * @param firstName the first name
-     * @param lastName the last name
-     * @return a JSON object containing the status and description of the action
-     */
-    private JSONObject createSpeakerAccount(String username, String firstName, String lastName,
-                                            String password, String userType) {
-        if (um.checkUniqueUsername(username)) { //ensures the username is unique
-            um.createNewSpeaker(username, firstName, lastName); //create new speaker
-            uam.addAccount(username, password, userType);
-            this.saveData();
-            return ap.speakerCreationResult();
-        }
-        return ap.usedNameError();
     }
 
     /**

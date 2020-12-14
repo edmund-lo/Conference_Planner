@@ -3,9 +3,6 @@ package presenters;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.util.ArrayList;
-
-
 /**
  * Presenter prints attributes that user of program (if organizer) can do/see.
  */
@@ -53,13 +50,6 @@ public class OrganizerPresenter extends UserPresenter {
     }
 
     /**
-     * Outputs the label that indicates the failure of creating a new speaker account due to username not being unique
-     */
-    public JSONObject invalidSpeakerNameError() {
-        return pu.createJSON("error", "Unable to create new speaker account: speaker's username was not unique.");
-    }
-
-    /**
      * Outputs the label that indicates that a speaker is already speaking at this event
      */
     public JSONObject existingSpeakerAtEventError() {
@@ -97,24 +87,6 @@ public class OrganizerPresenter extends UserPresenter {
     }
 
     /**
-     * Outputs a label introducing the list of rooms
-     */
-    public JSONObject roomIntroduceListLabel(ArrayList<String> rooms){
-        if (rooms.size() == 0) {
-            return pu.createJSON("error", "There are no rooms that fit your event requirements.");
-        } else {
-            return pu.createJSON("success", "Here are the rooms that fit your event requirements: ");
-        }
-    }
-
-    /**
-     * Outputs a label indicating that the room doesn't exist
-     */
-    public JSONObject roomDoesNotExistLabel(){
-        return pu.createJSON("error", "That room doesn't exist!");
-    }
-
-    /**
      * Outputs a label indicating event is created successfully
      */
     public JSONObject eventCreationResult() {
@@ -126,20 +98,6 @@ public class OrganizerPresenter extends UserPresenter {
      */
     public JSONObject eventFailedCreationError() {
         return pu.createJSON("error", "Unable to create new event: scheduling conflict occurred.");
-    }
-
-    /**
-     * Outputs a label indicating speaker cannot be created
-     */
-    public JSONObject noEvents() {
-        return pu.createJSON("error", "Unable to schedule speaker: There are no events in the system.");
-    }
-
-    /**
-     * Outputs a label indicating speaker cannot be created
-     */
-    public JSONObject noSpeakers() {
-        return pu.createJSON("error", "Unable to schedule speaker: There are no speakers in the system.");
     }
 
     /**
@@ -195,14 +153,6 @@ public class OrganizerPresenter extends UserPresenter {
     }
 
     /**
-     * Notifies the user that they cannot change the event capacity
-     */
-    public JSONObject cannotChangeCap(int capacity){
-        return pu.createJSON("error", "The event already has " + capacity + " or more people signed up. " +
-                "If you would like to decrease the event's capacity, cancel the event and create one.");
-    }
-
-    /**
      * Notifies the user that the event capacity was changed successfully
      */
     public JSONObject changeCapResult(){
@@ -228,7 +178,7 @@ public class OrganizerPresenter extends UserPresenter {
     /**
      * lists all possible rooms
      * @param possibleRooms array of all possible rooms
-     * @return a JSONObject containing all possible roomns
+     * @return a JSONObject containing all possible rooms
      */
     public JSONObject listPossibleRooms(JSONArray possibleRooms){
         return pu.createJSON("success", "List of possible rooms: ", possibleRooms);
@@ -270,7 +220,7 @@ public class OrganizerPresenter extends UserPresenter {
     }
 
     /**
-     * Notifies th euser that they cannot leave the room field empty
+     * Notifies th user that they cannot leave the room field empty
      * @return JSONObject properly formatted for the presentation module containing the notice
      */
     public JSONObject roomIsNull(){

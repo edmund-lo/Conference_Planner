@@ -41,20 +41,6 @@ public class LoginPresenter {
     }
 
     /**
-     * Notifies the user that the system can't find the account
-     */
-    public JSONObject NoAccount() {
-        return pu.createJSON("error", "No account found");
-    }
-
-    /**
-     * Notifies the user that their answer to the security questions were incorrect
-     */
-    public JSONObject IncorrectAnswers() {
-        return pu.createJSON("error", "The answers to the security questions were incorrect.");
-    }
-
-    /**
      * Notifies the user that their password should have at least 6 characters
      */
     public JSONObject EmptyPassword() {
@@ -118,13 +104,6 @@ public class LoginPresenter {
      */
     public JSONObject passwordsDontMatch() {
         return pu.createJSON("warning", "Passwords do not match");
-    }
-
-    /**
-     * Notifies the user that the account they are trying to make already exists
-     */
-    public JSONObject AccountExists() {
-        return pu.createJSON("warning", "Account already exists");
     }
 
     /**

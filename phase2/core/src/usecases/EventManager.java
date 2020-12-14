@@ -1,12 +1,15 @@
 package usecases;
 
 import entities.Event;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
-import org.json.simple.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
 
 /**
@@ -149,8 +152,8 @@ public class EventManager implements Serializable {
         changeEventRoom(eventID, "Unassigned");
     }
 
-    public boolean isEventCancelled(String evenyID){
-        return allEvents.get(evenyID).isCancelled();
+    public boolean isEventCancelled(String eventID){
+        return allEvents.get(eventID).isCancelled();
     }
 
     /**
@@ -224,28 +227,7 @@ public class EventManager implements Serializable {
         return allEvents.get(eventID).getRoomName();
     }
 
-    /**
-     * check for if event with ID eventID is a vip event
-     * @param eventID ID of the event
-     * @return True iff event with ID eventID is a vip event
-     */
-    public boolean isEventVip(String eventID){
-        return allEvents.get(eventID).isVipEvent();
-    }
 
-    /**
-     * getter for a list of all the VIP events in the system
-     * @return A arraylist of all the VIP events' names in the system
-     */
-    public ArrayList<String> getAllVipEvents(){
-        ArrayList<String> events = new ArrayList<>();
-        for(String eventID: allEvents.keySet()){
-            if(isEventVip(eventID)){
-                events.add(getEventName(eventID));
-            }
-        }
-        return events;
-    }
 
     /**
      * changes the time of event with ID eventID to start at startTime and to end at endTime
